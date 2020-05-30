@@ -1,7 +1,7 @@
 import pickle
 import pygame
 from Player import Player
-
+#lol
 
 def import_map():
     with open('file/map.txt', 'rb') as file:
