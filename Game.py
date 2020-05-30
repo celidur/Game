@@ -20,6 +20,7 @@ pygame.display.set_caption("Game")
 Screen = pygame.display.set_mode((704, 704))
 x, y, velocity, pressed = 48 * 64, 30 * 64, 10, {}
 player = Player()
+flower = pygame.image.load("assets/flower.png")
 fond = pygame.image.load("assets/fond.png")
 sand = pygame.image.load('assets/sand.png')
 sand2 = pygame.image.load('assets/sand2.png')
@@ -162,7 +163,15 @@ block = {
     "fence_rd": fence.subsurface(128, 128, 64, 64),
     "fence_ru": fence.subsurface(128, 0, 64, 64),
     "stone": pygame.image.load("assets/grass/stone.png"),
-    "flower_1": pygame.image.load("assets/grass/flower_1.png"),
+    "red1": flower.subsurface(0, 0, 64, 64),
+    "red2": flower.subsurface(0, 64, 64, 64),
+    "red3": flower.subsurface(0, 128, 64, 64),
+    "blue1": flower.subsurface(64, 0, 64, 64),
+    "blue2": flower.subsurface(64, 64, 64, 64),
+    "blue3": flower.subsurface(64, 128, 64, 64),
+    "yellow1": flower.subsurface(128, 0, 64, 64),
+    "yellow2": flower.subsurface(128, 64, 64, 64),
+    "yellow3": flower.subsurface(128, 128, 64, 64),
     "1": pygame.image.load("assets/case.png"),
     "grass_1": cliff.subsurface(64, 64, 64, 64),
     "cliff_dr": cliff.subsurface(0, 0, 64, 64),
@@ -178,8 +187,10 @@ block2 = {
     "tree": [pygame.image.load("assets/tree/Tree.png"), -24, 15],
     "tree2": [pygame.image.load("assets/tree/Tree2.png"), 0, 16],
     "tree0": [pygame.image.load("assets/tree/Tree_r.png"), -24, 15],
-    "h1": [pygame.image.load("assets/house/house1_2.png"), -80, -224],
+    "h1": [pygame.image.load("assets/house/house1.png"), -85, -265],
     "church": [pygame.image.load("assets/house/church.png"), -128, -400],
+    "h2": [pygame.image.load("assets/house/house2.png"), -96, -192],
+    "h3": [pygame.image.load("assets/house/house3.png"), -80, -285],
 }
 
 
@@ -207,9 +218,9 @@ def Afficher():
     management_Screen(-5, 3, -6, 7, 2, block)
     if Map[((x + 32) // 64)][((y + 32) // 64)][4] != "h1" and Map[((x + 32) // 64)][((y + 32) // 64) - 1][4] != "h1":
         Screen.blit(player.image, (11 // 2 * 64, 5 * 64))
-        management_Screen(-7, 8, -8, 12, 4, block2)
+        management_Screen(-9, 8, -8, 12, 4, block2)
     else:
-        management_Screen(-7, 8, -8, 12, 4, block2)
+        management_Screen(-9, 8, -8, 12, 4, block2)
         Screen.blit(player.image, (11 // 2 * 64, 5 * 64))
     pygame.display.flip()
 
