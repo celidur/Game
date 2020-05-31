@@ -21,9 +21,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb6caf52-6c9e-49f2-915f-98f5adb74e73" name="Default Changelist" comment="Update">
-      <change afterPath="$PROJECT_DIR$/Variable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/creation_map.py" beforeDir="false" afterPath="$PROJECT_DIR$/creation_map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,8 +49,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
   </component>
   <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -161,7 +161,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590946994478</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Update">
+      <created>1590948047300</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1590948047300</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -195,30 +202,30 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state x="484" y="6" key="#main/0.0.1536.821@0.0.1536.821" timestamp="1590876414106" />
-    <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog" timestamp="1590877034251">
+    <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog" timestamp="1590948108285">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog/0.0.1536.821@0.0.1536.821" timestamp="1590877034251" />
-    <state width="1515" height="41" key="GridCell.Tab.0.bottom" timestamp="1590947536356">
+    <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog/0.0.1536.821@0.0.1536.821" timestamp="1590948108285" />
+    <state width="1515" height="41" key="GridCell.Tab.0.bottom" timestamp="1590948073672">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="41" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1590947536356" />
-    <state width="1515" height="41" key="GridCell.Tab.0.center" timestamp="1590947536355">
+    <state width="1515" height="41" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1590948073672" />
+    <state width="1515" height="41" key="GridCell.Tab.0.center" timestamp="1590948073672">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="41" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1590947536355" />
-    <state width="1515" height="41" key="GridCell.Tab.0.left" timestamp="1590947536355">
+    <state width="1515" height="41" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1590948073672" />
+    <state width="1515" height="41" key="GridCell.Tab.0.left" timestamp="1590948073672">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="41" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1590947536355" />
-    <state width="1515" height="41" key="GridCell.Tab.0.right" timestamp="1590947536355">
+    <state width="1515" height="41" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1590948073672" />
+    <state width="1515" height="41" key="GridCell.Tab.0.right" timestamp="1590948073672">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="41" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1590947536355" />
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1590947007618">
+    <state width="1515" height="41" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1590948073672" />
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1590948110328">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1590947007617" />
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1590948110328" />
     <state x="578" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590946981270">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
