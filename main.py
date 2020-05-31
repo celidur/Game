@@ -1,7 +1,7 @@
 import Game
 import pygame
 
-running = True
+running = True#ezneidn
 pressed = {}
 Game.Afficher()
 while running:
