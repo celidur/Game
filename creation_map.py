@@ -69,8 +69,17 @@ def management_Screen(X1, X2, Y1, Y2, n, Block):
         for Y_case in range(Y1, Y2):
             if 0 <= X_case + x // 64 < Length and y // 64 + Y_case >= 0 and Y_case + y // 64 < Width:
                 if n == 3:
-                    if Map[x // 64 + X_case][y // 64 + Y_case][n]:
-                        Afficher_case(Block["1"], X_case, Y_case)
+                    if Map[x // 64 + X_case][y // 64 + Y_case][n] == [True]*4:
+                        Afficher_case(Block["0"], X_case, Y_case)
+                    elif Map[x // 64 + X_case][y // 64 + Y_case][n] != [False]*4:
+                        if Map[x // 64 + X_case][y // 64 + Y_case][n][0]:
+                            Afficher_case(Block["1"], X_case, Y_case)
+                        if Map[x // 64 + X_case][y // 64 + Y_case][n][1]:
+                            Afficher_case(Block["1"], X_case, Y_case, 32)
+                        if Map[x // 64 + X_case][y // 64 + Y_case][n][2]:
+                            Afficher_case(Block["1"], X_case, Y_case, 0, 32)
+                        if Map[x // 64 + X_case][y // 64 + Y_case][n][3]:
+                            Afficher_case(Block["1"], X_case, Y_case, 32, 32)
                 elif Map[x // 64 + X_case][y // 64 + Y_case][n] in Block:
                     if n == 4:
                         block_2 = Block[Map[x // 64 + X_case][y // 64 + Y_case][n]]
@@ -136,6 +145,12 @@ def Afficher():
     pygame.display.update()
 
 
+def Collision(n, p, collision):
+    if not collision[n] == p:
+        collision[n] = p
+    return collision
+
+
 def Keyboard_pressed(Pressed):
     global x, y, velocity, a, b
     if Pressed.get(pygame.K_NUMLOCK):
@@ -161,95 +176,123 @@ def Keyboard_pressed(Pressed):
             player.Move("left")
     elif not move:
         player.Move("same")
-    if Pressed.get(pygame.K_KP1):
-        change_case(b + "_ur", layer)
-    elif Pressed.get(pygame.K_KP2):
-        change_case(b + "_cu", layer)
-    elif Pressed.get(pygame.K_KP3):
-        change_case(b + "_ul", layer)
-    elif Pressed.get(pygame.K_KP4):
-        change_case(b + "_cr", layer)
-    elif Pressed.get(pygame.K_KP5):
-        if b == "cliff":
-            b = "grass"
-        change_case(b + "_1", layer)
-        if b == "grass":
-            b = "cliff"
-    elif Pressed.get(pygame.K_KP6):
-        change_case(b + "_cl", layer)
-    elif Pressed.get(pygame.K_KP7):
-        change_case(b + "_dr", layer)
-    elif Pressed.get(pygame.K_KP8):
-        change_case(b + "_cd", layer)
-    elif Pressed.get(pygame.K_KP9):
-        change_case(b + "_dl", layer)
-    elif Pressed.get(pygame.K_KP_MINUS):
-        change_case("", layer)
-    elif Pressed.get(pygame.K_1):
-        change_case("fence_0", layer)
-    elif Pressed.get(pygame.K_2):
-        change_case("fence_1", layer)
-    elif Pressed.get(pygame.K_3):
-        change_case("fence_2", layer)
-    elif Pressed.get(pygame.K_4):
-        change_case("fence_3", layer)
-    elif Pressed.get(pygame.K_5):
-        change_case("fence_l3", layer)
-    elif Pressed.get(pygame.K_6):
-        change_case("fence_lu", layer)
-    elif Pressed.get(pygame.K_7):
-        change_case("fence_ru", layer)
-    elif Pressed.get(pygame.K_8):
-        change_case("fence_r", layer)
-    elif Pressed.get(pygame.K_9):
-        change_case("fence_rd", layer)
-    elif Pressed.get(pygame.K_0):
-        change_case("fence_ld", layer)
-    elif Pressed.get(pygame.K_o) and b != "cliff" and b != "paving2":
-        change_case(b + "_dr_2", layer)
-    elif Pressed.get(pygame.K_p) and b != "cliff" and b != "paving2":
-        change_case(b + "_dl_2", layer)
-    elif Pressed.get(pygame.K_l) and b != "cliff" and b != "paving2":
-        change_case(b + "_ur_2", layer)
-    elif Pressed.get(pygame.K_SEMICOLON) and b != "cliff" and b != "paving2":
-        change_case(b + "_ul_2", layer)
-    elif Pressed.get(pygame.K_n):
-        change_case("grass_1", layer)
-    elif Pressed.get(pygame.K_KP0):
-        change_case("0", layer)
-    elif Pressed.get(pygame.K_b):
-        n = random.randint(0, 2)
-        if n == 0:
-            f = "red"
-        elif n == 1:
-            f = "yellow"
+    if a:
+        if Pressed.get(pygame.K_SPACE):
+            change_case([True] * 4, 3)
+        elif Pressed.get(pygame.K_LCTRL):
+            change_case([False] * 4, 3)
         else:
-            f = "blue"
-        f += str(random.randint(1, 3))
-        change_case(f, layer)
-        time.wait(42)
-    elif Pressed.get(pygame.K_v):
-        change_case("stone", layer)
-    elif Pressed.get(pygame.K_F1):
-        change_case("h1", 4)
-    elif Pressed.get(pygame.K_F2):
-        change_case("tree", 4)
-    elif Pressed.get(pygame.K_F3):
-        change_case("tree0", 4)
-    elif Pressed.get(pygame.K_F4):
-        change_case("tree2", 4)
-    elif Pressed.get(pygame.K_F5):
-        change_case("church", 4)
-    elif Pressed.get(pygame.K_F6):
-        change_case("h2", 4)
-    elif Pressed.get(pygame.K_F7):
-        change_case("h3", 4)
-    elif Pressed.get(pygame.K_DELETE):
-        change_case("", 4)
-    elif Pressed.get(pygame.K_SPACE):
-        change_case(True, 3)
-    elif Pressed.get(pygame.K_LCTRL):
-        change_case(False, 3)
+            collision = Map[(x + 32) // 64][(y + 32) // 64][3]
+            if Pressed.get(pygame.K_o):
+                Collision(0, False, collision)
+                change_case(collision, 3)
+            elif Pressed.get(pygame.K_p):
+                Collision(1, False, collision)
+                change_case(collision, 3)
+            elif Pressed.get(pygame.K_l):
+                Collision(2, False, collision)
+                change_case(collision, 3)
+            elif Pressed.get(pygame.K_SEMICOLON):
+                Collision(3, False, collision)
+                change_case(collision, 3)
+            elif Pressed.get(pygame.K_KP7):
+                Collision(0, True, collision)
+                change_case(collision, 3)
+            elif Pressed.get(pygame.K_KP8):
+                Collision(1, True, collision)
+                change_case(collision, 3)
+            elif Pressed.get(pygame.K_KP4):
+                Collision(2, True, collision)
+                change_case(collision, 3)
+            elif Pressed.get(pygame.K_KP5):
+                Collision(3, True, collision)
+                change_case(collision, 3)
+    else:
+        if Pressed.get(pygame.K_KP1):
+            change_case(b + "_ur", layer)
+        elif Pressed.get(pygame.K_KP2):
+            change_case(b + "_cu", layer)
+        elif Pressed.get(pygame.K_KP3):
+            change_case(b + "_ul", layer)
+        elif Pressed.get(pygame.K_KP4):
+            change_case(b + "_cr", layer)
+        elif Pressed.get(pygame.K_KP5):
+            if b == "cliff":
+                b = "grass"
+            change_case(b + "_1", layer)
+            if b == "grass":
+                b = "cliff"
+        elif Pressed.get(pygame.K_KP6):
+            change_case(b + "_cl", layer)
+        elif Pressed.get(pygame.K_KP7):
+            change_case(b + "_dr", layer)
+        elif Pressed.get(pygame.K_KP8):
+            change_case(b + "_cd", layer)
+        elif Pressed.get(pygame.K_KP9):
+            change_case(b + "_dl", layer)
+        elif Pressed.get(pygame.K_KP_MINUS):
+            change_case("", layer)
+        elif Pressed.get(pygame.K_1):
+            change_case("fence_0", layer)
+        elif Pressed.get(pygame.K_2):
+            change_case("fence_1", layer)
+        elif Pressed.get(pygame.K_3):
+            change_case("fence_2", layer)
+        elif Pressed.get(pygame.K_4):
+            change_case("fence_3", layer)
+        elif Pressed.get(pygame.K_5):
+            change_case("fence_l3", layer)
+        elif Pressed.get(pygame.K_6):
+            change_case("fence_lu", layer)
+        elif Pressed.get(pygame.K_7):
+            change_case("fence_ru", layer)
+        elif Pressed.get(pygame.K_8):
+            change_case("fence_r", layer)
+        elif Pressed.get(pygame.K_9):
+            change_case("fence_rd", layer)
+        elif Pressed.get(pygame.K_0):
+            change_case("fence_ld", layer)
+        elif Pressed.get(pygame.K_o) and b != "cliff" and b != "paving2":
+            change_case(b + "_dr_2", layer)
+        elif Pressed.get(pygame.K_p) and b != "cliff" and b != "paving2":
+            change_case(b + "_dl_2", layer)
+        elif Pressed.get(pygame.K_l) and b != "cliff" and b != "paving2":
+            change_case(b + "_ur_2", layer)
+        elif Pressed.get(pygame.K_SEMICOLON) and b != "cliff" and b != "paving2":
+            change_case(b + "_ul_2", layer)
+        elif Pressed.get(pygame.K_n):
+            change_case("grass_1", layer)
+        elif Pressed.get(pygame.K_KP0):
+            change_case("", layer)
+        elif Pressed.get(pygame.K_b):
+            n = random.randint(0, 2)
+            if n == 0:
+                f = "red"
+            elif n == 1:
+                f = "yellow"
+            else:
+                f = "blue"
+            f += str(random.randint(1, 3))
+            change_case(f, layer)
+            time.wait(42)
+        elif Pressed.get(pygame.K_v):
+            change_case("stone", layer)
+        elif Pressed.get(pygame.K_F1):
+            change_case("h1", 4)
+        elif Pressed.get(pygame.K_F2):
+            change_case("tree", 4)
+        elif Pressed.get(pygame.K_F3):
+            change_case("tree0", 4)
+        elif Pressed.get(pygame.K_F4):
+            change_case("tree2", 4)
+        elif Pressed.get(pygame.K_F5):
+            change_case("church", 4)
+        elif Pressed.get(pygame.K_F6):
+            change_case("h2", 4)
+        elif Pressed.get(pygame.K_F7):
+            change_case("h3", 4)
+        elif Pressed.get(pygame.K_DELETE):
+            change_case("", 4)
     Save()
     Afficher()
 

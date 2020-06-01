@@ -17,7 +17,7 @@ def import_map():
 Map, Length, Width = import_map()
 pygame.init()
 pygame.display.set_caption("Game")
-Screen = pygame.display.set_mode((704, 704))
+Screen = pygame.display.set_mode((704, 736))
 x, y, velocity, pressed = 48 * 64, 30 * 64, 10, {}
 player = Player()
 
@@ -41,14 +41,14 @@ def management_Screen(X1, X2, Y1, Y2, n, Block):
 def Afficher():
     global Width, Length, x, y
     Screen.blit(fond, (0, 0))
-    management_Screen(-5, 3, -6, 7, 0, block)
-    management_Screen(-5, 3, -6, 7, 1, block)
-    management_Screen(-5, 3, -6, 7, 2, block)
+    management_Screen(-5, 3, -6, 8, 0, block)
+    management_Screen(-5, 3, -6, 8, 1, block)
+    management_Screen(-5, 3, -6, 8, 2, block)
     if Map[((x + 32) // 64)][((y + 32) // 64)][4] != "h1" and Map[((x + 32) // 64)][((y + 32) // 64) - 1][4] != "h1":
         Screen.blit(player.image, (11 // 2 * 64, 5 * 64))
-        management_Screen(-9, 8, -8, 12, 4, block2)
+        management_Screen(-9, 8, -8, 13, 4, block2)
     else:
-        management_Screen(-9, 8, -8, 12, 4, block2)
+        management_Screen(-9, 8, -8, 13, 4, block2)
         Screen.blit(player.image, (11 // 2 * 64, 5 * 64))
     pygame.display.flip()
 
