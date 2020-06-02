@@ -25,9 +25,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb6caf52-6c9e-49f2-915f-98f5adb74e73" name="Default Changelist" comment="Update collision">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/gaeta.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="fb6caf52-6c9e-49f2-915f-98f5adb74e73" name="Default Changelist" comment="Update collision 2">
       <change beforePath="$PROJECT_DIR$/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -218,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591045554387</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Update collision 2">
+      <created>1591096427084</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1591096427084</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -250,7 +255,8 @@
     <MESSAGE value="Update Game.py" />
     <MESSAGE value="Update" />
     <MESSAGE value="Update collision" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update collision" />
+    <MESSAGE value="Update collision 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update collision 2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="654" y="274" key="#Notifications" timestamp="1590875966953">
@@ -269,22 +275,22 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog/0.0.1536.821@0.0.1536.821" timestamp="1590948108285" />
-    <state width="1515" height="168" key="GridCell.Tab.0.bottom" timestamp="1591096371633">
+    <state width="1515" height="168" key="GridCell.Tab.0.bottom" timestamp="1591096498771">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="168" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1591096371633" />
-    <state width="1515" height="168" key="GridCell.Tab.0.center" timestamp="1591096371633">
+    <state width="1515" height="168" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1591096498771" />
+    <state width="1515" height="168" key="GridCell.Tab.0.center" timestamp="1591096498771">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="168" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1591096371633" />
-    <state width="1515" height="168" key="GridCell.Tab.0.left" timestamp="1591096371633">
+    <state width="1515" height="168" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1591096498771" />
+    <state width="1515" height="168" key="GridCell.Tab.0.left" timestamp="1591096498771">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="168" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1591096371633" />
-    <state width="1515" height="168" key="GridCell.Tab.0.right" timestamp="1591096371633">
+    <state width="1515" height="168" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1591096498771" />
+    <state width="1515" height="168" key="GridCell.Tab.0.right" timestamp="1591096498771">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="168" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1591096371633" />
+    <state width="1515" height="168" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1591096498771" />
     <state width="745" height="260" key="GridCell.Tab.1.bottom" timestamp="1591092453155">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
@@ -301,10 +307,10 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state width="745" height="260" key="GridCell.Tab.1.right/0.0.1536.821@0.0.1536.821" timestamp="1591092453155" />
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1591045562757">
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1591096435764">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1591045562757" />
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1591096435764" />
     <state x="578" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590948359662">
       <screen x="0" y="0" width="1536" height="821" />
     </state>

@@ -37,10 +37,12 @@ def management_Screen(X1, X2, Y1, Y2, n, Block):
                     else:
                         Afficher_case(Block[Map[x // 64 + X_case][y // 64 + Y_case][n]], X_case, Y_case)
 
+
 def house(c):
     if Map[((x + 32) // 64)][((y + 32) // 64)][4] != c and Map[((x + 32) // 64)][((y + 32) // 64) - 1][4] != c:
         return True
     return False
+
 
 def Afficher():
     global Width, Length, x, y
