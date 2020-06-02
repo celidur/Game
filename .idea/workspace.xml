@@ -4,6 +4,10 @@
     <expand>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
       </path>
       <path>
@@ -15,13 +19,16 @@
     <select>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb6caf52-6c9e-49f2-915f-98f5adb74e73" name="Default Changelist" comment="Update">
+    <list default="true" id="fb6caf52-6c9e-49f2-915f-98f5adb74e73" name="Default Changelist" comment="Update collision">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/gaeta.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +51,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1ce4dxgCNrCENCw0O82PaayJa3U" />
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -55,6 +65,27 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
   </component>
   <component name="RunManager" selected="Python.main">
+    <configuration name="Game" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Game" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Game.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Game" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -97,6 +128,11 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.Game" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="StructureViewFactory">
     <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
@@ -168,7 +204,21 @@
       <option name="project" value="LOCAL" />
       <updated>1590948047300</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Update">
+      <created>1590948193049</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1590948193049</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Update collision">
+      <created>1591045554386</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1591045554387</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -176,7 +226,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -187,7 +249,8 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
     <MESSAGE value="Update Game.py" />
     <MESSAGE value="Update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update" />
+    <MESSAGE value="Update collision" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update collision" />
   </component>
   <component name="WindowStateProjectService">
     <state x="654" y="274" key="#Notifications" timestamp="1590875966953">
@@ -206,29 +269,45 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog/0.0.1536.821@0.0.1536.821" timestamp="1590948108285" />
-    <state width="1515" height="41" key="GridCell.Tab.0.bottom" timestamp="1590948073672">
+    <state width="1515" height="168" key="GridCell.Tab.0.bottom" timestamp="1591096371633">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="41" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1590948073672" />
-    <state width="1515" height="41" key="GridCell.Tab.0.center" timestamp="1590948073672">
+    <state width="1515" height="168" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1591096371633" />
+    <state width="1515" height="168" key="GridCell.Tab.0.center" timestamp="1591096371633">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="41" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1590948073672" />
-    <state width="1515" height="41" key="GridCell.Tab.0.left" timestamp="1590948073672">
+    <state width="1515" height="168" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1591096371633" />
+    <state width="1515" height="168" key="GridCell.Tab.0.left" timestamp="1591096371633">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="41" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1590948073672" />
-    <state width="1515" height="41" key="GridCell.Tab.0.right" timestamp="1590948073672">
+    <state width="1515" height="168" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1591096371633" />
+    <state width="1515" height="168" key="GridCell.Tab.0.right" timestamp="1591096371633">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="41" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1590948073672" />
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1590948110328">
+    <state width="1515" height="168" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1591096371633" />
+    <state width="745" height="260" key="GridCell.Tab.1.bottom" timestamp="1591092453155">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1590948110328" />
-    <state x="578" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590946981270">
+    <state width="745" height="260" key="GridCell.Tab.1.bottom/0.0.1536.821@0.0.1536.821" timestamp="1591092453155" />
+    <state width="745" height="260" key="GridCell.Tab.1.center" timestamp="1591092453155">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state x="578" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.821@0.0.1536.821" timestamp="1590946981270" />
+    <state width="745" height="260" key="GridCell.Tab.1.center/0.0.1536.821@0.0.1536.821" timestamp="1591092453155" />
+    <state width="745" height="260" key="GridCell.Tab.1.left" timestamp="1591092453155">
+      <screen x="0" y="0" width="1536" height="821" />
+    </state>
+    <state width="745" height="260" key="GridCell.Tab.1.left/0.0.1536.821@0.0.1536.821" timestamp="1591092453155" />
+    <state width="745" height="260" key="GridCell.Tab.1.right" timestamp="1591092453155">
+      <screen x="0" y="0" width="1536" height="821" />
+    </state>
+    <state width="745" height="260" key="GridCell.Tab.1.right/0.0.1536.821@0.0.1536.821" timestamp="1591092453155" />
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1591045562757">
+      <screen x="0" y="0" width="1536" height="821" />
+    </state>
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1591045562757" />
+    <state x="578" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590948359662">
+      <screen x="0" y="0" width="1536" height="821" />
+    </state>
+    <state x="578" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.821@0.0.1536.821" timestamp="1590948359662" />
   </component>
 </project>
