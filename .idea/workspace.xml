@@ -25,8 +25,12 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb6caf52-6c9e-49f2-915f-98f5adb74e73" name="Default Changelist" comment="Update collision 2">
+    <list default="true" id="fb6caf52-6c9e-49f2-915f-98f5adb74e73" name="Default Changelist" comment="Update">
+      <change beforePath="$PROJECT_DIR$/.idea/Game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Game.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Variable.py" beforeDir="false" afterPath="$PROJECT_DIR$/Variable.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file/map.txt" beforeDir="false" afterPath="$PROJECT_DIR$/file/map.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,8 +65,10 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.test">
     <configuration name="Game" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Game" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -126,8 +132,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Game" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.Game" />
       </list>
     </recent_temporary>
@@ -223,7 +251,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591096427084</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Update">
+      <created>1591096586287</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1591096586287</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -253,10 +288,10 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
     <MESSAGE value="Update Game.py" />
-    <MESSAGE value="Update" />
     <MESSAGE value="Update collision" />
     <MESSAGE value="Update collision 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update collision 2" />
+    <MESSAGE value="Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update" />
   </component>
   <component name="WindowStateProjectService">
     <state x="654" y="274" key="#Notifications" timestamp="1590875966953">
@@ -275,42 +310,46 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog/0.0.1536.821@0.0.1536.821" timestamp="1590948108285" />
-    <state width="1515" height="168" key="GridCell.Tab.0.bottom" timestamp="1591096498771">
+    <state width="757" height="168" key="GridCell.Tab.0.bottom" timestamp="1591295933621">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="168" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1591096498771" />
-    <state width="1515" height="168" key="GridCell.Tab.0.center" timestamp="1591096498771">
+    <state width="757" height="168" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1591295933621" />
+    <state width="757" height="168" key="GridCell.Tab.0.center" timestamp="1591295933621">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="168" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1591096498771" />
-    <state width="1515" height="168" key="GridCell.Tab.0.left" timestamp="1591096498771">
+    <state width="757" height="168" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1591295933621" />
+    <state width="757" height="168" key="GridCell.Tab.0.left" timestamp="1591295933620">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="168" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1591096498771" />
-    <state width="1515" height="168" key="GridCell.Tab.0.right" timestamp="1591096498771">
+    <state width="757" height="168" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1591295933620" />
+    <state width="757" height="168" key="GridCell.Tab.0.right" timestamp="1591295933621">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="168" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1591096498771" />
-    <state width="745" height="260" key="GridCell.Tab.1.bottom" timestamp="1591092453155">
+    <state width="757" height="168" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1591295933621" />
+    <state width="745" height="260" key="GridCell.Tab.1.bottom" timestamp="1591096596157">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="745" height="260" key="GridCell.Tab.1.bottom/0.0.1536.821@0.0.1536.821" timestamp="1591092453155" />
-    <state width="745" height="260" key="GridCell.Tab.1.center" timestamp="1591092453155">
+    <state width="745" height="260" key="GridCell.Tab.1.bottom/0.0.1536.821@0.0.1536.821" timestamp="1591096596157" />
+    <state width="745" height="260" key="GridCell.Tab.1.center" timestamp="1591096596157">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="745" height="260" key="GridCell.Tab.1.center/0.0.1536.821@0.0.1536.821" timestamp="1591092453155" />
-    <state width="745" height="260" key="GridCell.Tab.1.left" timestamp="1591092453155">
+    <state width="745" height="260" key="GridCell.Tab.1.center/0.0.1536.821@0.0.1536.821" timestamp="1591096596157" />
+    <state width="745" height="260" key="GridCell.Tab.1.left" timestamp="1591096596157">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="745" height="260" key="GridCell.Tab.1.left/0.0.1536.821@0.0.1536.821" timestamp="1591092453155" />
-    <state width="745" height="260" key="GridCell.Tab.1.right" timestamp="1591092453155">
+    <state width="745" height="260" key="GridCell.Tab.1.left/0.0.1536.821@0.0.1536.821" timestamp="1591096596157" />
+    <state width="745" height="260" key="GridCell.Tab.1.right" timestamp="1591096596157">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="745" height="260" key="GridCell.Tab.1.right/0.0.1536.821@0.0.1536.821" timestamp="1591092453155" />
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1591096435764">
+    <state width="745" height="260" key="GridCell.Tab.1.right/0.0.1536.821@0.0.1536.821" timestamp="1591096596157" />
+    <state x="277" y="56" key="SettingsEditor" timestamp="1591297285839">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1591096435764" />
+    <state x="277" y="56" key="SettingsEditor/0.0.1536.821@0.0.1536.821" timestamp="1591297285839" />
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1591096590367">
+      <screen x="0" y="0" width="1536" height="821" />
+    </state>
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1591096590367" />
     <state x="578" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590948359662">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
