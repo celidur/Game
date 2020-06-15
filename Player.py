@@ -1,10 +1,11 @@
 import pygame
-from pygame import time
+import time
 
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
+        self.frame = time.time()
         self.player = pygame.image.load('assets/player.png').convert_alpha()
         self.list, self.box, self.direction = [], 0, "down"
         for i in range(4):
@@ -20,21 +21,22 @@ class Player(pygame.sprite.Sprite):
             self.box = n1 + 1
 
     def Move(self, direction):
-        self.box += 1
-        time.wait(42)
-        if direction == "same":
-            direction = self.direction
-            self.box = -2
-        if direction == 'down':
-            self.box_change(-1)
-            self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
-        elif direction == 'left':
-            self.box_change(3)
-            self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
-        elif direction == 'up':
-            self.box_change(7)
-            self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
-        elif direction == 'right':
-            self.box_change(11)
-            self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
-        self.direction = direction
+        if time.time() > self.frame:
+            self.box += 1
+            self.frame = time.time() + 0.1
+            if direction == "same":
+                direction = self.direction
+                self.box = -2
+            if direction == 'down':
+                self.box_change(-1)
+                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
+            elif direction == 'left':
+                self.box_change(3)
+                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
+            elif direction == 'up':
+                self.box_change(7)
+                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
+            elif direction == 'right':
+                self.box_change(11)
+                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
+            self.direction = direction
