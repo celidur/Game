@@ -1,4 +1,6 @@
 import pickle
+import time
+from Display import Display
 from Player import Player
 from Variable import *
 
@@ -18,45 +20,13 @@ Map, Length, Width = import_map()
 pygame.init()
 pygame.display.set_caption("Game")
 Screen = pygame.display.set_mode((704, 736))
-x, y, velocity, pressed = 48 * 64, 30 * 64, 8, {}
+x, y, velocity, pressed, menu, escape = 48 * 64, 30 * 64, 8, {}, 0, time.time()
 player = Player()
+display = Display(block, block2, fond, Width, Length, x, y)
 
 
-def Afficher_case(Block, x_case, y_case, move_x=0, move_y=0):
-    Screen.blit(Block, (int((x_case + 5) * 64 - (x % 64)) + move_x, int((y_case + 5) * 64 - (y % 64) + move_y)))
-
-
-def management_Screen(X1, X2, Y1, Y2, n, Block):
-    for X_case in range(X1, (11 + 1) // 2 + X2):
-        for Y_case in range(Y1, Y2):
-            if 0 <= X_case + x // 64 < Length and y // 64 + Y_case >= 0 and Y_case + y // 64 < Width:
-                if Map[x // 64 + X_case][y // 64 + Y_case][n] in Block:
-                    if n == 4:
-                        block_2 = Block[Map[x // 64 + X_case][y // 64 + Y_case][n]]
-                        Afficher_case(block_2[0], X_case, Y_case, block_2[1], block_2[2])
-                    else:
-                        Afficher_case(Block[Map[x // 64 + X_case][y // 64 + Y_case][n]], X_case, Y_case)
-
-
-def house(c):
-    if Map[((x + 32) // 64)][((y + 32) // 64)][4] != c and Map[((x + 32) // 64)][((y + 32) // 64) - 1][4] != c:
-        return True
-    return False
-
-
-def Afficher():
-    global Width, Length, x, y
-    Screen.blit(fond, (0, 0))
-    management_Screen(-5, 3, -6, 8, 0, block)
-    management_Screen(-5, 3, -6, 8, 1, block)
-    management_Screen(-5, 3, -6, 8, 2, block)
-    if house('h1') and house('h2') and house('h3'):
-        Screen.blit(player.image, (11 // 2 * 64, 5 * 64))
-        management_Screen(-9, 8, -8, 13, 4, block2)
-    else:
-        management_Screen(-9, 8, -8, 13, 4, block2)
-        Screen.blit(player.image, (11 // 2 * 64, 5 * 64))
-    pygame.display.flip()
+def save():
+    pass
 
 
 def Collision(a, b, c, d, e, f, g, h, i, j, k):
@@ -71,9 +41,14 @@ def Collision(a, b, c, d, e, f, g, h, i, j, k):
     return False
 
 
-def Keyboard_pressed(Pressed):
-    global x, y, velocity
+def Game_play(Pressed):
+    global x, y, velocity, menu, escape
     move = False
+    if Pressed.get(pygame.K_ESCAPE):
+        if time.time() > escape:
+            menu = 1
+            escape = time.time() + 0.2
+            return
     if Pressed.get(pygame.K_DOWN) and y // 64 < Width - 1:
         d = Collision(y + 14, x + 17, x + 50, y + 50, y + 50, 1, 0, 3, 2, 0, -32)
         if d:
@@ -100,4 +75,12 @@ def Keyboard_pressed(Pressed):
                 player.Move("left")
     elif not move:
         player.Move("same")
-    Afficher()
+    display.display_game(Width, Length, x, y, menu, button_shop, button_menu, player)
+    pygame.display.flip()
+
+
+def Game_menu(Pressed):
+    global menu, escape
+    if Pressed.get(pygame.K_ESCAPE) and time.time() > escape:
+        menu = 0
+        escape = time.time() + 0.2

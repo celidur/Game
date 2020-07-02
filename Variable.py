@@ -1,4 +1,5 @@
 import pygame
+import Button
 
 flower = pygame.image.load("assets/flower.png")
 fond = pygame.image.load("assets/fond.png")
@@ -13,6 +14,14 @@ paving1 = pygame.image.load('assets/paving1.png')
 paving2 = pygame.image.load('assets/paving2.png')
 cliff = pygame.image.load('assets/cliff.png')
 fence = pygame.image.load('assets/fence.png')
+board = pygame.image.load('assets/button/board.png')
+button_pause = Button.Button(None, (0, 0, 0), [257, 240, 190, 65], 'jouer', (317, 248), 36, board)
+button_setting = Button.Button(None, (0, 0, 0), [257, 320, 190, 65], 'paramètre', (284, 328), 36, board)
+button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], 'sauvegarder', (271, 408), 36, board)
+button_exit = Button.Button(None, (0, 0, 0), [257, 480, 190, 65], 'quitter', (312, 488), 36, board)
+button_menu = Button.Button((0, 0, 0), None, [667, 700, 32, 32])
+button_shop = Button.Button((0, 0, 0), None, [630, 700, 32, 32])
+
 block = {
     "sand_1": sand.subsurface(64, 64, 64, 64),
     "sand_dr": sand.subsurface(0, 0, 64, 64),
