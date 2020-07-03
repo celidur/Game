@@ -20,11 +20,23 @@ def Collision(a, b, c, d, e, f, g, h, i, j, k):
 
 
 def Game_play(Pressed):
-    global x, y, velocity, menu, escape
-    move = False
+    global menu, escape
     if Pressed.get(pygame.K_ESCAPE) and time.time() > escape:
         menu, escape = 1, time.time() + 0.2
         return
+    Player_move(Pressed)
+    display.display()
+
+
+def Game_menu(Pressed):
+    global menu, escape
+    if Pressed.get(pygame.K_ESCAPE) and time.time() > escape:
+        menu, escape = 0, time.time() + 0.2
+
+
+def Player_move(Pressed):
+    global x, y, velocity
+    move = False
     if Pressed.get(pygame.K_DOWN) and y // 64 < Width - 1:
         d = Collision(y + 14, x + 17, x + 50, y + 50, y + 50, 1, 0, 3, 2, 0, -32)
         if d:
@@ -51,15 +63,3 @@ def Game_play(Pressed):
                 player.Move("left")
     elif not move:
         player.Move("same")
-    display.display_game()
-    pygame.display.flip()
-
-
-def Game_menu(Pressed):
-    global menu, escape
-    if Pressed.get(pygame.K_ESCAPE) and time.time() > escape:
-        menu, escape = 0, time.time() + 0.2
-
-
-def Player_move():
-    pass

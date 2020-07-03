@@ -1,18 +1,23 @@
+import time
+
 import Game
 import pygame
 
 
 class Display:
-    def __init__(self, block, block2, Width, Length, size_window):
+    def __init__(self, block, block2, Width, Length, size_window, background):
         self.Width, self.Length = Width, Length
         self.block = block
         self.block2 = block2
         self.size_window = size_window
+        self.frame = time.time()
+        self.background = background
 
     @staticmethod
     def Afficher_case(block, x_case, y_case, move_x=0, move_y=0):
         Game.Screen.blit(block,
-                         (int((x_case + 5) * 64 - (Game.x % 64)) + move_x, int((y_case + 5) * 64 - (Game.y % 64) + move_y)))
+                         (int((x_case + 5) * 64 - (Game.x % 64)) + move_x,
+                          int((y_case + 5) * 64 - (Game.y % 64) + move_y)))
 
     def management_Screen(self, X1, X2, Y1, Y2, n, Block):
         for X_case in range(X1, (11 + 1) // 2 + X2):
@@ -34,9 +39,9 @@ class Display:
         return False
 
     def display_game(self):
-        self.management_Screen(-5, 3, -6, 8, 0, self.block)
-        self.management_Screen(-5, 3, -6, 8, 1, self.block)
-        self.management_Screen(-5, 3, -6, 8, 2, self.block)
+        Game.Screen.blit(self.background, (0, 0))
+        for i in range(3):
+            self.management_Screen(-5, 3, -6, 8, i, self.block)
         if self.house('h1') and self.house('h2') and self.house('h3'):
             Game.Screen.blit(Game.player.image, (11 // 2 * 64, 5 * 64))
             self.management_Screen(-9, 8, -8, 13, 4, self.block2)
@@ -57,3 +62,9 @@ class Display:
         Game.button_setting.display_button()
         Game.button_save.display_button()
         Game.button_exit.display_button()
+
+    def display(self):
+        if time.time() > self.frame:
+            self.display_game()
+            pygame.display.flip()
+            self.frame = time.time() - 10

@@ -39,6 +39,7 @@ paving1 = pygame.image.load('assets/paving1.png')
 paving2 = pygame.image.load('assets/paving2.png')
 cliff = pygame.image.load('assets/cliff.png')
 fence = pygame.image.load('assets/fence.png')
+background = pygame.image.load('assets/fond.png')
 block = {
     "sand_1": sand.subsurface(64, 64, 64, 64),
     "sand_dr": sand.subsurface(0, 0, 64, 64),
@@ -205,4 +206,4 @@ pygame.init()
 pygame.display.set_caption("Game")
 Screen = pygame.display.set_mode((size_window[0], size_window[1]))
 player = Player()
-display = Display(block, block2, Width, Length, size_window)
+display = Display(block, block2, Width, Length, size_window, background)
