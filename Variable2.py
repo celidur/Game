@@ -1,32 +1,5 @@
 import pygame
-import Button
-import pickle
-from Display import Display
-from Player import Player
-
-
-def import_map():
-    with open('file/map.txt', 'rb') as file:
-        file = pickle.Unpickler(file)
-        map1 = file.load()
-    with open('file/size.txt', 'rb') as file:
-        file = pickle.Unpickler(file)
-        size = file.load()
-    length, width = size[0], size[1]
-    return map1, length, width
-
-
-board = pygame.image.load('assets/button/board.png')
-button_pause = Button.Button(None, (0, 0, 0), [257, 240, 190, 65], 'jouer', (317, 248), 36, board)
-button_setting = Button.Button(None, (0, 0, 0), [257, 320, 190, 65], 'paramètre', (284, 328), 36, board)
-button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], 'sauvegarder', (271, 408), 36, board)
-button_exit = Button.Button(None, (0, 0, 0), [257, 480, 190, 65], 'quitter', (312, 488), 36, board)
-button_menu = Button.Button((0, 0, 0), None, [667, 700, 32, 32])
-button_shop = Button.Button((0, 0, 0), None, [630, 700, 32, 32])
-size_window = [704, 736]
-
-# Picture
-
+fond = pygame.image.load('assets/fond.png')
 flower = pygame.image.load("assets/flower.png")
 sand = pygame.image.load('assets/sand.png')
 sand2 = pygame.image.load('assets/sand2.png')
@@ -199,10 +172,3 @@ block2 = {
     'h2': [pygame.image.load("assets/house/house2.png"), -96, -205],
     'h3': [pygame.image.load("assets/house/house3.png"), -95, -285]
 }
-
-Map, Length, Width = import_map()
-pygame.init()
-pygame.display.set_caption("Game")
-Screen = pygame.display.set_mode((size_window[0], size_window[1]))
-player = Player()
-display = Display(block, block2, Width, Length, size_window)

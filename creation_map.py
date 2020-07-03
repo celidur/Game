@@ -1,7 +1,7 @@
 import os
 import pickle
 import random
-from Variable import *
+from Variable2 import *
 import pygame
 from pygame import time
 from Player import Player

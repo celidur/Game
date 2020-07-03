@@ -1,28 +1,6 @@
-import pickle
-import time
-from Display import Display
-from Player import Player
 from Variable import *
-
-
-def import_map():
-    with open('file/map.txt', 'rb') as file:
-        file = pickle.Unpickler(file)
-        map1 = file.load()
-    with open('file/size.txt', 'rb') as file:
-        file = pickle.Unpickler(file)
-        size = file.load()
-    length, width = size[0], size[1]
-    return map1, length, width
-
-
-Map, Length, Width = import_map()
-pygame.init()
-pygame.display.set_caption("Game")
-Screen = pygame.display.set_mode((704, 736))
+import time
 x, y, velocity, pressed, menu, escape = 48 * 64, 30 * 64, 8, {}, 0, time.time()
-player = Player()
-display = Display(block, block2, fond, Width, Length, x, y)
 
 
 def save():
@@ -44,11 +22,9 @@ def Collision(a, b, c, d, e, f, g, h, i, j, k):
 def Game_play(Pressed):
     global x, y, velocity, menu, escape
     move = False
-    if Pressed.get(pygame.K_ESCAPE):
-        if time.time() > escape:
-            menu = 1
-            escape = time.time() + 0.2
-            return
+    if Pressed.get(pygame.K_ESCAPE) and time.time() > escape:
+        menu, escape = 1, time.time() + 0.2
+        return
     if Pressed.get(pygame.K_DOWN) and y // 64 < Width - 1:
         d = Collision(y + 14, x + 17, x + 50, y + 50, y + 50, 1, 0, 3, 2, 0, -32)
         if d:
@@ -75,12 +51,15 @@ def Game_play(Pressed):
                 player.Move("left")
     elif not move:
         player.Move("same")
-    display.display_game(Width, Length, x, y, menu, button_shop, button_menu, player)
+    display.display_game()
     pygame.display.flip()
 
 
 def Game_menu(Pressed):
     global menu, escape
     if Pressed.get(pygame.K_ESCAPE) and time.time() > escape:
-        menu = 0
-        escape = time.time() + 0.2
+        menu, escape = 0, time.time() + 0.2
+
+
+def Player_move():
+    pass
