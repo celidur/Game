@@ -29,7 +29,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Display.py" beforeDir="false" afterPath="$PROJECT_DIR$/Display.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Variable.py" beforeDir="false" afterPath="$PROJECT_DIR$/Variable.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/Player.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,7 +314,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593803351718</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="update">
+      <created>1593806182412</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1593806182412</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -369,22 +376,22 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog/0.0.1536.821@0.0.1536.821" timestamp="1591299570574" />
-    <state width="1515" height="169" key="GridCell.Tab.0.bottom" timestamp="1593806104144">
+    <state width="1515" height="169" key="GridCell.Tab.0.bottom" timestamp="1593892162151">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="169" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1593806104144" />
-    <state width="1515" height="169" key="GridCell.Tab.0.center" timestamp="1593806104144">
+    <state width="1515" height="169" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1593892162151" />
+    <state width="1515" height="169" key="GridCell.Tab.0.center" timestamp="1593892162151">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="169" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1593806104144" />
-    <state width="1515" height="169" key="GridCell.Tab.0.left" timestamp="1593806104144">
+    <state width="1515" height="169" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1593892162151" />
+    <state width="1515" height="169" key="GridCell.Tab.0.left" timestamp="1593892162151">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="169" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1593806104144" />
-    <state width="1515" height="169" key="GridCell.Tab.0.right" timestamp="1593806104144">
+    <state width="1515" height="169" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1593892162151" />
+    <state width="1515" height="169" key="GridCell.Tab.0.right" timestamp="1593892162151">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="169" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1593806104144" />
+    <state width="1515" height="169" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1593892162151" />
     <state width="1515" height="260" key="GridCell.Tab.1.bottom" timestamp="1593722791551">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
@@ -405,10 +412,10 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state x="277" y="56" key="SettingsEditor/0.0.1536.821@0.0.1536.821" timestamp="1591297285839" />
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1593803454265">
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1593806188404">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1593803454265" />
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1593806188404" />
     <state x="578" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590948359662">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
