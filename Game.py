@@ -8,16 +8,16 @@ def save():
     pass
 
 
-def Game_play(Pressed):
+def game_play(pressed):
     global menu, escape, x, y
-    if Pressed.get(pygame.K_ESCAPE) and time.time() > escape:
+    if pressed.get(pygame.K_ESCAPE) and time.time() > escape:
         menu, escape = 1, time.time() + 0.2
         return
-    x, y = player.Player_move(Pressed, x, y, Map, Width, Length)
+    x, y = player.player_move(pressed, x, y, Map, Width, Length)
     display.display()
 
 
-def Game_menu(Pressed):
+def game_menu(pressed):
     global menu, escape
-    if Pressed.get(pygame.K_ESCAPE) and time.time() > escape:
+    if pressed.get(pygame.K_ESCAPE) and time.time() > escape:
         menu, escape = 0, time.time() + 0.2

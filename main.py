@@ -22,7 +22,7 @@ while running:
             elif Game.button_shop.button_clicked(pos[0], pos[1]):
                 pass
         else:
-            Game.Game_play(pressed)
+            Game.game_play(pressed)
     elif Game.menu == 1:
         Game.display.display_game()
         pygame.display.flip()
@@ -38,5 +38,5 @@ while running:
             elif Game.button_save.button_clicked(pos[0], pos[1]):
                 Game.save()
         else:
-            Game.Game_menu(pressed)
+            Game.game_menu(pressed)
 quit()

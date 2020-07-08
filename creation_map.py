@@ -41,7 +41,7 @@ velocity_input, b_input, user_input_value = False, False, ""
 player = Player()
 
 
-def Save():
+def save():
     global Map
     try:
         os.remove("file/map.txt")
@@ -160,22 +160,22 @@ def Keyboard_pressed(Pressed):
     move = False
     if Pressed.get(pygame.K_DOWN) and y // 64 < Width - 1:
         y += velocity
-        player.Move("down")
+        player.move("down")
         move = True
     elif Pressed.get(pygame.K_UP) and (y + 63) // 64 > 0:
         y -= velocity
-        player.Move("up")
+        player.move("up")
         move = True
     if Pressed.get(pygame.K_RIGHT) and x // 64 < Length - 1:
         x += velocity
         if not move:
-            player.Move("right")
+            player.move("right")
     elif Pressed.get(pygame.K_LEFT) and (x + 63) // 64 > 0:
         x -= velocity
         if not move:
-            player.Move("left")
+            player.move("left")
     elif not move:
-        player.Move("same")
+        player.move("same")
     if a:
         if Pressed.get(pygame.K_SPACE):
             change_case([True] * 4, 3)
@@ -293,7 +293,7 @@ def Keyboard_pressed(Pressed):
             change_case("h3", 4)
         elif Pressed.get(pygame.K_DELETE):
             change_case("", 4)
-    Save()
+    save()
     Afficher()
 
 

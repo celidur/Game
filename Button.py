@@ -5,7 +5,8 @@ pygame.init()
 
 
 class Button:
-    def __init__(self, color_button, color_text, position_button, text=None, position_text=None, size_police=0, image=None):
+    def __init__(self, color_button, color_text, position_button, text=None, position_text=None, size_police=0,
+                 image=None):
         self.image = image
         self.color_button = color_button
         self.color_text = color_text
@@ -23,7 +24,8 @@ class Button:
             Game.Screen.blit(self.arial.render(self.text, False, self.color_text), self.position_text)
 
     def button_clicked(self, x, y):
-        if self.position_button[0] + self.position_button[2] >= x >= self.position_button[0] and self.position_button[1] + self.position_button[3] >= y >= self.position_button[1]:
+        if self.position_button[0] + self.position_button[2] >= x >= self.position_button[0] and \
+                self.position_button[1] + self.position_button[3] >= y >= self.position_button[1]:
             return True
         return False
 

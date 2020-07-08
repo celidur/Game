@@ -27,9 +27,13 @@
   <component name="ChangeListManager">
     <list default="true" id="fb6caf52-6c9e-49f2-915f-98f5adb74e73" name="Default Changelist" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Button.py" beforeDir="false" afterPath="$PROJECT_DIR$/Button.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Display.py" beforeDir="false" afterPath="$PROJECT_DIR$/Display.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/Player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/creation_map.py" beforeDir="false" afterPath="$PROJECT_DIR$/creation_map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main2.py" beforeDir="false" afterPath="$PROJECT_DIR$/main2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,51 +69,10 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../cryptage" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration name="Button" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Game" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Button.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Game" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Game" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Game.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Game" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -152,34 +115,10 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Game" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.Button" />
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.Game" />
-      </list>
-    </recent_temporary>
+    <list>
+      <item itemvalue="Python.main2" />
+      <item itemvalue="Python.main" />
+    </list>
   </component>
   <component name="StructureViewFactory">
     <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
@@ -321,7 +260,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593806182412</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="update">
+      <created>1594148857138</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1594148857138</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -364,6 +310,10 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state x="654" y="274" key="#Notifications/0.0.1536.821@0.0.1536.821" timestamp="1590875966953" />
+    <state x="223" y="66" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594161411563">
+      <screen x="0" y="0" width="1536" height="821" />
+    </state>
+    <state x="223" y="66" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.821@0.0.1536.821" timestamp="1594161411563" />
     <state x="484" y="6" key="#creation_map" timestamp="1590876453120">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
@@ -372,26 +322,30 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state x="484" y="6" key="#main/0.0.1536.821@0.0.1536.821" timestamp="1590876414106" />
-    <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog" timestamp="1591299570574">
+    <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog" timestamp="1594228866792">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog/0.0.1536.821@0.0.1536.821" timestamp="1591299570574" />
-    <state width="1515" height="169" key="GridCell.Tab.0.bottom" timestamp="1593892162151">
+    <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog/0.0.1536.821@0.0.1536.821" timestamp="1594228866792" />
+    <state x="549" y="166" key="FileChooserDialogImpl" timestamp="1594224252415">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="169" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1593892162151" />
-    <state width="1515" height="169" key="GridCell.Tab.0.center" timestamp="1593892162151">
+    <state x="549" y="166" key="FileChooserDialogImpl/0.0.1536.821@0.0.1536.821" timestamp="1594224252415" />
+    <state width="1515" height="209" key="GridCell.Tab.0.bottom" timestamp="1594229232089">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="169" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1593892162151" />
-    <state width="1515" height="169" key="GridCell.Tab.0.left" timestamp="1593892162151">
+    <state width="1515" height="209" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1594229232089" />
+    <state width="1515" height="209" key="GridCell.Tab.0.center" timestamp="1594229232089">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="169" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1593892162151" />
-    <state width="1515" height="169" key="GridCell.Tab.0.right" timestamp="1593892162151">
+    <state width="1515" height="209" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1594229232089" />
+    <state width="1515" height="209" key="GridCell.Tab.0.left" timestamp="1594229232089">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="169" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1593892162151" />
+    <state width="1515" height="209" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1594229232089" />
+    <state width="1515" height="209" key="GridCell.Tab.0.right" timestamp="1594229232089">
+      <screen x="0" y="0" width="1536" height="821" />
+    </state>
+    <state width="1515" height="209" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1594229232089" />
     <state width="1515" height="260" key="GridCell.Tab.1.bottom" timestamp="1593722791551">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
@@ -408,14 +362,14 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state width="1515" height="260" key="GridCell.Tab.1.right/0.0.1536.821@0.0.1536.821" timestamp="1593722791551" />
-    <state x="277" y="56" key="SettingsEditor" timestamp="1591297285839">
+    <state x="277" y="56" key="SettingsEditor" timestamp="1594217269278">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state x="277" y="56" key="SettingsEditor/0.0.1536.821@0.0.1536.821" timestamp="1591297285839" />
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1593806188404">
+    <state x="277" y="56" key="SettingsEditor/0.0.1536.821@0.0.1536.821" timestamp="1594217269278" />
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1594148864074">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1593806188404" />
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1594148864074" />
     <state x="578" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590948359662">
       <screen x="0" y="0" width="1536" height="821" />
     </state>

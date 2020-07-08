@@ -60,6 +60,6 @@ while running:
                     creation_map.x2, creation_map.y2, creation_map.x1, creation_map.y1 = -1, -1, -1, -1
 
             pressed[event.key] = True
-            creation_map.Save()
+            creation_map.save()
         elif event.type == pygame.KEYUP:
             pressed[event.key] = False
