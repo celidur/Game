@@ -26,14 +26,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb6caf52-6c9e-49f2-915f-98f5adb74e73" name="Default Changelist" comment="update">
-      <change afterPath="$PROJECT_DIR$/assets/icons/menu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/icons/shop.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/gaeta.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/gaeta.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Display.py" beforeDir="false" afterPath="$PROJECT_DIR$/Display.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/Player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Variable.py" beforeDir="false" afterPath="$PROJECT_DIR$/Variable.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/player.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/player.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file/map.txt" beforeDir="false" afterPath="$PROJECT_DIR$/file/map.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -276,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594229319319</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="update">
+      <created>1594330231762</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1594330231762</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -344,22 +348,22 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state x="549" y="166" key="FileChooserDialogImpl/0.0.1536.821@0.0.1536.821" timestamp="1594224252415" />
-    <state width="1515" height="149" key="GridCell.Tab.0.bottom" timestamp="1594329219194">
+    <state width="1515" height="149" key="GridCell.Tab.0.bottom" timestamp="1594336868199">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="149" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1594329219194" />
-    <state width="1515" height="149" key="GridCell.Tab.0.center" timestamp="1594329219194">
+    <state width="1515" height="149" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1594336868199" />
+    <state width="1515" height="149" key="GridCell.Tab.0.center" timestamp="1594336868199">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="149" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1594329219194" />
-    <state width="1515" height="149" key="GridCell.Tab.0.left" timestamp="1594329219194">
+    <state width="1515" height="149" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1594336868199" />
+    <state width="1515" height="149" key="GridCell.Tab.0.left" timestamp="1594336868199">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="149" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1594329219194" />
-    <state width="1515" height="149" key="GridCell.Tab.0.right" timestamp="1594329219194">
+    <state width="1515" height="149" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1594336868199" />
+    <state width="1515" height="149" key="GridCell.Tab.0.right" timestamp="1594336868199">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="149" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1594329219194" />
+    <state width="1515" height="149" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1594336868199" />
     <state width="1515" height="260" key="GridCell.Tab.1.bottom" timestamp="1594327366338">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
@@ -380,14 +384,14 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state x="277" y="56" key="SettingsEditor/0.0.1536.821@0.0.1536.821" timestamp="1594217269278" />
-    <state width="498" height="446" key="SwitcherDM" timestamp="1594324472521">
+    <state width="498" height="446" key="SwitcherDM" timestamp="1594333575720">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="498" height="446" key="SwitcherDM/0.0.1536.821@0.0.1536.821" timestamp="1594324472521" />
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1594229335042">
+    <state width="498" height="446" key="SwitcherDM/0.0.1536.821@0.0.1536.821" timestamp="1594333575720" />
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1594330240294">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1594229335042" />
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1594330240294" />
     <state x="578" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590948359662">
       <screen x="0" y="0" width="1536" height="821" />
     </state>

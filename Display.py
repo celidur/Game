@@ -58,7 +58,7 @@ class Display:
                             Game.Screen.blit(self.block["1"],
                                              (X_case * 64 - 128 - (Game.x + 32) % 64 + 32,
                                               Y_case * 64 - 128 - (Game.y + 32) % 64 + 32))
-        Game.Screen.blit(Game.player.image, (11 // 2 * 64, 5 * 64))
+        Game.Screen.blit(Game.player.image, (11 * 32, 11 * 32))
         for X_case in range(16):
             for Y_case in range(19):
                 if self.map[X_case][Y_case] is not None:
