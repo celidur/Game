@@ -1,7 +1,6 @@
 import pygame
 import Button
 import pickle
-from Display import Display
 from Player import Player
 
 
@@ -21,8 +20,10 @@ button_pause = Button.Button(None, (0, 0, 0), [257, 240, 190, 65], 'jouer', (317
 button_setting = Button.Button(None, (0, 0, 0), [257, 320, 190, 65], 'paramètre', (284, 328), 36, board)
 button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], 'sauvegarder', (271, 408), 36, board)
 button_exit = Button.Button(None, (0, 0, 0), [257, 480, 190, 65], 'quitter', (312, 488), 36, board)
-button_menu = Button.Button((0, 0, 0), None, [667, 700, 32, 32])
-button_shop = Button.Button((0, 0, 0), None, [630, 700, 32, 32])
+button_menu = Button.Button((0, 0, 0), None, [660, 700, 32, 32], None, None, 0,
+                            pygame.image.load('assets/icons/menu.png'))
+button_shop = Button.Button((0, 0, 0), None, [615, 702, 32, 32], None, None, 0,
+                            pygame.image.load('assets/icons/shop.png'))
 size_window = [704, 736]
 
 # Picture
@@ -206,4 +207,3 @@ pygame.init()
 pygame.display.set_caption("Game")
 Screen = pygame.display.set_mode((size_window[0], size_window[1]))
 player = Player()
-display = Display(block, block2, Width, Length, size_window, background)
