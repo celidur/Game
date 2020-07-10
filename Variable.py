@@ -206,4 +206,4 @@ Map, Length, Width = import_map()
 pygame.init()
 pygame.display.set_caption("Game")
 Screen = pygame.display.set_mode((size_window[0], size_window[1]))
-player = Player()
+

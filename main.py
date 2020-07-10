@@ -3,7 +3,7 @@ import pygame
 onclick, running, pressed, pos = False, True, {}, [0, 0]
 while running:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT or event.type == pygame.K_ESCAPE:
+        if event.type == pygame.QUIT:
             if Game.menu == 1 or Game.menu == 2:
                 running = False
                 continue

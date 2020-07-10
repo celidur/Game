@@ -1,4 +1,4 @@
-import time
+# import time
 
 import Game
 import pygame
@@ -11,9 +11,9 @@ class Display:
         self.block2 = block2
         self.size_window = size_window
         self.background = background
-        self.ii = 0
+        # self.ii = 0
         self.map = map_game
-        self.i1 = time.time() + 1
+        # self.i1 = time.time() + 1
 
     def display_update(self, n, x_case, y_case):
         try:
@@ -60,8 +60,8 @@ class Display:
         self.map = map_game
         self.display_game()
         pygame.display.flip()
-        self.ii += 1
-        if time.time() > self.i1:
-            print(self.ii)
-            self.i1 = time.time() + 1
-            self.ii = 0
+        # self.ii += 1
+        # if time.time() > self.i1:
+        #    print(self.ii)
+        #    self.i1 = time.time() + 1
+        #    self.ii = 0

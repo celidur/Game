@@ -1,7 +1,8 @@
+from Enemy import Enemy
 from Variable import *
 import time
 from Display import Display
-
+player = Player()
 x, y, menu, escape = 48 * 64, 30 * 64, 0, time.time()
 map_game = []
 for X_case in range((x + 32) // 64 - 8, (x + 32) // 64 + 9):
@@ -16,9 +17,18 @@ x_map_game = (x + 32) // 64
 y_map_game = (y + 32) // 64
 display = Display(block, block2, Width, Length, size_window, background, Map)
 frame = 0
+enemy = Enemy()
 
 
 def save():
+    pass
+
+
+def game_fight():  # menu=4
+    global menu, frame, enemy, player
+    while not time.time() > frame + 1 / 61:
+        pass
+    frame = time.time()
     pass
 
 
