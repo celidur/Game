@@ -30,7 +30,7 @@ def game_play(pressed):
     if pressed.get(pygame.K_ESCAPE) and time.time() > escape:
         menu, escape = 1, time.time() + 0.2
         return
-    x, y = player.player_move(pressed, x, y, Map, Width, Length)
+    x, y = player.player_move(pressed, x, y, map_game, Width, Length)
     map_game, x_map_game, y_map_game = update_map_game(x_map_game, y_map_game, x, y, Map, map_game)
     display.display(map_game)
 
