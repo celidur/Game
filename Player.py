@@ -110,42 +110,42 @@ class Player(pygame.sprite.Sprite):
                         return False
         elif d == 1:  # droite
             x1 = x + self.velocity
-            if 12 >= x1 % 64 or x1 % 64 >= 32:
+            if 32 >= x1 % 64 or x1 % 64 >= 52:
                 if 52 >= y % 64 >= 32:
                     if y % 64 < 44:
-                        if map_game[8][7][3][2] or map_game[8][8][3][0]:
+                        if map_game[8][7][3][3] or map_game[8][8][3][1]:
                             return False
                     else:
-                        if map_game[8][7][3][2] or map_game[8][8][3][2] or map_game[8][8][3][0]:
+                        if map_game[8][7][3][3] or map_game[8][8][3][3] or map_game[8][8][3][1]:
                             return False
                 elif 12 <= y % 64 < 32:
                     if y % 64 > 20:
-                        if map_game[8][9][3][2] or map_game[8][8][3][0]:
+                        if map_game[8][9][3][3] or map_game[8][8][3][1]:
                             return False
                     else:
-                        if map_game[8][9][3][2] or map_game[8][8][3][2] or map_game[8][8][3][0]:
+                        if map_game[8][9][3][3] or map_game[8][8][3][3] or map_game[8][8][3][1]:
                             return False
                 else:
-                    if map_game[8][8][3][0] or map_game[8][8][3][2]:
+                    if map_game[8][8][3][1] or map_game[8][8][3][3]:
                         return False
 
-            if 32 <= x1 % 64 <= 44:
+            if 32 >= x1 % 64 >= 20:
                 if 52 >= y % 64 >= 32:
                     if y % 64 < 44:
-                        if map_game[7][7][3][3] or map_game[7][8][3][1]:
+                        if map_game[9][7][3][2] or map_game[9][8][3][0]:
                             return False
                     else:
-                        if map_game[7][7][3][3] or map_game[7][8][3][3] or map_game[7][8][3][1]:
+                        if map_game[9][7][3][2] or map_game[9][8][3][2] or map_game[9][8][3][0]:
                             return False
                 elif 12 <= y % 64 < 32:
                     if y % 64 > 20:
-                        if map_game[7][9][3][3] or map_game[7][8][3][1]:
+                        if map_game[9][9][3][2] or map_game[9][8][3][0]:
                             return False
                     else:
-                        if map_game[7][9][3][3] or map_game[7][8][3][3] or map_game[7][8][3][1]:
+                        if map_game[9][9][3][2] or map_game[9][8][3][2] or map_game[9][8][3][0]:
                             return False
                 else:
-                    if map_game[7][8][3][1] or map_game[7][8][3][3]:
+                    if map_game[9][8][3][0] or map_game[9][8][3][2]:
                         return False
         elif d == 2:  # haut
             pass
