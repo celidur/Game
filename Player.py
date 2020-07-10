@@ -43,28 +43,23 @@ class Player(pygame.sprite.Sprite):
             self.direction = direction
 
     def player_move(self, pressed, x, y, map_game, width, length):
-        move = False
-        if pressed.get(pygame.K_DOWN) and y // 64 < width - 1:
-            if self.collision(map_game, 3, x, y):
-                y += self.velocity
-                self.move("down")
-                move = True
+        if pressed.get(pygame.K_LEFT) and (x + 63) // 64 > 0:
+            if self.collision(map_game, 0, x, y):
+                x -= self.velocity
+                self.move("left")
+        elif pressed.get(pygame.K_RIGHT) and x // 64 < length - 1:
+            if self.collision(map_game, 1, x, y):
+                x += self.velocity
+                self.move("right")
         elif pressed.get(pygame.K_UP) and (y + 63) // 64 > 0:
             if self.collision(map_game, 2, x, y):
                 y -= self.velocity
                 self.move("up")
-                move = True
-        if pressed.get(pygame.K_RIGHT) and x // 64 < length - 1:
-            if self.collision(map_game, 1, x, y):
-                x += self.velocity
-                if not move:
-                    self.move("right")
-        elif pressed.get(pygame.K_LEFT) and (x + 63) // 64 > 0:
-            if self.collision(map_game, 0, x, y):
-                x -= self.velocity
-                if not move:
-                    self.move("left")
-        elif not move:
+        elif pressed.get(pygame.K_DOWN) and y // 64 < width - 1:
+            if self.collision(map_game, 3, x, y):
+                y += self.velocity
+                self.move("down")
+        else:
             self.move("same")
         return x, y
 
