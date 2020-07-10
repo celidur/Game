@@ -16,10 +16,10 @@ def import_map():
 
 
 board = pygame.image.load('assets/button/board.png')
-button_pause = Button.Button(None, (0, 0, 0), [257, 240, 190, 65], 'jouer', (317, 248), 36, board)
-button_setting = Button.Button(None, (0, 0, 0), [257, 320, 190, 65], 'paramètre', (284, 328), 36, board)
-button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], 'sauvegarder', (271, 408), 36, board)
-button_exit = Button.Button(None, (0, 0, 0), [257, 480, 190, 65], 'quitter', (312, 488), 36, board)
+button_pause = Button.Button(None, (0, 0, 0), [257, 240, 190, 65], 'REPRENDRE', (270, 253), 32, board)
+button_setting = Button.Button(None, (0, 0, 0), [257, 320, 190, 65], 'PARAMETRES', (271, 333), 30, board)
+button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], 'SAUVEGARDER', (264, 415), 28, board)
+button_exit = Button.Button(None, (0, 0, 0), [257, 480, 190, 65], 'QUITTER', (290, 492), 34, board)
 button_menu = Button.Button((0, 0, 0), None, [660, 700, 32, 32], None, None, 0,
                             pygame.image.load('assets/icons/menu.png'))
 button_shop = Button.Button((0, 0, 0), None, [615, 702, 32, 32], None, None, 0,
