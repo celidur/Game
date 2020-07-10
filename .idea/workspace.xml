@@ -312,7 +312,21 @@
       <option name="project" value="LOCAL" />
       <updated>1594398117924</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="update">
+      <created>1594399185579</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1594399185579</updated>
+    </task>
+    <task id="LOCAL-00028" summary="update">
+      <created>1594399389929</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1594399389929</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -380,22 +394,22 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state x="549" y="166" key="FileChooserDialogImpl/0.0.1536.821@0.0.1536.821" timestamp="1594224252415" />
-    <state width="1515" height="149" key="GridCell.Tab.0.bottom" timestamp="1594399132523">
+    <state width="1515" height="149" key="GridCell.Tab.0.bottom" timestamp="1594399860365">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="149" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1594399132523" />
-    <state width="1515" height="149" key="GridCell.Tab.0.center" timestamp="1594399132522">
+    <state width="1515" height="149" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1594399860365" />
+    <state width="1515" height="149" key="GridCell.Tab.0.center" timestamp="1594399860365">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="149" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1594399132522" />
-    <state width="1515" height="149" key="GridCell.Tab.0.left" timestamp="1594399132522">
+    <state width="1515" height="149" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1594399860365" />
+    <state width="1515" height="149" key="GridCell.Tab.0.left" timestamp="1594399860364">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="149" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1594399132522" />
-    <state width="1515" height="149" key="GridCell.Tab.0.right" timestamp="1594399132522">
+    <state width="1515" height="149" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1594399860364" />
+    <state width="1515" height="149" key="GridCell.Tab.0.right" timestamp="1594399860365">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state width="1515" height="149" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1594399132522" />
+    <state width="1515" height="149" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1594399860365" />
     <state width="1515" height="260" key="GridCell.Tab.1.bottom" timestamp="1594327366338">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
@@ -420,10 +434,10 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1536.821@0.0.1536.821" timestamp="1594333575720" />
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1594398124386">
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1594399402093">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1594398124386" />
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1594399402093" />
     <state x="578" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590948359662">
       <screen x="0" y="0" width="1536" height="821" />
     </state>

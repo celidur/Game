@@ -43,28 +43,24 @@ class Player(pygame.sprite.Sprite):
             self.direction = direction
 
     def player_move(self, pressed, x, y, map_game, width, length):
-        if pressed.get(pygame.K_LEFT) and (x + 63) // 64 > 0:
-            if self.collision(map_game, 0, x, y):
-                x -= self.velocity
-                self.move("left")
-        elif pressed.get(pygame.K_RIGHT) and x // 64 < length - 1:
-            if self.collision(map_game, 1, x, y):
-                x += self.velocity
-                self.move("right")
-        elif pressed.get(pygame.K_UP) and (y + 63) // 64 > 0:
-            if self.collision(map_game, 2, x, y):
-                y -= self.velocity
-                self.move("up")
-        elif pressed.get(pygame.K_DOWN) and y // 64 < width - 1:
-            if self.collision(map_game, 3, x, y):
-                y += self.velocity
-                self.move("down")
+        if pressed.get(pygame.K_LEFT) and (x + 63) // 64 > 0 and self.collision(map_game, 0, x, y):
+            x -= self.velocity
+            self.move("left")
+        elif pressed.get(pygame.K_RIGHT) and x // 64 < length - 1 and self.collision(map_game, 1, x, y):
+            x += self.velocity
+            self.move("right")
+        elif pressed.get(pygame.K_UP) and (y + 63) // 64 > 0 and self.collision(map_game, 2, x, y):
+            y -= self.velocity
+            self.move("up")
+        elif pressed.get(pygame.K_DOWN) and y // 64 < width - 1 and self.collision(map_game, 3, x, y):
+            y += self.velocity
+            self.move("down")
         else:
             self.move("same")
         return x, y
 
     def collision(self, map_game, d, x, y):
-        if d == 0:  # gauche
+        if d == 0:
             x1 = x - self.velocity
             if 12 >= x1 % 64 or x1 % 64 >= 32:
                 if 52 >= y % 64 >= 32:
@@ -103,7 +99,7 @@ class Player(pygame.sprite.Sprite):
                 else:
                     if map_game[7][8][3][1] or map_game[7][8][3][3]:
                         return False
-        elif d == 1:  # droite
+        elif d == 1:
             x1 = x + self.velocity
             if 32 >= x1 % 64 or x1 % 64 >= 52:
                 if 52 >= y % 64 >= 32:
@@ -142,7 +138,7 @@ class Player(pygame.sprite.Sprite):
                 else:
                     if map_game[9][8][3][0] or map_game[9][8][3][2]:
                         return False
-        elif d == 2:  # haut
+        elif d == 2:
             y1 = y - self.velocity
             if 32 <= y1 % 64 <= 52:
                 if 32 <= x % 64 <= 44:
@@ -176,7 +172,7 @@ class Player(pygame.sprite.Sprite):
                 else:
                     if map_game[8][8][3][1] or map_game[9][8][3][0]:
                         return False
-        elif d == 3:  # bas
+        elif d == 3:
             y1 = y + self.velocity
             if 12 <= y1 % 64 <= 32:
                 if 32 <= x % 64 <= 44:
