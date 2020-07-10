@@ -17,10 +17,7 @@ class Display:
 
     def display_update(self, n, x_case, y_case):
         try:
-            if n == 3:
-                Game.Screen.blit(self.block["0"],
-                                 (x_case * 64 - 128 - (Game.x + 32) % 64, y_case * 64 - 128 - (Game.y + 32) % 64))
-            elif n == 4:
+            if n == 4:
                 block_2 = self.block2[self.map[x_case][y_case][4]]
                 Game.Screen.blit(block_2[0],
                                  (x_case * 64 - 128 - (Game.x + 32) % 64 + block_2[1],
@@ -39,25 +36,6 @@ class Display:
                     self.display_update(0, X_case, Y_case)
                     self.display_update(1, X_case, Y_case)
                     self.display_update(2, X_case, Y_case)
-                    if self.map[X_case][Y_case][3] == [True] * 4:
-                        self.display_update(3, X_case, Y_case)
-                    elif self.map[X_case][Y_case][3] != [False] * 4:
-                        if self.map[X_case][Y_case][3][0]:
-                            Game.Screen.blit(self.block["1"],
-                                             (X_case * 64 - 128 - (Game.x + 32) % 64,
-                                              Y_case * 64 - 128 - (Game.y + 32) % 64))
-                        if self.map[X_case][Y_case][3][1]:
-                            Game.Screen.blit(self.block["1"],
-                                             (X_case * 64 - 128 - (Game.x + 32) % 64 + 32,
-                                              Y_case * 64 - 128 - (Game.y + 32) % 64))
-                        if self.map[X_case][Y_case][3][2]:
-                            Game.Screen.blit(self.block["1"],
-                                             (X_case * 64 - 128 - (Game.x + 32) % 64,
-                                              Y_case * 64 - 128 - (Game.y + 32) % 64 + 32))
-                        if self.map[X_case][Y_case][3][3]:
-                            Game.Screen.blit(self.block["1"],
-                                             (X_case * 64 - 128 - (Game.x + 32) % 64 + 32,
-                                              Y_case * 64 - 128 - (Game.y + 32) % 64 + 32))
         Game.Screen.blit(Game.player.image, (11 * 32, 11 * 32))
         for X_case in range(16):
             for Y_case in range(19):
