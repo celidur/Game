@@ -14,6 +14,7 @@ class Display:
         # self.ii = 0
         self.map = map_game
         # self.i1 = time.time() + 1
+        self.arial = pygame.font.SysFont("arial", 20)
 
     def display_update(self, n, x_case, y_case):
         try:
@@ -65,3 +66,12 @@ class Display:
         #    print(self.ii)
         #    self.i1 = time.time() + 1
         #    self.ii = 0
+
+    def display_fight(self, background, monster, size, hp, name, player_stats):
+        Game.Screen.blit(background, (0, 0))
+        Game.Screen.blit(monster, size)
+        Game.Screen.blit(self.arial.render("{}/{}".format(hp[0], hp[1]), False, (255, 255, 255)), (570, 438))
+        Game.Screen.blit(self.arial.render(name, False, (255, 255, 255)), (430, 438))
+        Game.Screen.blit(self.arial.render("PV : {}/{}  PM : {}/{}".format(player_stats[0], player_stats[1],
+                                                                           player_stats[2], player_stats[3]), False,
+                                           (255, 255, 255)), (60, 438))

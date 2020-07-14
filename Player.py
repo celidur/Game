@@ -14,6 +14,12 @@ class Player(pygame.sprite.Sprite):
         self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
         self.rect = self.image.get_rect()
         self.velocity = 8
+        self.hp = 100
+        self.hp_max = 100
+        self.level = 1
+        self.xp = 0
+        self.hm = 25
+        self.hm_max = 25
 
     def box_change(self, n1):
         if self.box > n1 + 4:
@@ -207,3 +213,6 @@ class Player(pygame.sprite.Sprite):
                     if map_game[8][8][3][3] or map_game[9][8][3][2]:
                         return False
         return True
+
+    def get_stats(self):
+        return self.hp, self.hp_max, self.hm, self.hm_max

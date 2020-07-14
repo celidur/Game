@@ -1,7 +1,8 @@
-import pygame
-import Button
 import pickle
-from Player import Player
+
+import pygame
+
+import Button
 
 
 def import_map():
@@ -22,6 +23,7 @@ button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], 'SAUVEGARDER',
 button_exit = Button.Button(None, (0, 0, 0), [257, 480, 190, 65], 'QUITTER', (290, 492), 34, board)
 button_menu = Button.Button((0, 0, 0), None, [660, 700, 32, 32], None, None, 0,
                             pygame.image.load('assets/icons/menu.png'))
+button_attack = Button.Button((127, 127, 127), (255, 255, 255), [200, 520, 100, 50], "Attaque", (210, 525), 25)
 button_shop = Button.Button((0, 0, 0), None, [615, 702, 32, 32], None, None, 0,
                             pygame.image.load('assets/icons/shop.png'))
 size_window = [704, 736]
@@ -206,4 +208,3 @@ Map, Length, Width = import_map()
 pygame.init()
 pygame.display.set_caption("Game")
 Screen = pygame.display.set_mode((size_window[0], size_window[1]))
-

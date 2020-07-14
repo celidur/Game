@@ -1,7 +1,9 @@
-from Enemy import Enemy
+from Enemy1 import Enemy1
 from Variable import *
 import time
 from Display import Display
+from Player import Player
+
 player = Player()
 x, y, menu, escape = 48 * 64, 30 * 64, 0, time.time()
 map_game = []
@@ -17,7 +19,9 @@ x_map_game = (x + 32) // 64
 y_map_game = (y + 32) // 64
 display = Display(block, block2, Width, Length, size_window, background, Map)
 frame = 0
-enemy = Enemy()
+fight_mode = 0
+
+enemy1 = Enemy1()
 
 
 def save():
@@ -25,11 +29,18 @@ def save():
 
 
 def game_fight():  # menu=4
-    global menu, frame, enemy, player
+    global menu, frame, player, enemy1, map_game, x_map_game, y_map_game, fight_mode
     while not time.time() > frame + 1 / 61:
         pass
     frame = time.time()
-    pass
+    if fight_mode == 0:
+        display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
+                              enemy1.get_name(), player.get_stats())
+        button_attack.display_button()
+    else:
+        display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
+                              enemy1.get_name(), player.get_stats())
+    pygame.display.flip()
 
 
 def game_play(pressed):
