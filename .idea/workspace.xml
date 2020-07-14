@@ -25,8 +25,13 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb6caf52-6c9e-49f2-915f-98f5adb74e73" name="Default Changelist" comment="update">
+    <list default="true" id="fb6caf52-6c9e-49f2-915f-98f5adb74e73" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/font/rpg_.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Game.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Display.py" beforeDir="false" afterPath="$PROJECT_DIR$/Display.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +70,8 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../cryptage" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -75,9 +81,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\MATTEO\AppData\Local\Programs\Python\Python38\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
@@ -353,21 +359,7 @@
       <option name="project" value="LOCAL" />
       <updated>1594405435223</updated>
     </task>
-    <task id="LOCAL-00033" summary="update">
-      <created>1594407025058</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1594407025058</updated>
-    </task>
-    <task id="LOCAL-00034" summary="update">
-      <created>1594758208075</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1594758208075</updated>
-    </task>
-    <option name="localTasksCounter" value="35" />
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -423,34 +415,40 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state x="484" y="6" key="#creation_map/0.0.1536.821@0.0.1536.821" timestamp="1590876453120" />
-    <state x="484" y="6" key="#main" timestamp="1590876414106">
-      <screen x="0" y="0" width="1536" height="821" />
+    <state x="430" y="0" key="#main" timestamp="1594763272857">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
+    <state x="430" y="0" key="#main/0.0.1366.768@0.0.1366.768" timestamp="1594763272857" />
     <state x="484" y="6" key="#main/0.0.1536.821@0.0.1536.821" timestamp="1590876414106" />
     <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog" timestamp="1594228866792">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog/0.0.1536.821@0.0.1536.821" timestamp="1594228866792" />
-    <state x="549" y="166" key="FileChooserDialogImpl" timestamp="1594224252415">
-      <screen x="0" y="0" width="1536" height="821" />
+    <state x="488" y="155" key="FileChooserDialogImpl" timestamp="1594767312679">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
+    <state x="488" y="155" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1594767312679" />
     <state x="549" y="166" key="FileChooserDialogImpl/0.0.1536.821@0.0.1536.821" timestamp="1594224252415" />
-    <state width="1515" height="113" key="GridCell.Tab.0.bottom" timestamp="1594756954831">
-      <screen x="0" y="0" width="1536" height="821" />
+    <state width="1345" height="191" key="GridCell.Tab.0.bottom" timestamp="1594770055059">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1515" height="113" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1594756954831" />
-    <state width="1515" height="113" key="GridCell.Tab.0.center" timestamp="1594756954831">
-      <screen x="0" y="0" width="1536" height="821" />
+    <state width="1345" height="191" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1594770055059" />
+    <state width="1515" height="30" key="GridCell.Tab.0.bottom/0.0.1536.821@0.0.1536.821" timestamp="1594401871960" />
+    <state width="1345" height="191" key="GridCell.Tab.0.center" timestamp="1594770055058">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1515" height="113" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1594756954831" />
-    <state width="1515" height="113" key="GridCell.Tab.0.left" timestamp="1594756954830">
-      <screen x="0" y="0" width="1536" height="821" />
+    <state width="1345" height="191" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1594770055058" />
+    <state width="1515" height="30" key="GridCell.Tab.0.center/0.0.1536.821@0.0.1536.821" timestamp="1594401871959" />
+    <state width="1345" height="191" key="GridCell.Tab.0.left" timestamp="1594770055058">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1515" height="113" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1594756954830" />
-    <state width="1515" height="113" key="GridCell.Tab.0.right" timestamp="1594756954831">
-      <screen x="0" y="0" width="1536" height="821" />
+    <state width="1345" height="191" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1594770055058" />
+    <state width="1515" height="30" key="GridCell.Tab.0.left/0.0.1536.821@0.0.1536.821" timestamp="1594401871959" />
+    <state width="1345" height="191" key="GridCell.Tab.0.right" timestamp="1594770055059">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1515" height="113" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1594756954831" />
+    <state width="1345" height="191" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1594770055059" />
+    <state width="1515" height="30" key="GridCell.Tab.0.right/0.0.1536.821@0.0.1536.821" timestamp="1594401871959" />
     <state width="1515" height="260" key="GridCell.Tab.1.bottom" timestamp="1594327366338">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
@@ -467,18 +465,19 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state width="1515" height="260" key="GridCell.Tab.1.right/0.0.1536.821@0.0.1536.821" timestamp="1594327366338" />
-    <state x="277" y="56" key="SettingsEditor" timestamp="1594393677156">
-      <screen x="0" y="0" width="1536" height="821" />
+    <state x="246" y="52" key="SettingsEditor" timestamp="1594768080225">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
+    <state x="246" y="52" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1594768080225" />
     <state x="277" y="56" key="SettingsEditor/0.0.1536.821@0.0.1536.821" timestamp="1594393677156" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1594333575720">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1536.821@0.0.1536.821" timestamp="1594333575720" />
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1594758218551">
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2" timestamp="1594405439269">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
-    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1594758218551" />
+    <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1594405439269" />
     <state x="578" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590948359662">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
@@ -491,10 +490,10 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state x="-6" y="0" width="781" height="827" key="dock-window-2/0.0.1536.821@0.0.1536.821" timestamp="1594328995292" />
-    <state x="431" y="142" width="672" height="678" key="search.everywhere.popup" timestamp="1594754223905">
-      <screen x="0" y="0" width="1536" height="821" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1594769610519">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="431" y="142" width="672" height="678" key="search.everywhere.popup/0.0.1536.821@0.0.1536.821" timestamp="1594754223905" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1594769610519" />
     <state x="491" y="323" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1593803378456">
       <screen x="0" y="0" width="1536" height="821" />
     </state>

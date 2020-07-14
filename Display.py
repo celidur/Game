@@ -1,4 +1,4 @@
-# import time
+import time
 
 import Game
 import pygame
@@ -15,7 +15,7 @@ class Display:
         self.map = map_game
         # self.i1 = time.time() + 1
         self.arial = pygame.font.SysFont("arial", 20)
-        self.police = pygame.font.Font("fichier", 20)
+        self.rpg = pygame.font.Font("font/rpg_.ttf", 15)
 
     def display_update(self, n, x_case, y_case):
         try:
@@ -68,7 +68,7 @@ class Display:
         #    self.i1 = time.time() + 1
         #    self.ii = 0
 
-    def display_fight(self, background, monster, size, hp, name, player_stats):
+    def display_fight(self, background, monster, size, hp, name, player_stats, fight_mode, change):
         Game.Screen.blit(background, (0, 0))
         Game.Screen.blit(monster, size)
         Game.Screen.blit(self.arial.render("{}/{}".format(hp[0], hp[1]), False, (255, 255, 255)), (570, 438))
@@ -76,3 +76,45 @@ class Display:
         Game.Screen.blit(self.arial.render("PV : {}/{}  PM : {}/{}".format(player_stats[0], player_stats[1],
                                                                            player_stats[2], player_stats[3]), False,
                                            (255, 255, 255)), (60, 438))
+        # zone stats
+        # zone actions
+        text = "Ceci est une longue phrase. En voici une autre un peu plus longue."
+        text = text.split(' ')
+        if change:
+            Game.texts.append(text)
+        while True:
+            x, y = 0, 0
+            for text in Game.texts:
+                for word in text:
+                    x += len(word)*8
+                    if x >= 250:
+                        y += 18
+                        x = 0
+                    x += 5
+                x = 0
+                y += 18
+            if y > 216:
+                Game.texts.remove(Game.texts[0])
+            else:
+                break
+        x, y = 0, 0
+        for t in range(len(Game.texts)):
+            for word in Game.texts[t]:
+                lw = len(word)*8
+                if x + lw >= 250:
+                    y += 18
+                    x = 0
+                for char in word:
+                    if t == len(Game.texts)-1:
+                        Game.Screen.blit(self.rpg.render(char, False, (255, 255, 255)), (430 + x, 485 + y))
+                    else:
+                        Game.Screen.blit(self.rpg.render(char, False, (180, 180, 180)), (430+x, 485+y))
+                    x += 8
+                    if change and t == len(Game.texts)-1:
+                        pygame.display.flip()
+                        time.sleep(0.06)
+                x += 5
+            x = 0
+            y += 18
+
+        Game.change = False

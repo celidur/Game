@@ -5,7 +5,7 @@ from Display import Display
 from Player import Player
 
 player = Player()
-x, y, menu, escape = 48 * 64, 30 * 64, 0, time.time()
+x, y, menu, escape = 48 * 64, 30 * 64, 4, time.time()
 map_game = []
 for X_case in range((x + 32) // 64 - 8, (x + 32) // 64 + 9):
     liste = []
@@ -20,8 +20,9 @@ y_map_game = (y + 32) // 64
 display = Display(block, block2, Width, Length, size_window, background, Map)
 frame = 0
 fight_mode = 0
-
+change = True
 enemy1 = Enemy1()
+texts = ["ancien message 1 tres tres tres tres tres tres tres tres tres tres tres long".split(' '), "test /:!?,%".split(' '),['a'],['a'],['a'],['a'],['a'],['a'],['a']]
 
 
 def save():
@@ -33,13 +34,8 @@ def game_fight():  # menu=4
     while not time.time() > frame + 1 / 61:
         pass
     frame = time.time()
-    if fight_mode == 0:
-        display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
-                              enemy1.get_name(), player.get_stats())
-        button_attack.display_button()
-    else:
-        display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
-                              enemy1.get_name(), player.get_stats())
+    display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
+                              enemy1.get_name(), player.get_stats(), fight_mode, change)
     pygame.display.flip()
 
 
