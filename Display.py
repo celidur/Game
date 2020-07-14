@@ -15,6 +15,7 @@ class Display:
         self.map = map_game
         # self.i1 = time.time() + 1
         self.arial = pygame.font.SysFont("arial", 20)
+        self.police = pygame.font.Font("fichier", 20)
 
     def display_update(self, n, x_case, y_case):
         try:
