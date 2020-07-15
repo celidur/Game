@@ -1,3 +1,4 @@
+#fr
 plain = 'Plaine'
 desert = 'Désert'
 snow = 'Neige'
