@@ -81,7 +81,7 @@ class Display:
         Game.Screen.blit(self.arial.render("PV : {}/{}  PM : {}/{}".format(player_stats[0], player_stats[1],
                                                                            player_stats[2], player_stats[3]), False,
                                            (255, 255, 255)), (60, 438))
-        Game.Screen.blit(self.arial.render(name[0], False, (255, 255, 255)), (430, 438))
+        Game.Screen.blit(self.arial.render(name[0], False, self.colors[name[1]]), (430, 438))
         Game.Screen.blit(self.arial.render("{}/{}".format(hp[0], hp[1]), False, (255, 255, 255)), (580, 438))
         Game.button_attack.display_button()
         Game.button_inventory.display_button()
