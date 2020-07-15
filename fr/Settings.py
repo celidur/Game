@@ -11,3 +11,8 @@ defense = 'Défense'
 magic = 'Magie'
 inventory = 'Inventaire'
 leave = 'Abandonner'
+
+resume = 'REPRENDRE'
+settings = 'PARAMETRES'
+save = 'SAUVEGARDER'
+quit_game = 'QUITTER'
