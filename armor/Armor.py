@@ -4,7 +4,7 @@ class Armor:
         self.defense_snow = defense_snow
 
 
-class Armed:
+class Sword:
     def __init__(self, attack_fire, attack_snow):
         self.attack_fire = attack_fire
         self.attack_snow = attack_snow
