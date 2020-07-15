@@ -23,10 +23,10 @@ button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], 'SAUVEGARDER',
 button_exit = Button.Button(None, (0, 0, 0), [257, 480, 190, 65], 'QUITTER', (290, 492), 34, board)
 button_menu = Button.Button((0, 0, 0), None, [660, 700, 32, 32], None, None, 0,
                             pygame.image.load('assets/icons/menu.png'))
-button_attack = Button.Button((127, 127, 127), (255, 255, 255), [260, 485, 110, 40], "Attaque", (283, 490), 25)
-button_magic = Button.Button((127, 127, 127), (255, 255, 255), [260, 545, 110, 40], "Magie", (290, 550), 25)
-button_inventory = Button.Button((127, 127, 127), (255, 255, 255), [260, 605, 110, 40], "Inventaire", (270, 610), 25)
-button_run_fight = Button.Button((127, 127, 127), (255, 255, 255), [260, 665, 110, 40], "fuir", (302, 670), 25)
+button_attack = Button.Button((127, 127, 127), (255, 255, 255), [280, 485, 110, 40], "Attaque", (303, 490), 25)
+button_magic = Button.Button((127, 127, 127), (255, 255, 255), [280, 545, 110, 40], "Magie", (310, 550), 25)
+button_inventory = Button.Button((127, 127, 127), (255, 255, 255), [280, 605, 110, 40], "Inventaire", (290, 610), 25)
+button_run_fight = Button.Button((127, 127, 127), (255, 255, 255), [280, 665, 110, 40], "Abandon", (295, 670), 25)
 button_shop = Button.Button((0, 0, 0), None, [615, 702, 32, 32], None, None, 0,
                             pygame.image.load('assets/icons/shop.png'))
 size_window = [704, 736]

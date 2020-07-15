@@ -3,13 +3,14 @@ import random
 
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, hp, gold, xp, defense, name, attack, size, background, image):
+    def __init__(self, hp, gold, xp, defense, name, environment, attack, size, background, image):
         super().__init__()
         self.hp = hp
         self.gold = gold
         self.xp = xp
         self.defense = defense
         self.name = name
+        self.environment = environment
         self.attack = attack
         self.background = background
         self.image = image
@@ -29,7 +30,7 @@ class Enemy(pygame.sprite.Sprite):
         return self.background
 
     def get_name(self):
-        return self.name
+        return self.name, self.environment
 
     def get_image(self):
         return self.image
