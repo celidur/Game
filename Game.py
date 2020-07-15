@@ -22,7 +22,7 @@ frame = 0
 fight_mode = 0
 change = True
 enemy1 = Enemy1()
-texts = ["ancien message 1 tres tres tres tres tres tres tres tres tres tres tres long".split(' '), "test /:!?,%".split(' '),['a'],['a'],['a'],['a'],['a'],['a'],['a']]
+texts = ["ancien message 1 tres tres tres tres tres tres tres tres tres tres tres long".split(' '), "test /:!?,%".split(' '),['a'],['a'],['a'],['a'],['a'],['a']]
 
 
 def save():

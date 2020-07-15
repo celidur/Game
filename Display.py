@@ -98,6 +98,8 @@ class Display:
             for text in Game.texts:
                 for word in text:
                     x += len(word) * 8
+                    for i in ['i', '1', '.', ':', ',', ';', "'", '!']:
+                        x -= word.count(i) * 4
                     if x >= 250:
                         y += 18
                         x = 0
@@ -112,6 +114,8 @@ class Display:
         for t in range(len(Game.texts)):
             for word in Game.texts[t]:
                 lw = len(word) * 8
+                for i in ['i', '1', '.', ':', ',', ';', "'", '!']:
+                    lw -= word.count(i) * 4
                 if x + lw >= 250:
                     y += 18
                     x = 0
@@ -121,6 +125,8 @@ class Display:
                     else:
                         Game.Screen.blit(self.rpg.render(char, False, (180, 180, 180)), (430 + x, 485 + y))
                     x += 8
+                    if char in ['i', '1', '.', ':', ',', ';', "'", '!']:
+                        x -= 4
                     if change and t == len(Game.texts) - 1:
                         pygame.display.flip()
                         time.sleep(0.06)
