@@ -17,11 +17,11 @@ def import_map():
     return map1, length, width
 
 
-environment = None
+Settings = None
 
 
 def import_language():
-    global environment
+    global Settings
     with open('language/language.txt', 'rb') as file:
         file = pickle.Unpickler(file)
         language = file.load()

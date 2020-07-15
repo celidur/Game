@@ -4,7 +4,7 @@ import time
 from Display import Display
 from Player import Player
 
-environment = import_language()
+Settings = import_language()
 player = Player()
 x, y, menu, escape = 48 * 64, 30 * 64, 4, time.time()
 map_game = []
@@ -21,10 +21,17 @@ y_map_game = (y + 32) // 64
 display = Display(block, block2, Width, Length, size_window, background, Map)
 frame = 0
 fight_mode = 0
-change = True
 enemy1 = Enemy1()
-texts = ["ancien message 1 tres tres tres tres tres tres tres tres tres tres tres long".split(' '),
-         "test /:!?,%".split(' '), ['a'], ['a'], ['a'], ['a'], ['a'], ['a']]
+change = True
+debut_combat = True
+texts = []
+
+
+def init_fight(enemy):
+    global enemy1, texts
+    if enemy == "enemy1":
+        enemy1 = Enemy1()
+    texts = []
 
 
 def save():
@@ -32,7 +39,10 @@ def save():
 
 
 def game_fight():  # menu=4
-    global menu, frame, player, enemy1, map_game, x_map_game, y_map_game, fight_mode
+    global menu, frame, player, enemy1, map_game, x_map_game, y_map_game, fight_mode, debut_combat
+    if debut_combat:
+        init_fight('enemy1')
+        debut_combat = False
     while not time.time() > frame + 1 / 61:
         pass
     frame = time.time()
@@ -122,6 +132,3 @@ def update_map_game(x_map, y_map, x_player, y_player, map_full, map_game_update)
         y_map += 1
 
     return map_game_update, x_map, y_map
-
-
-
