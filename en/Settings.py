@@ -1,4 +1,5 @@
 # en
+base = 'Base'
 plain = 'Plain'
 desert = 'Desert'
 snow = 'Snow'

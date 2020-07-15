@@ -20,6 +20,19 @@ def import_map():
 Settings = None
 
 
+def length(string, size):
+    ls = -(size / 8)
+    for char in string:
+        if char in ['i', 'I', ' ', '.', ':', ',', ';', "'", '!']:
+            ls += size / 3.6
+        elif char in ['1', '"', '[', ']', '*']:
+            ls += size / 2.4
+        else:
+            ls += size / 1.5
+    ls += size / 8
+    ls = int(ls)
+
+
 def import_language():
     global Settings
     with open('language/language.txt', 'rb') as file:
