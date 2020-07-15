@@ -26,10 +26,10 @@ def import_language():
         file = pickle.Unpickler(file)
         language = file.load()
     if language == "fr":
-        from fr import environment
+        from fr import Settings
     elif language == "en":
-        from en import environment
-    return environment
+        from en import Settings
+    return Settings
 
 
 def change_language(language):

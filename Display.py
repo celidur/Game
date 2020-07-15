@@ -16,12 +16,12 @@ class Display:
         self.arial = pygame.font.SysFont("arial", 20)
         self.rpg = pygame.font.Font("font/rpg_.ttf", 15)
         self.colors = {
-            Game.environment.plain: (68, 255, 0),
-            Game.environment.desert: (249, 210, 39),
-            Game.environment.snow: (152, 249, 219),
-            Game.environment.forest: (11, 109, 13),
-            Game.environment.mountain: (123, 95, 62),
-            Game.environment.volcano: (163, 41, 18)}
+            Game.Settings.plain: (68, 255, 0),
+            Game.Settings.desert: (249, 210, 39),
+            Game.Settings.snow: (152, 249, 219),
+            Game.Settings.forest: (11, 109, 13),
+            Game.Settings.mountain: (123, 95, 62),
+            Game.Settings.volcano: (163, 41, 18)}
 
     def display_update(self, n, x_case, y_case):
         try:
@@ -100,42 +100,42 @@ class Display:
         Game.Screen.blit(self.arial.render(str(base_att), False, (255, 255, 255)), (160 - len(str(base_att)) * 8, 510))
         Game.Screen.blit(self.arial.render(str(base_def), False, (255, 255, 255)), (230 - len(str(base_def)) * 8, 510))
         # plaine
-        Game.Screen.blit(self.arial.render(Game.environment.plain, False, (68, 255, 0)), (40, 540))
+        Game.Screen.blit(self.arial.render(Game.Settings.plain, False, (68, 255, 0)), (40, 540))
         Game.Screen.blit(self.arial.render('+' + str(plain_att), False, (255, 255, 255)),
                          (152 - len(str(plain_att)) * 8, 540))
         Game.Screen.blit(self.arial.render('+' + str(plain_def), False, (255, 255, 255)),
                          (222 - len(str(plain_def)) * 8, 540))
 
         # désert
-        Game.Screen.blit(self.arial.render(Game.environment.desert, False, (249, 210, 39)), (40, 565))
+        Game.Screen.blit(self.arial.render(Game.Settings.desert, False, (249, 210, 39)), (40, 565))
         Game.Screen.blit(self.arial.render('+' + str(desert_att), False, (255, 255, 255)),
                          (152 - len(str(desert_att)) * 8, 565))
         Game.Screen.blit(self.arial.render('+' + str(desert_def), False, (255, 255, 255)),
                          (222 - len(str(desert_def)) * 8, 565))
 
         # neige
-        Game.Screen.blit(self.arial.render(Game.environment.snow, False, (152, 249, 219)), (40, 590))
+        Game.Screen.blit(self.arial.render(Game.Settings.snow, False, (152, 249, 219)), (40, 590))
         Game.Screen.blit(self.arial.render('+' + str(snow_att), False, (255, 255, 255)),
                          (152 - len(str(snow_att)) * 8, 590))
         Game.Screen.blit(self.arial.render('+' + str(snow_def), False, (255, 255, 255)),
                          (222 - len(str(snow_def)) * 8, 590))
 
         # forêt
-        Game.Screen.blit(self.arial.render(Game.environment.forest, False, (11, 109, 13)), (40, 615))
+        Game.Screen.blit(self.arial.render(Game.Settings.forest, False, (11, 109, 13)), (40, 615))
         Game.Screen.blit(self.arial.render('+' + str(forest_att), False, (255, 255, 255)),
                          (152 - len(str(forest_att)) * 8, 615))
         Game.Screen.blit(self.arial.render('+' + str(forest_def), False, (255, 255, 255)),
                          (222 - len(str(forest_def)) * 8, 615))
 
         # montagne
-        Game.Screen.blit(self.arial.render(Game.environment.mountain, False, (123, 95, 62)), (40, 640))
+        Game.Screen.blit(self.arial.render(Game.Settings.mountain, False, (123, 95, 62)), (40, 640))
         Game.Screen.blit(self.arial.render('+' + str(mountain_att), False, (255, 255, 255)),
                          (152 - len(str(mountain_att)) * 8, 640))
         Game.Screen.blit(self.arial.render('+' + str(mountain_def), False, (255, 255, 255)),
                          (222 - len(str(mountain_def)) * 8, 640))
 
         # volcan
-        Game.Screen.blit(self.arial.render(Game.environment.volcano, False, (163, 41, 18)), (40, 665))
+        Game.Screen.blit(self.arial.render(Game.Settings.volcano, False, (163, 41, 18)), (40, 665))
         Game.Screen.blit(self.arial.render('+' + str(volcano_att), False, (255, 255, 255)),
                          (152 - len(str(volcano_att)) * 8, 665))
         Game.Screen.blit(self.arial.render('+' + str(volcano_def), False, (255, 255, 255)),
