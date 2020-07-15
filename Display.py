@@ -76,7 +76,18 @@ class Display:
         Game.Screen.blit(self.arial.render("PV : {}/{}  PM : {}/{}".format(player_stats[0], player_stats[1],
                                                                            player_stats[2], player_stats[3]), False,
                                            (255, 255, 255)), (60, 438))
+        Game.button_attack.display_button()
+        Game.button_inventory.display_button()
+        Game.button_run_fight.display_button()
+        Game.button_magic.display_button()
         # zone stats
+        feu = '8'
+        Game.Screen.blit(self.arial.render("attaque | defense", False, (255, 255, 255)), (110, 480))
+        # fire
+        Game.Screen.blit(self.arial.render("feu", False, (255, 255, 255)), (40, 510))
+        Game.Screen.blit(self.arial.render(feu, False, (255, 255, 255)), (160 - len(feu) * 8, 510))
+        Game.Screen.blit(self.arial.render(feu, False, (255, 255, 255)), (230 - len(feu) * 8, 510))
+
         # zone actions
         text = "Ceci est une longue phrase. En voici une autre un peu plus longue."
         text = text.split(' ')
@@ -86,7 +97,7 @@ class Display:
             x, y = 0, 0
             for text in Game.texts:
                 for word in text:
-                    x += len(word)*8
+                    x += len(word) * 8
                     if x >= 250:
                         y += 18
                         x = 0
@@ -100,17 +111,17 @@ class Display:
         x, y = 0, 0
         for t in range(len(Game.texts)):
             for word in Game.texts[t]:
-                lw = len(word)*8
+                lw = len(word) * 8
                 if x + lw >= 250:
                     y += 18
                     x = 0
                 for char in word:
-                    if t == len(Game.texts)-1:
+                    if t == len(Game.texts) - 1:
                         Game.Screen.blit(self.rpg.render(char, False, (255, 255, 255)), (430 + x, 485 + y))
                     else:
-                        Game.Screen.blit(self.rpg.render(char, False, (180, 180, 180)), (430+x, 485+y))
+                        Game.Screen.blit(self.rpg.render(char, False, (180, 180, 180)), (430 + x, 485 + y))
                     x += 8
-                    if change and t == len(Game.texts)-1:
+                    if change and t == len(Game.texts) - 1:
                         pygame.display.flip()
                         time.sleep(0.06)
                 x += 5
