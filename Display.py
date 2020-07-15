@@ -1,8 +1,7 @@
 import time
-
 import Game
 import pygame
-
+from fr/environment.py import *
 
 class Display:
     def __init__(self, block, block2, width, length, size_window, background, map_game):
@@ -17,12 +16,12 @@ class Display:
         self.arial = pygame.font.SysFont("arial", 20)
         self.rpg = pygame.font.Font("font/rpg_.ttf", 15)
         self.colors = {
-            'Plaine': (68, 255, 0),
-            'Désert': (249, 210, 39),
-            'Neige': (152, 249, 219),
-            'Forêt': (11, 109, 13),
-            'Montagne': (123, 95, 62),
-            'Volcan': (163, 41, 18)}
+            plain: (68, 255, 0),
+            desert: (249, 210, 39),
+            snow: (152, 249, 219),
+            forest: (11, 109, 13),
+            mountain: (123, 95, 62),
+            volcano: (163, 41, 18)}
 
     def display_update(self, n, x_case, y_case):
         try:
