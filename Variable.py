@@ -1,3 +1,4 @@
+import os
 import pickle
 
 import pygame
@@ -14,6 +15,32 @@ def import_map():
         size = file.load()
     length, width = size[0], size[1]
     return map1, length, width
+
+
+environment = None
+
+
+def import_language():
+    global environment
+    with open('language/language.txt', 'rb') as file:
+        file = pickle.Unpickler(file)
+        language = file.load()
+    if language == "fr":
+        from fr import environment
+    elif language == "en":
+        from en import environment
+    return environment
+
+
+def change_language(language):
+    try:
+        os.remove("language/language.txt")
+    except FileNotFoundError:
+        pass
+    with open("language/language.txt", 'wb') as file:
+        pickler = pickle.Pickler(file)
+        pickler.dump(language)
+    return import_language()
 
 
 board = pygame.image.load('assets/button/board.png')

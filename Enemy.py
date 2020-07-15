@@ -40,3 +40,5 @@ class Enemy(pygame.sprite.Sprite):
 
     def get_size(self):
         return self.size
+
+

@@ -4,6 +4,7 @@ import time
 from Display import Display
 from Player import Player
 
+environment = import_language()
 player = Player()
 x, y, menu, escape = 48 * 64, 30 * 64, 4, time.time()
 map_game = []
@@ -22,7 +23,8 @@ frame = 0
 fight_mode = 0
 change = True
 enemy1 = Enemy1()
-texts = ["ancien message 1 tres tres tres tres tres tres tres tres tres tres tres long".split(' '), "test /:!?,%".split(' '),['a'],['a'],['a'],['a'],['a'],['a']]
+texts = ["ancien message 1 tres tres tres tres tres tres tres tres tres tres tres long".split(' '),
+         "test /:!?,%".split(' '), ['a'], ['a'], ['a'], ['a'], ['a'], ['a']]
 
 
 def save():
@@ -35,7 +37,7 @@ def game_fight():  # menu=4
         pass
     frame = time.time()
     display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
-                              enemy1.get_name(), player.get_stats(), fight_mode, change)
+                          enemy1.get_name(), player.get_stats(), fight_mode, change)
     pygame.display.flip()
 
 
@@ -120,3 +122,6 @@ def update_map_game(x_map, y_map, x_player, y_player, map_full, map_game_update)
         y_map += 1
 
     return map_game_update, x_map, y_map
+
+
+
