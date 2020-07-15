@@ -28,8 +28,3 @@ class Button:
                 self.position_button[1] + self.position_button[3] >= y >= self.position_button[1]:
             return True
         return False
-
-    def change_language(self, text, position_text, position_button):
-        self.text = text
-        self.position_text = position_text
-        self.position_button = position_button

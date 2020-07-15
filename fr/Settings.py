@@ -10,7 +10,7 @@ attack = 'Attaque'
 defense = 'Défense'
 magic = 'Magie'
 inventory = 'Inventaire'
-leave = 'Abandonner'
+leave = 'Abandon'
 
 resume = 'REPRENDRE'
 settings = 'PARAMETRES'

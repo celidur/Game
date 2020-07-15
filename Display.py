@@ -94,7 +94,7 @@ class Display:
         forest_att, forest_def = 12, 15
         mountain_att, mountain_def = 7, 9
         volcano_att, volcano_def = 14, 1
-        Game.Screen.blit(self.arial.render("Attaque | Défense", False, (255, 255, 255)), (110, 480))
+        Game.Screen.blit(self.arial.render("{}   {}".format(Game.Settings.attack, Game.Settings.defense), False, (255, 255, 255)), (110, 480))
         # base
         Game.Screen.blit(self.arial.render("Base", False, (255, 255, 255)), (40, 510))
         Game.Screen.blit(self.arial.render(str(base_att), False, (255, 255, 255)), (160 - len(str(base_att)) * 8, 510))
