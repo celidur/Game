@@ -26,11 +26,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb6caf52-6c9e-49f2-915f-98f5adb74e73" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Display.py" beforeDir="false" afterPath="$PROJECT_DIR$/Display.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/Enemy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Enemy1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Enemy1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Variable.py" beforeDir="false" afterPath="$PROJECT_DIR$/Variable.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -365,7 +361,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594830472511</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="update">
+      <created>1594844658276</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1594844658276</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -426,10 +429,10 @@
     </state>
     <state x="430" y="0" key="#main/0.0.1366.768@0.0.1366.768" timestamp="1594763272857" />
     <state x="484" y="6" key="#main/0.0.1536.821@0.0.1536.821" timestamp="1590876414106" />
-    <state x="310" y="0" key="CommitChangelistDialog2" timestamp="1594830466073">
+    <state x="310" y="0" key="CommitChangelistDialog2" timestamp="1594844647891">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="310" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1594830466073" />
+    <state x="310" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1594844647891" />
     <state x="93" y="93" width="1350" height="635" maximized="true" key="DiffContextDialog" timestamp="1594228866792">
       <screen x="0" y="0" width="1536" height="821" />
     </state>
@@ -484,10 +487,10 @@
       <screen x="0" y="0" width="1536" height="821" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1536.821@0.0.1536.821" timestamp="1594333575720" />
-    <state x="321" y="135" key="Vcs.Push.Dialog.v2" timestamp="1594830501045">
+    <state x="321" y="135" key="Vcs.Push.Dialog.v2" timestamp="1594844667125">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="321" y="135" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1594830501045" />
+    <state x="321" y="135" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1594844667125" />
     <state x="361" y="144" key="Vcs.Push.Dialog.v2/0.0.1536.821@0.0.1536.821" timestamp="1594405439269" />
     <state x="578" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590948359662">
       <screen x="0" y="0" width="1536" height="821" />

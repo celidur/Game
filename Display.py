@@ -16,7 +16,14 @@ class Display:
         # self.i1 = time.time() + 1
         self.arial = pygame.font.SysFont("arial", 20)
         self.rpg = pygame.font.Font("font/rpg_.ttf", 15)
-        self.colors = {'Plaine':
+        self.colors = {
+            'Plaine': (68, 255, 0),
+            'Désert': (249, 210, 39),
+            'Neige': (152, 249, 219),
+            'Forêt': (11, 109, 13),
+            'Montagne': (123, 95, 62),
+            'Volcan': (163, 41, 18)}
+
     def display_update(self, n, x_case, y_case):
         try:
             if n == 4:
