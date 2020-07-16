@@ -51,6 +51,10 @@ while running:
                 Game.fight_mode = 3
             elif Game.button_leave.button_clicked(pos[0], pos[1]):
                 Game.fight_mode = 4
+        elif onclick and (Game.fight_mode == 1 or Game.fight_mode == 2):
+            if Game.button_return.button_clicked(pos[0], pos[1]):
+                Game.fight_mode = 0
+        onclick = False
         Game.game_fight()
 Game.save()
 quit()
