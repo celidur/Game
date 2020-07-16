@@ -42,6 +42,15 @@ while running:
         else:
             Game.game_menu(pressed)
     elif Game.menu == 4:
+        if Game.fight_mode == 0 and onclick:
+            if Game.button_attack.button_clicked(pos[0], pos[1]):
+                Game.fight_mode = 1
+            elif Game.button_magic.button_clicked(pos[0], pos[1]):
+                Game.fight_mode = 2
+            elif Game.button_inventory.button_clicked(pos[0], pos[1]):
+                Game.fight_mode = 3
+            elif Game.button_leave.button_clicked(pos[0], pos[1]):
+                Game.fight_mode = 4
         Game.game_fight()
 Game.save()
 quit()
