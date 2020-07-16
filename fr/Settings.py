@@ -1,4 +1,6 @@
 # fr
+attack_stat = '  Attaque'
+defense_stat = ' Defense'
 base = 'Base'
 plain = 'Plaine'
 desert = 'Désert'
@@ -7,11 +9,10 @@ forest = 'Forêt'
 mountain = 'Montagne'
 volcano = 'Volcan'
 
-attack = 'Attaque'
-defense = 'Défense'
-magic = 'Magie'
-inventory = '      Inventaire'
-leave = 'Abandon '
+attack = '   Attaque'
+magic = '    Magie'
+inventory = ' Inventaire'
+leave = '  Abandon'
 
 resume = 'REPRENDRE'
 settings = 'PARAMETRES'

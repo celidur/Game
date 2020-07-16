@@ -85,61 +85,61 @@ class Display:
         Game.button_attack.display_button()
         Game.button_inventory.display_button()
         Game.button_magic.display_button()
-        Game.button_run_fight.display_button()
+        Game.button_leave.display_button()
         # zone stats
-        base_att, base_def = 50, 20
-        plain_att, plain_def = 8, 0
-        desert_att, desert_def = 2, 3
-        snow_att, snow_def = 0, 0
-        forest_att, forest_def = 12, 15
-        mountain_att, mountain_def = 7, 9
-        volcano_att, volcano_def = 14, 1
-        Game.Screen.blit(self.arial.render("{}   {}".format(Game.Settings.attack, Game.Settings.defense), False, (255, 255, 255)), (110, 480))
+        attack_base, defense_base = 50, 20
+        attack_plain, defense_plain = 8, 0
+        attack_desert, defense_desert = 2, 3
+        attack_snow, defense_snow = 0, 0
+        attack_forest, defense_forest = 12, 15
+        attack_mountain, defense_mountain = 7, 9
+        attack_volcano, defense_volcano = 14, 1
+        Game.Screen.blit(self.arial.render("{} {}".format(Game.Settings.attack_stat, Game.Settings.defense_stat), False, (255, 255, 255)), (100, 480))
         # base
         Game.Screen.blit(self.arial.render("Base", False, (255, 255, 255)), (40, 510))
-        Game.Screen.blit(self.arial.render(str(base_att), False, (255, 255, 255)), (160 - len(str(base_att)) * 8, 510))
-        Game.Screen.blit(self.arial.render(str(base_def), False, (255, 255, 255)), (230 - len(str(base_def)) * 8, 510))
+        Game.Screen.blit(self.arial.render(str(attack_base), False, (255, 255, 255)), (160 - len(str(defense_base)) * 8, 510))
+        Game.Screen.blit(self.arial.render(str(defense_base), False, (255, 255, 255)), (230 - len(str(defense_base)) * 8, 510))
         # plaine
         Game.Screen.blit(self.arial.render(Game.Settings.plain, False, (68, 255, 0)), (40, 540))
-        Game.Screen.blit(self.arial.render('+' + str(plain_att), False, (255, 255, 255)),
-                         (152 - len(str(plain_att)) * 8, 540))
-        Game.Screen.blit(self.arial.render('+' + str(plain_def), False, (255, 255, 255)),
-                         (222 - len(str(plain_def)) * 8, 540))
+        Game.Screen.blit(self.arial.render('+' + str(attack_plain), False, (255, 255, 255)),
+                         (152 - len(str(attack_plain)) * 8, 540))
+        Game.Screen.blit(self.arial.render('+' + str(defense_plain), False, (255, 255, 255)),
+                         (222 - len(str(defense_plain)) * 8, 540))
 
         # désert
         Game.Screen.blit(self.arial.render(Game.Settings.desert, False, (249, 210, 39)), (40, 565))
-        Game.Screen.blit(self.arial.render('+' + str(desert_att), False, (255, 255, 255)),
-                         (152 - len(str(desert_att)) * 8, 565))
-        Game.Screen.blit(self.arial.render('+' + str(desert_def), False, (255, 255, 255)),
-                         (222 - len(str(desert_def)) * 8, 565))
+        Game.Screen.blit(self.arial.render('+' + str(attack_desert), False, (255, 255, 255)),
+                         (152 - len(str(attack_desert)) * 8, 565))
+        Game.Screen.blit(self.arial.render('+' + str(defense_desert), False, (255, 255, 255)),
+                         (222 - len(str(defense_desert)) * 8, 565))
 
         # neige
         Game.Screen.blit(self.arial.render(Game.Settings.snow, False, (152, 249, 219)), (40, 590))
-        Game.Screen.blit(self.arial.render('+' + str(snow_att), False, (255, 255, 255)),
-                         (152 - len(str(snow_att)) * 8, 590))
-        Game.Screen.blit(self.arial.render('+' + str(snow_def), False, (255, 255, 255)),
-                         (222 - len(str(snow_def)) * 8, 590))
+        Game.Screen.blit(self.arial.render('+' + str(attack_snow), False, (255, 255, 255)),
+                         (152 - len(str(attack_snow)) * 8, 590))
+        Game.Screen.blit(self.arial.render('+' + str(defense_snow), False, (255, 255, 255)),
+                         (222 - len(str(defense_snow)) * 8, 590))
 
         # forêt
         Game.Screen.blit(self.arial.render(Game.Settings.forest, False, (11, 109, 13)), (40, 615))
-        Game.Screen.blit(self.arial.render('+' + str(forest_att), False, (255, 255, 255)),
-                         (152 - len(str(forest_att)) * 8, 615))
-        Game.Screen.blit(self.arial.render('+' + str(forest_def), False, (255, 255, 255)),
-                         (222 - len(str(forest_def)) * 8, 615))
+        Game.Screen.blit(self.arial.render('+' + str(attack_forest), False, (255, 255, 255)),
+                         (152 - len(str(attack_forest)) * 8, 615))
+        Game.Screen.blit(self.arial.render('+' + str(defense_forest), False, (255, 255, 255)),
+                         (222 - len(str(defense_forest)) * 8, 615))
 
         # montagne
         Game.Screen.blit(self.arial.render(Game.Settings.mountain, False, (123, 95, 62)), (40, 640))
-        Game.Screen.blit(self.arial.render('+' + str(mountain_att), False, (255, 255, 255)),
-                         (152 - len(str(mountain_att)) * 8, 640))
-        Game.Screen.blit(self.arial.render('+' + str(mountain_def), False, (255, 255, 255)),
-                         (222 - len(str(mountain_def)) * 8, 640))
+        Game.Screen.blit(self.arial.render('+' + str(attack_mountain), False, (255, 255, 255)),
+                         (152 - len(str(attack_mountain)) * 8, 640))
+        Game.Screen.blit(self.arial.render('+' + str(defense_mountain), False, (255, 255, 255)),
+                         (222 - len(str(defense_mountain)) * 8, 640))
 
         # volcan
         Game.Screen.blit(self.arial.render(Game.Settings.volcano, False, (163, 41, 18)), (40, 665))
-        Game.Screen.blit(self.arial.render('+' + str(volcano_att), False, (255, 255, 255)),
-                         (152 - len(str(volcano_att)) * 8, 665))
-        Game.Screen.blit(self.arial.render('+' + str(volcano_def), False, (255, 255, 255)),
-                         (222 - len(str(volcano_def)) * 8, 665))
+        Game.Screen.blit(self.arial.render('+' + str(attack_volcano), False, (255, 255, 255)),
+                         (152 - len(str(attack_volcano)) * 8, 665))
+        Game.Screen.blit(self.arial.render('+' + str(defense_volcano), False, (255, 255, 255)),
+                         (222 - len(str(defense_volcano)) * 8, 665))
 
         # zone actions
         text = "Ceci est une longue phrase. En voici une autre un peu plus longue."
