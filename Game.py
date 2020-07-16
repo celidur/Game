@@ -4,19 +4,20 @@ import time
 from Display import Display
 from Player import Player
 
-Settings, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, button_save, \
-button_pause, button_setting = import_language()
+Settings, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
+           button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
+           button_return, button_magic1, button_magic2, button_magic3, button_magic4 = import_language()
 player = Player()
 x, y, menu, escape = 48 * 64, 30 * 64, 4, time.time()
 map_game = []
 for X_case in range((x + 32) // 64 - 8, (x + 32) // 64 + 9):
-    liste = []
+    list1 = []
     for Y_case in range((y + 32) // 64 - 8, (y + 32) // 64 + 14):
         if 0 <= X_case < Length and 0 <= Y_case < Width:
-            liste.append(Map[X_case][Y_case])
+            list1.append(Map[X_case][Y_case])
         else:
-            liste.append(None)
-    map_game.append(liste[:])
+            list1.append(None)
+    map_game.append(list1[:])
 x_map_game = (x + 32) // 64
 y_map_game = (y + 32) // 64
 display = Display(block, block2, Width, Length, size_window, background, Map)
@@ -48,7 +49,7 @@ def game_fight():  # menu=4
         pass
     frame = time.time()
     display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
-                          enemy1.get_name(), player.get_stats(), fight_mode, change, text='coucou')
+                          enemy1.get_name(), player.get_stats(), change, text='hey')
     pygame.display.flip()
 
 

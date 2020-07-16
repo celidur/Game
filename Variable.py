@@ -13,8 +13,7 @@ def import_map():
     with open('file/size.txt', 'rb') as file:
         file = pickle.Unpickler(file)
         size = file.load()
-    length, width = size[0], size[1]
-    return map1, length, width
+    return map1, size[0], size[1]
 
 
 Settings = None
@@ -74,8 +73,27 @@ def import_language():
                                      (285, 585), 25)
     button_leave = Button.Button((127, 127, 127), (255, 255, 255), [280, 655, 110, 40], Settings.leave,
                                  (285, 660), 25)
+    button_attack1 = Button.Button((127, 127, 127), (255, 255, 255), [280, 420, 110, 40], Settings.attack_1,
+                                   (285, 425), 25)
+    button_attack2 = Button.Button((127, 127, 127), (255, 255, 255), [280, 480, 110, 40], Settings.attack_2,
+                                   (285, 485), 25)
+    button_attack3 = Button.Button((127, 127, 127), (255, 255, 255), [280, 540, 110, 40], Settings.attack_3,
+                                   (285, 545), 25)
+    button_attack4 = Button.Button((127, 127, 127), (255, 255, 255), [280, 600, 110, 40], Settings.attack_4,
+                                   (285, 605), 25)
+    button_magic1 = Button.Button((127, 127, 127), (255, 255, 255), [280, 420, 110, 40], Settings.magic_1,
+                                   (285, 425), 25)
+    button_magic2 = Button.Button((127, 127, 127), (255, 255, 255), [280, 480, 110, 40], Settings.magic_2,
+                                   (285, 485), 25)
+    button_magic3 = Button.Button((127, 127, 127), (255, 255, 255), [280, 540, 110, 40], Settings.magic_3,
+                                   (285, 545), 25)
+    button_magic4 = Button.Button((127, 127, 127), (255, 255, 255), [280, 600, 110, 40], Settings.magic_4,
+                                   (285, 605), 25)
+    button_return = Button.Button((127, 127, 127), (255, 255, 255), [280, 660, 110, 40], Settings.back,
+                                  (285, 665), 25)
     return Settings, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
-           button_save, button_pause, button_setting
+           button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
+           button_return, button_magic1, button_magic2, button_magic3, button_magic4
 
 
 def change_language(language):

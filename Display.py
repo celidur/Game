@@ -74,7 +74,7 @@ class Display:
         #    self.i1 = time.time() + 1
         #    self.ii = 0
 
-    def display_fight(self, background, monster, size, hp, name, player_stats, fight_mode, change, text):
+    def display_fight(self, background, monster, size, hp, name, player_stats, change, text):
         Game.Screen.blit(background, (0, 0))
         Game.Screen.blit(monster, size)
         Game.Screen.blit(self.arial.render("PV : {}/{}  PM : {}/{}".format(player_stats[0], player_stats[1],
@@ -95,55 +95,68 @@ class Display:
             attack_forest, defense_forest = 12, 15
             attack_mountain, defense_mountain = 7, 9
             attack_volcano, defense_volcano = 14, 1
-            Game.Screen.blit(self.arial.render("{}   {}".format(Game.Settings.attack_stat, Game.Settings.defense_stat), False,
-                                               (255, 255, 255)), (530, 420))
+            Game.Screen.blit(
+                self.arial.render("{}   {}".format(Game.Settings.attack_stat, Game.Settings.defense_stat), False,
+                                  (255, 255, 255)), (530, 420))
             # base
             Game.Screen.blit(self.arial.render("Base", False, (255, 255, 255)), (430, 460))
-            Game.Screen.blit(self.arial.render(str(attack_base), False, (255, 255, 255)), (585 - len(str(defense_base)) * 8, 460))
-            Game.Screen.blit(self.arial.render(str(defense_base), False, (255, 255, 255)), (665 - len(str(defense_base)) * 8, 460))
+            Game.Screen.blit(self.arial.render(str(attack_base), False, (255, 255, 255)),
+                             (585 - len(str(defense_base)) * 8, 460))
+            Game.Screen.blit(self.arial.render(str(defense_base), False, (255, 255, 255)),
+                             (665 - len(str(defense_base)) * 8, 460))
             # plaine
             Game.Screen.blit(self.arial.render(Game.Settings.plain, False, (68, 255, 0)), (430, 500))
             Game.Screen.blit(self.arial.render('+' + str(attack_plain), False, (255, 255, 255)),
-                             (585 - len(str(attack_plain)+'+') * 8, 500))
+                             (585 - len(str(attack_plain) + '+') * 8, 500))
             Game.Screen.blit(self.arial.render('+' + str(defense_plain), False, (255, 255, 255)),
-                             (665 - len(str(defense_plain)+'+') * 8, 500))
+                             (665 - len(str(defense_plain) + '+') * 8, 500))
 
             # désert
             Game.Screen.blit(self.arial.render(Game.Settings.desert, False, (249, 210, 39)), (430, 530))
             Game.Screen.blit(self.arial.render('+' + str(attack_desert), False, (255, 255, 255)),
-                             (585 - len(str(attack_desert)+'+') * 8, 530))
+                             (585 - len(str(attack_desert) + '+') * 8, 530))
             Game.Screen.blit(self.arial.render('+' + str(defense_desert), False, (255, 255, 255)),
-                             (665 - len(str(defense_desert)+'+') * 8, 530))
+                             (665 - len(str(defense_desert) + '+') * 8, 530))
 
             # neige
             Game.Screen.blit(self.arial.render(Game.Settings.snow, False, (152, 249, 219)), (430, 560))
             Game.Screen.blit(self.arial.render('+' + str(attack_snow), False, (255, 255, 255)),
-                             (585 - len(str(attack_snow)+'+') * 8, 560))
+                             (585 - len(str(attack_snow) + '+') * 8, 560))
             Game.Screen.blit(self.arial.render('+' + str(defense_snow), False, (255, 255, 255)),
-                             (665 - len(str(defense_snow)+'+') * 8, 560))
+                             (665 - len(str(defense_snow) + '+') * 8, 560))
 
             # forêt
             Game.Screen.blit(self.arial.render(Game.Settings.forest, False, (11, 109, 13)), (430, 590))
             Game.Screen.blit(self.arial.render('+' + str(attack_forest), False, (255, 255, 255)),
-                             (585 - len(str(attack_forest)+'+') * 8, 590))
+                             (585 - len(str(attack_forest) + '+') * 8, 590))
             Game.Screen.blit(self.arial.render('+' + str(defense_forest), False, (255, 255, 255)),
-                             (665 - len(str(defense_forest)+'+') * 8, 590))
+                             (665 - len(str(defense_forest) + '+') * 8, 590))
 
             # montagne
             Game.Screen.blit(self.arial.render(Game.Settings.mountain, False, (123, 95, 62)), (430, 620))
             Game.Screen.blit(self.arial.render('+' + str(attack_mountain), False, (255, 255, 255)),
-                             (585 - len(str(attack_mountain)+'+') * 8, 620))
+                             (585 - len(str(attack_mountain) + '+') * 8, 620))
             Game.Screen.blit(self.arial.render('+' + str(defense_mountain), False, (255, 255, 255)),
-                             (665 - len(str(defense_mountain)+'+') * 8, 620))
+                             (665 - len(str(defense_mountain) + '+') * 8, 620))
 
             # volcan
             Game.Screen.blit(self.arial.render(Game.Settings.volcano, False, (163, 41, 18)), (430, 650))
             Game.Screen.blit(self.arial.render('+' + str(attack_volcano), False, (255, 255, 255)),
-                             (585 - len(str(attack_volcano)+'+') * 8, 650))
+                             (585 - len(str(attack_volcano) + '+') * 8, 650))
             Game.Screen.blit(self.arial.render('+' + str(defense_volcano), False, (255, 255, 255)),
-                             (665 - len(str(defense_volcano)+'+') * 8, 650))
+                             (665 - len(str(defense_volcano) + '+') * 8, 650))
         elif Game.fight_mode == 1:
-            pass
+            Game.button_attack1.display_button()
+            Game.button_attack2.display_button()
+            Game.button_attack3.display_button()
+            Game.button_attack4.display_button()
+            Game.button_return.display_button()
+        elif Game.fight_mode == 2:
+            Game.button_magic1.display_button()
+            Game.button_magic2.display_button()
+            Game.button_magic3.display_button()
+            Game.button_magic4.display_button()
+            Game.button_return.display_button()
         # zone actions
         text = text.split(' ')
         if not Game.texts:
