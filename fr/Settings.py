@@ -1,6 +1,6 @@
 # fr
 attack_stat = '  Attaque'
-defense_stat = ' Defense'
+defense_stat = ' Défense'
 base = 'Base'
 plain = 'Plaine'
 desert = 'Désert'

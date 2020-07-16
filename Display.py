@@ -13,8 +13,8 @@ class Display:
         # self.ii = 0
         self.map = map_game
         # self.i1 = time.time() + 1
-        self.arial = pygame.font.SysFont("arial", 20)
-        self.rpg = pygame.font.Font("font/rpg_.ttf", 15)
+        self.arial = pygame.font.Font("font/FRAMDCN.TTF", 20)
+        self.dialogue = pygame.font.Font("font/rpg_.FON", 16)
         self.colors = {
             Game.Settings.plain: (68, 255, 0),
             Game.Settings.desert: (249, 210, 39),
@@ -74,7 +74,7 @@ class Display:
         #    self.i1 = time.time() + 1
         #    self.ii = 0
 
-    def display_fight(self, background, monster, size, hp, name, player_stats, fight_mode, change):
+    def display_fight(self, background, monster, size, hp, name, player_stats, fight_mode, change, text):
         Game.Screen.blit(background, (0, 0))
         Game.Screen.blit(monster, size)
         Game.Screen.blit(self.arial.render("PV : {}/{}  PM : {}/{}".format(player_stats[0], player_stats[1],
@@ -142,8 +142,10 @@ class Display:
                          (222 - len(str(defense_volcano)) * 8, 665))
 
         # zone actions
-        text = "Ceci est une longue phrase. En voici une autre un peu plus longue."
         text = text.split(' ')
+        if not Game.texts:
+            text = "Voix ambiguë d'un coeur qui au zéphyr préfère les jattes de kiwis.  1234567890".split(' ')
+            change = True
         if change:
             Game.texts.append(text)
         while True:
@@ -167,23 +169,19 @@ class Display:
         for t in range(len(Game.texts)):
             for word in Game.texts[t]:
                 lw = len(word) * 8
-                for i in ['i', '1', '.', ':', ',', ';', "'", '!']:
-                    lw -= word.count(i) * 4
                 if x + lw >= 250:
                     y += 18
                     x = 0
                 for char in word:
                     if t == len(Game.texts) - 1:
-                        Game.Screen.blit(self.rpg.render(char, False, (255, 255, 255)), (430 + x, 485 + y))
+                        Game.Screen.blit(self.dialogue.render(char, False, (255, 255, 255)), (430 + x, 485 + y))
                     else:
-                        Game.Screen.blit(self.rpg.render(char, False, (180, 180, 180)), (430 + x, 485 + y))
+                        Game.Screen.blit(self.dialogue.render(char, False, (180, 180, 180)), (430 + x, 485 + y))
                     x += 8
-                    if char in ['i', '1', '.', ':', ',', ';', "'", '!']:
-                        x -= 4
                     if change and t == len(Game.texts) - 1:
                         pygame.display.flip()
-                        time.sleep(0.01)
-                x += 5
+                        time.sleep(0.05)
+                x += 4
             x = 0
             y += 18
 

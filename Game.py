@@ -47,7 +47,7 @@ def game_fight():  # menu=4
         pass
     frame = time.time()
     display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
-                          enemy1.get_name(), player.get_stats(), fight_mode, change)
+                          enemy1.get_name(), player.get_stats(), fight_mode, change, text='coucou')
     pygame.display.flip()
 
 
