@@ -66,14 +66,14 @@ def import_language():
     button_setting = Button.Button(None, (0, 0, 0), [257, 320, 190, 65], Settings.settings, (271, 333), 30, board)
     button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], Settings.save, (264, 415), 28, board)
     button_exit = Button.Button(None, (0, 0, 0), [257, 480, 190, 65], Settings.quit_game, (290, 492), 34, board)
-    button_attack = Button.Button((127, 127, 127), (255, 255, 255), [280, 485, 110, 40], Settings.attack,
-                                  (285, 490), 25)
-    button_magic = Button.Button((127, 127, 127), (255, 255, 255), [280, 545, 110, 40], Settings.magic,
-                                 (285, 550), 25)
-    button_inventory = Button.Button((127, 127, 127), (255, 255, 255), [280, 605, 110, 40], Settings.inventory,
-                                     (285, 610), 25)
-    button_leave = Button.Button((127, 127, 127), (255, 255, 255), [280, 665, 110, 40], Settings.leave,
-                                 (285, 670), 25)
+    button_attack = Button.Button((127, 127, 127), (255, 255, 255), [280, 430, 110, 40], Settings.attack,
+                                  (285, 435), 25)
+    button_magic = Button.Button((127, 127, 127), (255, 255, 255), [280, 505, 110, 40], Settings.magic,
+                                 (285, 510), 25)
+    button_inventory = Button.Button((127, 127, 127), (255, 255, 255), [280, 580, 110, 40], Settings.inventory,
+                                     (285, 585), 25)
+    button_leave = Button.Button((127, 127, 127), (255, 255, 255), [280, 655, 110, 40], Settings.leave,
+                                 (285, 660), 25)
     return Settings, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
            button_save, button_pause, button_setting
 
