@@ -1,4 +1,6 @@
 # en
+hp = 'HP'
+mp = 'MP'
 attack_stat = '    Attack'
 defense_stat = ' Defense'
 base = 'Base'
