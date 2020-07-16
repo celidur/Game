@@ -20,17 +20,34 @@ def import_map():
 Settings = None
 
 
-def length(string, size):
-    ls = -(size / 8)
-    for char in string:
-        if char in ['i', 'I', ' ', '.', ':', ',', ';', "'", '!']:
-            ls += size / 3.6
-        elif char in ['1', '"', '[', ']', '*']:
-            ls += size / 2.4
-        else:
-            ls += size / 1.5
-    ls += size / 8
-    ls = int(ls)
+def length(string, font, size):
+    if font == 'rpg_':
+        ls = -(size / 8)
+        for char in string:
+            if char in ['i', 'I', ' ', '.', ':', ',', ';', "'", '!']:
+                ls += size / 3.6
+            elif char in ['1', '"', '[', ']', '*']:
+                ls += size / 2.4
+            else:
+                ls += size / 1.5
+            ls = int(ls)
+        ls += size / 8
+        ls = int(ls)
+    elif font == 'arial':
+        ls = 0
+        for char in string:
+            if char in ['m', 'w', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']:
+                ls += size / (72 / 82)
+            elif char in ['a', 'b', 'd', 'e', 'h', 'k', 'u', 'g', 'x', 'y', 'z', 'v', 's', 'p', 'q', 'o', 'n', 'J', 'L', 'é', 'è', 'ê', 'à', 'â', 'ù', 'û', '2', '4', '6', '5', '7', '8', '9', '0', '?', '+', '=']:
+                ls += size / (72 / 56)  # 1.286
+            elif char in ['c', 'ç', '1', '3']:
+                ls += size / (72 / 46)  # 1.565
+            elif char in ['f', 'j', 't', 'r', '(', ')', '-', '*', '/', '"', ]:
+                ls += size / 2.4
+            elif char in ['i', 'l', 'I', ' ', '.', ':', ',', ';', "'", '!']:
+                ls += size / (72 / 18)  # 4
+        ls = int(ls)
+    return ls // 2
 
 
 def import_language():
