@@ -77,6 +77,51 @@ class Display:
     def display_fight(self, background, monster, size, hp, name, player_stats, change, text):
         Game.Screen.blit(background, (0, 0))
         Game.Screen.blit(monster, size)
+        # zone actions
+        text = text.split(' ')
+        if not Game.texts:
+            text = "Voix ambiguë d'un coeur qui au zéphyr préfère les jattes de kiwis.  1234567890".split(' ')
+            change = True
+        if change:
+            Game.texts.append(text)
+        while True:
+            x, y = 0, 0
+            for text in Game.texts:
+                for word in text:
+                    x += len(word) * 8
+                    for i in ['i', '1', '.', ':', ',', ';', "'", '!']:
+                        x -= word.count(i) * 4
+                    if x >= 250:
+                        y += 18
+                        x = 0
+                    x += 5
+                x = 0
+                y += 18
+            if y > 291:
+                Game.texts.remove(Game.texts[0])
+            else:
+                break
+        x, y = 0, 0
+        for t in range(len(Game.texts)):
+            for word in Game.texts[t]:
+                lw = len(word) * 8
+                if x + lw >= 250:
+                    y += 18
+                    x = 0
+                for char in word:
+                    if t == len(Game.texts) - 1:
+                        Game.Screen.blit(self.dialogue.render(char, False, (255, 255, 255)), (35 + x, 415 + y))
+                    else:
+                        Game.Screen.blit(self.dialogue.render(char, False, (180, 180, 180)), (35 + x, 415 + y))
+                    x += 8
+                    if change and t == len(Game.texts) - 1:
+                        pygame.display.flip()
+                        time.sleep(0)
+                x += 4
+            x = 0
+            y += 18
+
+        Game.change = False
         Game.Screen.blit(self.arial.render("PV : {}/{}  PM : {}/{}".format(player_stats[0], player_stats[1],
                                                                            player_stats[2], player_stats[3]), False,
                                            (255, 255, 255)), (65, 357))
@@ -145,60 +190,22 @@ class Display:
                              (585 - len(str(attack_volcano) + '+') * 8, 650))
             Game.Screen.blit(self.arial.render('+' + str(defense_volcano), False, (255, 255, 255)),
                              (665 - len(str(defense_volcano) + '+') * 8, 650))
+            if Game.fight_mode == 4:
+                s = pygame.Surface((self.size_window[0], self.size_window[1]), pygame.SRCALPHA)
+                s.fill((0, 0, 0, 120))
+                Game.Screen.blit(s, (0, 0))
+                Game.button_confirm.display_button()
+                Game.button_back.display_button(433, 348, (438, 353))
         elif Game.fight_mode == 1:
             Game.button_attack1.display_button()
             Game.button_attack2.display_button()
             Game.button_attack3.display_button()
             Game.button_attack4.display_button()
-            Game.button_return.display_button()
+            Game.button_back.display_button()
+            # description attack
         elif Game.fight_mode == 2:
             Game.button_magic1.display_button()
             Game.button_magic2.display_button()
             Game.button_magic3.display_button()
             Game.button_magic4.display_button()
-            Game.button_return.display_button()
-        # zone actions
-        text = text.split(' ')
-        if not Game.texts:
-            text = "Voix ambiguë d'un coeur qui au zéphyr préfère les jattes de kiwis.  1234567890".split(' ')
-            change = True
-        if change:
-            Game.texts.append(text)
-        while True:
-            x, y = 0, 0
-            for text in Game.texts:
-                for word in text:
-                    x += len(word) * 8
-                    for i in ['i', '1', '.', ':', ',', ';', "'", '!']:
-                        x -= word.count(i) * 4
-                    if x >= 250:
-                        y += 18
-                        x = 0
-                    x += 5
-                x = 0
-                y += 18
-            if y > 291:
-                Game.texts.remove(Game.texts[0])
-            else:
-                break
-        x, y = 0, 0
-        for t in range(len(Game.texts)):
-            for word in Game.texts[t]:
-                lw = len(word) * 8
-                if x + lw >= 250:
-                    y += 18
-                    x = 0
-                for char in word:
-                    if t == len(Game.texts) - 1:
-                        Game.Screen.blit(self.dialogue.render(char, False, (255, 255, 255)), (35 + x, 415 + y))
-                    else:
-                        Game.Screen.blit(self.dialogue.render(char, False, (180, 180, 180)), (35 + x, 415 + y))
-                    x += 8
-                    if change and t == len(Game.texts) - 1:
-                        pygame.display.flip()
-                        time.sleep(0)
-                x += 4
-            x = 0
-            y += 18
-
-        Game.change = False
+            Game.button_back.display_button()

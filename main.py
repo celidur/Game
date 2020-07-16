@@ -1,5 +1,6 @@
 import Game
 import pygame
+
 onclick, running, pressed, pos = False, True, {}, [0, 0]
 while running:
     for event in pygame.event.get():
@@ -14,8 +15,6 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             onclick = True
             pos = pygame.mouse.get_pos()
-        else:
-            onclick = False
     if Game.menu == 0:
         if onclick:
             if Game.button_menu.button_clicked(pos[0], pos[1]):
@@ -42,19 +41,26 @@ while running:
         else:
             Game.game_menu(pressed)
     elif Game.menu == 4:
-        if Game.fight_mode == 0 and onclick:
-            if Game.button_attack.button_clicked(pos[0], pos[1]):
-                Game.fight_mode = 1
-            elif Game.button_magic.button_clicked(pos[0], pos[1]):
-                Game.fight_mode = 2
-            elif Game.button_inventory.button_clicked(pos[0], pos[1]):
-                Game.fight_mode = 3
-            elif Game.button_leave.button_clicked(pos[0], pos[1]):
-                Game.fight_mode = 4
-        elif onclick and (Game.fight_mode == 1 or Game.fight_mode == 2):
-            if Game.button_return.button_clicked(pos[0], pos[1]):
-                Game.fight_mode = 0
-        onclick = False
+        if onclick:
+            if Game.fight_mode == 0:
+                if Game.button_attack.button_clicked(pos[0], pos[1]):
+                    Game.fight_mode = 1
+                elif Game.button_magic.button_clicked(pos[0], pos[1]):
+                    Game.fight_mode = 2
+                elif Game.button_inventory.button_clicked(pos[0], pos[1]):
+                    pass
+                elif Game.button_leave.button_clicked(pos[0], pos[1]):
+                    Game.fight_mode = 4
+            elif Game.fight_mode == 1 or Game.fight_mode == 2:
+                if Game.button_back.button_clicked(pos[0], pos[1]):
+                    Game.fight_mode = 0
+            elif Game.fight_mode == 4:
+                if Game.button_back.button_clicked(pos[0], pos[1], 433, 348):
+                    Game.fight_mode = 0
+                elif Game.button_confirm.button_clicked(pos[0], pos[1]):
+                    Game.fight_mode = 0
+                    Game.menu = 0
         Game.game_fight()
+    onclick = False
 Game.save()
 quit()

@@ -16,7 +16,7 @@ def import_map():
     return map1, size[0], size[1]
 
 
-Settings = None
+Settings, Texts = None, None
 
 
 def length(string, size, font='arial'):
@@ -53,7 +53,7 @@ def length(string, size, font='arial'):
 
 
 def import_language():
-    global Settings
+    global Settings, Texts
     with open('language/language.txt', 'rb') as file:
         file = pickle.Unpickler(file)
         language = file.load()
@@ -61,6 +61,7 @@ def import_language():
         from fr import Settings
     elif language == "en":
         from en import Settings
+        from en import Texts
     button_pause = Button.Button(None, (0, 0, 0), [257, 240, 190, 65], Settings.resume, (270, 253), 32, board)
     button_setting = Button.Button(None, (0, 0, 0), [257, 320, 190, 65], Settings.settings, (271, 333), 30, board)
     button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], Settings.save, (264, 415), 28, board)
@@ -89,11 +90,13 @@ def import_language():
                                    (285, 545), 25)
     button_magic4 = Button.Button((127, 127, 127), (255, 255, 255), [280, 600, 110, 40], Settings.magic_4,
                                    (285, 605), 25)
-    button_return = Button.Button((127, 127, 127), (255, 255, 255), [280, 660, 110, 40], Settings.back,
-                                  (285, 665), 25)
-    return Settings, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
+    button_back = Button.Button((127, 127, 127), (255, 255, 255), [280, 660, 110, 40], Settings.back,
+                                (285, 665), 25)
+    button_confirm = Button.Button((127, 127, 127), (255, 255, 255), [161, 348, 110, 40], Settings.confirm,
+                                   (166, 353), 25)
+    return Settings, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
            button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-           button_return, button_magic1, button_magic2, button_magic3, button_magic4
+           button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm
 
 
 def change_language(language):

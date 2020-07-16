@@ -4,9 +4,9 @@ import time
 from Display import Display
 from Player import Player
 
-Settings, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
+Settings, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
            button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-           button_return, button_magic1, button_magic2, button_magic3, button_magic4 = import_language()
+           button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm = import_language()
 player = Player()
 x, y, menu, escape = 48 * 64, 30 * 64, 4, time.time()
 map_game = []
