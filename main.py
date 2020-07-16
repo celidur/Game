@@ -1,3 +1,5 @@
+import time
+
 import Game
 import pygame
 
@@ -60,6 +62,9 @@ while running:
                 elif Game.button_confirm.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 0
                     Game.menu = 0
+        elif pressed.get(pygame.K_ESCAPE) and Game.fight_mode == 4:
+            Game.fight_mode = 0
+
         Game.game_fight()
     onclick = False
 Game.save()

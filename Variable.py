@@ -59,6 +59,7 @@ def import_language():
         language = file.load()
     if language == "fr":
         from fr import Settings
+        from fr import Texts
     elif language == "en":
         from en import Settings
         from en import Texts
