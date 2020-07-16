@@ -142,7 +142,8 @@ class Display:
                              (585 - len(str(attack_volcano)+'+') * 8, 650))
             Game.Screen.blit(self.arial.render('+' + str(defense_volcano), False, (255, 255, 255)),
                              (665 - len(str(defense_volcano)+'+') * 8, 650))
-
+        elif Game.fight_mode == 1:
+            pass
         # zone actions
         text = text.split(' ')
         if not Game.texts:
