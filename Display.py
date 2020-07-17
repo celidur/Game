@@ -151,13 +151,16 @@ class Display:
             Game.button_attack3.display_button()
             Game.button_attack4.display_button()
             Game.button_back.display_button()
-            # description attack
+            Display.display_text(self, Game.Texts.description_attack.format(11), 400, 405, 'FRAMDCN.TTF', 16, False,
+                                 (255, 255, 255), 270)
+
         elif Game.fight_mode == 2:
             Game.button_magic1.display_button()
             Game.button_magic2.display_button()
             Game.button_magic3.display_button()
             Game.button_magic4.display_button()
             Game.button_back.display_button()
+
         # zone actions
         text = text.split(' ')
         if not Game.texts:
@@ -209,3 +212,34 @@ class Display:
             Game.Screen.blit(s, (0, 0))
             Game.button_confirm.display_button()
             Game.button_back.display_button(433, 348, (438, 353))
+
+    def display_text(self, texts, x_pos, y_pos, font, size, prog, color, length):
+        font = pygame.font.Font("font/" + font, size)
+        x, y = 0, 0
+        texts = texts.split('|')
+        for text in texts:
+            text = text.split(' ')
+            for word in text:
+                lw = len(word) * size / 2
+                for char in word:
+                    if char in ['i', 'l', 'f', '.', ',']:
+                        lw -= size / 4
+                if x + lw >= length:
+                    y += size
+                    x = 0
+                if prog:
+                    for char in word:
+                        Game.Screen.blit(self.dialogue.render(char, False, (255, 255, 255)), (x_pos + x, y_pos + y))
+                        x += size / 2
+                        if char in ['i', 'l', 'f', '.', ',']:
+                            x -= size / 4
+                        x = int(x)
+                        pygame.display.flip()
+                        time.sleep(0.05)
+                    x += size // 4
+                else:
+                    Game.Screen.blit(font.render(word, False, color), (x_pos + x, y_pos + y))
+                    x += lw + (size // 4)
+                x = int(x)
+            x = 0
+            y += size
