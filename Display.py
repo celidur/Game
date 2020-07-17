@@ -151,7 +151,7 @@ class Display:
             Game.button_attack3.display_button()
             Game.button_attack4.display_button()
             Game.button_back.display_button()
-            Display.display_text(self, Game.Texts.description_attack.format(11), 400, 405, 'FRAMDCN.TTF', 16, False,
+            Display.display_text(self, Game.Texts.description_attack.format(11, 11, 11, 11), 400, 405, 'FRAMDCN.TTF', 16, False,
                                  (255, 255, 255), 270)
 
         elif Game.fight_mode == 2:
@@ -160,7 +160,9 @@ class Display:
             Game.button_magic3.display_button()
             Game.button_magic4.display_button()
             Game.button_back.display_button()
-
+            Display.display_text(self, Game.Texts.description_magic.format(11, 11, 11, 11), 400, 405, 'FRAMDCN.TTF',
+                                 16, False,
+                                 (255, 255, 255), 270)
         # zone actions
         text = text.split(' ')
         if not Game.texts:

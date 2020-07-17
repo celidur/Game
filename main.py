@@ -54,6 +54,24 @@ while running:
             elif Game.fight_mode == 1 or Game.fight_mode == 2:
                 if Game.button_back.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 0
+                elif Game.fight_mode == 1:
+                    if Game.button_attack1.button_clicked(pos[0], pos[1]):
+                        Game.fight_mode = 0
+                    elif Game.button_attack2.button_clicked(pos[0], pos[1]):
+                        Game.fight_mode = 0
+                    elif Game.button_attack3.button_clicked(pos[0], pos[1]):
+                        Game.fight_mode = 0
+                    elif Game.button_attack4.button_clicked(pos[0], pos[1]):
+                        Game.fight_mode = 0
+                else:
+                    if Game.button_magic1.button_clicked(pos[0], pos[1]):
+                        Game.fight_mode = 0
+                    elif Game.button_magic2.button_clicked(pos[0], pos[1]):
+                        Game.fight_mode = 0
+                    elif Game.button_magic3.button_clicked(pos[0], pos[1]):
+                        Game.fight_mode = 0
+                    elif Game.button_magic4.button_clicked(pos[0], pos[1]):
+                        Game.fight_mode = 0
             elif Game.fight_mode == 4:
                 if Game.button_back.button_clicked(pos[0], pos[1], 433, 348):
                     Game.fight_mode = 0
