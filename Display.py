@@ -205,7 +205,7 @@ class Display:
         Game.change = False
         if Game.fight_mode == 4:
             s = pygame.Surface((self.size_window[0], self.size_window[1]), pygame.SRCALPHA)
-            s.fill((0, 0, 0, 120))
+            s.fill((0, 0, 0, 150))
             Game.Screen.blit(s, (0, 0))
             Game.button_confirm.display_button()
             Game.button_back.display_button(433, 348, (438, 353))
