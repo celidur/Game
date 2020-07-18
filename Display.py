@@ -74,7 +74,7 @@ class Display:
         #    self.i1 = time.time() + 1
         #    self.ii = 0
 
-    def display_fight(self, background, monster, size, hp, name, player_stats, change, text):
+    def display_fight(self, background, monster, size, hp, name, player_stats, pos_inventory, change, text):
         Game.Screen.blit(background, (0, 0))
         Game.Screen.blit(monster, size)
         Game.Screen.blit(self.arial.render("PV : {}/{}  PM : {}/{}".format(player_stats[0], player_stats[1],

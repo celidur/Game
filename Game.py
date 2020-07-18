@@ -5,8 +5,8 @@ from Display import Display
 from Player import Player
 
 Settings, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
-           button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-           button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm = import_language()
+button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
+button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm = import_language()
 player = Player()
 x, y, menu, escape = 48 * 64, 30 * 64, 4, time.time()
 map_game = []
@@ -27,6 +27,7 @@ enemy1 = Enemy1()
 change = True
 debut_combat = True
 texts = []
+pos_inventory = (0, 0)
 
 
 def init_fight(enemy):
@@ -41,7 +42,7 @@ def save():
 
 
 def game_fight():  # menu=4
-    global menu, frame, player, enemy1, map_game, x_map_game, y_map_game, fight_mode, debut_combat
+    global menu, frame, player, enemy1, map_game, x_map_game, y_map_game, fight_mode, debut_combat, inventory
     if debut_combat:
         init_fight('enemy1')
         debut_combat = False
@@ -49,7 +50,7 @@ def game_fight():  # menu=4
         pass
     frame = time.time()
     display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
-                          enemy1.get_name(), player.get_stats(), change, text='hey')
+                          enemy1.get_name(), player.get_stats(), pos_inventory, change, text='hey')
     pygame.display.flip()
 
 
