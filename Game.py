@@ -27,7 +27,7 @@ enemy1 = Enemy1()
 change = True
 debut_combat = True
 texts = []
-pos_inventory = (0, 0)
+pos_inventory = (0, 0, 0)
 
 
 def init_fight(enemy):
@@ -41,14 +41,23 @@ def save():
     pass
 
 
-def game_fight():  # menu=4
-    global menu, frame, player, enemy1, map_game, x_map_game, y_map_game, fight_mode, debut_combat, inventory
+def game_fight(pressed):  # menu=4
+    global menu, frame, player, enemy1, map_game, x_map_game, y_map_game, fight_mode, debut_combat, pos_inventory
     if debut_combat:
         init_fight('enemy1')
         debut_combat = False
     while not time.time() > frame + 1 / 61:
         pass
     frame = time.time()
+    if fight_mode == 3:
+        if pressed.get(pygame.K_RIGHT):
+            pass
+        elif pressed.get(pygame.K_LEFT):
+            pass
+        elif pressed.get(pygame.K_DOWN):
+            pass
+        elif pressed.get(pygame.K_UP):
+            pass
     display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
                           enemy1.get_name(), player.get_stats(), pos_inventory, change, text='hey')
     pygame.display.flip()

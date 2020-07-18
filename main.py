@@ -82,7 +82,7 @@ while running:
         elif pressed.get(pygame.K_ESCAPE) and Game.fight_mode != 0:
             Game.fight_mode = 0
 
-        Game.game_fight()
+        Game.game_fight(pressed)
     onclick = False
 Game.save()
 quit()
