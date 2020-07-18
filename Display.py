@@ -79,9 +79,9 @@ class Display:
         Game.Screen.blit(monster, size)
         Game.Screen.blit(self.arial.render("PV : {}/{}  PM : {}/{}".format(player_stats[0], player_stats[1],
                                                                            player_stats[2], player_stats[3]), False,
-                                           (255, 255, 255)), (65, 357))
-        Game.Screen.blit(self.arial.render(name[0], False, self.colors[name[1]]), (420, 357))
-        Game.Screen.blit(self.arial.render("{}/{}".format(hp[0], hp[1]), False, (255, 255, 255)), (560, 357))
+                                           (255, 255, 255)), (430, 357))
+        Game.Screen.blit(self.arial.render(name[0], False, self.colors[name[1]]), (65, 357))
+        Game.Screen.blit(self.arial.render("{}/{}".format(hp[0], hp[1]), False, (255, 255, 255)), (215, 357))
         if Game.fight_mode == 0 or Game.fight_mode == 4:
             Game.button_attack.display_button()
             Game.button_inventory.display_button()
@@ -163,6 +163,8 @@ class Display:
             Display.display_text(self, Game.Texts.description_magic.format(11, 11, 11, 11), 400, 405, 'FRAMDCN.TTF',
                                  16, False,
                                  (255, 255, 255), 270)
+        elif Game.fight_mode == 3:
+            pass
         # zone actions
         text = text.split(' ')
         if not Game.texts:

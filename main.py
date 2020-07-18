@@ -5,7 +5,7 @@ onclick, running, pressed, pos = False, True, {}, [0, 0]
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            if Game.menu == 1 or Game.menu == 2 or Game.menu == 4:
+            if Game.menu != 5:
                 running = False
                 continue
         elif event.type == pygame.KEYDOWN:
@@ -48,7 +48,7 @@ while running:
                 elif Game.button_magic.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 2
                 elif Game.button_inventory.button_clicked(pos[0], pos[1]):
-                    pass
+                    Game.fight_mode = 3
                 elif Game.button_leave.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 4
             elif Game.fight_mode == 1 or Game.fight_mode == 2:
