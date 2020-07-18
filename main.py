@@ -49,7 +49,7 @@ while running:
                     Game.fight_mode = 2
                 elif Game.button_inventory.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 3
-                    Game.pos_inventory = (0, 0)
+                    Game.pos_inventory = (0, 0, 0)
                 elif Game.button_leave.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 4
             elif Game.fight_mode == 1 or Game.fight_mode == 2:

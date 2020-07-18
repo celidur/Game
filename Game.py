@@ -51,13 +51,36 @@ def game_fight(pressed):  # menu=4
     frame = time.time()
     if fight_mode == 3:
         if pressed.get(pygame.K_RIGHT):
-            pass
+            pos_inventory = (
+                (pos_inventory[1] * 5 + pos_inventory[0] + 1) % 5, (pos_inventory[1] * 5 + pos_inventory[0] + 1) // 5,
+                pos_inventory[2])
+            if pos_inventory[1] >= 5:
+                pos_inventory = (pos_inventory[0], 4, pos_inventory[2] + 1)
+            if (pos_inventory[1] + pos_inventory[2]) * 5 + pos_inventory[0] >= 52:
+                pos_inventory = (0, 0, 0)
         elif pressed.get(pygame.K_LEFT):
-            pass
+            pos_inventory = (
+                (pos_inventory[1] * 5 + pos_inventory[0] - 1) % 5, (pos_inventory[1] * 5 + pos_inventory[0] - 1) // 5,
+                pos_inventory[2])
+            if pos_inventory[1] < 0:
+                pos_inventory = (pos_inventory[0], 0, pos_inventory[2] - 1)
+            if pos_inventory[2] < 0:
+                pos_inventory = (52 % 5 - 1, 4, 52 // 5 - 4)
         elif pressed.get(pygame.K_DOWN):
-            pass
+            pos_inventory = (pos_inventory[0], pos_inventory[1] + 1, pos_inventory[2])
+            if pos_inventory[1] >= 5:
+                pos_inventory = (pos_inventory[0], 4, pos_inventory[2] + 1)
+            if (pos_inventory[1] + pos_inventory[2]) * 5 + pos_inventory[0] >= 52:
+                pos_inventory = (pos_inventory[0], 0, 0)
         elif pressed.get(pygame.K_UP):
-            pass
+            pos_inventory = (pos_inventory[0], pos_inventory[1] - 1, pos_inventory[2])
+            if pos_inventory[1] < 0:
+                pos_inventory = (pos_inventory[0], 0, pos_inventory[2] - 1)
+            if pos_inventory[2] < 0:
+                if pos_inventory[0] >= 52 % 5:
+                    pos_inventory = (pos_inventory[0], 3, 52 // 5 - 4)
+                else:
+                    pos_inventory = (pos_inventory[0], 4, 52 // 5 - 4)
     display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
                           enemy1.get_name(), player.get_stats(), pos_inventory, change, text='hey')
     pygame.display.flip()

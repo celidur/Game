@@ -151,7 +151,8 @@ class Display:
             Game.button_attack3.display_button()
             Game.button_attack4.display_button()
             Game.button_back.display_button()
-            Display.display_text(self, Game.Texts.description_attack.format(11, 11, 11, 11), 400, 405, 'FRAMDCN.TTF', 16, False,
+            Display.display_text(self, Game.Texts.description_attack.format(11, 11, 11, 11), 400, 405, 'FRAMDCN.TTF',
+                                 16, False,
                                  (255, 255, 255), 270)
 
         elif Game.fight_mode == 2:
@@ -164,7 +165,29 @@ class Display:
                                  16, False,
                                  (255, 255, 255), 270)
         elif Game.fight_mode == 3:
-            pass
+            objects = [[str(i)] for i in range(52)]
+            for i in range(len(objects)):
+                objects[i].append(pow(2 ** (i ** (i + 1) % 5) + i ** 2 % 11, 12, 6))
+            inventory = [[], objects, []]
+            x, y, scroll = pos_inventory
+            Game.Screen.blit(pygame.image.load('assets/inventory/set_cases_fight_0.png'), (270, 420))
+            for l in range(5):
+                for c in range(5):
+                    if [x, y] == [c, l]:
+                        Game.Screen.blit(pygame.image.load('assets/inventory/case_select.png'),
+                                         (270 + x * 50, 420 + y * 50))
+                    if (l + scroll) * 5 + c < 52:
+                        Display.display_text(self, inventory[1][(l + scroll) * 5 + c][0], 274 + c * 50, 424 + l * 50,
+                                             'FRAMDCN.TTF', 20, False,
+                                             (255, 255, 255), 50)
+                        if inventory[1][(l + scroll) * 5 + c][1] == 0:
+                            Game.Screen.blit(pygame.image.load('assets/inventory/black.png'),
+                                             (270 + c * 50, 420 + l * 50))
+                    else:
+                        Game.Screen.blit(pygame.image.load('assets/inventory/black.png'), (270 + c * 50, 420 + l * 50))
+                    if [x, y] == [c, l]:
+                        Game.Screen.blit(pygame.image.load('assets/inventory/case_select.png'),
+                                         (270 + x * 50, 420 + y * 50))
         # zone actions
         text = text.split(' ')
         if not Game.texts:
