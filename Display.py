@@ -188,6 +188,16 @@ class Display:
                     if [x, y] == [c, l]:
                         Game.Screen.blit(pygame.image.load('assets/inventory/case_select.png'),
                                          (270 + x * 50, 420 + y * 50))
+            Game.Screen.blit(pygame.image.load('assets/inventory/black.png'), (540, 420))
+            Display.display_text(self, inventory[1][(y + scroll) * 5 + x][0] + '|Qté : ' +
+                                 str(inventory[1][(y + scroll) * 5 + x][1]), 585, 422,
+                                 'FRAMDCN.TTF', 16, False,
+                                 (255, 255, 255), 150)
+            Display.display_text(self, "La description de l'objet n°{} arrive bientôt...".format(
+                inventory[1][(y + scroll) * 5 + x][0]), 520,
+                                 470,
+                                 'FRAMDCN.TTF', 16, False,
+                                 (255, 255, 255), 180)
         # zone actions
         text = text.split(' ')
         if not Game.texts:
@@ -246,14 +256,8 @@ class Display:
         texts = texts.split('|')
         for text in texts:
             text = text.split(' ')
+            p, lw = '', 0
             for word in text:
-                lw = len(word) * size / 2
-                for char in word:
-                    if char in ['i', 'l', 'f', '.', ',']:
-                        lw -= size / 4
-                if x + lw >= length:
-                    y += size
-                    x = 0
                 if prog:
                     for char in word:
                         Game.Screen.blit(self.dialogue.render(char, False, (255, 255, 255)), (x_pos + x, y_pos + y))
@@ -264,9 +268,17 @@ class Display:
                         pygame.display.flip()
                         time.sleep(0.05)
                     x += size // 4
-                else:
-                    Game.Screen.blit(font.render(word, False, color), (x_pos + x, y_pos + y))
-                    x += lw + (size // 4)
+                    pass
+                lw += len(word) * size / 2
+                for char in word:
+                    if char in ['i', 'l', 'f', '.', ',']:
+                        lw -= size / 4
                 x = int(x)
+                if x + lw < length or p == '':
+                    p += word + ' '
+                elif x + lw >= length or word == text[-1]:
+                    Game.Screen.blit(font.render(p, False, color), (x_pos + x, y_pos + y))
+                    p, lw, x, y = word + ' ', 0, 0, y + size
+            Game.Screen.blit(font.render(p, False, color), (x_pos + x, y_pos + y))
             x = 0
             y += size
