@@ -25,6 +25,8 @@ magic_2 = 'Bouclier'
 magic_3 = 'Boost Déf.'
 magic_4 = 'Boost Att.'
 confirm = 'Confirmer'
+use = 'Utiliser'
+quantity = 'Quantité'
 
 resume = 'REPRENDRE'
 settings = 'PARAMETRES'

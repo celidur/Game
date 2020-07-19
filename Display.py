@@ -77,9 +77,10 @@ class Display:
     def display_fight(self, background, monster, size, hp, name, player_stats, pos_inventory, change, text):
         Game.Screen.blit(background, (0, 0))
         Game.Screen.blit(monster, size)
-        Game.Screen.blit(self.arial.render("PV : {}/{}  PM : {}/{}".format(player_stats[0], player_stats[1],
-                                                                           player_stats[2], player_stats[3]), False,
-                                           (255, 255, 255)), (430, 357))
+        Game.Screen.blit(
+            self.arial.render("{} : {}/{}  {} : {}/{}".format(Game.Settings.hp, player_stats[0], player_stats[1],
+                                                              Game.Settings.mp, player_stats[2], player_stats[3]),
+                              False, (255, 255, 255)), (430, 357))
         Game.Screen.blit(self.arial.render(name[0], False, self.colors[name[1]]), (65, 357))
         Game.Screen.blit(self.arial.render("{}/{}".format(hp[0], hp[1]), False, (255, 255, 255)), (215, 357))
         if Game.fight_mode == 0 or Game.fight_mode == 4:
@@ -177,20 +178,25 @@ class Display:
                         Game.Screen.blit(pygame.image.load('assets/inventory/case_select.png'),
                                          (270 + x * 50, 420 + y * 50))
                     if (l + scroll) * 5 + c < 52:
-                        Display.display_text(self, inventory[1][(l + scroll) * 5 + c][0], 274 + c * 50, 424 + l * 50,
-                                             'FRAMDCN.TTF', 20, False,
-                                             (255, 255, 255), 50)
+                        Game.Screen.blit(
+                            pygame.image.load(
+                                'assets/inventory/potions/{}.png'.format(str(((l + scroll) * 5 + c) % 25))),
+                            (274 + c * 50, 424 + l * 50))
                         if inventory[1][(l + scroll) * 5 + c][1] == 0:
                             Game.Screen.blit(pygame.image.load('assets/inventory/black.png'),
                                              (270 + c * 50, 420 + l * 50))
                     else:
-                        Game.Screen.blit(pygame.image.load('assets/inventory/black.png'), (270 + c * 50, 420 + l * 50))
+                        Game.Screen.blit(pygame.image.load('assets/inventory/black.png'),
+                                         (270 + c * 50, 420 + l * 50))
                     if [x, y] == [c, l]:
                         Game.Screen.blit(pygame.image.load('assets/inventory/case_select.png'),
                                          (270 + x * 50, 420 + y * 50))
-            Game.Screen.blit(pygame.image.load('assets/inventory/black.png'), (540, 420))
-            Display.display_text(self, inventory[1][(y + scroll) * 5 + x][0] + '|Qté : ' +
-                                 str(inventory[1][(y + scroll) * 5 + x][1]), 585, 422,
+            Game.Screen.blit(
+                pygame.image.load('assets/inventory/potions/{}.png'.format(str(((y + scroll) * 5 + x) % 25))),
+                (540, 420))
+            Display.display_text(self,
+                                 '{}|{} : {}'.format(inventory[1][(y + scroll) * 5 + x][0], Game.Settings.quantity,
+                                                     inventory[1][(y + scroll) * 5 + x][1]), 585, 422,
                                  'FRAMDCN.TTF', 16, False,
                                  (255, 255, 255), 150)
             Display.display_text(self, "La description de l'objet n°{} arrive bientôt...".format(
