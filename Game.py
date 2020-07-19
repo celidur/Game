@@ -5,8 +5,9 @@ from Display import Display
 from Player import Player
 
 Settings, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
-button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm = import_language()
+           button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
+           button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
+           button_use = import_language()
 player = Player()
 x, y, menu, escape = 48 * 64, 30 * 64, 4, time.time()
 map_game = []
@@ -28,6 +29,7 @@ change = True
 debut_combat = True
 texts = []
 pos_inventory = (0, 0, 0)
+use_ = [False, None]
 
 
 def init_fight(enemy):
@@ -58,6 +60,7 @@ def game_fight(pressed):  # menu=4
                 pos_inventory = (pos_inventory[0], 4, pos_inventory[2] + 1)
             if (pos_inventory[1] + pos_inventory[2]) * 5 + pos_inventory[0] >= 52:
                 pos_inventory = (0, 0, 0)
+            time.sleep(0.3)
         elif pressed.get(pygame.K_LEFT):
             pos_inventory = (
                 (pos_inventory[1] * 5 + pos_inventory[0] - 1) % 5, (pos_inventory[1] * 5 + pos_inventory[0] - 1) // 5,
@@ -66,12 +69,14 @@ def game_fight(pressed):  # menu=4
                 pos_inventory = (pos_inventory[0], 0, pos_inventory[2] - 1)
             if pos_inventory[2] < 0:
                 pos_inventory = (52 % 5 - 1, 4, 52 // 5 - 4)
+            time.sleep(0.3)
         elif pressed.get(pygame.K_DOWN):
             pos_inventory = (pos_inventory[0], pos_inventory[1] + 1, pos_inventory[2])
             if pos_inventory[1] >= 5:
                 pos_inventory = (pos_inventory[0], 4, pos_inventory[2] + 1)
             if (pos_inventory[1] + pos_inventory[2]) * 5 + pos_inventory[0] >= 52:
                 pos_inventory = (pos_inventory[0], 0, 0)
+            time.sleep(0.3)
         elif pressed.get(pygame.K_UP):
             pos_inventory = (pos_inventory[0], pos_inventory[1] - 1, pos_inventory[2])
             if pos_inventory[1] < 0:
@@ -81,6 +86,7 @@ def game_fight(pressed):  # menu=4
                     pos_inventory = (pos_inventory[0], 3, 52 // 5 - 4)
                 else:
                     pos_inventory = (pos_inventory[0], 4, 52 // 5 - 4)
+            time.sleep(0.3)
     display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
                           enemy1.get_name(), player.get_stats(), pos_inventory, change, text='hey')
     pygame.display.flip()

@@ -79,6 +79,11 @@ while running:
                 elif Game.button_confirm.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 0
                     Game.menu = 0
+            elif Game.fight_mode == 3:
+                if Game.button_back.button_clicked(pos[0], pos[1], 280, 670):
+                    Game.fight_mode = 0
+                elif Game.button_use.button_clicked(pos[0], pos[1]) and Game.use_[0]:
+                    pass
         elif pressed.get(pygame.K_ESCAPE) and Game.fight_mode != 0:
             Game.fight_mode = 0
 

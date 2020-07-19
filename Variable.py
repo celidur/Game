@@ -95,9 +95,11 @@ def import_language():
                                 (285, 665), 25)
     button_confirm = Button.Button((127, 127, 127), (255, 255, 255), [161, 348, 110, 40], Settings.confirm,
                                    (166, 353), 25)
+    button_use = Button.Button((127, 127, 127), (255, 255, 255), [500, 670, 110, 40], Settings.use,
+                                   (505, 675), 25)
     return Settings, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
            button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-           button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm
+           button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, button_use
 
 
 def change_language(language):

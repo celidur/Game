@@ -152,7 +152,8 @@ class Display:
             Game.button_attack3.display_button()
             Game.button_attack4.display_button()
             Game.button_back.display_button()
-            Display.display_text(self, Game.Texts.description_attack.format(20, 10, 6, 3, 24, 12, 20, 20), 400, 405, 'FRAMDCN.TTF',
+            Display.display_text(self, Game.Texts.description_attack.format(20, 10, 6, 3, 24, 12, 20, 20), 400, 405,
+                                 'FRAMDCN.TTF',
                                  16, False,
                                  (255, 255, 255), 270)
 
@@ -194,7 +195,8 @@ class Display:
             Game.Screen.blit(
                 pygame.image.load('assets/inventory/potions/{}.png'.format(str(((y + scroll) * 5 + x) % 25))),
                 (540, 420))
-            Display.display_text(self, '{}|{} : {}'.format(inventory[1][(y + scroll) * 5 + x][0], Game.Settings.quantity,
+            Display.display_text(self,
+                                 '{}|{} : {}'.format(inventory[1][(y + scroll) * 5 + x][0], Game.Settings.quantity,
                                                      inventory[1][(y + scroll) * 5 + x][1]), 580, 420,
                                  'FRAMDCN.TTF', 16, False,
                                  (255, 255, 255), 150)
@@ -203,6 +205,12 @@ class Display:
                                  470,
                                  'FRAMDCN.TTF', 16, False,
                                  (255, 255, 255), 180)
+            Game.button_back.display_button(280, 670, (285, 675))
+            if inventory[1][(y + scroll) * 5 + x][1] > 0:
+                Game.button_use.display_button()
+                Game.use_ = [True, inventory[1][(y + scroll) * 5 + x][0]]
+            else:
+                Game.use_ = [False, None]
         # zone actions
         text = text.split(' ')
         if not Game.texts:
