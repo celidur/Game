@@ -19,37 +19,29 @@ def import_map():
 Settings, Texts = None, None
 
 
-def length(string, size, font='arial'):
-    ls = None
-    if font == 'rpg_':
-        ls = -(size / 8)
-        for char in string:
-            if char in ['i', 'I', ' ', '.', ':', ',', ';', "'", '!']:
-                ls += size / 3.6
-            elif char in ['1', '"', '[', ']', '*']:
-                ls += size / 2.4
-            else:
-                ls += size / 1.5
-            ls = int(ls)
-        ls += size / 8
-        ls = int(ls)
-    elif font == 'arial':
-        ls = 0
-        for char in string:
-            if char in ['m', 'w', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-                        'U', 'V', 'W', 'X', 'Y', 'Z']:
-                ls += size / (72 / 82)
-            elif char in ['a', 'b', 'd', 'e', 'h', 'k', 'u', 'g', 'x', 'y', 'z', 'v', 's', 'p', 'q', 'o', 'n', 'J', 'L',
-                          'é', 'è', 'ê', 'à', 'â', 'ù', 'û', '2', '4', '6', '5', '7', '8', '9', '0', '?', '+', '=']:
-                ls += size / (72 / 56)  # 1.286
-            elif char in ['c', 'ç', '1', '3']:
-                ls += size / (72 / 46)  # 1.565
-            elif char in ['f', 'j', 't', 'r', '(', ')', '-', '*', '/', '"']:
-                ls += size / 2.4
-            elif char in ['i', 'l', 'I', ' ', '.', ':', ',', ';', "'", '!']:
-                ls += size / (72 / 18)  # 4
-        ls = int(ls) // 2
-    return ls
+def pos_text(string, size, pos, font, id):
+    if font == 'dialogue':
+        font = pygame.font.Font("font/rpg_.FON", size)
+    else:  # font = 'arial' or errors
+        font = pygame.font.Font("font/FRAMDCN.TTF", size)
+    if id == 'center_up':
+        return pos[0] + (pos[2] - font.size(string)[0]) // 2, pos[1]
+    elif id == 'right_up':
+        return pos[0] + pos[2] - font.size(string)[0], pos[1]
+    elif id == 'left_middle':
+        return pos[0], pos[1] + (pos[3] - font.size(string)[1]) // 2
+    elif id == 'center':
+        return pos[0] + (pos[2] - font.size(string)[0]) // 2, pos[1] + (pos[3] - font.size(string)[1]) // 2
+    elif id == 'right_middle':
+        return pos[0] + pos[2] - font.size(string)[0], pos[1] + (pos[3] - font.size(string)[1]) // 2
+    elif id == 'left_down':
+        return pos[0], pos[1] + pos[3] - font.size(string)[1]
+    elif id == 'center_down':
+        return pos[0] + (pos[2] - font.size(string)[0]) // 2, pos[1] + pos[3] - font.size(string)[1]
+    elif id == 'right_down':
+        return pos[0] + pos[2] - font.size(string)[0], pos[1] + pos[3] - font.size(string)[1]
+    else:  # left_up or errors
+        return pos[0], pos[1]
 
 
 def import_language():
@@ -68,35 +60,35 @@ def import_language():
     button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], Settings.save, (264, 415), 28, board)
     button_exit = Button.Button(None, (0, 0, 0), [257, 480, 190, 65], Settings.quit_game, (290, 492), 34, board)
     button_attack = Button.Button((127, 127, 127), (255, 255, 255), [280, 430, 110, 40], Settings.attack,
-                                  (285, 435), 25)
+                                  pos_text(Settings.attack, 25, [280, 430, 110, 40], 'arial', 'center'), 25)
     button_magic = Button.Button((127, 127, 127), (255, 255, 255), [280, 505, 110, 40], Settings.magic,
-                                 (285, 510), 25)
+                                 pos_text(Settings.magic, 25, [280, 505, 110, 40], 'arial', 'center'), 25)
     button_inventory = Button.Button((127, 127, 127), (255, 255, 255), [280, 580, 110, 40], Settings.inventory,
-                                     (285, 585), 25)
+                                     pos_text(Settings.inventory, 25, [280, 580, 110, 40], 'arial', 'center'), 25)
     button_leave = Button.Button((127, 127, 127), (255, 255, 255), [280, 655, 110, 40], Settings.leave,
-                                 (285, 660), 25)
+                                 pos_text(Settings.leave, 25, [280, 655, 110, 40], 'arial', 'center'), 25)
     button_attack1 = Button.Button((127, 127, 127), (255, 255, 255), [280, 420, 110, 40], Settings.attack_1,
-                                   (285, 425), 25)
+                                   pos_text(Settings.attack_1, 25, [280, 420, 110, 40], 'arial', 'center'), 25)
     button_attack2 = Button.Button((127, 127, 127), (255, 255, 255), [280, 480, 110, 40], Settings.attack_2,
-                                   (285, 485), 25)
+                                   pos_text(Settings.attack_2, 25, [280, 480, 110, 40], 'arial', 'center'), 25)
     button_attack3 = Button.Button((127, 127, 127), (255, 255, 255), [280, 540, 110, 40], Settings.attack_3,
-                                   (285, 545), 25)
+                                   pos_text(Settings.attack_3, 25, [280, 540, 110, 40], 'arial', 'center'), 25)
     button_attack4 = Button.Button((127, 127, 127), (255, 255, 255), [280, 600, 110, 40], Settings.attack_4,
-                                   (285, 605), 25)
+                                   pos_text(Settings.attack_4, 25, [280, 600, 110, 40], 'arial', 'center'), 25)
     button_magic1 = Button.Button((127, 127, 127), (255, 255, 255), [280, 420, 110, 40], Settings.magic_1,
-                                   (285, 425), 25)
+                                  pos_text(Settings.magic_1, 25, [280, 420, 110, 40], 'arial', 'center'), 25)
     button_magic2 = Button.Button((127, 127, 127), (255, 255, 255), [280, 480, 110, 40], Settings.magic_2,
-                                   (285, 485), 25)
+                                  pos_text(Settings.magic_2, 25, [280, 480, 110, 40], 'arial', 'center'), 25)
     button_magic3 = Button.Button((127, 127, 127), (255, 255, 255), [280, 540, 110, 40], Settings.magic_3,
-                                   (285, 545), 25)
+                                  pos_text(Settings.magic_3, 25, [280, 540, 110, 40], 'arial', 'center'), 25)
     button_magic4 = Button.Button((127, 127, 127), (255, 255, 255), [280, 600, 110, 40], Settings.magic_4,
-                                   (285, 605), 25)
+                                  pos_text(Settings.magic_4, 25, [280, 600, 110, 40], 'arial', 'center'), 25)
     button_back = Button.Button((127, 127, 127), (255, 255, 255), [280, 660, 110, 40], Settings.back,
-                                (285, 665), 25)
+                                pos_text(Settings.back, 25, [280, 660, 110, 40], 'arial', 'center'), 25)
     button_confirm = Button.Button((127, 127, 127), (255, 255, 255), [161, 348, 110, 40], Settings.confirm,
-                                   (166, 353), 25)
+                                   pos_text(Settings.confirm, 25, [161, 348, 110, 40], 'arial', 'center'), 25)
     button_use = Button.Button((127, 127, 127), (255, 255, 255), [500, 670, 110, 40], Settings.use,
-                                   (505, 675), 25)
+                               pos_text(Settings.use, 25, [500, 670, 110, 40], 'arial', 'center'), 25)
     return Settings, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
            button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
            button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, button_use
