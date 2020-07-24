@@ -208,7 +208,7 @@ class Display:
             Game.button_back.display_button(280, 670,
                                             Game.pos_text(Game.Settings.back, 25, [280, 670, 110, 40], 'arial',
                                                           'center'))
-            if inventory[1][(y + scroll) * 5 + x][1] > 0:
+            if int(inventory[1][(y + scroll) * 5 + x][1]) > 0:
                 Game.button_use.display_button()
                 Game.use_ = [True, inventory[1][(y + scroll) * 5 + x][0]]
             else:

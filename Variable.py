@@ -19,26 +19,26 @@ def import_map():
 Settings, Texts = None, None
 
 
-def pos_text(string, size, pos, font, id):
+def pos_text(string, size, pos, font, ID):
     if font == 'dialogue':
         font = pygame.font.Font("font/rpg_.FON", size)
     else:  # font = 'arial' or errors
         font = pygame.font.Font("font/FRAMDCN.TTF", size)
-    if id == 'center_up':
+    if ID == 'center_up':
         return pos[0] + (pos[2] - font.size(string)[0]) // 2, pos[1]
-    elif id == 'right_up':
+    elif ID == 'right_up':
         return pos[0] + pos[2] - font.size(string)[0], pos[1]
-    elif id == 'left_middle':
+    elif ID == 'left_middle':
         return pos[0], pos[1] + (pos[3] - font.size(string)[1]) // 2
-    elif id == 'center':
+    elif ID == 'center':
         return pos[0] + (pos[2] - font.size(string)[0]) // 2, pos[1] + (pos[3] - font.size(string)[1]) // 2
-    elif id == 'right_middle':
+    elif ID == 'right_middle':
         return pos[0] + pos[2] - font.size(string)[0], pos[1] + (pos[3] - font.size(string)[1]) // 2
-    elif id == 'left_down':
+    elif ID == 'left_down':
         return pos[0], pos[1] + pos[3] - font.size(string)[1]
-    elif id == 'center_down':
+    elif ID == 'center_down':
         return pos[0] + (pos[2] - font.size(string)[0]) // 2, pos[1] + pos[3] - font.size(string)[1]
-    elif id == 'right_down':
+    elif ID == 'right_down':
         return pos[0] + pos[2] - font.size(string)[0], pos[1] + pos[3] - font.size(string)[1]
     else:  # left_up or errors
         return pos[0], pos[1]
