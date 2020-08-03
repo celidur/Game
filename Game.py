@@ -174,17 +174,16 @@ def update_map_game(x_map, y_map, x_player, y_player, map_full, map_game_update)
     return map_game_update, x_map, y_map
 
 
-def add_text(text):
+def add_text(text, c=True):
     global texts, change
     texts = texts.split('|')
     if texts[-1] != text:
         texts.append(text)
-        change = True
+        change = c
     texts = '|'.join(texts)
 
 def remove_text():
     global texts, change
     texts = texts.split('|')
     del texts[-1]
-    change = True
     texts = '|'.join(texts)

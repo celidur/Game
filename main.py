@@ -57,7 +57,7 @@ while running:
                 if Game.button_back.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 0
                     Game.remove_text()
-                    Game.add_text(Game.Texts.select_action)
+                    Game.add_text(Game.Texts.select_action, False)
                 elif Game.fight_mode == 1:
                     if Game.button_attack1.button_clicked(pos[0], pos[1]):
                         Game.fight_mode = 0
@@ -77,12 +77,12 @@ while running:
                     elif Game.button_magic4.button_clicked(pos[0], pos[1]):
                         Game.fight_mode = 0
             elif Game.fight_mode == 3:
-                Game.add_text(Game.Texts.select_object)
-            if Game.button_back.button_clicked(pos[0], pos[1], 280, 670):
-                Game.fight_mode = 0
-                Game.remove_text()
-            elif Game.button_use.button_clicked(pos[0], pos[1]) and Game.use_[0]:
-                pass
+                if Game.button_back.button_clicked(pos[0], pos[1], 280, 670):
+                    Game.fight_mode = 0
+                    Game.remove_text()
+                    Game.add_text(Game.Texts.select_action, False)
+                elif Game.button_use.button_clicked(pos[0], pos[1]) and Game.use_[0]:
+                    pass
             elif Game.fight_mode == 4:
                 if Game.button_back.button_clicked(pos[0], pos[1], 433, 348):
                     Game.fight_mode = 0

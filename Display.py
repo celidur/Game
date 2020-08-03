@@ -154,9 +154,9 @@ class Display:
             Game.button_attack3.display_button()
             Game.button_attack4.display_button()
             Game.button_back.display_button()
-            Display.display_text(self, Game.Texts.description_attack.format(20, 10, 6, 3, 24, 12, 20, 20), 400, 405,
+            Display.display_text(self, Game.Texts.description_attack.format(35, 10, 40, 50, 15, 42), 400, 420,
                                  'FRAMDCN.TTF',
-                                 16, False,
+                                 15, False,
                                  (255, 255, 255), 270, False)
 
         elif Game.fight_mode == 2:
@@ -165,8 +165,8 @@ class Display:
             Game.button_magic3.display_button()
             Game.button_magic4.display_button()
             Game.button_back.display_button()
-            Display.display_text(self, Game.Texts.description_magic.format(11, 11, 11, 11), 400, 405, 'FRAMDCN.TTF',
-                                 16, False,
+            Display.display_text(self, Game.Texts.description_magic.format(20, 1.5, 10, 12), 400, 420, 'FRAMDCN.TTF',
+                                 20, False,
                                  (255, 255, 255), 270, False)
         elif Game.fight_mode == 3:
             objects = [[str(i)] for i in range(52)]
@@ -215,7 +215,7 @@ class Display:
                 Game.use_ = [False, None]
         # zone actions
         if Game.texts == '':
-            Game.texts = "Selectionnez une action."
+            Game.texts = Game.Texts.select_action
             Game.change = True
         while True:
             x, y = 0, 0
@@ -257,7 +257,7 @@ class Display:
             line, lw = '', 0
             for word in texts[i]:
                 if prog == False:
-                    lw += font.size(word)[0]
+                    lw += font.size(word+' ')[0]
                     if x + lw < length or line == '':
                         line += word + ' '
                     elif x + lw >= length or word == texts[i][-1]:
