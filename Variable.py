@@ -24,48 +24,49 @@ def import_language():
     with open('language/language.txt', 'rb') as file:
         file = pickle.Unpickler(file)
         language = file.load()
+    with open('save/settings.txt', 'rb') as file:
+        file = pickle.Unpickler(file)
+        Settings = file.load()
     if language == "fr":
-        from fr import Settings
         from fr import Texts
     elif language == "en":
-        from en import Settings
         from en import Texts
-    button_pause = Button.Button(None, (0, 0, 0), [257, 240, 190, 65], Settings.resume, 'center', 32, board,
+    button_pause = Button.Button(None, (0, 0, 0), [257, 240, 190, 65], Texts.resume, 'center', 32, board,
                                  'FRAMDCN.TTF')
-    button_setting = Button.Button(None, (0, 0, 0), [257, 320, 190, 65], Settings.settings, 'center', 30, board,
+    button_setting = Button.Button(None, (0, 0, 0), [257, 320, 190, 65], Texts.settings, 'center', 30, board,
                                    'FRAMDCN.TTF')
-    button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], Settings.save, 'center', 28, board, 'FRAMDCN.TTF')
-    button_exit = Button.Button(None, (0, 0, 0), [257, 480, 190, 65], Settings.quit_game, 'center', 34, board,
+    button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], Texts.save, 'center', 28, board, 'FRAMDCN.TTF')
+    button_exit = Button.Button(None, (0, 0, 0), [257, 480, 190, 65], Texts.quit_game, 'center', 34, board,
                                 'FRAMDCN.TTF')
-    button_attack = Button.Button((127, 127, 127), (255, 255, 255), [280, 430, 110, 40], Settings.attack,
+    button_attack = Button.Button((127, 127, 127), (255, 255, 255), [280, 430, 110, 40], Texts.attack,
                                   'center', 25, None, 'FRAMDCN.TTF')
-    button_magic = Button.Button((127, 127, 127), (255, 255, 255), [280, 505, 110, 40], Settings.magic,
+    button_magic = Button.Button((127, 127, 127), (255, 255, 255), [280, 505, 110, 40], Texts.magic,
                                  'center', 25, None, 'FRAMDCN.TTF')
-    button_inventory = Button.Button((127, 127, 127), (255, 255, 255), [280, 580, 110, 40], Settings.inventory,
+    button_inventory = Button.Button((127, 127, 127), (255, 255, 255), [280, 580, 110, 40], Texts.inventory,
                                      'center', 25, None, 'FRAMDCN.TTF')
-    button_leave = Button.Button((127, 127, 127), (255, 255, 255), [280, 655, 110, 40], Settings.leave,
+    button_leave = Button.Button((127, 127, 127), (255, 255, 255), [280, 655, 110, 40], Texts.leave,
                                  'center', 25, None, 'FRAMDCN.TTF')
-    button_attack1 = Button.Button((127, 127, 127), (255, 255, 255), [280, 420, 110, 40], Settings.attack_1,
+    button_attack1 = Button.Button((127, 127, 127), (255, 255, 255), [280, 420, 110, 40], Texts.attack_1,
                                    'center', 25, None, 'FRAMDCN.TTF')
-    button_attack2 = Button.Button((127, 127, 127), (255, 255, 255), [280, 480, 110, 40], Settings.attack_2,
+    button_attack2 = Button.Button((127, 127, 127), (255, 255, 255), [280, 480, 110, 40], Texts.attack_2,
                                    'center', 25, None, 'FRAMDCN.TTF')
-    button_attack3 = Button.Button((127, 127, 127), (255, 255, 255), [280, 540, 110, 40], Settings.attack_3,
+    button_attack3 = Button.Button((127, 127, 127), (255, 255, 255), [280, 540, 110, 40], Texts.attack_3,
                                    'center', 25, None, 'FRAMDCN.TTF')
-    button_attack4 = Button.Button((127, 127, 127), (255, 255, 255), [280, 600, 110, 40], Settings.attack_4,
+    button_attack4 = Button.Button((127, 127, 127), (255, 255, 255), [280, 600, 110, 40], Texts.attack_4,
                                    'center', 25, None, 'FRAMDCN.TTF')
-    button_magic1 = Button.Button((127, 127, 127), (255, 255, 255), [280, 420, 110, 40], Settings.magic_1,
+    button_magic1 = Button.Button((127, 127, 127), (255, 255, 255), [280, 420, 110, 40], Texts.magic_1,
                                   'center', 25, None, 'FRAMDCN.TTF')
-    button_magic2 = Button.Button((127, 127, 127), (255, 255, 255), [280, 480, 110, 40], Settings.magic_2,
+    button_magic2 = Button.Button((127, 127, 127), (255, 255, 255), [280, 480, 110, 40], Texts.magic_2,
                                   'center', 25, None, 'FRAMDCN.TTF')
-    button_magic3 = Button.Button((127, 127, 127), (255, 255, 255), [280, 540, 110, 40], Settings.magic_3,
+    button_magic3 = Button.Button((127, 127, 127), (255, 255, 255), [280, 540, 110, 40], Texts.magic_3,
                                   'center', 25, None, 'FRAMDCN.TTF')
-    button_magic4 = Button.Button((127, 127, 127), (255, 255, 255), [280, 600, 110, 40], Settings.magic_4,
+    button_magic4 = Button.Button((127, 127, 127), (255, 255, 255), [280, 600, 110, 40], Texts.magic_4,
                                   'center', 25, None, 'FRAMDCN.TTF')
-    button_back = Button.Button((127, 127, 127), (255, 255, 255), [280, 660, 110, 40], Settings.back,
+    button_back = Button.Button((127, 127, 127), (255, 255, 255), [280, 660, 110, 40], Texts.back,
                                 'center', 25, None, 'FRAMDCN.TTF')
-    button_confirm = Button.Button((127, 127, 127), (255, 255, 255), [161, 348, 110, 40], Settings.confirm,
+    button_confirm = Button.Button((127, 127, 127), (255, 255, 255), [161, 348, 110, 40], Texts.confirm,
                                    'center', 25, None, 'FRAMDCN.TTF')
-    button_use = Button.Button((127, 127, 127), (255, 255, 255), [500, 670, 110, 40], Settings.use,
+    button_use = Button.Button((127, 127, 127), (255, 255, 255), [500, 670, 110, 40], Texts.use,
                                'center', 25, None, 'FRAMDCN.TTF')
     return Settings, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
            button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
@@ -81,6 +82,16 @@ def change_language(language):
         pickler = pickle.Pickler(file)
         pickler.dump(language)
     return import_language()
+
+
+def save_setting(setting):
+    try:
+        os.remove("save/settings.txt")
+    except FileNotFoundError:
+        pass
+    with open("save/settings.txt", 'wb') as file:
+        pickler = pickle.Pickler(file)
+        pickler.dump(setting)
 
 
 board = pygame.image.load('assets/button/board.png')

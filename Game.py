@@ -52,7 +52,7 @@ def game_fight(pressed):  # menu=4
         pass
     frame = time.time()
     if fight_mode == 3 and time.time() > temp + 1 / 3:
-        if pressed.get(pygame.K_RIGHT):
+        if pressed.get(Settings[0]):
             pos_inventory = (
                 int((pos_inventory[1] * 5 + pos_inventory[0] + 1) % 5),
                 (pos_inventory[1] * 5 + pos_inventory[0] + 1) // 5,
@@ -61,7 +61,7 @@ def game_fight(pressed):  # menu=4
                 pos_inventory = (pos_inventory[0], 4, pos_inventory[2] + 1)
             if (pos_inventory[1] + pos_inventory[2]) * 5 + pos_inventory[0] >= 52:
                 pos_inventory = (0, 0, 0)
-        elif pressed.get(pygame.K_LEFT):
+        elif pressed.get(Settings[1]):
             pos_inventory = (
                 (pos_inventory[1] * 5 + pos_inventory[0] - 1) % 5, (pos_inventory[1] * 5 + pos_inventory[0] - 1) // 5,
                 pos_inventory[2])
@@ -69,13 +69,13 @@ def game_fight(pressed):  # menu=4
                 pos_inventory = (pos_inventory[0], 0, pos_inventory[2] - 1)
             if pos_inventory[2] < 0:
                 pos_inventory = (52 % 5 - 1, 4, 52 // 5 - 4)
-        elif pressed.get(pygame.K_DOWN):
+        elif pressed.get(Settings[2]):
             pos_inventory = (pos_inventory[0], pos_inventory[1] + 1, pos_inventory[2])
             if pos_inventory[1] >= 5:
                 pos_inventory = (pos_inventory[0], 4, pos_inventory[2] + 1)
             if (pos_inventory[1] + pos_inventory[2]) * 5 + pos_inventory[0] >= 52:
                 pos_inventory = (pos_inventory[0], 0, 0)
-        elif pressed.get(pygame.K_UP):
+        elif pressed.get(Settings[3]):
             pos_inventory = (pos_inventory[0], pos_inventory[1] - 1, pos_inventory[2])
             if pos_inventory[1] < 0:
                 pos_inventory = (pos_inventory[0], 0, pos_inventory[2] - 1)

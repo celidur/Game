@@ -16,12 +16,12 @@ class Display:
         self.arial = pygame.font.Font("font/FRAMDCN.TTF", 20)
         self.dialogue = pygame.font.Font("font/rpg_.FON", 16)
         self.colors = {
-            Game.Settings.plain: (68, 255, 0),
-            Game.Settings.desert: (249, 210, 39),
-            Game.Settings.snow: (152, 249, 219),
-            Game.Settings.forest: (11, 109, 13),
-            Game.Settings.mountain: (123, 95, 62),
-            Game.Settings.volcano: (163, 41, 18)}
+            Game.Texts.plain: (68, 255, 0),
+            Game.Texts.desert: (249, 210, 39),
+            Game.Texts.snow: (152, 249, 219),
+            Game.Texts.forest: (11, 109, 13),
+            Game.Texts.mountain: (123, 95, 62),
+            Game.Texts.volcano: (163, 41, 18)}
 
     def display_update(self, n, x_case, y_case):
         try:
@@ -78,8 +78,8 @@ class Display:
         Game.Screen.blit(background, (0, 0))
         Game.Screen.blit(monster, size)
         Game.Screen.blit(
-            self.arial.render("{} : {}/{}  {} : {}/{}".format(Game.Settings.hp, player_stats[0], player_stats[1],
-                                                              Game.Settings.mp, player_stats[2], player_stats[3]),
+            self.arial.render("{} : {}/{}  {} : {}/{}".format(Game.Texts.hp, player_stats[0], player_stats[1],
+                                                              Game.Texts.mp, player_stats[2], player_stats[3]),
                               False, (255, 255, 255)), (430, 357))
         Game.Screen.blit(self.arial.render(name[0], False, self.colors[name[1]]), (65, 357))
         Game.Screen.blit(self.arial.render("{}/{}".format(hp[0], hp[1]), False, (255, 255, 255)), (215, 357))
@@ -97,7 +97,7 @@ class Display:
             attack_mountain, defense_mountain = 7, 9
             attack_volcano, defense_volcano = 14, 1
             Game.Screen.blit(
-                self.arial.render("{}   {}".format(Game.Settings.attack_stat, Game.Settings.defense_stat), False,
+                self.arial.render("{}   {}".format(Game.Texts.attack_stat, Game.Texts.defense_stat), False,
                                   (255, 255, 255)), (530, 420))
             # base
             Game.Screen.blit(self.arial.render("Base", False, (255, 255, 255)), (430, 460))
@@ -106,42 +106,42 @@ class Display:
             Game.Screen.blit(self.arial.render(str(defense_base), False, (255, 255, 255)),
                              (665 - len(str(defense_base)) * 8, 460))
             # plaine
-            Game.Screen.blit(self.arial.render(Game.Settings.plain, False, (68, 255, 0)), (430, 500))
+            Game.Screen.blit(self.arial.render(Game.Texts.plain, False, (68, 255, 0)), (430, 500))
             Game.Screen.blit(self.arial.render('+' + str(attack_plain), False, (255, 255, 255)),
                              (585 - len(str(attack_plain) + '+') * 8, 500))
             Game.Screen.blit(self.arial.render('+' + str(defense_plain), False, (255, 255, 255)),
                              (665 - len(str(defense_plain) + '+') * 8, 500))
 
             # désert
-            Game.Screen.blit(self.arial.render(Game.Settings.desert, False, (249, 210, 39)), (430, 530))
+            Game.Screen.blit(self.arial.render(Game.Texts.desert, False, (249, 210, 39)), (430, 530))
             Game.Screen.blit(self.arial.render('+' + str(attack_desert), False, (255, 255, 255)),
                              (585 - len(str(attack_desert) + '+') * 8, 530))
             Game.Screen.blit(self.arial.render('+' + str(defense_desert), False, (255, 255, 255)),
                              (665 - len(str(defense_desert) + '+') * 8, 530))
 
             # neige
-            Game.Screen.blit(self.arial.render(Game.Settings.snow, False, (152, 249, 219)), (430, 560))
+            Game.Screen.blit(self.arial.render(Game.Texts.snow, False, (152, 249, 219)), (430, 560))
             Game.Screen.blit(self.arial.render('+' + str(attack_snow), False, (255, 255, 255)),
                              (585 - len(str(attack_snow) + '+') * 8, 560))
             Game.Screen.blit(self.arial.render('+' + str(defense_snow), False, (255, 255, 255)),
                              (665 - len(str(defense_snow) + '+') * 8, 560))
 
             # forêt
-            Game.Screen.blit(self.arial.render(Game.Settings.forest, False, (11, 109, 13)), (430, 590))
+            Game.Screen.blit(self.arial.render(Game.Texts.forest, False, (11, 109, 13)), (430, 590))
             Game.Screen.blit(self.arial.render('+' + str(attack_forest), False, (255, 255, 255)),
                              (585 - len(str(attack_forest) + '+') * 8, 590))
             Game.Screen.blit(self.arial.render('+' + str(defense_forest), False, (255, 255, 255)),
                              (665 - len(str(defense_forest) + '+') * 8, 590))
 
             # montagne
-            Game.Screen.blit(self.arial.render(Game.Settings.mountain, False, (123, 95, 62)), (430, 620))
+            Game.Screen.blit(self.arial.render(Game.Texts.mountain, False, (123, 95, 62)), (430, 620))
             Game.Screen.blit(self.arial.render('+' + str(attack_mountain), False, (255, 255, 255)),
                              (585 - len(str(attack_mountain) + '+') * 8, 620))
             Game.Screen.blit(self.arial.render('+' + str(defense_mountain), False, (255, 255, 255)),
                              (665 - len(str(defense_mountain) + '+') * 8, 620))
 
             # volcan
-            Game.Screen.blit(self.arial.render(Game.Settings.volcano, False, (163, 41, 18)), (430, 650))
+            Game.Screen.blit(self.arial.render(Game.Texts.volcano, False, (163, 41, 18)), (430, 650))
             Game.Screen.blit(self.arial.render('+' + str(attack_volcano), False, (255, 255, 255)),
                              (585 - len(str(attack_volcano) + '+') * 8, 650))
             Game.Screen.blit(self.arial.render('+' + str(defense_volcano), False, (255, 255, 255)),
@@ -196,7 +196,7 @@ class Display:
                 pygame.image.load('assets/inventory/potions/{}.png'.format(str(((y + scroll) * 5 + x) % 25))),
                 (540, 420))
             Display.display_text(self,
-                                 '{}|{} : {}'.format(inventory[1][(y + scroll) * 5 + x][0], Game.Settings.quantity,
+                                 '{}|{} : {}'.format(inventory[1][(y + scroll) * 5 + x][0], Game.Texts.quantity,
                                                      inventory[1][(y + scroll) * 5 + x][1]), 580, 420,
                                  'FRAMDCN.TTF', 16, False,
                                  (255, 255, 255), 150)
