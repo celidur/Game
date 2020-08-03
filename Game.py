@@ -27,7 +27,7 @@ fight_mode = 0
 enemy1 = Enemy1()
 change = True
 debut_combat = True
-texts = []
+texts = ''
 pos_inventory = (0, 0, 0)
 use_ = [False, None]
 

@@ -212,30 +212,35 @@ class Display:
             else:
                 Game.use_ = [False, None]
         # zone actions
-        text = text.split(' ')
         if not Game.texts:
-            text = "Voix ambiguë d'un coeur qui au zéphyr préfère les jattes de kiwis.  1234567890".split(' ')
+            text = "Selectionnez une action."
             change = True
         if change:
-            Game.texts.append(text)
+            if Game.texts == '':
+                Game.texts = text
+            else:
+                Game.texts += '|'+text
+        print(Game.texts)
         while True:
             x, y = 0, 0
-            for text in Game.texts:
+            texts = Game.texts.split('|')
+            for text in texts:
+                text = text.split(' ')
                 for word in text:
-                    x += len(word) * 8
-                    for i in ['i', '1', '.', ':', ',', ';', "'", '!']:
-                        x -= word.count(i) * 4
+                    x += self.dialogue.size(word)[0]
                     if x >= 250:
                         y += 18
                         x = 0
-                    x += 5
+                    x += self.dialogue.size(' ')[0]
                 x = 0
                 y += 18
             if y > 291:
                 Game.texts.remove(Game.texts[0])
             else:
                 break
-        x, y = 0, 0
+        print(Game.texts)
+        Display.display_text(self, Game.texts, 35, 415, 'rpg_.FON', 16, 0.1, (0, 0, 0), 250)
+        '''x, y = 0, 0
         for t in range(len(Game.texts)):
             for word in Game.texts[t]:
                 lw = len(word) * 8
@@ -253,7 +258,7 @@ class Display:
                         time.sleep(0)
                 x += 4
             x = 0
-            y += 18
+            y += 18'''
 
         Game.change = False
         if Game.fight_mode == 4:
@@ -267,31 +272,29 @@ class Display:
         font = pygame.font.Font("font/" + font, size)
         x, y = 0, 0
         texts = texts.split('|')
-        for text in texts:
-            text = text.split(' ')
-            p, lw = '', 0
-            for word in text:
-                if prog:
+        for i in range(len(texts)):
+            texts[i] = texts[i].split(' ')
+            line, lw = '', 0
+            for word in texts[i]:
+                if not prog or i != len(texts)-1:
+                    lw += font.size(word)[0]
+                    if x + lw < length or line == '':
+                        line += word + ' '
+                    elif x + lw >= length or word == texts[i][-1]:
+                        Game.Screen.blit(font.render(line, False, color), (x_pos + x, y_pos + y))
+                        line, lw, x, y = word + ' ', 0, 0, y + size
+                else:
+                    if x + font.size(word)[0] >= length:
+                        x = 0
+                        y += size
                     for char in word:
-                        Game.Screen.blit(self.dialogue.render(char, False, (255, 255, 255)), (x_pos + x, y_pos + y))
-                        x += size / 2
-                        if char in ['i', 'l', 'f', '.', ',']:
-                            x -= size / 4
-                        x = int(x)
+                        Game.Screen.blit(self.dialogue.render(char, False, (color[0] //2, color[1] // 2, color[2] // 2)), (x_pos + x, y_pos + y))
+                        x += font.size(char)[0]
                         pygame.display.flip()
-                        time.sleep(0.05)
-                    x += size // 4
+                        time.sleep(prog)
+                    x += font.size(' ')[0]
                     pass
-                lw += len(word) * size / 2
-                for char in word:
-                    if char in ['i', 'l', 'f', '.', ',']:
-                        lw -= size / 4
-                x = int(x)
-                if x + lw < length or p == '':
-                    p += word + ' '
-                elif x + lw >= length or word == text[-1]:
-                    Game.Screen.blit(font.render(p, False, color), (x_pos + x, y_pos + y))
-                    p, lw, x, y = word + ' ', 0, 0, y + size
-            Game.Screen.blit(font.render(p, False, color), (x_pos + x, y_pos + y))
+
+            Game.Screen.blit(font.render(line, False, color), (x_pos + x, y_pos + y))
             x = 0
             y += size
