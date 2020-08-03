@@ -20,6 +20,8 @@ class Player(pygame.sprite.Sprite):
         self.xp = 0
         self.hm = 25
         self.hm_max = 25
+        self.attack = 10
+        self.defense = 10
 
     def box_change(self, n1):
         if self.box > n1 + 4:
@@ -215,4 +217,4 @@ class Player(pygame.sprite.Sprite):
         return True
 
     def get_stats(self):
-        return self.hp, self.hp_max, self.hm, self.hm_max
+        return self.hp, self.hp_max, self.hm, self.hm_max, self.attack, self.defense
