@@ -96,7 +96,7 @@ def game_play(pressed):
         pass
     frame = time.time()
     if pressed.get(pygame.K_ESCAPE) and time.time() > temp:
-        menu, temp = 1, time.time() + 0.2
+        menu, temp = 2, time.time() + 0.2
         return
     x, y = player.player_move(pressed, x, y, map_game, Width, Length)
     map_game, x_map_game, y_map_game = update_map_game(x_map_game, y_map_game, x, y, Map, map_game)
@@ -107,6 +107,7 @@ def game_menu(pressed):
     global menu, temp
     if pressed.get(pygame.K_ESCAPE) and time.time() > temp:
         menu, temp = 0, time.time() + 0.2
+    display.display(map_game)
 
 
 def update_map_game(x_map, y_map, x_player, y_player, map_full, map_game_update):

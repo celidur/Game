@@ -18,15 +18,13 @@ while running:
     if Game.menu == 0:
         if onclick:
             if Game.button_menu.button_clicked(pos[0], pos[1]):
-                Game.menu = 1
+                Game.menu = 2
             elif Game.button_shop.button_clicked(pos[0], pos[1]):
                 pass
         else:
             Game.game_play(pressed)
     elif Game.menu == 1:
-        Game.display.display_game()
-        pygame.display.flip()
-        Game.menu = 2
+        pass
     elif Game.menu == 2:
         if onclick:
             if Game.button_pause.button_clicked(pos[0], pos[1]):

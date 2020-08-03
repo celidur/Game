@@ -67,6 +67,8 @@ class Display:
     def display(self, map_game):
         self.map = map_game
         self.display_game()
+        if Game.menu == 2:
+            self.display_pause()
         pygame.display.flip()
         # self.ii += 1
         # if time.time() > self.i1:
