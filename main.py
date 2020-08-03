@@ -43,16 +43,21 @@ while running:
             if Game.fight_mode == 0:
                 if Game.button_attack.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 1
+                    Game.add_text(Game.Texts.select_attack)
                 elif Game.button_magic.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 2
+                    Game.add_text(Game.Texts.select_spell)
                 elif Game.button_inventory.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 3
+                    Game.add_text(Game.Texts.select_object)
                     Game.pos_inventory = (0, 0, 0)
                 elif Game.button_leave.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 4
             elif Game.fight_mode == 1 or Game.fight_mode == 2:
                 if Game.button_back.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 0
+                    Game.remove_text()
+                    Game.add_text(Game.Texts.select_action)
                 elif Game.fight_mode == 1:
                     if Game.button_attack1.button_clicked(pos[0], pos[1]):
                         Game.fight_mode = 0
@@ -71,17 +76,19 @@ while running:
                         Game.fight_mode = 0
                     elif Game.button_magic4.button_clicked(pos[0], pos[1]):
                         Game.fight_mode = 0
+            elif Game.fight_mode == 3:
+                Game.add_text(Game.Texts.select_object)
+            if Game.button_back.button_clicked(pos[0], pos[1], 280, 670):
+                Game.fight_mode = 0
+                Game.remove_text()
+            elif Game.button_use.button_clicked(pos[0], pos[1]) and Game.use_[0]:
+                pass
             elif Game.fight_mode == 4:
                 if Game.button_back.button_clicked(pos[0], pos[1], 433, 348):
                     Game.fight_mode = 0
                 elif Game.button_confirm.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 0
                     Game.menu = 0
-            elif Game.fight_mode == 3:
-                if Game.button_back.button_clicked(pos[0], pos[1], 280, 670):
-                    Game.fight_mode = 0
-                elif Game.button_use.button_clicked(pos[0], pos[1]) and Game.use_[0]:
-                    pass
         elif pressed.get(pygame.K_ESCAPE) and Game.fight_mode != 0:
             Game.fight_mode = 0
 

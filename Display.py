@@ -76,7 +76,7 @@ class Display:
         #    self.i1 = time.time() + 1
         #    self.ii = 0
 
-    def display_fight(self, background, monster, size, hp, name, player_stats, pos_inventory, change, text):
+    def display_fight(self, background, monster, size, hp, name, player_stats, pos_inventory):
         Game.Screen.blit(background, (0, 0))
         Game.Screen.blit(monster, size)
         Game.Screen.blit(
@@ -214,14 +214,9 @@ class Display:
             else:
                 Game.use_ = [False, None]
         # zone actions
-        if not Game.texts:
-            text = "Selectionnez une action."
-            change = True
-        if change:
-            if Game.texts == '':
-                Game.texts = text
-            else:
-                Game.texts += '|'+text
+        if Game.texts == '':
+            Game.texts = "Selectionnez une action."
+            Game.change = True
         while True:
             x, y = 0, 0
             texts = Game.texts.split('|')
@@ -236,10 +231,12 @@ class Display:
                 x = 0
                 y += 18
             if y > 291:
-                Game.texts.remove(Game.texts[0])
+                Game.texts = Game.texts.split('|')
+                del Game.texts[0]
+                Game.texts = '|'.join(Game.texts)
             else:
                 break
-        if change:
+        if Game.change:
             Display.display_text(self, Game.texts, 35, 415, 'rpg_.FON', 16, 0.05, (255, 255, 255), 250, True)
         else:
             Display.display_text(self, Game.texts, 35, 415, 'rpg_.FON', 16, False, (255, 255, 255), 250, True)

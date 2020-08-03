@@ -33,7 +33,9 @@ settings = 'PARAMETRES'
 save = 'SAUVEGARDER'
 quit_game = 'QUITTER'
 
-# fight
+select_action = "Sélectionnez une action."
+select_attack = "Sélectionnez une attaque."
+select_spell = "Sélectionnez un sort."
+select_object = "Sélectionnez un objet."
 description_attack = "Attaque 1 :|Coup d'épée basique. Inflige {} ({}) dégats.|||Attaque 2 :|Fait saigner l'ennemi pendant 4 tours. Inflige {} ({}) dégats. Total : {} ({}).|||Attaque 3 :|Coup d'épée basique. Inflige {} dégats | | | Attaque 4 :|Coup d'épée basique. Inflige {} dégats"
-
 description_magic = "Attaque 1 :|Coup d'épée basique. Inflige {} dégats | | | Attaque 2 :|Coup d'épée basique. Inflige {} dégats | | | Attaque 3 :|Coup d'épée basique. Inflige {} dégats | | | Attaque 4 :|Coup d'épée basique. Inflige {} dégats"

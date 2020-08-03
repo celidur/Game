@@ -5,9 +5,9 @@ from Display import Display
 from Player import Player
 
 Settings, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
-           button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-           button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
-           button_use = import_language()
+button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
+button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
+button_use = import_language()
 player = Player()
 x, y, menu, temp = 48 * 64, 30 * 64, 4, time.time()
 map_game = []
@@ -44,7 +44,7 @@ def save():
 
 
 def game_fight(pressed):  # menu=4
-    global menu, frame, player, enemy1, map_game, x_map_game, y_map_game, fight_mode, debut_combat, pos_inventory, temp
+    global menu, frame, player, enemy1, map_game, x_map_game, y_map_game, fight_mode, debut_combat, pos_inventory, temp, texts
     if debut_combat:
         init_fight('enemy1')
         debut_combat = False
@@ -86,7 +86,7 @@ def game_fight(pressed):  # menu=4
                     pos_inventory = (pos_inventory[0], 4, 52 // 5 - 4)
         temp = time.time()
     display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
-                          enemy1.get_name(), player.get_stats(), pos_inventory, change, text='hey')
+                          enemy1.get_name(), player.get_stats(), pos_inventory)
     pygame.display.flip()
 
 
@@ -172,3 +172,19 @@ def update_map_game(x_map, y_map, x_player, y_player, map_full, map_game_update)
         y_map += 1
 
     return map_game_update, x_map, y_map
+
+
+def add_text(text):
+    global texts, change
+    texts = texts.split('|')
+    if texts[-1] != text:
+        texts.append(text)
+        change = True
+    texts = '|'.join(texts)
+
+def remove_text():
+    global texts, change
+    texts = texts.split('|')
+    del texts[-1]
+    change = True
+    texts = '|'.join(texts)
