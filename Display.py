@@ -205,9 +205,7 @@ class Display:
                                  470,
                                  'FRAMDCN.TTF', 16, False,
                                  (255, 255, 255), 180)
-            Game.button_back.display_button(280, 670,
-                                            Game.pos_text(Game.Settings.back, 25, [280, 670, 110, 40], 'arial',
-                                                          'center'))
+            Game.button_back.display_button(280, 670, 'center')
             if int(inventory[1][(y + scroll) * 5 + x][1]) > 0:
                 Game.button_use.display_button()
                 Game.use_ = [True, inventory[1][(y + scroll) * 5 + x][0]]
@@ -263,9 +261,7 @@ class Display:
             s.fill((0, 0, 0, 150))
             Game.Screen.blit(s, (0, 0))
             Game.button_confirm.display_button()
-            Game.button_back.display_button(433, 348,
-                                            Game.pos_text(Game.Settings.back, 25, [433, 348, 110, 40], 'arial',
-                                                          'center'))
+            Game.button_back.display_button(433, 348, 'center')
 
     def display_text(self, texts, x_pos, y_pos, font, size, prog, color, length):
         font = pygame.font.Font("font/" + font, size)

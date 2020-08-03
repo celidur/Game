@@ -5,26 +5,33 @@ pygame.init()
 
 
 class Button:
-    def __init__(self, color_button, color_text, position_button, text=None, position_text=None, size_police=0,
-                 image=None):
+    def __init__(self, color_button, color_text, position_button, text=None, ID=None, size_police=0,
+                 image=None, police=None):
         self.image = image
         self.color_button = color_button
-        self.color_text = color_text
         self.position_button = position_button
         self.text = text
-        self.position_text = position_text
-        self.arial = pygame.font.SysFont("arial", size_police)
+        if text is not None:
+            self.police = pygame.font.Font("font/{}".format(police), size_police)
+            self.color_text = color_text
+            self.ID = ID
+            self.position_text = self.pos_text()
 
-    def display_button(self, position_x=None, position_y=None, position_text=None):
+    def display_button(self, position_x=None, position_y=None, ID=None, position_text=None):
         if position_x is None:
-            position_x, position_y, position_text = self.position_button[0], self.position_button[1], self.position_text
+            position_x, position_y = self.position_button[0], self.position_button[1]
+        if self.text is not None and ID is not None:
+            self.ID = ID
+            position_text = self.pos_text(position_x, position_y)
+        elif self.text is not None:
+            position_text = self.position_text
         if self.image is not None:
             Game.Screen.blit(self.image, (position_x, position_y))
         else:
             pygame.draw.rect(Game.Screen, self.color_button,
                              [position_x, position_y, self.position_button[2], self.position_button[3]])
         if self.text is not None:
-            Game.Screen.blit(self.arial.render(self.text, False, self.color_text), position_text)
+            Game.Screen.blit(self.police.render(self.text, False, self.color_text), position_text)
 
     def button_clicked(self, x, y, position_x=None, position_y=None):
         if position_x is None:
@@ -33,3 +40,34 @@ class Button:
                 position_y + self.position_button[3] >= y >= position_y:
             return True
         return False
+
+    def pos_text(self, position_x=None, position_y=None):
+        if position_x is not None:
+            self.position_button[0] = position_x
+            self.position_button[1] = position_y
+        if self.ID == 'center_up':
+            return self.position_button[0] + (self.position_button[2] - self.police.size(self.text)[0]) // 2, \
+                   self.position_button[1]
+        elif self.ID == 'right_up':
+            return self.position_button[0] + self.position_button[2] - self.police.size(self.text)[0], \
+                   self.position_button[1]
+        elif self.ID == 'left_middle':
+            return self.position_button[0], self.position_button[1] + (
+                        self.position_button[3] - self.police.size(self.text)[1]) // 2
+        elif self.ID == 'center':
+            return self.position_button[0] + (self.position_button[2] - self.police.size(self.text)[0]) // 2, \
+                   self.position_button[1] + (self.position_button[3] - self.police.size(self.text)[1]) // 2
+        elif self.ID == 'right_middle':
+            return self.position_button[0] + self.position_button[2] - self.police.size(self.text)[0], \
+                   self.position_button[1] + (self.position_button[3] - self.police.size(self.text)[1]) // 2
+        elif self.ID == 'left_down':
+            return self.position_button[0], self.position_button[1] + self.position_button[3] - \
+                   self.police.size(self.text)[1]
+        elif self.ID == 'center_down':
+            return self.position_button[0] + (self.position_button[2] - self.police.size(self.text)[0]) // 2, \
+                   self.position_button[1] + self.position_button[3] - self.police.size(self.text)[1]
+        elif self.ID == 'right_down':
+            return self.position_button[0] + self.position_button[2] - self.police.size(self.text)[0], \
+                   self.position_button[1] + self.position_button[3] - self.police.size(self.text)[1]
+        else:  # left_up or errors
+            return self.position_button[0], self.position_button[1]

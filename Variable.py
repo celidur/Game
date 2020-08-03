@@ -19,31 +19,6 @@ def import_map():
 Settings, Texts = None, None
 
 
-def pos_text(string, size, pos, font, ID):
-    if font == 'dialogue':
-        font = pygame.font.Font("font/rpg_.FON", size)
-    else:  # font = 'arial' or errors
-        font = pygame.font.Font("font/FRAMDCN.TTF", size)
-    if ID == 'center_up':
-        return pos[0] + (pos[2] - font.size(string)[0]) // 2, pos[1]
-    elif ID == 'right_up':
-        return pos[0] + pos[2] - font.size(string)[0], pos[1]
-    elif ID == 'left_middle':
-        return pos[0], pos[1] + (pos[3] - font.size(string)[1]) // 2
-    elif ID == 'center':
-        return pos[0] + (pos[2] - font.size(string)[0]) // 2, pos[1] + (pos[3] - font.size(string)[1]) // 2
-    elif ID == 'right_middle':
-        return pos[0] + pos[2] - font.size(string)[0], pos[1] + (pos[3] - font.size(string)[1]) // 2
-    elif ID == 'left_down':
-        return pos[0], pos[1] + pos[3] - font.size(string)[1]
-    elif ID == 'center_down':
-        return pos[0] + (pos[2] - font.size(string)[0]) // 2, pos[1] + pos[3] - font.size(string)[1]
-    elif ID == 'right_down':
-        return pos[0] + pos[2] - font.size(string)[0], pos[1] + pos[3] - font.size(string)[1]
-    else:  # left_up or errors
-        return pos[0], pos[1]
-
-
 def import_language():
     global Settings, Texts
     with open('language/language.txt', 'rb') as file:
@@ -55,40 +30,43 @@ def import_language():
     elif language == "en":
         from en import Settings
         from en import Texts
-    button_pause = Button.Button(None, (0, 0, 0), [257, 240, 190, 65], Settings.resume, (270, 253), 32, board)
-    button_setting = Button.Button(None, (0, 0, 0), [257, 320, 190, 65], Settings.settings, (271, 333), 30, board)
-    button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], Settings.save, (264, 415), 28, board)
-    button_exit = Button.Button(None, (0, 0, 0), [257, 480, 190, 65], Settings.quit_game, (290, 492), 34, board)
+    button_pause = Button.Button(None, (0, 0, 0), [257, 240, 190, 65], Settings.resume, 'center', 32, board,
+                                 'FRAMDCN.TTF')
+    button_setting = Button.Button(None, (0, 0, 0), [257, 320, 190, 65], Settings.settings, 'center', 30, board,
+                                   'FRAMDCN.TTF')
+    button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], Settings.save, 'center', 28, board, 'FRAMDCN.TTF')
+    button_exit = Button.Button(None, (0, 0, 0), [257, 480, 190, 65], Settings.quit_game, 'center', 34, board,
+                                'FRAMDCN.TTF')
     button_attack = Button.Button((127, 127, 127), (255, 255, 255), [280, 430, 110, 40], Settings.attack,
-                                  pos_text(Settings.attack, 25, [280, 430, 110, 40], 'arial', 'center'), 25)
+                                  'center', 25, None, 'FRAMDCN.TTF')
     button_magic = Button.Button((127, 127, 127), (255, 255, 255), [280, 505, 110, 40], Settings.magic,
-                                 pos_text(Settings.magic, 25, [280, 505, 110, 40], 'arial', 'center'), 25)
+                                 'center', 25, None, 'FRAMDCN.TTF')
     button_inventory = Button.Button((127, 127, 127), (255, 255, 255), [280, 580, 110, 40], Settings.inventory,
-                                     pos_text(Settings.inventory, 25, [280, 580, 110, 40], 'arial', 'center'), 25)
+                                     'center', 25, None, 'FRAMDCN.TTF')
     button_leave = Button.Button((127, 127, 127), (255, 255, 255), [280, 655, 110, 40], Settings.leave,
-                                 pos_text(Settings.leave, 25, [280, 655, 110, 40], 'arial', 'center'), 25)
+                                 'center', 25, None, 'FRAMDCN.TTF')
     button_attack1 = Button.Button((127, 127, 127), (255, 255, 255), [280, 420, 110, 40], Settings.attack_1,
-                                   pos_text(Settings.attack_1, 25, [280, 420, 110, 40], 'arial', 'center'), 25)
+                                   'center', 25, None, 'FRAMDCN.TTF')
     button_attack2 = Button.Button((127, 127, 127), (255, 255, 255), [280, 480, 110, 40], Settings.attack_2,
-                                   pos_text(Settings.attack_2, 25, [280, 480, 110, 40], 'arial', 'center'), 25)
+                                   'center', 25, None, 'FRAMDCN.TTF')
     button_attack3 = Button.Button((127, 127, 127), (255, 255, 255), [280, 540, 110, 40], Settings.attack_3,
-                                   pos_text(Settings.attack_3, 25, [280, 540, 110, 40], 'arial', 'center'), 25)
+                                   'center', 25, None, 'FRAMDCN.TTF')
     button_attack4 = Button.Button((127, 127, 127), (255, 255, 255), [280, 600, 110, 40], Settings.attack_4,
-                                   pos_text(Settings.attack_4, 25, [280, 600, 110, 40], 'arial', 'center'), 25)
+                                   'center', 25, None, 'FRAMDCN.TTF')
     button_magic1 = Button.Button((127, 127, 127), (255, 255, 255), [280, 420, 110, 40], Settings.magic_1,
-                                  pos_text(Settings.magic_1, 25, [280, 420, 110, 40], 'arial', 'center'), 25)
+                                  'center', 25, None, 'FRAMDCN.TTF')
     button_magic2 = Button.Button((127, 127, 127), (255, 255, 255), [280, 480, 110, 40], Settings.magic_2,
-                                  pos_text(Settings.magic_2, 25, [280, 480, 110, 40], 'arial', 'center'), 25)
+                                  'center', 25, None, 'FRAMDCN.TTF')
     button_magic3 = Button.Button((127, 127, 127), (255, 255, 255), [280, 540, 110, 40], Settings.magic_3,
-                                  pos_text(Settings.magic_3, 25, [280, 540, 110, 40], 'arial', 'center'), 25)
+                                  'center', 25, None, 'FRAMDCN.TTF')
     button_magic4 = Button.Button((127, 127, 127), (255, 255, 255), [280, 600, 110, 40], Settings.magic_4,
-                                  pos_text(Settings.magic_4, 25, [280, 600, 110, 40], 'arial', 'center'), 25)
+                                  'center', 25, None, 'FRAMDCN.TTF')
     button_back = Button.Button((127, 127, 127), (255, 255, 255), [280, 660, 110, 40], Settings.back,
-                                pos_text(Settings.back, 25, [280, 660, 110, 40], 'arial', 'center'), 25)
+                                'center', 25, None, 'FRAMDCN.TTF')
     button_confirm = Button.Button((127, 127, 127), (255, 255, 255), [161, 348, 110, 40], Settings.confirm,
-                                   pos_text(Settings.confirm, 25, [161, 348, 110, 40], 'arial', 'center'), 25)
+                                   'center', 25, None, 'FRAMDCN.TTF')
     button_use = Button.Button((127, 127, 127), (255, 255, 255), [500, 670, 110, 40], Settings.use,
-                               pos_text(Settings.use, 25, [500, 670, 110, 40], 'arial', 'center'), 25)
+                               'center', 25, None, 'FRAMDCN.TTF')
     return Settings, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
            button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
            button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, button_use
