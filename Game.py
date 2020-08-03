@@ -36,7 +36,7 @@ def init_fight(enemy):
     global enemy1, texts
     if enemy == "enemy1":
         enemy1 = Enemy1()
-    texts = []
+    texts = ''
 
 
 def save():
