@@ -42,32 +42,32 @@ class Button:
         return False
 
     def pos_text(self, position_x=None, position_y=None):
-        if position_x is not None:
-            self.position_button[0] = position_x
-            self.position_button[1] = position_y
+        if position_x is None:
+            position_x = self.position_button[0]
+            position_y = self.position_button[1]
         if self.ID == 'center_up':
-            return self.position_button[0] + (self.position_button[2] - self.police.size(self.text)[0]) // 2, \
-                   self.position_button[1]
+            return position_x + (self.position_button[2] - self.police.size(self.text)[0]) // 2, \
+                   position_y
         elif self.ID == 'right_up':
-            return self.position_button[0] + self.position_button[2] - self.police.size(self.text)[0], \
-                   self.position_button[1]
+            return position_x + self.position_button[2] - self.police.size(self.text)[0], \
+                   position_y
         elif self.ID == 'left_middle':
-            return self.position_button[0], self.position_button[1] + (
-                        self.position_button[3] - self.police.size(self.text)[1]) // 2
+            return position_x, position_y + (
+                    self.position_button[3] - self.police.size(self.text)[1]) // 2
         elif self.ID == 'center':
-            return self.position_button[0] + (self.position_button[2] - self.police.size(self.text)[0]) // 2, \
-                   self.position_button[1] + (self.position_button[3] - self.police.size(self.text)[1]) // 2
+            return position_x + (self.position_button[2] - self.police.size(self.text)[0]) // 2, \
+                   position_y + (self.position_button[3] - self.police.size(self.text)[1]) // 2
         elif self.ID == 'right_middle':
-            return self.position_button[0] + self.position_button[2] - self.police.size(self.text)[0], \
-                   self.position_button[1] + (self.position_button[3] - self.police.size(self.text)[1]) // 2
+            return position_x + self.position_button[2] - self.police.size(self.text)[0], \
+                   position_y + (self.position_button[3] - self.police.size(self.text)[1]) // 2
         elif self.ID == 'left_down':
-            return self.position_button[0], self.position_button[1] + self.position_button[3] - \
+            return position_x, position_y + self.position_button[3] - \
                    self.police.size(self.text)[1]
         elif self.ID == 'center_down':
-            return self.position_button[0] + (self.position_button[2] - self.police.size(self.text)[0]) // 2, \
-                   self.position_button[1] + self.position_button[3] - self.police.size(self.text)[1]
+            return position_x + (self.position_button[2] - self.police.size(self.text)[0]) // 2, \
+                   position_y + self.position_button[3] - self.police.size(self.text)[1]
         elif self.ID == 'right_down':
-            return self.position_button[0] + self.position_button[2] - self.police.size(self.text)[0], \
-                   self.position_button[1] + self.position_button[3] - self.police.size(self.text)[1]
+            return position_x + self.position_button[2] - self.police.size(self.text)[0], \
+                   position_y + self.position_button[3] - self.police.size(self.text)[1]
         else:  # left_up or errors
-            return self.position_button[0], self.position_button[1]
+            return position_x, position_y
