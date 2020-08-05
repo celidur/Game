@@ -181,7 +181,7 @@ class Display:
                             pygame.image.load(
                                 'assets/inventory/potions/{}.png'.format(str(((l + scroll) * 5 + c) % 25))),
                             (274 + c * 50, 424 + l * 50))
-                        if Game.inventory[1][(l + scroll) * 5 + c][1] == 0:
+                        if Game.player.get_inventory()[1][(l + scroll) * 5 + c][1] == 0:
                             Game.Screen.blit(pygame.image.load('assets/inventory/black.png'),
                                              (270 + c * 50, 420 + l * 50))
                     else:
@@ -194,19 +194,19 @@ class Display:
                 pygame.image.load('assets/inventory/potions/{}.png'.format(str(((y + scroll) * 5 + x) % 25))),
                 (540, 420))
             Display.display_text(self,
-                                 '{}|{} : {}'.format(Game.inventory[1][(y + scroll) * 5 + x][0], Game.Texts.quantity,
-                                                     Game.inventory[1][(y + scroll) * 5 + x][1]), 580, 420,
+                                 '{}|{} : {}'.format(Game.player.get_inventory()[1][(y + scroll) * 5 + x][0], Game.Texts.quantity,
+                                                     Game.player.get_inventory()[1][(y + scroll) * 5 + x][1]), 580, 420,
                                  'FRAMDCN.TTF', 16, False,
                                  (255, 255, 255), 150, False)
             Display.display_text(self, "La description de l'objet n°{} arrive bientôt...".format(
-                Game.inventory[1][(y + scroll) * 5 + x][0]), 520,
+                Game.player.get_inventory()[1][(y + scroll) * 5 + x][0]), 520,
                                  470,
                                  'FRAMDCN.TTF', 16, False,
                                  (255, 255, 255), 180, False)
             Game.button_back.display_button(280, 670, 'center')
-            if int(Game.inventory[1][(y + scroll) * 5 + x][1]) > 0:
+            if int(Game.player.get_inventory()[1][(y + scroll) * 5 + x][1]) > 0:
                 Game.button_use.display_button()
-                Game.use_ = [True, Game.inventory[1][(y + scroll) * 5 + x][0]]
+                Game.use_ = [True, Game.player.get_inventory()[1][(y + scroll) * 5 + x][0]]
             else:
                 Game.use_ = [False, None]
         # zone actions
@@ -233,9 +233,9 @@ class Display:
             else:
                 break
         if Game.change:
-            Display.display_text(self, Game.texts, 35, 415, 'rpg_.FON', 16, Game.prog, (255, 255, 255), 250, True)
+            Display.display_text(self, Game.texts, 35, 415, 'rpg_.FON', 16, Game.prog, (255, 255, 255), 250, True, True)
         else:
-            Display.display_text(self, Game.texts, 35, 415, 'rpg_.FON', 16, 0, (255, 255, 255), 250, True)
+            Display.display_text(self, Game.texts, 35, 415, 'rpg_.FON', 16, 0, (255, 255, 255), 250, True, True)
         Game.change = False
         if Game.fight_mode == 4:
             s = pygame.Surface((self.size_window[0], self.size_window[1]), pygame.SRCALPHA)
@@ -244,27 +244,44 @@ class Display:
             Game.button_confirm.display_button()
             Game.button_back.display_button(433, 348, 'center')
 
-    def display_text(self, texts, x_pos, y_pos, font, size, prog, color, length, change_old):
-        font = pygame.font.Font("font/" + font, size)
+    def display_text(self, texts, x_pos, y_pos, font, size, prog, color, length, change_old, point=False):
+        font_ = pygame.font.Font("font/" + font, size)
         x, y = 0, 0
         texts = texts.split('|')
         for i in range(len(texts)):
+            if point:
+                font_2 = pygame.font.Font("font/FRAMDCN.TTF", 32)
+                if prog == 0:
+                    if change_old and i < len(texts) - 1:
+                        Game.Screen.blit(font_2.render('·', False, (color[0] // 2, color[1] // 2, color[2] // 2)),
+                                         (x_pos - 10, y_pos + y - 16))
+                    else:
+                        Game.Screen.blit(font_2.render('·', False, color),
+                                         (x_pos - 10, y_pos + y - 16))
+                else:
+                    if i < len(texts) - prog:
+                        Game.Screen.blit(font_2.render('·', False, (color[0] // 2, color[1] // 2, color[2] // 2)),
+                                         (x_pos - 10, y_pos + y - 16))
+                    else:
+                        Game.Screen.blit(font_2.render('·', False, color),
+                                         (x_pos - 10, y_pos + y - 16))
+
             texts[i] = texts[i].split(' ')
             line, lw = '', 0
             for word in texts[i]:
                 if prog == 0:
-                    lw += font.size(word + ' ')[0]
+                    lw += font_.size(word + ' ')[0]
                     if x + lw < length or line == '':
                         line += word + ' '
                     elif x + lw >= length or word == texts[i][-1]:
-                        if change_old:
-                            Game.Screen.blit(font.render(line, False, (color[0] // 2, color[1] // 2, color[2] // 2)),
+                        if change_old and i < len(texts)-1:
+                            Game.Screen.blit(font_.render(line, False, (color[0] // 2, color[1] // 2, color[2] // 2)),
                                              (x_pos + x, y_pos + y))
                         else:
-                            Game.Screen.blit(font.render(line, False, color), (x_pos + x, y_pos + y))
+                            Game.Screen.blit(font_.render(line, False, color), (x_pos + x, y_pos + y))
                         line, lw, x, y = word + ' ', 0, 0, y + size
                 else:
-                    if x + font.size(word)[0] >= length:
+                    if x + font_.size(word)[0] >= length:
                         x = 0
                         y += size
                     for char in word:
@@ -276,14 +293,14 @@ class Display:
                             Game.Screen.blit(
                                 self.dialogue.render(char, False, (color[0] // 2, color[1] // 2, color[2] // 2)),
                                 (x_pos + x, y_pos + y))
-                        x += font.size(char)[0]
-                    x += font.size(' ')[0]
+                        x += font_.size(char)[0]
+                    x += font_.size(' ')[0]
                     pass
             if change_old and i < len(texts) - 1:
-                Game.Screen.blit(font.render(line, False, (color[0] // 2, color[1] // 2, color[2] // 2)),
+                Game.Screen.blit(font_.render(line, False, (color[0] // 2, color[1] // 2, color[2] // 2)),
                                  (x_pos + x, y_pos + y))
             else:
-                Game.Screen.blit(font.render(line, False, color), (x_pos + x, y_pos + y))
+                Game.Screen.blit(font_.render(line, False, color), (x_pos + x, y_pos + y))
             x = 0
             y += size
             if len(texts) - 1 > i >= len(texts) - prog:

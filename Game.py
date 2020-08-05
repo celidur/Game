@@ -32,21 +32,6 @@ pos_inventory = (0, 0, 0)
 use_ = [False, None]
 prog = 1
 
-'''objects = [[str(i)] for i in range(52)]
-for i in range(len(objects)):
-    objects[i].append(pow(2 ** (i ** (i + 1) % 5) + i ** 2 % 11, 12, 6))
-inventory = [[], objects, []]
-print(inventory)'''
-inventory = [[],
-             [['0', 1], ['1', 3], ['2', 0], ['3', 1], ['4', 3], ['5', 4], ['6', 1], ['7', 1], ['8', 1], ['9', 0],
-              ['10', 4], ['11', 4], ['12', 1], ['13', 4], ['14', 1], ['15', 0], ['16', 1], ['17', 1], ['18', 3],
-              ['19', 1], ['20', 1], ['21', 3], ['22', 4], ['23', 3], ['24', 4], ['25', 4], ['26', 1], ['27', 1],
-              ['28', 1], ['29', 1], ['30', 4], ['31', 0], ['32', 1], ['33', 4], ['34', 1], ['35', 1], ['36', 1],
-              ['37', 3], ['38', 1], ['39', 1], ['40', 0], ['41', 1], ['42', 0], ['43', 3], ['44', 4], ['45', 4],
-              ['46', 0], ['47', 1], ['48', 1], ['49', 1], ['50', 4], ['51', 1]],
-             []]
-
-
 def init_fight(enemy):
     global enemy1, texts
     if enemy == "enemy1":
@@ -199,65 +184,11 @@ def add_text(text, c=True):
         texts = texts[1:]
 
 
-def remove_text():
+def remove_text(n=1):
     global texts, change
-    texts = texts.split('|')
-    del texts[-1]
-    texts = '|'.join(texts)
+    for i in range(n):
+        texts = texts.split('|')
+        del texts[-1]
+        texts = '|'.join(texts)
 
 
-def use_object(i):
-    global inventory
-    inventory[1][i][1] -= 1
-    if i == 0:
-        pass
-    elif i == 1:
-        pass
-    elif i == 2:
-        pass
-    elif i == 3:
-        pass
-    elif i == 4:
-        pass
-    elif i == 5:
-        pass
-    elif i == 6:
-        pass
-    elif i == 7:
-        pass
-    elif i == 8:
-        pass
-    elif i == 9:
-        pass
-    elif i == 10:
-        pass
-    elif i == 11:
-        pass
-    elif i == 12:
-        pass
-    elif i == 13:
-        pass
-    elif i == 14:
-        pass
-    elif i == 15:
-        pass
-    elif i == 16:
-        pass
-    elif i == 17:
-        pass
-    elif i == 18:
-        pass
-    elif i == 19:
-        pass
-    elif i == 20:
-        pass
-    elif i == 21:
-        pass
-    elif i == 22:
-        pass
-    elif i == 23:
-        pass
-    elif i == 24:
-        pass
-    elif i == 25:
-        pass

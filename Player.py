@@ -22,6 +22,40 @@ class Player(pygame.sprite.Sprite):
         self.hm_max = 25
         self.attack = 10
         self.defense = 10
+        '''objects = [[str(i)] for i in range(52)]
+        for i in range(len(objects)):
+            objects[i].append(pow(2 ** (i ** (i + 1) % 5) + i ** 2 % 11, 12, 6))
+        inventory = [[], objects, []]
+        print(inventory)'''
+        self.inventory = [[],
+                          [['0', 1], ['1', 3], ['2', 0], ['3', 1], ['4', 3], ['5', 4], ['6', 1], ['7', 1], ['8', 1],
+                           ['9', 0],
+                           ['10', 4], ['11', 4], ['12', 1], ['13', 4], ['14', 1], ['15', 0], ['16', 1], ['17', 1],
+                           ['18', 3],
+                           ['19', 1], ['20', 1], ['21', 3], ['22', 4], ['23', 3], ['24', 4], ['25', 4], ['26', 1],
+                           ['27', 1],
+                           ['28', 1], ['29', 1], ['30', 4], ['31', 0], ['32', 1], ['33', 4], ['34', 1], ['35', 1],
+                           ['36', 1],
+                           ['37', 3], ['38', 1], ['39', 1], ['40', 0], ['41', 1], ['42', 0], ['43', 3], ['44', 4],
+                           ['45', 4],
+                           ['46', 0], ['47', 1], ['48', 1], ['49', 1], ['50', 4], ['51', 1]],
+                          []]
+        self.boost_att = 1
+        self.boost_def = 1
+
+    def get_inventory(self):
+        return self.inventory
+
+    def get_boost(self):
+        return self.boost_def, self.boost_att
+
+    def change_boost_def(self):
+        self.boost_def += 0.15
+        # équipement
+
+    def change_boost_att(self):
+        self.boost_att += 0.15
+        # equipement
 
     def box_change(self, n1):
         if self.box > n1 + 4:
@@ -218,3 +252,97 @@ class Player(pygame.sprite.Sprite):
 
     def get_stats(self):
         return self.hp, self.hp_max, self.hm, self.hm_max, self.attack, self.defense
+
+    def boost_defense(self):
+        return 0
+
+    def boost_attack(self):
+        return 0
+
+    def use_object(self, i):
+        self.inventory[1][i][1] -= 1
+        if i == 0:
+            pass
+        elif i == 1:
+            pass
+        elif i == 2:
+            pass
+        elif i == 3:
+            pass
+        elif i == 4:
+            pass
+        elif i == 5:
+            pass
+        elif i == 6:
+            pass
+        elif i == 7:
+            pass
+        elif i == 8:
+            pass
+        elif i == 9:
+            pass
+        elif i == 10:
+            pass
+        elif i == 11:
+            pass
+        elif i == 12:
+            pass
+        elif i == 13:
+            pass
+        elif i == 14:
+            pass
+        elif i == 15:
+            pass
+        elif i == 16:
+            pass
+        elif i == 17:
+            pass
+        elif i == 18:
+            pass
+        elif i == 19:
+            pass
+        elif i == 20:
+            pass
+        elif i == 21:
+            pass
+        elif i == 22:
+            pass
+        elif i == 23:
+            pass
+        elif i == 24:
+            pass
+        elif i == 25:
+            pass
+'''
+5 hp
+10, 20, 50, 100, tout
+
+1 hp_max
+50, max:2×
+
+5 mp
+5, 10, 15, 25, tout
+
+1 mp max
+15, max:2×
+
+1 att+def
++0.08 max:0.3
+
+12 stat spé + 1 att + 1 def + 1 total
++0.15, +0.04, +0.04, +0.03 max:stat_spé+0.2(*att_base)
+
+2 crit
+proba 0.2 +0.05 max:0.3
+mult 2 +0.1 max:2.5
+
+1 def + 1 att + 1 total  enemy
+-0.1, -0.1, -0.7 min:base*0.7
+
+2 crit   enemy
+proba base -0.03 min:base-0.09
+mult 2 -0.1 min:1.6
+
+boost_att_2
++1 tour, max:1
+'''
