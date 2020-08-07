@@ -28,17 +28,14 @@ class Player(pygame.sprite.Sprite):
         inventory = [[], objects, []]
         print(inventory)'''
         self.inventory = [[],
-                          [['0', 1], ['1', 3], ['2', 0], ['3', 1], ['4', 3], ['5', 4], ['6', 1], ['7', 1], ['8', 1],
-                           ['9', 0],
-                           ['10', 4], ['11', 4], ['12', 1], ['13', 4], ['14', 1], ['15', 0], ['16', 1], ['17', 1],
-                           ['18', 3],
-                           ['19', 1], ['20', 1], ['21', 3], ['22', 4], ['23', 3], ['24', 4], ['25', 4], ['26', 1],
-                           ['27', 1],
-                           ['28', 1], ['29', 1], ['30', 4], ['31', 0], ['32', 1], ['33', 4], ['34', 1], ['35', 1],
-                           ['36', 1],
-                           ['37', 3], ['38', 1], ['39', 1], ['40', 0], ['41', 1], ['42', 0], ['43', 3], ['44', 4],
-                           ['45', 4],
-                           ['46', 0], ['47', 1], ['48', 1], ['49', 1], ['50', 4], ['51', 1]],
+                          [3, 1, 0, 0, 0,
+                           0, 0, 0, 0, 0,
+                           0, 0, 0, 0, 0,
+                           0, 0, 0, 0, 0,
+                           0, 0, 0, 0, 0,
+                           0, 0, 0, 0, 0,
+                           0, 0, 0, 0, 0,
+                           0],
                           []]
         self.boost_att = 1
         self.boost_def = 1
@@ -313,6 +310,8 @@ class Player(pygame.sprite.Sprite):
             pass
         elif i == 25:
             pass
+
+
 '''
 5 hp
 10, 20, 50, 100, tout
@@ -345,4 +344,13 @@ mult 2 -0.1 min:1.6
 
 boost_att_2
 +1 tour, max:1
+
+10_hp               20_hp               50_hp               100_hp                  all_hp
+5_mp                10_mp               15_mp               25_mp                   all_mp
+0.15_att_plain      0.15_def_plain      0.15_att_desert     0.15_def_desert         0.15_att_snow
+0.15_def_snow       0.15_att_forest     0.15_def_forest     0.15_att_mountain       0.15_def_mountain
+0.15_att_volcano    0.15_def_volcano    0.04_att_spe        0.04_def_spe            0.03_stat_spe
+0.08_att_def        50_hp_max           15_mp_max           0.05_crit_proba_player  0.1_crit_mult_player
+_0.1_att_enemy      _0.1_def_enemy      _0.7_stat_enemy     _0.03_crit_proba_enemy  _0.1_crit_mult_enemy
+1_turn_att_2
 '''

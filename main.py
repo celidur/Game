@@ -94,7 +94,7 @@ while running:
                 if Game.button_back.button_clicked(pos[0], pos[1], 280, 670):
                     Game.fight_mode = 0
                     Game.remove_text()
-                elif Game.button_use.button_clicked(pos[0], pos[1]) and Game.use_[0]:
+                elif Game.button_use.button_clicked(pos[0], pos[1]) and Game.use_obj:
                     Game.player.use_object((Game.pos_inventory[1] + Game.pos_inventory[2]) * 5 + Game.pos_inventory[0])
                     Game.remove_text(2)
                     #  utilisation objet

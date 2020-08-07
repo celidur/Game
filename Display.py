@@ -156,7 +156,7 @@ class Display:
             Game.button_back.display_button()
             Display.display_text(self, Game.Texts.description_attack.format(35, 10, 40, 50, 15, 42), 400, 420,
                                  'FRAMDCN.TTF',
-                                 15, False,
+                                 15, 0,
                                  (255, 255, 255), 270, False)
 
         elif Game.fight_mode == 2:
@@ -166,7 +166,7 @@ class Display:
             Game.button_magic4.display_button()
             Game.button_back.display_button()
             Display.display_text(self, Game.Texts.description_magic.format(20, 1.5, 10, 12), 400, 420, 'FRAMDCN.TTF',
-                                 20, False,
+                                 20, 0,
                                  (255, 255, 255), 270, False)
         elif Game.fight_mode == 3:
             x, y, scroll = pos_inventory
@@ -176,12 +176,12 @@ class Display:
                     if [x, y] == [c, l]:
                         Game.Screen.blit(pygame.image.load('assets/inventory/case_select.png'),
                                          (270 + x * 50, 420 + y * 50))
-                    if (l + scroll) * 5 + c < 52:
+                    if (l + scroll) * 5 + c < 36:
                         Game.Screen.blit(
                             pygame.image.load(
                                 'assets/inventory/potions/{}.png'.format(str(((l + scroll) * 5 + c) % 25))),
                             (274 + c * 50, 424 + l * 50))
-                        if Game.player.get_inventory()[1][(l + scroll) * 5 + c][1] == 0:
+                        if Game.player.get_inventory()[1][(l + scroll) * 5 + c] == 0:
                             Game.Screen.blit(pygame.image.load('assets/inventory/black.png'),
                                              (270 + c * 50, 420 + l * 50))
                     else:
@@ -192,23 +192,21 @@ class Display:
                                          (270 + x * 50, 420 + y * 50))
             Game.Screen.blit(
                 pygame.image.load('assets/inventory/potions/{}.png'.format(str(((y + scroll) * 5 + x) % 25))),
-                (540, 420))
-            Display.display_text(self,
-                                 '{}|{} : {}'.format(Game.player.get_inventory()[1][(y + scroll) * 5 + x][0], Game.Texts.quantity,
-                                                     Game.player.get_inventory()[1][(y + scroll) * 5 + x][1]), 580, 420,
-                                 'FRAMDCN.TTF', 16, False,
-                                 (255, 255, 255), 150, False)
-            Display.display_text(self, "La description de l'objet n°{} arrive bientôt...".format(
-                Game.player.get_inventory()[1][(y + scroll) * 5 + x][0]), 520,
-                                 470,
-                                 'FRAMDCN.TTF', 16, False,
-                                 (255, 255, 255), 180, False)
+                (520, 410))
+            Display.display_text(self, Game.Texts.description_object[(y + scroll) * 5 + x][0], 560, 410,
+                                 'FRAMDCN.TTF',
+                                 16, 0, (255, 255, 255), 120, False)
+
+            Display.display_text(self, "{} : {}||{}".format(
+                Game.Texts.quantity, Game.player.get_inventory()[1][(y + scroll) * 5 + x],
+                Game.Texts.description_object[(y + scroll) * 5 + x][1]), 520, 450, 'FRAMDCN.TTF', 16, 0,
+                                 (255, 255, 255), 130, False)
             Game.button_back.display_button(280, 670, 'center')
-            if int(Game.player.get_inventory()[1][(y + scroll) * 5 + x][1]) > 0:
+            if Game.player.get_inventory()[1][(y + scroll) * 5 + x] > 0:
                 Game.button_use.display_button()
-                Game.use_ = [True, Game.player.get_inventory()[1][(y + scroll) * 5 + x][0]]
+                Game.use_obj = True
             else:
-                Game.use_ = [False, None]
+                Game.use_obj = False
         # zone actions
         if Game.texts == '':
             Game.texts = Game.Texts.select_action
@@ -265,16 +263,16 @@ class Display:
                     else:
                         Game.Screen.blit(font_2.render('·', False, color),
                                          (x_pos - 10, y_pos + y - 16))
-
             texts[i] = texts[i].split(' ')
             line, lw = '', 0
             for word in texts[i]:
                 if prog == 0:
-                    lw += font_.size(word + ' ')[0]
+                    lw += font_.size(word)[0]
                     if x + lw < length or line == '':
                         line += word + ' '
+                        lw += font_.size(" ")[0]
                     elif x + lw >= length or word == texts[i][-1]:
-                        if change_old and i < len(texts)-1:
+                        if change_old and i < len(texts) - 1:
                             Game.Screen.blit(font_.render(line, False, (color[0] // 2, color[1] // 2, color[2] // 2)),
                                              (x_pos + x, y_pos + y))
                         else:

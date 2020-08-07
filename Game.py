@@ -29,7 +29,7 @@ change = True
 debut_combat = True
 texts = ''
 pos_inventory = (0, 0, 0)
-use_ = [False, None]
+use_obj = False
 prog = 1
 
 def init_fight(enemy):
@@ -51,15 +51,15 @@ def game_fight(pressed):  # menu=4
     while not time.time() > frame + 1 / 61:
         pass
     frame = time.time()
-    if fight_mode == 3 and time.time() > temp + 1 / 3:
+    if fight_mode == 3 and time.time() > temp + 1 / 5:
         if pressed.get(Settings[0]):
             pos_inventory = (
-                int((pos_inventory[1] * 5 + pos_inventory[0] + 1) % 5),
+                ((pos_inventory[0] + 1) % 5),
                 (pos_inventory[1] * 5 + pos_inventory[0] + 1) // 5,
                 pos_inventory[2])
             if pos_inventory[1] >= 5:
                 pos_inventory = (pos_inventory[0], 4, pos_inventory[2] + 1)
-            if (pos_inventory[1] + pos_inventory[2]) * 5 + pos_inventory[0] >= 52:
+            if (pos_inventory[1] + pos_inventory[2]) * 5 + pos_inventory[0] >= 36:
                 pos_inventory = (0, 0, 0)
         elif pressed.get(Settings[1]):
             pos_inventory = (
@@ -68,22 +68,22 @@ def game_fight(pressed):  # menu=4
             if pos_inventory[1] < 0:
                 pos_inventory = (pos_inventory[0], 0, pos_inventory[2] - 1)
             if pos_inventory[2] < 0:
-                pos_inventory = (52 % 5 - 1, 4, 52 // 5 - 4)
+                pos_inventory = (36 % 5 - 1, 4, 36 // 5 - 4)
         elif pressed.get(Settings[2]):
             pos_inventory = (pos_inventory[0], pos_inventory[1] + 1, pos_inventory[2])
             if pos_inventory[1] >= 5:
                 pos_inventory = (pos_inventory[0], 4, pos_inventory[2] + 1)
-            if (pos_inventory[1] + pos_inventory[2]) * 5 + pos_inventory[0] >= 52:
+            if (pos_inventory[1] + pos_inventory[2]) * 5 + pos_inventory[0] >= 36:
                 pos_inventory = (pos_inventory[0], 0, 0)
         elif pressed.get(Settings[3]):
             pos_inventory = (pos_inventory[0], pos_inventory[1] - 1, pos_inventory[2])
             if pos_inventory[1] < 0:
                 pos_inventory = (pos_inventory[0], 0, pos_inventory[2] - 1)
             if pos_inventory[2] < 0:
-                if pos_inventory[0] >= 52 % 5:
-                    pos_inventory = (pos_inventory[0], 3, 52 // 5 - 4)
+                if pos_inventory[0] >= 36 % 5:
+                    pos_inventory = (pos_inventory[0], 3, 36 // 5 - 4)
                 else:
-                    pos_inventory = (pos_inventory[0], 4, 52 // 5 - 4)
+                    pos_inventory = (pos_inventory[0], 4, 36 // 5 - 4)
         temp = time.time()
     display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
                           enemy1.get_name(), player.get_stats(), pos_inventory)
