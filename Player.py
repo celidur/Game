@@ -30,8 +30,8 @@ class Player(pygame.sprite.Sprite):
         self.boost_proba_crtit_player = 0.2
         self.boost_mult_crtit_player = 2
         self.gold = stat[8]
-        self.num_armor = 1
-        self.num_sword = 1
+        self.num_armor = stat[10]
+        self.num_sword = stat[9]
         self.armor = Armor.Armor(Armor.armor[self.num_armor - 1][0], Armor.armor[self.num_armor - 1][1],
                                  Armor.armor[self.num_armor - 1][2],
                                  Armor.armor[self.num_armor - 1][3],
@@ -301,7 +301,8 @@ class Player(pygame.sprite.Sprite):
         return True
 
     def get_stats(self):
-        return self.hp, self.hp_max, self.hm, self.hm_max, self.attack, self.defense, self.level, self.xp, self.gold
+        return self.hp, self.hp_max, self.hm, self.hm_max, self.attack, self.defense, self.level, self.xp, self.gold, \
+               self.num_sword, self.num_armor
 
 '''
 5 hp
