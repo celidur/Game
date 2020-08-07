@@ -28,8 +28,8 @@ class Player(pygame.sprite.Sprite):
         inventory = [[], objects, []]
         print(inventory)'''
         self.inventory = [[],
-                          [3, 1, 0, 0, 0,
-                           0, 0, 0, 0, 0,
+                          [3, 0, 0, 0, 0,
+                           1, 0, 0, 0, 0,
                            0, 0, 0, 0, 0,
                            0, 0, 0, 0, 0,
                            0, 0, 0, 0, 0,

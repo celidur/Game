@@ -171,23 +171,23 @@ class Display:
         elif Game.fight_mode == 3:
             x, y, scroll = pos_inventory
             Game.Screen.blit(pygame.image.load('assets/inventory/set_cases_fight_0.png'), (270, 420))
-            for l in range(5):
-                for c in range(5):
-                    if [x, y] == [c, l]:
+            for line in range(5):
+                for colone in range(5):
+                    if [x, y] == [colone, line]:
                         Game.Screen.blit(pygame.image.load('assets/inventory/case_select.png'),
                                          (270 + x * 50, 420 + y * 50))
-                    if (l + scroll) * 5 + c < 36:
+                    if (line + scroll) * 5 + colone < 36:
                         Game.Screen.blit(
                             pygame.image.load(
-                                'assets/inventory/potions/{}.png'.format(str(((l + scroll) * 5 + c) % 25))),
-                            (274 + c * 50, 424 + l * 50))
-                        if Game.player.get_inventory()[1][(l + scroll) * 5 + c] == 0:
+                                'assets/inventory/potions/{}.png'.format(str(((line + scroll) * 5 + colone) % 25))),
+                            (274 + colone * 50, 424 + line * 50))
+                        if Game.player.get_inventory()[1][(line + scroll) * 5 + colone] == 0:
                             Game.Screen.blit(pygame.image.load('assets/inventory/black.png'),
-                                             (270 + c * 50, 420 + l * 50))
+                                             (270 + colone * 50, 420 + line * 50))
                     else:
                         Game.Screen.blit(pygame.image.load('assets/inventory/black.png'),
-                                         (270 + c * 50, 420 + l * 50))
-                    if [x, y] == [c, l]:
+                                         (270 + colone * 50, 420 + line * 50))
+                    if [x, y] == [colone, line]:
                         Game.Screen.blit(pygame.image.load('assets/inventory/case_select.png'),
                                          (270 + x * 50, 420 + y * 50))
             Game.Screen.blit(
@@ -200,7 +200,7 @@ class Display:
             Display.display_text(self, "{} : {}||{}".format(
                 Game.Texts.quantity, Game.player.get_inventory()[1][(y + scroll) * 5 + x],
                 Game.Texts.description_object[(y + scroll) * 5 + x][1]), 520, 450, 'FRAMDCN.TTF', 16, 0,
-                                 (255, 255, 255), 130, False)
+                                 (255, 255, 255), 160, False)
             Game.button_back.display_button(280, 670, 'center')
             if Game.player.get_inventory()[1][(y + scroll) * 5 + x] > 0:
                 Game.button_use.display_button()
@@ -264,20 +264,18 @@ class Display:
                         Game.Screen.blit(font_2.render('·', False, color),
                                          (x_pos - 10, y_pos + y - 16))
             texts[i] = texts[i].split(' ')
-            line, lw = '', 0
+            line = ''
             for word in texts[i]:
                 if prog == 0:
-                    lw += font_.size(word)[0]
-                    if x + lw < length or line == '':
+                    if font_.size(line+word)[0] < length or line == '':
                         line += word + ' '
-                        lw += font_.size(" ")[0]
-                    elif x + lw >= length or word == texts[i][-1]:
+                    elif font_.size(line+word)[0] >= length or word == texts[i][-1]:
                         if change_old and i < len(texts) - 1:
                             Game.Screen.blit(font_.render(line, False, (color[0] // 2, color[1] // 2, color[2] // 2)),
-                                             (x_pos + x, y_pos + y))
+                                             (x_pos, y_pos + y))
                         else:
-                            Game.Screen.blit(font_.render(line, False, color), (x_pos + x, y_pos + y))
-                        line, lw, x, y = word + ' ', 0, 0, y + size
+                            Game.Screen.blit(font_.render(line, False, color), (x_pos, y_pos + y))
+                        line, y = word + ' ', y + size
                 else:
                     if x + font_.size(word)[0] >= length:
                         x = 0

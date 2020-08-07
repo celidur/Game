@@ -51,10 +51,22 @@ description_object = [["Potion Soin (Minuscule)", 'Régénère 10 PV.'],
                       ["Potion Mana (Grande)", "Régénère 25 PM."],
                       ["Potion Mana (Géante)", "Régénère tous les PM."],
 
-                      ["", ""],
-                      ["", ""],
-                      ["", ""],
-                      ["", ""],
+                      ["Boost Attaque Plaine", "Augmente l'attaque contre les ennemis d'environnement Plaine."],
+                      ["Boost Défense Plaine", "Augmente la défense contre les ennemis d'environnement Plaine."],
+                      ["Boost Attaque Désert", "Augmente l'attaque contre les ennemis d'environnement Désert."],
+                      ["Boost Défense Désert", "Augmente la défense contre les ennemis d'environnement Désert."],
+                      ["Boost Attaque Neige", "Augmente l'attaque contre les ennemis d'environnement Neige."],
+
+                      ["Boost Défense Neige", "Augmente la défense contre les ennemis d'environnement Neige."],
+                      ["Boost Attaque Forêt", "Augmente l'attaque contre les ennemis d'environnement Forêt."],
+                      ["Boost Défense Forêt", "Augmente la défense contre les ennemis d'environnement Forêt."],
+                      ["Boost Attaque Montagne", "Augmente l'attaque contre les ennemis d'environnement Montagne."],
+                      ["Boost Défense Montagne", "Augmente la défense contre les ennemis d'environnement Montagne."],
+
+                      ["Boost Attaque Volcan", "Augmente l'attaque contre les ennemis d'environnement Volcan."],
+                      ["Boost Défense Volcan", "Augmente la défense contre les ennemis d'environnement Volcan."],
+                      ["Boost Attaque Spéciale", "Augmente l'attaque contre les ennemis de tous les environnements."],
+                      ["Boost Défense Spéciale", "Augmente la défense contre les ennemis de tous les environnements."],
                       ["", ""],
 
                       ["", ""],
@@ -69,16 +81,4 @@ description_object = [["Potion Soin (Minuscule)", 'Régénère 10 PV.'],
                       ["", ""],
                       ["", ""],
 
-                      ["", ""],
-                      ["", ""],
-                      ["", ""],
-                      ["", ""],
-                      ["", ""],
-
-                      ["", ""],
-                      ["", ""],
-                      ["", ""],
-                      ["", ""],
-                      ["", ""],
-
-                      ["", ""]]
+                      ["", "Augmente d'un tour la durée de l'attaque 2. (Ne s'applique pas aux attaques déjà lancées."]]
