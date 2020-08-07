@@ -17,15 +17,18 @@ class Player(pygame.sprite.Sprite):
         self.velocity = 8
         self.hp = stat[0]
         self.hp_max = stat[1]
-        self.level = stat[6]
+        self.level = stat[6]*0 + 500
         self.xp = stat[7]
         self.hm = stat[2]
         self.hm_max = stat[3]
         self.attack = stat[4]
         self.defense = stat[5]
         self.inventory = inventory
+        self.inventory = [[], [3, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], []]
         self.boost_att = 1
         self.boost_def = 1
+        self.boost_proba_crtit_player = 0.2
+        self.boost_mult_crtit_player = 2
         self.gold = stat[8]
         self.num_armor = 1
         self.num_sword = 1
@@ -45,20 +48,59 @@ class Player(pygame.sprite.Sprite):
     def get_inventory(self):
         return self.inventory
 
+    def change_hp(self, n, use=True):
+        hp = self.hp + n
+        if hp > self.hp_max:
+            hp = self.hp_max
+        if use:
+            self.hp = hp
+            return "PV régénérés."
+        else:
+            return hp
+
+    def change_hm(self, n, use=True):
+        hm = self.hm + n
+        if hm > self.hm_max:
+            hm = self.hm_max
+        if use:
+            self.hm = hm
+            return "PM régénérés."
+        else:
+            return hm
+
+    #apres c du kk
     def get_boost(self):
-        return self.boost_att, self.boost_def
+        return self.boost_att, self.boost_def,
+
+    def change_boost_proba_crtit_player(self, n):
+        if n:
+            self.boost_proba_crtit_player += 0.05
+            if self.boost_proba_crtit_player > 0.3:
+                self.boost_proba_crtit_player = 0.3
+        else:
+            self.boost_proba_crtit_player = 0.2
+
+    def change_boost_mult_crtit_player(self, n):
+        if n:
+            self.boost_mult_crtit_player += 0.1
+            if self.boost_mult_crtit_player > 2.5:
+                self.boost_mult_crtit_player = 2.5
+        else:
+            self.boost_mult_crtit_player = 2
 
     def change_boost_att(self, n):
         if n:
             self.boost_att += 0.15
-            # équipement
+            if self.boost_att > 1.3:
+                self.boost_att = 1.3
         else:
             self.boost_att = 1
 
     def change_boost_def(self, n):
         if n:
             self.boost_def += 0.15
-            # équipement
+            if self.boost_def > 1.3:
+                self.boost_def = 1.3
         else:
             self.boost_def = 1
 
@@ -92,17 +134,17 @@ class Player(pygame.sprite.Sprite):
                 self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
             self.direction = direction
 
-    def player_move(self, pressed, x, y, map_game, width, length, Settings):
-        if pressed.get(Settings[1]) and (x + 63) // 64 > 0 and self.collision(map_game, 0, x, y):
+    def player_move(self, pressed, x, y, map_game, width, length, settings):
+        if pressed.get(settings[1]) and (x + 63) // 64 > 0 and self.collision(map_game, 0, x, y):
             x -= self.velocity
             self.move("left")
-        elif pressed.get(Settings[0]) and x // 64 < length - 1 and self.collision(map_game, 1, x, y):
+        elif pressed.get(settings[0]) and x // 64 < length - 1 and self.collision(map_game, 1, x, y):
             x += self.velocity
             self.move("right")
-        elif pressed.get(Settings[3]) and (y + 63) // 64 > 0 and self.collision(map_game, 2, x, y):
+        elif pressed.get(settings[3]) and (y + 63) // 64 > 0 and self.collision(map_game, 2, x, y):
             y -= self.velocity
             self.move("up")
-        elif pressed.get(Settings[2]) and y // 64 < width - 1 and self.collision(map_game, 3, x, y):
+        elif pressed.get(settings[2]) and y // 64 < width - 1 and self.collision(map_game, 3, x, y):
             y += self.velocity
             self.move("down")
         else:
@@ -261,62 +303,6 @@ class Player(pygame.sprite.Sprite):
     def get_stats(self):
         return self.hp, self.hp_max, self.hm, self.hm_max, self.attack, self.defense, self.level, self.xp, self.gold
 
-    def use_object(self, i):
-        self.inventory[1][i] -= 1
-        if i == 0:
-            pass
-        elif i == 1:
-            pass
-        elif i == 2:
-            pass
-        elif i == 3:
-            pass
-        elif i == 4:
-            pass
-        elif i == 5:
-            pass
-        elif i == 6:
-            pass
-        elif i == 7:
-            pass
-        elif i == 8:
-            pass
-        elif i == 9:
-            pass
-        elif i == 10:
-            pass
-        elif i == 11:
-            pass
-        elif i == 12:
-            pass
-        elif i == 13:
-            pass
-        elif i == 14:
-            pass
-        elif i == 15:
-            pass
-        elif i == 16:
-            pass
-        elif i == 17:
-            pass
-        elif i == 18:
-            pass
-        elif i == 19:
-            pass
-        elif i == 20:
-            pass
-        elif i == 21:
-            pass
-        elif i == 22:
-            pass
-        elif i == 23:
-            pass
-        elif i == 24:
-            pass
-        elif i == 25:
-            pass
-
-
 '''
 5 hp
 10, 20, 50, 100, tout
@@ -344,7 +330,7 @@ mult 2 +0.1 max:2.5
 -0.1, -0.1, -0.7 min:base*0.7
 
 2 crit   enemy
-proba base -0.03 min:base-0.09
+proba 0.2 -0.03 min:base-0.09
 mult 2 -0.1 min:1.6
 
 boost_att_2

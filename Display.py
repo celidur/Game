@@ -195,7 +195,8 @@ class Display:
 
             Display.display_text(self, "{} : {}||{}".format(
                 Game.Texts.quantity, Game.player.get_inventory()[1][(y + scroll) * 5 + x],
-                Game.Texts.description_object[(y + scroll) * 5 + x][1]), 520, 450, 'FRAMDCN.TTF', 16, 0,
+                Game.Texts.description_object[(y + scroll) * 5 + x][1].format(
+                    Game.use_object((y + scroll) * 5 + x, False))), 520, 450, 'FRAMDCN.TTF', 16, 0,
                                  (255, 255, 255), 160, False)
             Game.button_back.display_button(280, 670, 'center')
             if Game.player.get_inventory()[1][(y + scroll) * 5 + x] > 0:

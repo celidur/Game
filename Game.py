@@ -221,3 +221,59 @@ def remove_text(n=1):
         texts = texts.split('|')
         del texts[-1]
         texts = '|'.join(texts)
+
+def use_object(i, use=True):
+    if use:
+        player.inventory[1][i] -= 1
+    if i == 0:
+        return player.change_hp(10, use)
+    elif i == 1:
+        return player.change_hp(20, use)
+    elif i == 2:
+        return player.change_hp(50, use)
+    elif i == 3:
+        return player.change_hp(100, use)
+    elif i == 4:
+        return player.change_hp(player.hp_max, use)
+    elif i == 5:
+        return player.change_hm(10, use)
+    elif i == 6:
+        return player.change_hm(20, use)
+    elif i == 7:
+        return player.change_hm(50, use)
+    elif i == 8:
+        return player.change_hm(100, use)
+    elif i == 9:
+        return player.change_hm(player.hm_max, use)
+    elif i == 10:
+        pass
+    elif i == 11:
+        pass
+    elif i == 12:
+        pass
+    elif i == 13:
+        pass
+    elif i == 14:
+        pass
+    elif i == 15:
+        pass
+    elif i == 16:
+        pass
+    elif i == 17:
+        pass
+    elif i == 18:
+        pass
+    elif i == 19:
+        pass
+    elif i == 20:
+        pass
+    elif i == 21:
+        pass
+    elif i == 22:
+        pass
+    elif i == 23:
+        pass
+    elif i == 24:
+        pass
+    elif i == 25:
+        pass
