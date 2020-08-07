@@ -3,13 +3,14 @@ from Variable import *
 import time
 from Display import Display
 from Player import Player
+import random
 
 Settings, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
-button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
-button_use = import_language()
+          button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
+          button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
+          button_use = import_language()
 player = Player()
-x, y, menu, temp = 48 * 64, 30 * 64, 4, time.time()
+x, y, menu, temp = 48 * 64, 30 * 64, 0, time.time()
 map_game = []
 for X_case in range((x + 32) // 64 - 8, (x + 32) // 64 + 9):
     list1 = []
@@ -31,6 +32,8 @@ texts = ''
 pos_inventory = (0, 0, 0)
 use_obj = False
 prog = 1
+x_y_generation = (x % 64, y % 64)
+
 
 def init_fight(enemy):
     global enemy1, texts
@@ -44,7 +47,8 @@ def save():
 
 
 def game_fight(pressed):  # menu=4
-    global menu, frame, player, enemy1, map_game, x_map_game, y_map_game, fight_mode, debut_combat, pos_inventory, temp, texts
+    global menu, frame, player, enemy1, map_game, x_map_game, y_map_game, fight_mode, debut_combat, pos_inventory, \
+        temp, texts
     if debut_combat:
         init_fight('enemy1')
         debut_combat = False
@@ -91,7 +95,7 @@ def game_fight(pressed):  # menu=4
 
 
 def game_play(pressed):
-    global menu, temp, x, y, map_game, x_map_game, y_map_game, frame
+    global menu, temp, x, y, map_game, x_map_game, y_map_game, frame, x_y_generation
     while not time.time() > frame + 1 / 61:
         pass
     frame = time.time()
@@ -101,6 +105,10 @@ def game_play(pressed):
     x, y = player.player_move(pressed, x, y, map_game, Width, Length)
     map_game, x_map_game, y_map_game = update_map_game(x_map_game, y_map_game, x, y, Map, map_game)
     display.display(map_game)
+    if x % 64 != x_y_generation[0] or y % 64 != x_y_generation[1]:
+        x_y_generation = (x % 64, y % 64)
+        if random.random() <= 0.01:
+            menu = 4
 
 
 def game_menu(pressed):
@@ -190,5 +198,3 @@ def remove_text(n=1):
         texts = texts.split('|')
         del texts[-1]
         texts = '|'.join(texts)
-
-

@@ -78,7 +78,8 @@ while running:
                     elif Game.button_magic3.button_clicked(pos[0], pos[1]):
                         Game.player.change_boost_def()
                         Game.remove_text(2)
-                        Game.add_text('Votre défense de base est désormais multipliée par {}.'.format(Game.player.get_boost()[0]))
+                        Game.add_text('Votre défense de base est désormais multipliée par {}.'.format(
+                            Game.player.get_boost()[0]))
                         Game.add_text(Game.Texts.select_action)
                         Game.prog = 2
                         Game.fight_mode = 0
