@@ -3,7 +3,7 @@ import time
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, stat, inventory):
         super().__init__()
         self.frame = time.time()
         self.player = pygame.image.load('assets/player.png').convert_alpha()
@@ -14,29 +14,15 @@ class Player(pygame.sprite.Sprite):
         self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
         self.rect = self.image.get_rect()
         self.velocity = 8
-        self.hp = 100
-        self.hp_max = 100
-        self.level = 1
-        self.xp = 0
-        self.hm = 25
-        self.hm_max = 25
-        self.attack = 10
-        self.defense = 10
-        '''objects = [[str(i)] for i in range(52)]
-        for i in range(len(objects)):
-            objects[i].append(pow(2 ** (i ** (i + 1) % 5) + i ** 2 % 11, 12, 6))
-        inventory = [[], objects, []]
-        print(inventory)'''
-        self.inventory = [[],
-                          [3, 0, 0, 0, 0,
-                           1, 0, 0, 0, 0,
-                           0, 0, 0, 0, 0,
-                           0, 0, 0, 0, 0,
-                           0, 0, 0, 0, 0,
-                           0, 0, 0, 0, 0,
-                           0, 0, 0, 0, 0,
-                           0],
-                          []]
+        self.hp = stat[0]
+        self.hp_max = stat[1]
+        self.level = stat[6]
+        self.xp = stat[7]
+        self.hm = stat[2]
+        self.hm_max = stat[3]
+        self.attack = stat[4]
+        self.defense = stat[5]
+        self.inventory = inventory
         self.boost_att = 1
         self.boost_def = 1
 
@@ -254,13 +240,7 @@ class Player(pygame.sprite.Sprite):
         return True
 
     def get_stats(self):
-        return self.hp, self.hp_max, self.hm, self.hm_max, self.attack, self.defense
-
-    def boost_defense(self):
-        return 0
-
-    def boost_attack(self):
-        return 0
+        return self.hp, self.hp_max, self.hm, self.hm_max, self.attack, self.defense, self.level, self.xp
 
     def use_object(self, i):
         self.inventory[1][i] -= 1

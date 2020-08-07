@@ -16,17 +16,17 @@ def import_map():
     return map1, size[0], size[1]
 
 
-Settings, Texts = None, None
+Texts = None
 
 
 def import_language():
-    global Settings, Texts
+    global Texts
     with open('language/language.txt', 'rb') as file:
         file = pickle.Unpickler(file)
         language = file.load()
-    with open('save/settings.txt', 'rb') as file:
+    with open('save/save_game.txt', 'rb') as file:
         file = pickle.Unpickler(file)
-        Settings = file.load()
+        _ = file.load()
     if language == "fr":
         from fr import Texts
     elif language == "en":
@@ -68,7 +68,7 @@ def import_language():
                                    'center', 25, None, 'FRAMDCN.TTF')
     button_use = Button.Button((127, 127, 127), (255, 255, 255), [500, 670, 110, 40], Texts.use,
                                'center', 25, None, 'FRAMDCN.TTF')
-    return Settings, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
+    return _, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
            button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
            button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, button_use
 
@@ -82,16 +82,6 @@ def change_language(language):
         pickler = pickle.Pickler(file)
         pickler.dump(language)
     return import_language()
-
-
-def save_setting(setting):
-    try:
-        os.remove("save/settings.txt")
-    except FileNotFoundError:
-        pass
-    with open("save/settings.txt", 'wb') as file:
-        pickler = pickle.Pickler(file)
-        pickler.dump(setting)
 
 
 board = pygame.image.load('assets/button/board.png')

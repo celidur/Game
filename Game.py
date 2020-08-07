@@ -4,14 +4,14 @@ import time
 from Display import Display
 from Player import Player
 import random
-
-Settings, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
+_, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
           button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
           button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
           button_use = import_language()
-player = Player()
-x, y, menu, temp = 48 * 64, 20 * 64, 0, time.time()
+player = Player(_[0], _[1])
+x, y, menu, temp = _[3], _[4], 0, time.time()
 map_game = []
+Settings = _[2]
 for X_case in range((x + 32) // 64 - 8, (x + 32) // 64 + 9):
     list1 = []
     for Y_case in range((y + 32) // 64 - 8, (y + 32) // 64 + 14):
@@ -33,7 +33,7 @@ pos_inventory = (0, 0, 0)
 use_obj = False
 prog = 1
 x_y_generation = (x % 64, y % 64)
-area = 'village'
+area = _[5]
 nb_case = 0
 
 
@@ -48,7 +48,14 @@ def init_fight(enemy):
 
 
 def save():
-    pass
+    save_game = [player.get_stats(), player.get_inventory(), Settings, x, y, area]
+    try:
+        os.remove("save/save_game.txt")
+    except FileNotFoundError:
+        pass
+    with open("save/save_game.txt", 'wb') as file:
+        pickler = pickle.Pickler(file)
+        pickler.dump(save_game)
 
 
 def game_fight(pressed):  # menu=4
