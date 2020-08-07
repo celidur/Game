@@ -25,6 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.inventory = inventory
         self.boost_att = 1
         self.boost_def = 1
+        self.gold = stat[8]
 
     def get_inventory(self):
         return self.inventory
@@ -240,7 +241,7 @@ class Player(pygame.sprite.Sprite):
         return True
 
     def get_stats(self):
-        return self.hp, self.hp_max, self.hm, self.hm_max, self.attack, self.defense, self.level, self.xp
+        return self.hp, self.hp_max, self.hm, self.hm_max, self.attack, self.defense, self.level, self.xp, self.gold
 
     def use_object(self, i):
         self.inventory[1][i] -= 1
