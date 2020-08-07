@@ -35,8 +35,7 @@ while running:
             elif Game.button_save.button_clicked(pos[0], pos[1]):
                 Game.save()
             elif Game.button_setting.button_clicked(pos[0], pos[1]):
-                Game.menu = 4
-                Game.boost_att, Game.boost_def = 1, 1
+                pass
         else:
             Game.game_menu(pressed)
     elif Game.menu == 4:

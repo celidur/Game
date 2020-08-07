@@ -44,15 +44,21 @@ class Player(pygame.sprite.Sprite):
         return self.inventory
 
     def get_boost(self):
-        return self.boost_def, self.boost_att
+        return self.boost_att, self.boost_def
 
-    def change_boost_def(self):
-        self.boost_def += 0.15
-        # équipement
+    def change_boost_att(self, n):
+        if n:
+            self.boost_att += 0.15
+            # équipement
+        else:
+            self.boost_att = 1
 
-    def change_boost_att(self):
-        self.boost_att += 0.15
-        # equipement
+    def change_boost_def(self, n):
+        if n:
+            self.boost_def += 0.15
+            # équipement
+        else:
+            self.boost_def = 1
 
     def box_change(self, n1):
         if self.box > n1 + 4:
@@ -257,7 +263,7 @@ class Player(pygame.sprite.Sprite):
         return 0
 
     def use_object(self, i):
-        self.inventory[1][i][1] -= 1
+        self.inventory[1][i] -= 1
         if i == 0:
             pass
         elif i == 1:

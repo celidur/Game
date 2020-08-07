@@ -25,7 +25,7 @@ y_map_game = (y + 32) // 64
 display = Display(block, block2, Width, Length, size_window, background, Map)
 frame = 0
 fight_mode = 0
-enemy1 = Enemy1()
+enemy_ = Enemy1()
 change = True
 debut_combat = True
 texts = ''
@@ -34,13 +34,17 @@ use_obj = False
 prog = 1
 x_y_generation = (x % 64, y % 64)
 area = 'village'
+nb_case = 0
 
 
 def init_fight(enemy):
-    global enemy1, texts
+    global enemy_, texts, prog
+    player.change_boost_att(False)
+    player.change_boost_def(False)
     if enemy == "enemy1":
-        enemy1 = Enemy1()
-    texts = ''
+        enemy_ = Enemy1()
+    texts = '{} sauvage apparaît.|{}'.format(enemy_.get_name()[0], Texts.select_action)
+    prog = 2
 
 
 def save():
@@ -48,10 +52,10 @@ def save():
 
 
 def game_fight(pressed):  # menu=4
-    global menu, frame, player, enemy1, map_game, x_map_game, y_map_game, fight_mode, debut_combat, pos_inventory, \
+    global menu, frame, player, enemy_, map_game, x_map_game, y_map_game, fight_mode, debut_combat, pos_inventory, \
         temp, texts
     if debut_combat:
-        init_fight('enemy1')
+        init_fight(chose_enemy())
         debut_combat = False
     while not time.time() > frame + 1 / 61:
         pass
@@ -90,13 +94,13 @@ def game_fight(pressed):  # menu=4
                 else:
                     pos_inventory = (pos_inventory[0], 4, 36 // 5 - 4)
         temp = time.time()
-    display.display_fight(enemy1.get_background(), enemy1.get_image(), enemy1.get_size(), enemy1.get_hp(),
-                          enemy1.get_name(), player.get_stats(), pos_inventory)
+    display.display_fight(enemy_.get_background(), enemy_.get_image(), enemy_.get_size(), enemy_.get_hp(),
+                          enemy_.get_name(), player.get_stats(), pos_inventory)
     pygame.display.flip()
 
 
 def game_play(pressed):
-    global menu, temp, x, y, map_game, x_map_game, y_map_game, frame, x_y_generation, area
+    global menu, temp, x, y, map_game, x_map_game, y_map_game, frame, x_y_generation, area, nb_case
     while not time.time() > frame + 1 / 61:
         pass
     frame = time.time()
@@ -107,13 +111,15 @@ def game_play(pressed):
     map_game, x_map_game, y_map_game = update_map_game(x_map_game, y_map_game, x, y, Map, map_game)
     display.display(map_game)
     if y // 64 == 31 and 45 <= x // 64 <= 50:
-        area = 'other'
+        area = 'plain'
     elif y // 64 == 30 and 45 <= x // 64 <= 50:
         area = 'village'
-    if (x // 64 != x_y_generation[0] or y // 64 != x_y_generation[1]) and area == 'other':
+    if (x // 64 != x_y_generation[0] or y // 64 != x_y_generation[1]) and area == 'plain':
+        nb_case += 1
         x_y_generation = (x // 64, y // 64)
-        if random.random() <= random.randint(20, 40) / 1000:
+        if random.random() <= nb_case * (1 + player.level / 100) / 5000:
             menu = 4
+            nb_case = 0
 
 
 def game_menu(pressed):
@@ -186,6 +192,11 @@ def update_map_game(x_map, y_map, x_player, y_player, map_full, map_game_update)
 
     return map_game_update, x_map, y_map
 
+
+def chose_enemy():
+    global area
+    if area == 'plain':
+        return 'enemy1'
 
 def add_text(text, c=True):
     global texts, change
