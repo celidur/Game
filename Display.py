@@ -90,64 +90,60 @@ class Display:
             Game.button_inventory.display_button()
             Game.button_magic.display_button()
             Game.button_leave.display_button()
-            # zone stats
-            attack_base, defense_base = 50, 20
-            attack_plain, defense_plain = 8, 0
-            attack_desert, defense_desert = 2, 3
-            attack_snow, defense_snow = 0, 0
-            attack_forest, defense_forest = 12, 15
-            attack_mountain, defense_mountain = 7, 9
-            attack_volcano, defense_volcano = 14, 1
             Game.Screen.blit(
                 self.arial.render("{}   {}".format(Game.Texts.attack_stat, Game.Texts.defense_stat), False,
                                   (255, 255, 255)), (530, 420))
             # base
             Game.Screen.blit(self.arial.render("Base", False, (255, 255, 255)), (430, 460))
-            Game.Screen.blit(self.arial.render(str(attack_base), False, (255, 255, 255)),
-                             (585 - len(str(defense_base)) * 8, 460))
-            Game.Screen.blit(self.arial.render(str(defense_base), False, (255, 255, 255)),
-                             (665 - len(str(defense_base)) * 8, 460))
+            Game.Screen.blit(
+                self.arial.render(str(Game.player.get_stats()[4] + Game.player.get_equipment()[0].get_stat()[0]), False,
+                                  (255, 255, 255)),
+                (585 - len(str(Game.player.get_stats()[4] + Game.player.get_equipment()[0].get_stat()[0])) * 8, 460))
+            Game.Screen.blit(
+                self.arial.render(str(Game.player.get_stats()[5] + Game.player.get_equipment()[1].get_stat()[0]), False,
+                                  (255, 255, 255)),
+                (665 - len(str(Game.player.get_stats()[5] + Game.player.get_equipment()[1].get_stat()[0])) * 8, 460))
             # plaine
             Game.Screen.blit(self.arial.render(Game.Texts.plain, False, (68, 255, 0)), (430, 500))
-            Game.Screen.blit(self.arial.render('+' + str(attack_plain), False, (255, 255, 255)),
-                             (585 - len(str(attack_plain) + '+') * 8, 500))
-            Game.Screen.blit(self.arial.render('+' + str(defense_plain), False, (255, 255, 255)),
-                             (665 - len(str(defense_plain) + '+') * 8, 500))
+            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[6]), False, (255, 255, 255)),
+                             (585 - len(str(Game.player.get_equipment()[0].get_stat()[6]) + '+') * 8, 500))
+            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[6]), False, (255, 255, 255)),
+                             (665 - len(str(Game.player.get_equipment()[1].get_stat()[6]) + '+') * 8, 500))
 
             # désert
             Game.Screen.blit(self.arial.render(Game.Texts.desert, False, (249, 210, 39)), (430, 530))
-            Game.Screen.blit(self.arial.render('+' + str(attack_desert), False, (255, 255, 255)),
-                             (585 - len(str(attack_desert) + '+') * 8, 530))
-            Game.Screen.blit(self.arial.render('+' + str(defense_desert), False, (255, 255, 255)),
-                             (665 - len(str(defense_desert) + '+') * 8, 530))
+            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[2]), False, (255, 255, 255)),
+                             (585 - len(str(Game.player.get_equipment()[0].get_stat()[2]) + '+') * 8, 530))
+            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[2]), False, (255, 255, 255)),
+                             (665 - len(str(Game.player.get_equipment()[1].get_stat()[2]) + '+') * 8, 530))
 
             # neige
             Game.Screen.blit(self.arial.render(Game.Texts.snow, False, (152, 249, 219)), (430, 560))
-            Game.Screen.blit(self.arial.render('+' + str(attack_snow), False, (255, 255, 255)),
-                             (585 - len(str(attack_snow) + '+') * 8, 560))
-            Game.Screen.blit(self.arial.render('+' + str(defense_snow), False, (255, 255, 255)),
-                             (665 - len(str(defense_snow) + '+') * 8, 560))
+            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[1]), False, (255, 255, 255)),
+                             (585 - len(str(Game.player.get_equipment()[0].get_stat()[1]) + '+') * 8, 560))
+            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[1]), False, (255, 255, 255)),
+                             (665 - len(str(Game.player.get_equipment()[1].get_stat()[1]) + '+') * 8, 560))
 
             # forêt
             Game.Screen.blit(self.arial.render(Game.Texts.forest, False, (11, 109, 13)), (430, 590))
-            Game.Screen.blit(self.arial.render('+' + str(attack_forest), False, (255, 255, 255)),
-                             (585 - len(str(attack_forest) + '+') * 8, 590))
-            Game.Screen.blit(self.arial.render('+' + str(defense_forest), False, (255, 255, 255)),
-                             (665 - len(str(defense_forest) + '+') * 8, 590))
+            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[3]), False, (255, 255, 255)),
+                             (585 - len(str(Game.player.get_equipment()[0].get_stat()[3]) + '+') * 8, 590))
+            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[3]), False, (255, 255, 255)),
+                             (665 - len(str(Game.player.get_equipment()[1].get_stat()[3]) + '+') * 8, 590))
 
             # montagne
             Game.Screen.blit(self.arial.render(Game.Texts.mountain, False, (123, 95, 62)), (430, 620))
-            Game.Screen.blit(self.arial.render('+' + str(attack_mountain), False, (255, 255, 255)),
-                             (585 - len(str(attack_mountain) + '+') * 8, 620))
-            Game.Screen.blit(self.arial.render('+' + str(defense_mountain), False, (255, 255, 255)),
-                             (665 - len(str(defense_mountain) + '+') * 8, 620))
+            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[5]), False, (255, 255, 255)),
+                             (585 - len(str(Game.player.get_equipment()[0].get_stat()[5]) + '+') * 8, 620))
+            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[5]), False, (255, 255, 255)),
+                             (665 - len(str(Game.player.get_equipment()[1].get_stat()[5]) + '+') * 8, 620))
 
             # volcan
             Game.Screen.blit(self.arial.render(Game.Texts.volcano, False, (163, 41, 18)), (430, 650))
-            Game.Screen.blit(self.arial.render('+' + str(attack_volcano), False, (255, 255, 255)),
-                             (585 - len(str(attack_volcano) + '+') * 8, 650))
-            Game.Screen.blit(self.arial.render('+' + str(defense_volcano), False, (255, 255, 255)),
-                             (665 - len(str(defense_volcano) + '+') * 8, 650))
+            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[4]), False, (255, 255, 255)),
+                             (585 - len(str(Game.player.get_equipment()[0].get_stat()[4]) + '+') * 8, 650))
+            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[4]), False, (255, 255, 255)),
+                             (665 - len(str(Game.player.get_equipment()[1].get_stat()[4]) + '+') * 8, 650))
         elif Game.fight_mode == 1:
             Game.button_attack1.display_button()
             Game.button_attack2.display_button()
@@ -267,9 +263,9 @@ class Display:
             line = ''
             for word in texts[i]:
                 if prog == 0:
-                    if font_.size(line+word)[0] < length or line == '':
+                    if font_.size(line + word)[0] < length or line == '':
                         line += word + ' '
-                    elif font_.size(line+word)[0] >= length or word == texts[i][-1]:
+                    elif font_.size(line + word)[0] >= length or word == texts[i][-1]:
                         if change_old and i < len(texts) - 1:
                             Game.Screen.blit(font_.render(line, False, (color[0] // 2, color[1] // 2, color[2] // 2)),
                                              (x_pos, y_pos + y))

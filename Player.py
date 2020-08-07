@@ -1,5 +1,6 @@
 import pygame
 import time
+from armor import Armor
 
 
 class Player(pygame.sprite.Sprite):
@@ -26,6 +27,20 @@ class Player(pygame.sprite.Sprite):
         self.boost_att = 1
         self.boost_def = 1
         self.gold = stat[8]
+        self.num_armor = 1
+        self.num_sword = 1
+        self.armor = Armor.Armor(Armor.armor[self.num_armor - 1][0], Armor.armor[self.num_armor - 1][1],
+                                 Armor.armor[self.num_armor - 1][2],
+                                 Armor.armor[self.num_armor - 1][3],
+                                 Armor.armor[self.num_armor - 1][4],
+                                 Armor.armor[self.num_armor - 1][5],
+                                 Armor.armor[self.num_armor - 1][6])
+        self.sword = Armor.Sword(Armor.sword[self.num_sword - 1][0], Armor.sword[self.num_sword - 1][1],
+                                 Armor.sword[self.num_sword - 1][2],
+                                 Armor.sword[self.num_sword - 1][3],
+                                 Armor.sword[self.num_sword - 1][4],
+                                 Armor.sword[self.num_sword - 1][5],
+                                 Armor.sword[self.num_sword - 1][6])
 
     def get_inventory(self):
         return self.inventory
@@ -52,6 +67,9 @@ class Player(pygame.sprite.Sprite):
             self.box = n1 + 1
         elif self.box < n1:
             self.box = n1 + 1
+
+    def get_equipment(self):
+        return self.sword, self.armor
 
     def move(self, direction):
         if time.time() > self.frame:
