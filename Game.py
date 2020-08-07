@@ -10,7 +10,7 @@ Settings, Texts, button_exit, button_menu, button_magic, button_leave, button_in
           button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
           button_use = import_language()
 player = Player()
-x, y, menu, temp = 48 * 64, 30 * 64, 0, time.time()
+x, y, menu, temp = 48 * 64, 20 * 64, 0, time.time()
 map_game = []
 for X_case in range((x + 32) // 64 - 8, (x + 32) // 64 + 9):
     list1 = []
@@ -33,6 +33,7 @@ pos_inventory = (0, 0, 0)
 use_obj = False
 prog = 1
 x_y_generation = (x % 64, y % 64)
+area = 'village'
 
 
 def init_fight(enemy):
@@ -95,19 +96,23 @@ def game_fight(pressed):  # menu=4
 
 
 def game_play(pressed):
-    global menu, temp, x, y, map_game, x_map_game, y_map_game, frame, x_y_generation
+    global menu, temp, x, y, map_game, x_map_game, y_map_game, frame, x_y_generation, area
     while not time.time() > frame + 1 / 61:
         pass
     frame = time.time()
     if pressed.get(pygame.K_ESCAPE) and time.time() > temp:
         menu, temp = 2, time.time() + 0.2
         return
-    x, y = player.player_move(pressed, x, y, map_game, Width, Length)
+    x, y = player.player_move(pressed, x, y, map_game, Width, Length, Settings)
     map_game, x_map_game, y_map_game = update_map_game(x_map_game, y_map_game, x, y, Map, map_game)
     display.display(map_game)
-    if x % 64 != x_y_generation[0] or y % 64 != x_y_generation[1]:
-        x_y_generation = (x % 64, y % 64)
-        if random.random() <= 0.01:
+    if y // 64 == 31 and 45 <= x // 64 <= 50:
+        area = 'other'
+    elif y // 64 == 30 and 45 <= x // 64 <= 50:
+        area = 'village'
+    if (x // 64 != x_y_generation[0] or y // 64 != x_y_generation[1]) and area == 'other':
+        x_y_generation = (x // 64, y // 64)
+        if random.random() <= random.randint(20, 40) / 1000:
             menu = 4
 
 
