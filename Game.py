@@ -263,19 +263,19 @@ def attack_player(n, use=True):
     if use:
         if n == 1:
             enemy_.change_hp(-int(damage))
-            add_text("Vous avez infligé {} dégats.".format(int(damage)))
+            add_text("Vous frappez l'ennemi de votre épée et lui infligez {} dégats.".format(int(damage)))
         elif n == 2:
             player.change_att_2(int(damage))
-            add_text("Vous avez blessé l'ennemi.")
+            add_text("Vous avez blessé l'ennemi. Il saigne")
         elif n == 3:
             enemy_.change_hp(-int(damage))
             player.change_hp(-int(0.3 * damage))
             add_text("Vous chargez l'ennemi et lui infligez {} dégats.".format(int(damage)))
-            add_text("Vous avez également été blessé par le choc. Vous subissez {} dégats".format(int(0.3*damage/crit)))
+            add_text("Vous avez également été blessé par le choc. Vous subissez {} dégats.".format(int(0.3*damage/crit)))
             prog += 1
         elif n == 4:
             enemy_.change_hp(-int(damage))
-            add_text("Vous avez infligé {} dégats.".format(int(damage)))
+            add_text("Vous mobilisez votre attaque spéciale pour infliger {} dégats à l'ennemi.".format(int(damage)))
         prog += 1
     else:
         return damage
