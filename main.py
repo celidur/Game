@@ -1,6 +1,8 @@
+import time
+
 import Game
 import pygame
-
+temp = time.time()
 onclick, running, pressed, pos = False, True, {}, [0, 0]
 while running:
     for event in pygame.event.get():
@@ -118,9 +120,14 @@ while running:
                 elif Game.button_confirm.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 0
                     Game.menu = 0
-        elif pressed.get(pygame.K_ESCAPE) and Game.fight_mode != 0:
-            Game.remove_text()
-            Game.fight_mode = 0
+        elif pressed.get(pygame.K_ESCAPE) and temp + 1/5 < time.time():
+            temp = time.time()
+            if Game.fight_mode != 0:
+                Game.fight_mode = 0
+                if Game.fight_mode != 4:
+                    Game.remove_text()
+            else:
+                Game.fight_mode = 4
 
         Game.game_fight(pressed)
     onclick = False
