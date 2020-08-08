@@ -28,23 +28,27 @@ class Display:
             if n == 4:
                 block_2 = self.block2[self.map[x_case][y_case][4]]
                 Game.Screen.blit(block_2[0],
-                                 (x_case * 64 - 128 - (Game.x + 32) % 64 + block_2[1],
-                                  y_case * 64 - 128 - (Game.y + 32) % 64 + block_2[2]))
+                                 (x_case * 64 - 128 - (Game.x + 32) % 64 + block_2[1] - 32,
+                                  y_case * 64 - 128 - (Game.y + 32) % 64 + block_2[2] - 32))
             else:
                 Game.Screen.blit(self.block[self.map[x_case][y_case][n]],
-                                 (x_case * 64 - 128 - (Game.x + 32) % 64, y_case * 64 - 128 - (Game.y + 32) % 64))
+                                 (x_case * 64 - 128 - (Game.x + 32) % 64 - 32,
+                                  y_case * 64 - 128 - (Game.y + 32) % 64 - 32))
         except KeyError:
             pass
 
-    def display_game(self):
-        Game.Screen.blit(self.background, (0, 0))
-        for X_case in range(2, 14):
+    def display_game(self, background):
+        if background is None:
+            Game.Screen.blit(self.background, (0, 0))
+        else:
+            Game.Screen.blit(background, (0, 0))
+        for X_case in range(2, 15):
             for Y_case in range(2, 15):
                 if self.map[X_case][Y_case] is not None:
                     self.display_update(0, X_case, Y_case)
                     self.display_update(1, X_case, Y_case)
                     self.display_update(2, X_case, Y_case)
-        Game.Screen.blit(Game.player.image, (11 * 32, 11 * 32))
+        Game.Screen.blit(Game.player.image, (11 * 32 - 32, 11 * 32 - 32))
         for X_case in range(16):
             for Y_case in range(19):
                 if self.map[X_case][Y_case] is not None:
@@ -64,9 +68,9 @@ class Display:
         Game.button_save.display_button()
         Game.button_exit.display_button()
 
-    def display(self, map_game):
+    def display(self, map_game, background=None):
         self.map = map_game
-        self.display_game()
+        self.display_game(background)
         if Game.menu == 2:
             self.display_pause()
         pygame.display.flip()
@@ -286,7 +290,8 @@ class Display:
                         line += word + ' '
                     elif font_.size(line + word)[0] >= length or word == texts[i][-1]:
                         if change_old and i < len(texts) - 1:
-                            Game.Screen.blit(font_.render(line, False, (color[0] // 1.7, color[1] // 1.7, color[2] // 1.7)),
+                            Game.Screen.blit(font_.render(line, False, (color[0] // 1.7, color[1] // 1.7,
+                                                                        color[2] // 1.7)),
                                              (x_pos, y_pos + y))
                         else:
                             Game.Screen.blit(font_.render(line, False, color), (x_pos, y_pos + y))

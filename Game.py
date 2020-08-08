@@ -6,9 +6,9 @@ import random
 from Enemy import Enemy
 
 _, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
-button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
-button_use, enemy = import_language()
+          button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
+          button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
+          button_use, enemy = import_language()
 player = Player(_[0], _[1])
 x, y, menu, temp = _[3], _[4], 0, time.time()
 map_game = []
@@ -25,7 +25,7 @@ x_map_game = (x + 32) // 64
 y_map_game = (y + 32) // 64
 display = Display(block, block2, Width, Length, size_window, background, Map)
 frame = 0
-fight_mode = 0
+fight_mode = -1
 enemy_ = Enemy(enemy[0])
 change = True
 debut_combat = True
@@ -35,6 +35,7 @@ use_obj = False
 prog = 1
 x_y_generation = (x % 64, y % 64)
 area = _[5]
+map_ = None
 nb_case = 0
 
 
@@ -59,7 +60,7 @@ def save():
 
 def game_fight(pressed):  # menu=4
     global menu, frame, player, enemy_, map_game, x_map_game, y_map_game, fight_mode, debut_combat, pos_inventory, \
-        temp, texts
+        temp, texts, map_game
     if debut_combat:
         init_fight(chose_enemy())
         debut_combat = False
@@ -100,13 +101,26 @@ def game_fight(pressed):  # menu=4
                 else:
                     pos_inventory = (pos_inventory[0], 4, 36 // 5 - 4)
         temp = time.time()
-    display.display_fight(enemy_.get_background(), enemy_.get_image(), enemy_.get_size(), enemy_.get_hp(),
-                          enemy_.get_name(), player.get_stats(), pos_inventory)
+    if fight_mode == -1:
+        display.display(map_, enemy_.get_background())
+        case_ = random.randint(0, 17 * 22 - 1)
+        while map_[(case_ // 22) % 17][case_ % 22] is None:
+            if map_ == [[None] * 22] * 17:
+                fight_mode = 0
+                time.sleep(0.3)
+                break
+            case_ += 1
+        map_[(case_ // 22) % 17][case_ % 22] = None
+
+    else:
+        display.display_fight(enemy_.get_background(), enemy_.get_image(), enemy_.get_size(), enemy_.get_hp(),
+                              enemy_.get_name(), player.get_stats(), pos_inventory)
     pygame.display.flip()
 
 
 def game_play(pressed):
-    global menu, temp, x, y, map_game, x_map_game, y_map_game, frame, x_y_generation, area, nb_case, debut_combat
+    global menu, temp, x, y, map_game, x_map_game, y_map_game, frame, x_y_generation, area, nb_case, debut_combat, \
+        fight_mode, map_
     while not time.time() > frame + 1 / 61:
         pass
     frame = time.time()
@@ -123,10 +137,12 @@ def game_play(pressed):
     if (x // 64 != x_y_generation[0] or y // 64 != x_y_generation[1]) and area == 'plain':
         nb_case += 1
         x_y_generation = (x // 64, y // 64)
-        if random.random() != nb_case * (1 + player.level / 100) / 5000:  # <=
+        if random.random() <= nb_case * (1 + player.level / 100) / 5000:  # <=
             menu = 4
             nb_case = 0
             debut_combat = True
+            fight_mode = -1
+            map_ = map_game[:][:]
 
 
 def game_menu(pressed):
@@ -226,6 +242,7 @@ def remove_text(n=1):
 
 def attack_player(n, use=True):
     global prog
+    i = 6
     if enemy_.get_name()[1] == Texts.plain:
         i = 1
     elif enemy_.get_name()[1] == Texts.desert:
@@ -236,8 +253,6 @@ def attack_player(n, use=True):
         i = 4
     elif enemy_.get_name()[1] == Texts.mountain:
         i = 5
-    elif enemy_.get_name()[1] == Texts.volcano:
-        i = 6
 
     if random.random() < player.get_crit()[0] and use:
         crit = player.get_crit()[1]
@@ -245,7 +260,8 @@ def attack_player(n, use=True):
         prog += 1
     else:
         crit = 1
-
+    damage = 7 * crit * ((player.get_stats()[4] + player.get_equipment()[0].get_stat()[0]) / 2 +
+                         player.get_equipment()[0].get_stat()[i] * 5) / enemy_.get_defense()
     if n == 1:
         damage = 7 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
                              player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
@@ -255,13 +271,12 @@ def attack_player(n, use=True):
     elif n == 3:
         damage = 10 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
                               player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
-    elif n == 4:
-        damage = 7 * crit * ((player.get_stats()[4] + player.get_equipment()[0].get_stat()[0]) / 2 +
-                             player.get_equipment()[0].get_stat()[i] * 5) / enemy_.get_defense()
+
     if use:
         if n == 1:
             enemy_.change_hp(-int(damage))
-            add_text("Vous frappez {} de votre épée et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)))
+            add_text(
+                "Vous frappez {} de votre épée et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)))
         elif n == 2:
             player.change_att_2(int(damage))
             add_text("Vous avez blessé {}. Il saigne".format(enemy_.get_name()[0]))
@@ -269,14 +284,16 @@ def attack_player(n, use=True):
             enemy_.change_hp(-int(damage))
             player.change_hp(-int(0.3 * damage))
             add_text("Vous chargez {} et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)))
-            add_text("Vous avez également été blessé par le choc. Vous subissez {} dégats.".format(int(0.3*damage/crit)))
+            add_text(
+                "Vous avez également été blessé par le choc. Vous subissez {} dégats.".format(int(0.3 * damage / crit)))
             prog += 1
         elif n == 4:
             enemy_.change_hp(-int(damage))
-            add_text("Vous mobilisez votre attaque spéciale pour infliger {} dégats à {}.".format(int(damage), enemy_.get_name()[0]))
+            add_text("Vous mobilisez votre attaque spéciale pour infliger {} dégats à {}.".format(int(damage),
+                                                                                                  enemy_.get_name()[0]))
         prog += 1
     else:
-        return damage
+        return int(damage)
 
 
 def end_turn():

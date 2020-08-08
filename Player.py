@@ -24,7 +24,16 @@ class Player(pygame.sprite.Sprite):
         self.attack = stat[4]
         self.defense = stat[5]
         self.inventory = inventory
-        self.inventory = [[], [3, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], []]
+        self.inventory = [[],
+                          [3, 0, 0, 0, 0,
+                           1, 0, 0, 0, 0,
+                           0, 0, 0, 0, 0,
+                           0, 0, 0, 0, 0,
+                           0, 0, 0, 0, 0,
+                           0, 0, 0, 0, 0,
+                           0, 0, 0, 0, 0,
+                           0],
+                          []]
         self.boost_att = [1, 0, 0, 0, 0, 0, 0]
         self.boost_def = [1, 0, 0, 0, 0, 0, 0]
         self.proba_crit = 0.2
