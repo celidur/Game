@@ -25,8 +25,8 @@ class Player(pygame.sprite.Sprite):
         self.defense = stat[5]
         self.inventory = inventory
         self.inventory = [[], [3, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], []]
-        self.boost_att = 1
-        self.boost_def = 1
+        self.boost_att = [1, 0, 0, 0, 0, 0, 0]
+        self.boost_def = [1, 0, 0, 0, 0, 0, 0]
         self.proba_crit = 0.2
         self.mult_crtit = 2
         self.att_2 = []
@@ -46,6 +46,14 @@ class Player(pygame.sprite.Sprite):
                                  Armor.sword[self.num_sword - 1][4],
                                  Armor.sword[self.num_sword - 1][5],
                                  Armor.sword[self.num_sword - 1][6])
+
+    def init(self):
+        self.boost_att = [1, 0, 0, 0, 0, 0, 0]
+        self.boost_def = [1, 0, 0, 0, 0, 0, 0]
+        self.proba_crit = 0.2
+        self.mult_crtit = 2
+        self.att_2 = []
+        self.boost_att_2 = 0
 
     def get_inventory(self):
         return self.inventory
@@ -95,10 +103,32 @@ class Player(pygame.sprite.Sprite):
     def get_crit(self):
         return self.proba_crit, self.mult_crtit
 
-    #  apres c du kk
-    def get_boost(self):
+    def get_boost_stats(self):
         return self.boost_att, self.boost_def
 
+    def change_boost_att(self, i, n):
+        self.boost_att[i] += n
+        if self.boost_att[0] < 0.7:
+            self.boost_att[0] = 0.7
+        elif self.boost_att[0] > 1.3:
+            self.boost_att[0] = 1.3
+        for i in range(1, 7):
+            if self.boost_att[i] < -0.2 * self.attack + self.sword.get_stat()[0]:
+                self.boost_att[i] = -int(0.2 * self.attack + self.sword.get_stat()[0])
+            elif self.boost_att[i] > 0.2 * self.attack + self.sword.get_stat()[0]:
+                self.boost_att[i] = int(0.2 * self.attack + self.sword.get_stat()[0])
+
+    def change_boost_def(self, i, n):
+        self.boost_def[i] += n
+        if self.boost_def[0] > 1.3:
+            self.boost_def[0] = 1.3
+        for i in range(1, 7):
+            if self.boost_def[i] < -0.2 * self.defense + self.armor.get_stat()[0]:
+                self.boost_def[i] = -int(0.2 * self.defense + self.armor.get_stat()[0])
+            elif self.boost_def[i] > 0.2 * self.defense + self.armor.get_stat()[0]:
+                self.boost_def[i] = int(0.2 * self.defense + self.armor.get_stat()[0])
+
+    #  apres c du kk
     def change_boost_proba_crtit_player(self, n):
         if n:
             self.boost_proba_crtit_player += 0.05
@@ -114,22 +144,6 @@ class Player(pygame.sprite.Sprite):
                 self.boost_mult_crtit_player = 2.5
         else:
             self.boost_mult_crtit_player = 2
-
-    def change_boost_att(self, n):
-        if n:
-            self.boost_att += 0.15
-            if self.boost_att > 1.3:
-                self.boost_att = 1.3
-        else:
-            self.boost_att = 1
-
-    def change_boost_def(self, n):
-        if n:
-            self.boost_def += 0.15
-            if self.boost_def > 1.3:
-                self.boost_def = 1.3
-        else:
-            self.boost_def = 1
     #  fin du kk
 
     def box_change(self, n1):

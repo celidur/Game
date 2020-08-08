@@ -246,9 +246,9 @@ class Display:
             else:
                 break
         if Game.change:
-            Display.display_text(self, Game.texts, 35, 415, 'rpg_.FON', 16, Game.prog, (255, 255, 255), 250, True, True)
+            Display.display_text(self, Game.texts, 35, 415, 'rpg_.FON', 16, Game.prog, (255, 255, 255), 230, True, True)
         else:
-            Display.display_text(self, Game.texts, 35, 415, 'rpg_.FON', 16, 0, (255, 255, 255), 250, True, True)
+            Display.display_text(self, Game.texts, 35, 415, 'rpg_.FON', 16, 0, (255, 255, 255), 230, True, True)
         Game.change = False
         if Game.fight_mode == 4:
             s = pygame.Surface((self.size_window[0], self.size_window[1]), pygame.SRCALPHA)

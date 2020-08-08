@@ -9,6 +9,8 @@ class Enemy(pygame.sprite.Sprite):
         self.hp = stat[1]
         self.attack = stat[2]
         self.defense = stat[3]
+        self.boost_att = 1
+        self.boost_def = 1
         self.boost_proba_crtit_enemy = 0.2
         self.boost_mult_crtit_enemy = 2
         self.gold = stat[4]
@@ -46,6 +48,21 @@ class Enemy(pygame.sprite.Sprite):
     def get_size(self):
         return self.size
 
+    def change_boost_att(self, n):
+        self.boost_att += n
+        if self.boost_att < 0.7:
+            self.boost_att = 0.7
+        elif self.boost_att > 1.3:
+            self.boost_att = 1.3
+
+    def change_boost_def(self, n):
+        self.boost_def += n
+        if self.boost_def < 0.7:
+            self.boost_def = 0.7
+        elif self.boost_def > 1.3:
+            self.boost_def = 1.3
+
+    #  kk
     def change_boost_proba_crtit_enemy(self, n):
         if n:
             self.boost_proba_crtit_enemy -= 0.03
@@ -61,3 +78,4 @@ class Enemy(pygame.sprite.Sprite):
                 self.boost_mult_crtit_enemy = 1.6
         else:
             self.boost_mult_crtit_enemy = 2
+    # fin kk

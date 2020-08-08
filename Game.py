@@ -40,9 +40,7 @@ nb_case = 0
 
 def init_fight(index):
     global enemy_, texts, prog, enemy
-    player.change_boost_att(False)
-    player.change_boost_def(False)
-    player.change_att_2(0, False)
+    player.init()
     enemy_ = Enemy(enemy[index])
     texts = '{} sauvage apparaît.|{}'.format(enemy_.get_name()[0], Texts.select_action)
     prog = 2
@@ -263,19 +261,19 @@ def attack_player(n, use=True):
     if use:
         if n == 1:
             enemy_.change_hp(-int(damage))
-            add_text("Vous frappez l'ennemi de votre épée et lui infligez {} dégats.".format(int(damage)))
+            add_text("Vous frappez {} de votre épée et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)))
         elif n == 2:
             player.change_att_2(int(damage))
-            add_text("Vous avez blessé l'ennemi. Il saigne")
+            add_text("Vous avez blessé {}. Il saigne".format(enemy_.get_name()[0]))
         elif n == 3:
             enemy_.change_hp(-int(damage))
             player.change_hp(-int(0.3 * damage))
-            add_text("Vous chargez l'ennemi et lui infligez {} dégats.".format(int(damage)))
+            add_text("Vous chargez {} et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)))
             add_text("Vous avez également été blessé par le choc. Vous subissez {} dégats.".format(int(0.3*damage/crit)))
             prog += 1
         elif n == 4:
             enemy_.change_hp(-int(damage))
-            add_text("Vous mobilisez votre attaque spéciale pour infliger {} dégats à l'ennemi.".format(int(damage)))
+            add_text("Vous mobilisez votre attaque spéciale pour infliger {} dégats à {}.".format(int(damage), enemy_.get_name()[0]))
         prog += 1
     else:
         return damage
