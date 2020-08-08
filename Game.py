@@ -253,19 +253,18 @@ def attack_player(n, use=True):
     elif n == 2:
         damage = 2 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
                              player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
-        player.change_att_2(int(damage))
     elif n == 3:
         damage = 10 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
                               player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
     elif n == 4:
         damage = 7 * crit * ((player.get_stats()[4] + player.get_equipment()[0].get_stat()[0]) / 2 +
                              player.get_equipment()[0].get_stat()[i] * 5) / enemy_.get_defense()
-    damage = int(damage)
     if use:
         if n in [1, 3, 4]:
             enemy_.change_hp(damage)
             add_text("Vous avez infligé {} dégats.".format(damage))
         else:
+            player.change_att_2(int(damage))
             add_text("Vous avez blessé l'ennemi.")
         prog += 1
     else:
@@ -274,6 +273,7 @@ def attack_player(n, use=True):
 
 def end_turn():
     global prog
+    print(player.att_2)
     if player.att_2:
         damage = 0
         for i in range(len(player.att_2)):
