@@ -62,12 +62,24 @@ while running:
                     Game.remove_text()
                 elif Game.fight_mode == 1:
                     if Game.button_attack1.button_clicked(pos[0], pos[1]):
+                        Game.remove_text(2)
+                        Game.attack_player(1)
+                        Game.add_text(Game.Texts.select_action)
                         Game.fight_mode = 0
                     elif Game.button_attack2.button_clicked(pos[0], pos[1]):
+                        Game.remove_text(2)
+                        Game.attack_player(1)
+                        Game.add_text(Game.Texts.select_action)
                         Game.fight_mode = 0
                     elif Game.button_attack3.button_clicked(pos[0], pos[1]):
+                        Game.remove_text(2)
+                        Game.attack_player(1)
+                        Game.add_text(Game.Texts.select_action)
                         Game.fight_mode = 0
                     elif Game.button_attack4.button_clicked(pos[0], pos[1]):
+                        Game.remove_text(2)
+                        Game.attack_player(1)
+                        Game.add_text(Game.Texts.select_action)
                         Game.fight_mode = 0
                 else:
                     if Game.button_magic1.button_clicked(pos[0], pos[1]):
@@ -107,6 +119,7 @@ while running:
                     Game.fight_mode = 0
                     Game.menu = 0
         elif pressed.get(pygame.K_ESCAPE) and Game.fight_mode != 0:
+            Game.remove_text()
             Game.fight_mode = 0
 
         Game.game_fight(pressed)

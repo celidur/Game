@@ -4,19 +4,19 @@ import pygame
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, stat):
         super().__init__()
-        self.hp = stat[0]
-        self.gold = stat[1]
-        self.xp = stat[2]
+        self.name = stat[0]
+        self.hp_max = stat[1]
+        self.hp = stat[1]
+        self.attack = stat[2]
         self.defense = stat[3]
-        self.name = stat[4]
-        self.environment = stat[5]
-        self.attack = stat[6]
-        self.background = stat[8]
-        self.image = stat[9]
-        self.size = stat[7]
-        self.hp_max = stat[0]
         self.boost_proba_crtit_enemy = 0.2
         self.boost_mult_crtit_enemy = 2
+        self.gold = stat[4]
+        self.xp = stat[5]
+        self.size = stat[6]
+        self.environment = stat[7]
+        self.background = stat[8]
+        self.image = stat[9]
 
     def get_attack(self):
         return self.attack
@@ -35,6 +35,11 @@ class Enemy(pygame.sprite.Sprite):
 
     def get_hp(self):
         return self.hp, self.hp_max
+
+    def change_hp(self, damage):
+        self.hp -= damage
+        if self.hp < 0:
+            self.hp = 0
 
     def get_size(self):
         return self.size

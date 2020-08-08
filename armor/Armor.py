@@ -10,8 +10,7 @@ class Armor:
         self.defense_base = defense_base
 
     def get_stat(self):
-        return self.defense_base, self.defense_snow, self.defense_desert, self.defense_forest, self.defense_volcano, \
-               self.defense_mountain, self.defense_plain
+        return self.defense_base, self.defense_plain, self.defense_desert, self.defense_snow, self.defense_forest, self.defense_mountain, self.defense_volcano
 
 
 class Sword:
@@ -26,8 +25,7 @@ class Sword:
         self.attack_base = attack_base
 
     def get_stat(self):
-        return self.attack_base, self.attack_snow, self.attack_desert, self.attack_forest, self.attack_volcano, \
-               self.attack_mountain, self.attack_plain
+        return self.attack_base, self.attack_plain, self.attack_desert, self.attack_snow, self.attack_forest, self.attack_mountain, self.attack_volcano
 
 
 armor = [

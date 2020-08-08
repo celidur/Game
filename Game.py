@@ -4,10 +4,11 @@ from Display import Display
 from Player import Player
 import random
 from Enemy import Enemy
+
 _, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
-          button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-          button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
-          button_use, enemy = import_language()
+button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
+button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
+button_use, enemy = import_language()
 player = Player(_[0], _[1])
 x, y, menu, temp = _[3], _[4], 0, time.time()
 map_game = []
@@ -41,6 +42,7 @@ def init_fight(index):
     global enemy_, texts, prog, enemy
     player.change_boost_att(False)
     player.change_boost_def(False)
+    player.change_att_2(0, False)
     enemy_ = Enemy(enemy[index])
     texts = '{} sauvage apparaît.|{}'.format(enemy_.get_name()[0], Texts.select_action)
     prog = 2
@@ -123,7 +125,7 @@ def game_play(pressed):
     if (x // 64 != x_y_generation[0] or y // 64 != x_y_generation[1]) and area == 'plain':
         nb_case += 1
         x_y_generation = (x // 64, y // 64)
-        if random.random() <= nb_case * (1 + player.level / 100) / 5000:
+        if random.random() != nb_case * (1 + player.level / 100) / 5000:  # <=
             menu = 4
             nb_case = 0
 
@@ -221,6 +223,50 @@ def remove_text(n=1):
         texts = texts.split('|')
         del texts[-1]
         texts = '|'.join(texts)
+
+
+def attack_player(n, use=True):
+    global prog
+    if enemy_.get_name()[1] == Texts.plain:
+        i = 1
+    elif enemy_.get_name()[1] == Texts.desert:
+        i = 2
+    elif enemy_.get_name()[1] == Texts.snow:
+        i = 3
+    elif enemy_.get_name()[1] == Texts.forest:
+        i = 4
+    elif enemy_.get_name()[1] == Texts.mountain:
+        i = 5
+    elif enemy_.get_name()[1] == Texts.volcano:
+        i = 6
+
+    if random.random() < player.get_crit()[0]:
+        crit = player.get_crit()[1]
+        add_text("Coup critique !!!")
+        prog += 1
+    else:
+        crit = 1
+
+    if n == 1:
+        damage = 7 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
+                             player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
+    elif n == 2:
+        damage = 2 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
+                             player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
+        player.change_att_2(int(damage))
+    elif n == 3:
+        damage = 10 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
+                              player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
+    elif n == 4:
+        damage = 7 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
+                             player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
+    damage = int(damage)
+    if use:
+        enemy_.change_hp(damage)
+        add_text("Vous avez infligé {} dégats.".format(damage))
+        prog += 1
+    else:
+        return damage
 
 
 def use_object(i, use=True):

@@ -27,8 +27,10 @@ class Player(pygame.sprite.Sprite):
         self.inventory = [[], [3, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], []]
         self.boost_att = 1
         self.boost_def = 1
-        self.boost_proba_crtit_player = 0.2
-        self.boost_mult_crtit_player = 2
+        self.proba_crit = 0.2
+        self.mult_crtit = 2
+        self.att_2 = []
+        self.boost_att_2 = 0
         self.gold = stat[8]
         self.num_armor = stat[10]
         self.num_sword = stat[9]
@@ -47,6 +49,12 @@ class Player(pygame.sprite.Sprite):
 
     def get_inventory(self):
         return self.inventory
+
+    def change_att_2(self, damage, add=True):
+        if add:
+            self.att_2.append([damage, 3 + self.boost_att_2])
+        else:
+            self.att_2 = []
 
     def change_hp(self, n, use=True):
         hp = self.hp + n
@@ -68,9 +76,12 @@ class Player(pygame.sprite.Sprite):
         else:
             return hm
 
-    #apres c du kk
+    def get_crit(self):
+        return self.proba_crit, self.mult_crtit
+
+    #  apres c du kk
     def get_boost(self):
-        return self.boost_att, self.boost_def,
+        return self.boost_att, self.boost_def
 
     def change_boost_proba_crtit_player(self, n):
         if n:
@@ -103,6 +114,7 @@ class Player(pygame.sprite.Sprite):
                 self.boost_def = 1.3
         else:
             self.boost_def = 1
+    #  fin du kk
 
     def box_change(self, n1):
         if self.box > n1 + 4:

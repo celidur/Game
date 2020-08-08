@@ -81,4 +81,4 @@ description_object = [["Potion Soin (Minuscule)", 'Régénère 10 PV.|({})'],
                       ["", ""],
                       ["", ""],
 
-                      ["", "Augmente d'un tour la durée de l'attaque 2. (Ne s'applique pas aux attaques déjà lancées."]]
+                      ["Boost Durée Attaque 2", "Augmente d'un tour la durée de l'attaque 2. (Ne s'applique pas aux attaques déjà lancées."]]

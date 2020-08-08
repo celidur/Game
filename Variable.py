@@ -75,7 +75,7 @@ def import_language():
     button_use = Button.Button((127, 127, 127), (255, 255, 255), [500, 670, 110, 40], Texts.use,
                                'center', 25, None, 'FRAMDCN.TTF')
     enemy = [
-        [100, 10, 10, 5, "Monster", Texts.volcano, 10, (218, 42),
+        ["Monster", 100, 10, 10, 5, 10, (218, 42), Texts.volcano,
          pygame.image.load("assets/battle/backgrounds/plain.png"),
          pygame.image.load("assets/battle/enemies/enemy1.png")]
     ]
