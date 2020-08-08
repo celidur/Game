@@ -240,7 +240,7 @@ def attack_player(n, use=True):
     elif enemy_.get_name()[1] == Texts.volcano:
         i = 6
 
-    if random.random() < player.get_crit()[0]:
+    if random.random() < player.get_crit()[0] and use:
         crit = player.get_crit()[1]
         add_text("Coup critique !!!")
         prog += 1
@@ -258,15 +258,37 @@ def attack_player(n, use=True):
         damage = 10 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
                               player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
     elif n == 4:
-        damage = 7 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
-                             player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
+        damage = 7 * crit * ((player.get_stats()[4] + player.get_equipment()[0].get_stat()[0]) / 2 +
+                             player.get_equipment()[0].get_stat()[i] * 5) / enemy_.get_defense()
     damage = int(damage)
     if use:
-        enemy_.change_hp(damage)
-        add_text("Vous avez infligé {} dégats.".format(damage))
+        if n in [1, 3, 4]:
+            enemy_.change_hp(damage)
+            add_text("Vous avez infligé {} dégats.".format(damage))
+        else:
+            add_text("Vous avez blessé l'ennemi.")
         prog += 1
     else:
         return damage
+
+
+def end_turn():
+    global prog
+    if player.att_2:
+        damage = 0
+        for i in range(len(player.att_2)):
+            damage += player.att_2[i][0]
+        enemy_.change_hp(damage)
+        add_text("L'ennemi souffre. Il subit {} dégats.".format(damage))
+        prog += 1
+
+    n = player.turn_att_2()
+    if n == 0:
+        add_text("l'ennemi ne souffre plus.")
+        prog += 1
+    elif n == 1:
+        add_text("L'ennemi souffre de moins en moins.")
+        prog += 1
 
 
 def use_object(i, use=True):

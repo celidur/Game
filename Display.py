@@ -105,52 +105,70 @@ class Display:
                 (665 - len(str(Game.player.get_stats()[5] + Game.player.get_equipment()[1].get_stat()[0])) * 8, 460))
             # plaine
             Game.Screen.blit(self.arial.render(Game.Texts.plain, False, (68, 255, 0)), (430, 500))
-            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[1]), False, (255, 255, 255)),
-                             (585 - len(str(Game.player.get_equipment()[0].get_stat()[6]) + '+') * 8, 500))
-            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[1]), False, (255, 255, 255)),
-                             (665 - len(str(Game.player.get_equipment()[1].get_stat()[6]) + '+') * 8, 500))
+            Game.Screen.blit(
+                self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[1]), False, (255, 255, 255)),
+                (585 - len(str(Game.player.get_equipment()[0].get_stat()[6]) + '+') * 8, 500))
+            Game.Screen.blit(
+                self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[1]), False, (255, 255, 255)),
+                (665 - len(str(Game.player.get_equipment()[1].get_stat()[6]) + '+') * 8, 500))
 
             # désert
             Game.Screen.blit(self.arial.render(Game.Texts.desert, False, (249, 210, 39)), (430, 530))
-            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[2]), False, (255, 255, 255)),
-                             (585 - len(str(Game.player.get_equipment()[0].get_stat()[2]) + '+') * 8, 530))
-            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[2]), False, (255, 255, 255)),
-                             (665 - len(str(Game.player.get_equipment()[1].get_stat()[2]) + '+') * 8, 530))
+            Game.Screen.blit(
+                self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[2]), False, (255, 255, 255)),
+                (585 - len(str(Game.player.get_equipment()[0].get_stat()[2]) + '+') * 8, 530))
+            Game.Screen.blit(
+                self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[2]), False, (255, 255, 255)),
+                (665 - len(str(Game.player.get_equipment()[1].get_stat()[2]) + '+') * 8, 530))
 
             # neige
             Game.Screen.blit(self.arial.render(Game.Texts.snow, False, (152, 249, 219)), (430, 560))
-            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[3]), False, (255, 255, 255)),
-                             (585 - len(str(Game.player.get_equipment()[0].get_stat()[1]) + '+') * 8, 560))
-            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[3]), False, (255, 255, 255)),
-                             (665 - len(str(Game.player.get_equipment()[1].get_stat()[1]) + '+') * 8, 560))
+            Game.Screen.blit(
+                self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[3]), False, (255, 255, 255)),
+                (585 - len(str(Game.player.get_equipment()[0].get_stat()[1]) + '+') * 8, 560))
+            Game.Screen.blit(
+                self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[3]), False, (255, 255, 255)),
+                (665 - len(str(Game.player.get_equipment()[1].get_stat()[1]) + '+') * 8, 560))
 
             # forêt
             Game.Screen.blit(self.arial.render(Game.Texts.forest, False, (11, 109, 13)), (430, 590))
-            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[4]), False, (255, 255, 255)),
-                             (585 - len(str(Game.player.get_equipment()[0].get_stat()[3]) + '+') * 8, 590))
-            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[4]), False, (255, 255, 255)),
-                             (665 - len(str(Game.player.get_equipment()[1].get_stat()[3]) + '+') * 8, 590))
+            Game.Screen.blit(
+                self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[4]), False, (255, 255, 255)),
+                (585 - len(str(Game.player.get_equipment()[0].get_stat()[3]) + '+') * 8, 590))
+            Game.Screen.blit(
+                self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[4]), False, (255, 255, 255)),
+                (665 - len(str(Game.player.get_equipment()[1].get_stat()[3]) + '+') * 8, 590))
 
             # montagne
             Game.Screen.blit(self.arial.render(Game.Texts.mountain, False, (123, 95, 62)), (430, 620))
-            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[5]), False, (255, 255, 255)),
-                             (585 - len(str(Game.player.get_equipment()[0].get_stat()[5]) + '+') * 8, 620))
-            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[5]), False, (255, 255, 255)),
-                             (665 - len(str(Game.player.get_equipment()[1].get_stat()[5]) + '+') * 8, 620))
+            Game.Screen.blit(
+                self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[5]), False, (255, 255, 255)),
+                (585 - len(str(Game.player.get_equipment()[0].get_stat()[5]) + '+') * 8, 620))
+            Game.Screen.blit(
+                self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[5]), False, (255, 255, 255)),
+                (665 - len(str(Game.player.get_equipment()[1].get_stat()[5]) + '+') * 8, 620))
 
             # volcan
             Game.Screen.blit(self.arial.render(Game.Texts.volcano, False, (163, 41, 18)), (430, 650))
-            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[6]), False, (255, 255, 255)),
-                             (585 - len(str(Game.player.get_equipment()[0].get_stat()[4]) + '+') * 8, 650))
-            Game.Screen.blit(self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[6]), False, (255, 255, 255)),
-                             (665 - len(str(Game.player.get_equipment()[1].get_stat()[4]) + '+') * 8, 650))
+            Game.Screen.blit(
+                self.arial.render('+' + str(Game.player.get_equipment()[0].get_stat()[6]), False, (255, 255, 255)),
+                (585 - len(str(Game.player.get_equipment()[0].get_stat()[4]) + '+') * 8, 650))
+            Game.Screen.blit(
+                self.arial.render('+' + str(Game.player.get_equipment()[1].get_stat()[6]), False, (255, 255, 255)),
+                (665 - len(str(Game.player.get_equipment()[1].get_stat()[4]) + '+') * 8, 650))
         elif Game.fight_mode == 1:
             Game.button_attack1.display_button()
             Game.button_attack2.display_button()
             Game.button_attack3.display_button()
             Game.button_attack4.display_button()
             Game.button_back.display_button()
-            Display.display_text(self, Game.Texts.description_attack.format(35, 10, 40, 50, 15, 42), 400, 420,
+            Display.display_text(self, Game.Texts.description_attack.format(Game.attack_player(1, False),
+                                                                            Game.attack_player(2, False),
+                                                                            4 * Game.attack_player(2, False),
+                                                                            Game.attack_player(3, False),
+                                                                            3 / 10 * Game.attack_player(3, False),
+                                                                            Game.attack_player(4, False)),
+                                 400, 420,
                                  'FRAMDCN.TTF',
                                  15, 0,
                                  (255, 255, 255), 270, False)

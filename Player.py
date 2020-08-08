@@ -52,9 +52,23 @@ class Player(pygame.sprite.Sprite):
 
     def change_att_2(self, damage, add=True):
         if add:
-            self.att_2.append([damage, 3 + self.boost_att_2])
+            self.att_2.append([damage, 4 + self.boost_att_2])
         else:
             self.att_2 = []
+
+    def turn_att_2(self):
+        length = len(self.att_2)
+        if length != 0:
+            for i in range(len(self.att_2)):
+                self.att_2[i][1] -= 1
+            if self.att_2[0][1] == 0:
+                self.att_2.remove(self.att_2[0])
+        if length == 0 or length == len(self.att_2):
+            return 2
+        elif len(self.att_2) != 0:
+            return 1
+        else:
+            return 0
 
     def change_hp(self, n, use=True):
         hp = self.hp + n
