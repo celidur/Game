@@ -35,7 +35,7 @@ use_obj = False
 prog = 1
 x_y_generation = (x % 64, y % 64)
 area = _[5]
-map_ = None
+map_ = []
 nb_case = 0
 
 
@@ -107,7 +107,29 @@ def game_fight(pressed):  # menu=4
         while map_[(case_ // 22) % 17][case_ % 22] is None:
             if map_ == [[None] * 22] * 17:
                 fight_mode = 0
-                time.sleep(0.3)
+                time.sleep(0.5)
+                Screen.blit(enemy_.get_background(), (0, 0))
+                pygame.display.flip()
+                time.sleep(1)
+                # ennemi et stats_ennemi
+                Screen.blit(enemy_.get_image(), enemy_.get_size())
+                pygame.display.flip()
+                time.sleep(0.5)
+                # boutons[:]
+                button_attack.display_button()
+                pygame.display.flip()
+                time.sleep(0.5)
+                button_magic.display_button()
+                pygame.display.flip()
+                time.sleep(0.5)
+                button_inventory.display_button()
+                pygame.display.flip()
+                time.sleep(0.5)
+                button_leave.display_button()
+                pygame.display.flip()
+                time.sleep(0.5)
+                # stats[:]
+                # pv et pm
                 break
             case_ += 1
         map_[(case_ // 22) % 17][case_ % 22] = None
@@ -137,7 +159,7 @@ def game_play(pressed):
     if (x // 64 != x_y_generation[0] or y // 64 != x_y_generation[1]) and area == 'plain':
         nb_case += 1
         x_y_generation = (x // 64, y // 64)
-        if random.random() != nb_case * (1 + player.level / 100) / 5000:  # <=
+        if random.random() != nb_case * (2 + player.level / 100) / 5000:  # <=
             menu = 4
             nb_case = 0
             debut_combat = True

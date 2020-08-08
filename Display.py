@@ -91,8 +91,8 @@ class Display:
         Game.Screen.blit(self.arial.render("{}/{}".format(hp[0], hp[1]), False, (255, 255, 255)), (215, 357))
         if Game.fight_mode == 0 or Game.fight_mode == 4:
             Game.button_attack.display_button()
-            Game.button_inventory.display_button()
             Game.button_magic.display_button()
+            Game.button_inventory.display_button()
             Game.button_leave.display_button()
             Game.Screen.blit(
                 self.arial.render("{}   {}".format(Game.Texts.attack_stat, Game.Texts.defense_stat), False,
@@ -170,7 +170,7 @@ class Display:
                                                                             Game.attack_player(2, False),
                                                                             4 * Game.attack_player(2, False),
                                                                             Game.attack_player(3, False),
-                                                                            3 / 10 * Game.attack_player(3, False),
+                                                                            int(3 / 10 * Game.attack_player(3, False)),
                                                                             Game.attack_player(4, False)),
                                  400, 420,
                                  'FRAMDCN.TTF',
