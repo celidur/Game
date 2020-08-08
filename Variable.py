@@ -24,9 +24,15 @@ def import_language():
     with open('language/language.txt', 'rb') as file:
         file = pickle.Unpickler(file)
         language = file.load()
-    with open('save/save_game.txt', 'rb') as file:
-        file = pickle.Unpickler(file)
-        _ = file.load()
+    try:
+        with open('save/save_game.txt', 'rb') as file:
+            file = pickle.Unpickler(file)
+            _ = file.load()
+    except pickle.UnpicklingError:
+        _ = [(100, 100, 50, 50, 10, 10, 500, 0, 5, 1, 1), [[],
+                                                           [3, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], []],
+             (275, 276, 274, 273), 3072, 1176, 'village']
     if language == "fr":
         from fr import Texts
     elif language == "en":
