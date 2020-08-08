@@ -72,7 +72,9 @@ class Player(pygame.sprite.Sprite):
 
     def change_hp(self, n, use=True):
         hp = self.hp + n
-        if hp > self.hp_max:
+        if hp < 0:
+            hp = 0
+        elif hp > self.hp_max:
             hp = self.hp_max
         if use:
             self.hp = hp

@@ -36,10 +36,12 @@ class Enemy(pygame.sprite.Sprite):
     def get_hp(self):
         return self.hp, self.hp_max
 
-    def change_hp(self, damage):
-        self.hp -= damage
+    def change_hp(self, n):
+        self.hp += n
         if self.hp < 0:
             self.hp = 0
+        elif self.hp > self.hp_max:
+            self.hp = self.hp_max
 
     def get_size(self):
         return self.size

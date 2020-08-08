@@ -266,14 +266,14 @@ class Display:
                 font_2 = pygame.font.Font("font/FRAMDCN.TTF", 32)
                 if prog == 0:
                     if change_old and i < len(texts) - 1:
-                        Game.Screen.blit(font_2.render('·', False, (color[0] // 2, color[1] // 2, color[2] // 2)),
+                        Game.Screen.blit(font_2.render('·', False, (color[0] // 1.7, color[1] // 1.7, color[2] // 1.7)),
                                          (x_pos - 10, y_pos + y - 16))
                     else:
                         Game.Screen.blit(font_2.render('·', False, color),
                                          (x_pos - 10, y_pos + y - 16))
                 else:
                     if i < len(texts) - prog:
-                        Game.Screen.blit(font_2.render('·', False, (color[0] // 2, color[1] // 2, color[2] // 2)),
+                        Game.Screen.blit(font_2.render('·', False, (color[0] // 1.7, color[1] // 1.7, color[2] // 1.7)),
                                          (x_pos - 10, y_pos + y - 16))
                     else:
                         Game.Screen.blit(font_2.render('·', False, color),
@@ -286,7 +286,7 @@ class Display:
                         line += word + ' '
                     elif font_.size(line + word)[0] >= length or word == texts[i][-1]:
                         if change_old and i < len(texts) - 1:
-                            Game.Screen.blit(font_.render(line, False, (color[0] // 2, color[1] // 2, color[2] // 2)),
+                            Game.Screen.blit(font_.render(line, False, (color[0] // 1.7, color[1] // 1.7, color[2] // 1.7)),
                                              (x_pos, y_pos + y))
                         else:
                             Game.Screen.blit(font_.render(line, False, color), (x_pos, y_pos + y))
@@ -302,13 +302,13 @@ class Display:
                             time.sleep(0.05)
                         elif change_old:
                             Game.Screen.blit(
-                                self.dialogue.render(char, False, (color[0] // 2, color[1] // 2, color[2] // 2)),
+                                self.dialogue.render(char, False, (color[0] // 1.7, color[1] // 1.7, color[2] // 1.7)),
                                 (x_pos + x, y_pos + y))
                         x += font_.size(char)[0]
                     x += font_.size(' ')[0]
                     pass
             if change_old and i < len(texts) - 1:
-                Game.Screen.blit(font_.render(line, False, (color[0] // 2, color[1] // 2, color[2] // 2)),
+                Game.Screen.blit(font_.render(line, False, (color[0] // 1.7, color[1] // 1.7, color[2] // 1.7)),
                                  (x_pos + x, y_pos + y))
             else:
                 Game.Screen.blit(font_.render(line, False, color), (x_pos + x, y_pos + y))

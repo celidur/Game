@@ -261,12 +261,21 @@ def attack_player(n, use=True):
         damage = 7 * crit * ((player.get_stats()[4] + player.get_equipment()[0].get_stat()[0]) / 2 +
                              player.get_equipment()[0].get_stat()[i] * 5) / enemy_.get_defense()
     if use:
-        if n in [1, 3, 4]:
-            enemy_.change_hp(damage)
-            add_text("Vous avez infligé {} dégats.".format(damage))
-        else:
+        if n == 1:
+            enemy_.change_hp(-int(damage))
+            add_text("Vous avez infligé {} dégats.".format(int(damage)))
+        elif n == 2:
             player.change_att_2(int(damage))
             add_text("Vous avez blessé l'ennemi.")
+        elif n == 3:
+            enemy_.change_hp(-int(damage))
+            player.change_hp(-int(0.3 * damage))
+            add_text("Vous chargez l'ennemi et lui infligez {} dégats.".format(int(damage)))
+            add_text("Vous avez également été blessé par le choc. Vous subissez {} dégats".format(int(0.3*damage/crit)))
+            prog += 1
+        elif n == 4:
+            enemy_.change_hp(-int(damage))
+            add_text("Vous avez infligé {} dégats.".format(int(damage)))
         prog += 1
     else:
         return damage
@@ -274,15 +283,13 @@ def attack_player(n, use=True):
 
 def end_turn():
     global prog
-    print(player.att_2)
     if player.att_2:
         damage = 0
         for i in range(len(player.att_2)):
             damage += player.att_2[i][0]
-        enemy_.change_hp(damage)
+        enemy_.change_hp(-int(damage))
         add_text("L'ennemi souffre. Il subit {} dégats.".format(damage))
         prog += 1
-
     n = player.turn_att_2()
     if n == 0:
         add_text("l'ennemi ne souffre plus.")
