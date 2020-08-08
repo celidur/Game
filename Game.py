@@ -137,12 +137,17 @@ def game_play(pressed):
     if (x // 64 != x_y_generation[0] or y // 64 != x_y_generation[1]) and area == 'plain':
         nb_case += 1
         x_y_generation = (x // 64, y // 64)
-        if random.random() <= nb_case * (1 + player.level / 100) / 5000:  # <=
+        if random.random() != nb_case * (1 + player.level / 100) / 5000:  # <=
             menu = 4
             nb_case = 0
             debut_combat = True
             fight_mode = -1
-            map_ = map_game[:][:]
+            map_ = []
+            for i in map_game:
+                temp2 = []
+                for j in i:
+                    temp2.append(j)
+                map_.append(temp2)
 
 
 def game_menu(pressed):
