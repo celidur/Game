@@ -108,7 +108,7 @@ def game_fight(pressed):  # menu=4
 
 
 def game_play(pressed):
-    global menu, temp, x, y, map_game, x_map_game, y_map_game, frame, x_y_generation, area, nb_case
+    global menu, temp, x, y, map_game, x_map_game, y_map_game, frame, x_y_generation, area, nb_case, debut_combat
     while not time.time() > frame + 1 / 61:
         pass
     frame = time.time()
@@ -128,6 +128,7 @@ def game_play(pressed):
         if random.random() != nb_case * (1 + player.level / 100) / 5000:  # <=
             menu = 4
             nb_case = 0
+            debut_combat = True
 
 
 def game_menu(pressed):
