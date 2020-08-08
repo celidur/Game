@@ -1,13 +1,13 @@
-from Enemy1 import Enemy1
 from Variable import *
 import time
 from Display import Display
 from Player import Player
 import random
+from Enemy import Enemy
 _, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
           button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
           button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
-          button_use = import_language()
+          button_use, enemy = import_language()
 player = Player(_[0], _[1])
 x, y, menu, temp = _[3], _[4], 0, time.time()
 map_game = []
@@ -25,7 +25,7 @@ y_map_game = (y + 32) // 64
 display = Display(block, block2, Width, Length, size_window, background, Map)
 frame = 0
 fight_mode = 0
-enemy_ = Enemy1()
+enemy_ = Enemy(enemy[0])
 change = True
 debut_combat = True
 texts = ''
@@ -37,12 +37,11 @@ area = _[5]
 nb_case = 0
 
 
-def init_fight(enemy):
-    global enemy_, texts, prog
+def init_fight(index):
+    global enemy_, texts, prog, enemy
     player.change_boost_att(False)
     player.change_boost_def(False)
-    if enemy == "enemy1":
-        enemy_ = Enemy1()
+    enemy_ = Enemy(enemy[index])
     texts = '{} sauvage apparaît.|{}'.format(enemy_.get_name()[0], Texts.select_action)
     prog = 2
 
@@ -203,7 +202,8 @@ def update_map_game(x_map, y_map, x_player, y_player, map_full, map_game_update)
 def chose_enemy():
     global area
     if area == 'plain':
-        return 'enemy1'
+        return 0
+
 
 def add_text(text, c=True):
     global texts, change
@@ -221,6 +221,7 @@ def remove_text(n=1):
         texts = texts.split('|')
         del texts[-1]
         texts = '|'.join(texts)
+
 
 def use_object(i, use=True):
     if use:

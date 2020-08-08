@@ -74,9 +74,14 @@ def import_language():
                                    'center', 25, None, 'FRAMDCN.TTF')
     button_use = Button.Button((127, 127, 127), (255, 255, 255), [500, 670, 110, 40], Texts.use,
                                'center', 25, None, 'FRAMDCN.TTF')
+    enemy = [
+        [100, 10, 10, 5, "Monster", Texts.volcano, 10, (218, 42),
+         pygame.image.load("assets/battle/backgrounds/plain.png"),
+         pygame.image.load("assets/battle/enemies/enemy1.png")]
+    ]
     return _, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
            button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-           button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, button_use
+           button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, button_use, enemy
 
 
 def change_language(language):

@@ -3,19 +3,19 @@ import random
 
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, hp, gold, xp, defense, name, environment, attack, size, background, image):
+    def __init__(self, stat):
         super().__init__()
-        self.hp = hp
-        self.gold = gold
-        self.xp = xp
-        self.defense = defense
-        self.name = name
-        self.environment = environment
-        self.attack = attack
-        self.background = background
-        self.image = image
-        self.size = size
-        self.hp_max = hp
+        self.hp = stat[0]
+        self.gold = stat[1]
+        self.xp = stat[2]
+        self.defense = stat[3]
+        self.name = stat[4]
+        self.environment = stat[5]
+        self.attack = stat[6]
+        self.background = stat[8]
+        self.image = stat[9]
+        self.size = stat[7]
+        self.hp_max = stat[0]
         self.boost_proba_crtit_enemy = 0.2
         self.boost_mult_crtit_enemy = 2
 
@@ -58,4 +58,3 @@ class Enemy(pygame.sprite.Sprite):
                 self.boost_mult_crtit_enemy = 1.6
         else:
             self.boost_mult_crtit_enemy = 2
-
