@@ -1,5 +1,4 @@
 import pygame
-import random
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -19,14 +18,11 @@ class Enemy(pygame.sprite.Sprite):
         self.boost_proba_crtit_enemy = 0.2
         self.boost_mult_crtit_enemy = 2
 
-    def attack(self, hp_player, defense_player):
-        hp_player -= (self.attack * random.randint(90, 110)) // defense_player
-        return hp_player
+    def get_attack(self):
+        return self.attack
 
-    def defense(self, attack_player):
-        self.hp -= (attack_player * random.randint(90, 110)) // self.defense
-        if self.hp < 0:
-            self.hp = 0
+    def get_defense(self):
+        return self.defense
 
     def get_background(self):
         return self.background
