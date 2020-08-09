@@ -6,9 +6,9 @@ import random
 from Enemy import Enemy
 
 _, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
-          button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-          button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
-          button_use, enemy = import_language()
+button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
+button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
+button_use, enemy = import_language()
 player = Player(_[0], _[1])
 x, y, menu, temp = _[3], _[4], 0, time.time()
 map_game = []
@@ -111,11 +111,13 @@ def game_fight(pressed):  # menu=4
                 Screen.blit(enemy_.get_background(), (0, 0))
                 pygame.display.flip()
                 time.sleep(1)
-                # ennemi et stats_ennemi
                 Screen.blit(enemy_.get_image(), enemy_.get_size())
+                Screen.blit(display.arial.render(enemy_.get_name()[0], False, display.colors[enemy_.get_name()[1]]),
+                            (65, 357))
+                Screen.blit(display.arial.render("{}/{}".format(enemy_.get_hp()[0], enemy_.get_hp()[1]), False,
+                                                 (255, 255, 255)), (215, 357))
                 pygame.display.flip()
                 time.sleep(0.5)
-                # boutons[:]
                 button_attack.display_button()
                 pygame.display.flip()
                 time.sleep(0.5)
@@ -128,8 +130,81 @@ def game_fight(pressed):  # menu=4
                 button_leave.display_button()
                 pygame.display.flip()
                 time.sleep(0.5)
-                # stats[:]
-                # pv et pm
+                Screen.blit(display.arial.render("{}   {}".format(Texts.attack_stat, Texts.defense_stat), False,
+                                                 (255, 255, 255)), (530, 420))
+                pygame.display.flip()
+                time.sleep(0.5)
+                Screen.blit(display.arial.render("Base", False, (255, 255, 255)), (430, 460))
+                Screen.blit(
+                    display.arial.render(str(player.get_stats()[4] + player.get_equipment()[0].get_stat()[0]), False,
+                                         (255, 255, 255)),
+                    (585 - len(str(player.get_stats()[4] + player.get_equipment()[0].get_stat()[0])) * 8, 460))
+                Screen.blit(
+                    display.arial.render(str(player.get_stats()[5] + player.get_equipment()[1].get_stat()[0]), False,
+                                         (255, 255, 255)),
+                    (665 - len(str(player.get_stats()[5] + player.get_equipment()[1].get_stat()[0])) * 8, 460))
+                pygame.display.flip()
+                time.sleep(0.5)
+                Screen.blit(display.arial.render(Texts.plain, False, (68, 255, 0)), (430, 500))
+                Screen.blit(
+                    display.arial.render('+' + str(player.get_equipment()[0].get_stat()[1]), False, (255, 255, 255)),
+                    (585 - len(str(player.get_equipment()[0].get_stat()[6]) + '+') * 8, 500))
+                Screen.blit(
+                    display.arial.render('+' + str(player.get_equipment()[1].get_stat()[1]), False, (255, 255, 255)),
+                    (665 - len(str(player.get_equipment()[1].get_stat()[6]) + '+') * 8, 500))
+                pygame.display.flip()
+                time.sleep(0.2)
+                Screen.blit(display.arial.render(Texts.desert, False, (249, 210, 39)), (430, 530))
+                Screen.blit(
+                    display.arial.render('+' + str(player.get_equipment()[0].get_stat()[2]), False, (255, 255, 255)),
+                    (585 - len(str(player.get_equipment()[0].get_stat()[2]) + '+') * 8, 530))
+                Screen.blit(
+                    display.arial.render('+' + str(player.get_equipment()[1].get_stat()[2]), False, (255, 255, 255)),
+                    (665 - len(str(player.get_equipment()[1].get_stat()[2]) + '+') * 8, 530))
+                pygame.display.flip()
+                time.sleep(0.2)
+                Screen.blit(display.arial.render(Texts.snow, False, (152, 249, 219)), (430, 560))
+                Screen.blit(
+                    display.arial.render('+' + str(player.get_equipment()[0].get_stat()[3]), False, (255, 255, 255)),
+                    (585 - len(str(player.get_equipment()[0].get_stat()[1]) + '+') * 8, 560))
+                Screen.blit(
+                    display.arial.render('+' + str(player.get_equipment()[1].get_stat()[3]), False, (255, 255, 255)),
+                    (665 - len(str(player.get_equipment()[1].get_stat()[1]) + '+') * 8, 560))
+                pygame.display.flip()
+                time.sleep(0.2)
+                Screen.blit(display.arial.render(Texts.forest, False, (11, 109, 13)), (430, 590))
+                Screen.blit(
+                    display.arial.render('+' + str(player.get_equipment()[0].get_stat()[4]), False, (255, 255, 255)),
+                    (585 - len(str(player.get_equipment()[0].get_stat()[3]) + '+') * 8, 590))
+                Screen.blit(
+                    display.arial.render('+' + str(player.get_equipment()[1].get_stat()[4]), False, (255, 255, 255)),
+                    (665 - len(str(player.get_equipment()[1].get_stat()[3]) + '+') * 8, 590))
+                pygame.display.flip()
+                time.sleep(0.2)
+                Screen.blit(display.arial.render(Texts.mountain, False, (123, 95, 62)), (430, 620))
+                Screen.blit(
+                    display.arial.render('+' + str(player.get_equipment()[0].get_stat()[5]), False, (255, 255, 255)),
+                    (585 - len(str(player.get_equipment()[0].get_stat()[5]) + '+') * 8, 620))
+                Screen.blit(
+                    display.arial.render('+' + str(player.get_equipment()[1].get_stat()[5]), False, (255, 255, 255)),
+                    (665 - len(str(player.get_equipment()[1].get_stat()[5]) + '+') * 8, 620))
+                pygame.display.flip()
+                time.sleep(0.2)
+                Screen.blit(display.arial.render(Texts.volcano, False, (163, 41, 18)), (430, 650))
+                Screen.blit(
+                    display.arial.render('+' + str(player.get_equipment()[0].get_stat()[6]), False, (255, 255, 255)),
+                    (585 - len(str(player.get_equipment()[0].get_stat()[4]) + '+') * 8, 650))
+                Screen.blit(
+                    display.arial.render('+' + str(player.get_equipment()[1].get_stat()[6]), False, (255, 255, 255)),
+                    (665 - len(str(player.get_equipment()[1].get_stat()[4]) + '+') * 8, 650))
+                pygame.display.flip()
+                time.sleep(0.5)
+                Screen.blit(display.arial.render(
+                    "{} : {}/{}  {} : {}/{}".format(Texts.hp, player.get_stats()[0], player.get_stats()[1], Texts.mp,
+                                                    player.get_stats()[2], player.get_stats()[3]), False,
+                    (255, 255, 255)), (430, 357))
+                pygame.display.flip()
+                time.sleep(0.5)
                 break
             case_ += 1
         map_[(case_ // 22) % 17][case_ % 22] = None
