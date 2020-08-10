@@ -14,10 +14,10 @@ class Player(pygame.sprite.Sprite):
                 self.list.append([i * 64, j * 64])
         self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
         self.rect = self.image.get_rect()
-        self.velocity = 8
+        self.velocity = 5
         self.hp = stat[0]
         self.hp_max = stat[1]
-        self.level = stat[6]*0 + 500
+        self.level = stat[6]*0 + 1
         self.xp = stat[7]
         self.hm = stat[2]
         self.hm_max = stat[3]
@@ -88,7 +88,7 @@ class Player(pygame.sprite.Sprite):
             return 0
 
     def change_hp(self, n, use=True):
-        hp = self.hp + n
+        hp = int(self.hp + n)
         if hp < 0:
             hp = 0
         elif hp > self.hp_max:
@@ -100,7 +100,7 @@ class Player(pygame.sprite.Sprite):
             return hp
 
     def change_hm(self, n, use=True):
-        hm = self.hm + n
+        hm = int(self.hm + n)
         if hm > self.hm_max:
             hm = self.hm_max
         if use:
@@ -116,7 +116,7 @@ class Player(pygame.sprite.Sprite):
         return self.boost_att, self.boost_def
 
     def change_boost_att(self, i, n):
-        self.boost_att[i] += n
+        self.boost_att[i] = round(self.boost_att[i] + n, 2)
         if self.boost_att[0] < 0.7:
             self.boost_att[0] = 0.7
         elif self.boost_att[0] > 1.3:
@@ -128,7 +128,9 @@ class Player(pygame.sprite.Sprite):
                 self.boost_att[i] = int(0.2 * self.attack + self.sword.get_stat()[0])
 
     def change_boost_def(self, i, n):
-        self.boost_def[i] += n
+        self.boost_def[i] = round(self.boost_def[i] + n, 2)
+        if self.boost_def[0] < 0.7:
+            self.boost_def[0] = 0.7
         if self.boost_def[0] > 1.3:
             self.boost_def[0] = 1.3
         for i in range(1, 7):
@@ -138,21 +140,21 @@ class Player(pygame.sprite.Sprite):
                 self.boost_def[i] = int(0.2 * self.defense + self.armor.get_stat()[0])
 
     #  apres c du kk
-    def change_boost_proba_crtit_player(self, n):
+    def change_proba_crit(self, n):
         if n:
-            self.boost_proba_crtit_player += 0.05
-            if self.boost_proba_crtit_player > 0.3:
-                self.boost_proba_crtit_player = 0.3
+            self.proba_crit += 0.05
+            if self.proba_crit > 0.3:
+                self.proba_crit = 0.3
         else:
-            self.boost_proba_crtit_player = 0.2
+            self.proba_crit = 0.2
 
-    def change_boost_mult_crtit_player(self, n):
+    def change_mult_crit(self, n):
         if n:
-            self.boost_mult_crtit_player += 0.1
-            if self.boost_mult_crtit_player > 2.5:
-                self.boost_mult_crtit_player = 2.5
+            self.mult_crit += 0.1
+            if self.mult_crit > 2.5:
+                self.mult_crit = 2.5
         else:
-            self.boost_mult_crtit_player = 2
+            self.mult_crit = 2
     #  fin du kk
 
     def box_change(self, n1):

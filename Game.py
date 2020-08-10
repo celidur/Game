@@ -133,7 +133,7 @@ def game_fight(pressed):  # menu=4
                 Screen.blit(display.arial.render("{}   {}".format(Texts.attack_stat, Texts.defense_stat), False,
                                                  (255, 255, 255)), (530, 420))
                 pygame.display.flip()
-                time.sleep(0.5)
+                time.sleep(0.2)
                 Screen.blit(display.arial.render("Base", False, (255, 255, 255)), (430, 460))
                 Screen.blit(
                     display.arial.render(str(player.get_stats()[4] + player.get_equipment()[0].get_stat()[0]), False,
@@ -144,7 +144,7 @@ def game_fight(pressed):  # menu=4
                                          (255, 255, 255)),
                     (665 - len(str(player.get_stats()[5] + player.get_equipment()[1].get_stat()[0])) * 8, 460))
                 pygame.display.flip()
-                time.sleep(0.5)
+                time.sleep(0.2)
                 Screen.blit(display.arial.render(Texts.plain, False, (68, 255, 0)), (430, 500))
                 Screen.blit(
                     display.arial.render('+' + str(player.get_equipment()[0].get_stat()[1]), False, (255, 255, 255)),
@@ -324,12 +324,14 @@ def chose_enemy():
         return 0
 
 
-def add_text(text, c=True):
-    global texts, change
+def add_text(text, c=True, add=False):
+    global texts, change, prog
     texts = texts.split('|')
     texts.append(text)
     change = c
     texts = '|'.join(texts)
+    if add:
+        prog += 1
     if texts[0] == '|':
         texts = texts[1:]
 
@@ -358,12 +360,10 @@ def attack_player(n, use=True):
 
     if random.random() < player.get_crit()[0] and use:
         crit = player.get_crit()[1]
-        add_text("Coup critique !!!")
-        prog += 1
+        add_text("Coup critique !!!", True, True)
     else:
         crit = 1
-    damage = 7 * crit * ((player.get_stats()[4] + player.get_equipment()[0].get_stat()[0]) / 2 +
-                         player.get_equipment()[0].get_stat()[i] * 5) / enemy_.get_defense()
+    damage = 0
     if n == 1:
         damage = 7 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
                              player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
@@ -373,29 +373,52 @@ def attack_player(n, use=True):
     elif n == 3:
         damage = 10 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
                               player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
-
+    elif n == 4:
+        damage = 7 * crit * ((player.get_stats()[4] + player.get_equipment()[0].get_stat()[0]) / 2 +
+                             player.get_equipment()[0].get_stat()[i] * 5) / enemy_.get_defense()
     if use:
         if n == 1:
             enemy_.change_hp(-int(damage))
             add_text(
-                "Vous frappez {} de votre épée et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)))
+                "Vous frappez {} de votre épée et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)),
+                True, True)
         elif n == 2:
             player.change_att_2(int(damage))
-            add_text("Vous avez blessé {}. Il saigne".format(enemy_.get_name()[0]))
+            add_text("Vous avez blessé {}. Il saigne.".format(enemy_.get_name()[0]), True, True)
         elif n == 3:
             enemy_.change_hp(-int(damage))
             player.change_hp(-int(0.3 * damage))
-            add_text("Vous chargez {} et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)))
+            add_text("Vous chargez {} et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)), True, True)
             add_text(
-                "Vous avez également été blessé par le choc. Vous subissez {} dégats.".format(int(0.3 * damage / crit)))
-            prog += 1
+                "Vous avez également été blessé par le choc. Vous subissez {} dégats.".format(int(0.3 * damage / crit)),
+                True, True)
         elif n == 4:
             enemy_.change_hp(-int(damage))
             add_text("Vous mobilisez votre attaque spéciale pour infliger {} dégats à {}.".format(int(damage),
-                                                                                                  enemy_.get_name()[0]))
-        prog += 1
+                                                                                                  enemy_.get_name()[0]),
+                     True, True)
     else:
         return int(damage)
+
+
+def magic_player(n, use=True):
+    if n == 1:
+        player.change_hp(0.2 * player.get_stats()[1])
+        add_text("")
+    elif n == 2:
+        pass
+    elif n == 3:
+        player.change_boost_def(0, 0.15)
+        add_text('Votre défense de base est désormais multipliée par {}.'.format(player.get_boost_stats()[1][0]), True,
+                 True)
+        if player.get_boost_stats()[1][0] == 1.3:
+            add_text('Votre défense de base est boostée à son maximum. (×1.3)', True, True)
+    elif n == 4:
+        player.change_boost_att(0, 0.15)
+        add_text('Votre attaque de base est désormais multipliée par {}.'.format(player.get_boost_stats()[0][0]), True,
+                 True)
+        if player.get_boost_stats()[0][0] == 1.3:
+            add_text('Votre attaque de base est boostée à son maximum. (×1.3)', True, True)
 
 
 def end_turn():
@@ -405,15 +428,12 @@ def end_turn():
         for i in range(len(player.att_2)):
             damage += player.att_2[i][0]
         enemy_.change_hp(-int(damage))
-        add_text("L'ennemi souffre. Il subit {} dégats.".format(damage))
-        prog += 1
+        add_text("L'ennemi souffre. Il subit {} dégats.".format(damage), True, True)
     n = player.turn_att_2()
     if n == 0:
-        add_text("l'ennemi ne souffre plus.")
-        prog += 1
+        add_text("l'ennemi ne souffre plus.", True, True)
     elif n == 1:
-        add_text("L'ennemi souffre de moins en moins.")
-        prog += 1
+        add_text("L'ennemi souffre de moins en moins.", True, True)
 
 
 def use_object(i, use=True):

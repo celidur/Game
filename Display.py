@@ -183,8 +183,9 @@ class Display:
             Game.button_magic3.display_button()
             Game.button_magic4.display_button()
             Game.button_back.display_button()
-            Display.display_text(self, Game.Texts.description_magic.format(20, 1.5, 10, 12), 400, 420, 'FRAMDCN.TTF',
-                                 20, 0,
+            Display.display_text(self,
+                                 Game.Texts.description_magic.format(int(0.2 * Game.player.get_stats()[1]), 1.5, 10,
+                                                                     12), 400, 420, 'FRAMDCN.TTF', 20, 0,
                                  (255, 255, 255), 270, False)
         elif Game.fight_mode == 3:
             x, y, scroll = pos_inventory
@@ -320,4 +321,4 @@ class Display:
             x = 0
             y += size
             if len(texts) - 1 > i >= len(texts) - prog:
-                time.sleep(0.7)
+                time.sleep(1)

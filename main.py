@@ -2,6 +2,7 @@ import time
 
 import Game
 import pygame
+
 temp = time.time()
 onclick, running, pressed, pos = False, True, {}, [0, 0]
 while running:
@@ -90,27 +91,27 @@ while running:
                 else:
                     if Game.button_magic1.button_clicked(pos[0], pos[1]):
                         Game.remove_text(2)
-                        #  Game.use_magic(1)
+                        Game.magic_player(1)
                         Game.end_turn()
                         Game.add_text(Game.Texts.select_action)
                         Game.fight_mode = 0
                     elif Game.button_magic2.button_clicked(pos[0], pos[1]):
+                        Game.remove_text(2)
+                        Game.magic_player(2)
+                        Game.end_turn()
+                        Game.add_text(Game.Texts.select_action)
                         Game.fight_mode = 0
                     elif Game.button_magic3.button_clicked(pos[0], pos[1]):
-                        Game.player.change_boost_def()
                         Game.remove_text(2)
-                        Game.add_text('Votre défense de base est désormais multipliée par {}.'.format(
-                            Game.player.get_boost()[0]))
+                        Game.magic_player(3)
+                        Game.end_turn()
                         Game.add_text(Game.Texts.select_action)
-                        Game.prog = 2
                         Game.fight_mode = 0
                     elif Game.button_magic4.button_clicked(pos[0], pos[1]):
-                        Game.player.change_boost_att()
                         Game.remove_text(2)
-                        Game.add_text(
-                            'Votre attaque de base est désormais multipliée par {}.'.format(Game.player.get_boost()[1]))
+                        Game.magic_player(4)
+                        Game.end_turn()
                         Game.add_text(Game.Texts.select_action)
-                        Game.prog = 2
                         Game.fight_mode = 0
             elif Game.fight_mode == 3:
                 if Game.button_back.button_clicked(pos[0], pos[1], 280, 670):
@@ -118,10 +119,11 @@ while running:
                     Game.remove_text()
                 elif Game.button_use.button_clicked(pos[0], pos[1]) and Game.use_obj:
                     Game.remove_text(2)
-                    Game.add_text(Game.use_object((Game.pos_inventory[1] + Game.pos_inventory[2]) * 5 + Game.pos_inventory[0]))
+                    Game.add_text(
+                        Game.use_object((Game.pos_inventory[1] + Game.pos_inventory[2]) * 5 + Game.pos_inventory[0]),
+                        True, True)
                     Game.end_turn()
                     Game.add_text(Game.Texts.select_action)
-                    Game.prog += 1
                     Game.fight_mode = 0
             elif Game.fight_mode == 4:
                 if Game.button_back.button_clicked(pos[0], pos[1], 433, 348):
@@ -129,7 +131,7 @@ while running:
                 elif Game.button_confirm.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 0
                     Game.menu = 0
-        elif pressed.get(pygame.K_ESCAPE) and temp + 1/5 < time.time():
+        elif pressed.get(pygame.K_ESCAPE) and temp + 1 / 5 < time.time():
             temp = time.time()
             if Game.fight_mode != 0:
                 if Game.fight_mode != 4:
