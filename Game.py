@@ -64,10 +64,10 @@ def game_fight(pressed):  # menu=4
     if debut_combat:
         init_fight(chose_enemy())
         debut_combat = False
-    while not time.time() > frame + 1 / 61:
+    while not time.time() > frame + 1 / 90:
         pass
     frame = time.time()
-    if fight_mode == 3 and time.time() > temp + 1 / 5:
+    if fight_mode == 3 and time.time() > temp + 1 / 7:
         if pressed.get(Settings[0]):
             pos_inventory = (
                 ((pos_inventory[0] + 1) % 5),
@@ -128,6 +128,12 @@ def game_fight(pressed):  # menu=4
                 pygame.display.flip()
                 time.sleep(0.5)
                 button_leave.display_button()
+                pygame.display.flip()
+                time.sleep(0.5)
+                Screen.blit(display.arial.render(
+                    "{} : {}/{}  {} : {}/{}".format(Texts.hp, player.get_stats()[0], player.get_stats()[1], Texts.mp,
+                                                    player.get_stats()[2], player.get_stats()[3]), False,
+                    (255, 255, 255)), (430, 357))
                 pygame.display.flip()
                 time.sleep(0.5)
                 Screen.blit(display.arial.render("{}   {}".format(Texts.attack_stat, Texts.defense_stat), False,
@@ -197,12 +203,6 @@ def game_fight(pressed):  # menu=4
                 Screen.blit(
                     display.arial.render('+' + str(player.get_equipment()[1].get_stat()[6]), False, (255, 255, 255)),
                     (665 - len(str(player.get_equipment()[1].get_stat()[4]) + '+') * 8, 650))
-                pygame.display.flip()
-                time.sleep(0.5)
-                Screen.blit(display.arial.render(
-                    "{} : {}/{}  {} : {}/{}".format(Texts.hp, player.get_stats()[0], player.get_stats()[1], Texts.mp,
-                                                    player.get_stats()[2], player.get_stats()[3]), False,
-                    (255, 255, 255)), (430, 357))
                 pygame.display.flip()
                 time.sleep(0.5)
                 break
