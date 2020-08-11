@@ -6,9 +6,9 @@ import random
 from Enemy import Enemy
 
 _, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
-button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
-button_use, enemy = import_language()
+          button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
+          button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
+          button_use, enemy = import_language()
 player = Player(_[0], _[1])
 x, y, menu, temp = _[3], _[4], 0, time.time()
 map_game = []
@@ -65,11 +65,11 @@ def game_fight(pressed):  # menu=4
     if debut_combat:
         init_fight(chose_enemy())
         debut_combat = False
-    while not time.time() > frame + 1 / 90:
+    while not time.time() > frame + 1 / 80:
         pass
     frame = time.time()
     if fight_mode == 3 and time.time() > temp + 1 / 7:
-        if pressed.get(Settings[0]):
+        if pressed.get(Settings[0]) or pressed.get(Settings[4]):
             pos_inventory = (
                 ((pos_inventory[0] + 1) % 5),
                 (pos_inventory[1] * 5 + pos_inventory[0] + 1) // 5,
@@ -78,7 +78,7 @@ def game_fight(pressed):  # menu=4
                 pos_inventory = (pos_inventory[0], 4, pos_inventory[2] + 1)
             if (pos_inventory[1] + pos_inventory[2]) * 5 + pos_inventory[0] >= 36:
                 pos_inventory = (0, 0, 0)
-        elif pressed.get(Settings[1]):
+        elif pressed.get(Settings[1]) or pressed.get(Settings[5]):
             pos_inventory = (
                 (pos_inventory[1] * 5 + pos_inventory[0] - 1) % 5, (pos_inventory[1] * 5 + pos_inventory[0] - 1) // 5,
                 pos_inventory[2])
@@ -86,13 +86,13 @@ def game_fight(pressed):  # menu=4
                 pos_inventory = (pos_inventory[0], 0, pos_inventory[2] - 1)
             if pos_inventory[2] < 0:
                 pos_inventory = (36 % 5 - 1, 4, 36 // 5 - 4)
-        elif pressed.get(Settings[2]):
+        elif pressed.get(Settings[2]) or pressed.get(Settings[6]):
             pos_inventory = (pos_inventory[0], pos_inventory[1] + 1, pos_inventory[2])
             if pos_inventory[1] >= 5:
                 pos_inventory = (pos_inventory[0], 4, pos_inventory[2] + 1)
             if (pos_inventory[1] + pos_inventory[2]) * 5 + pos_inventory[0] >= 36:
                 pos_inventory = (pos_inventory[0], 0, 0)
-        elif pressed.get(Settings[3]):
+        elif pressed.get(Settings[3]) or pressed.get(Settings[7]):
             pos_inventory = (pos_inventory[0], pos_inventory[1] - 1, pos_inventory[2])
             if pos_inventory[1] < 0:
                 pos_inventory = (pos_inventory[0], 0, pos_inventory[2] - 1)
@@ -415,7 +415,8 @@ def magic_player(n, use=True):
         if use:
             if player.get_stats()[2] < 10:
                 end_ = False
-                add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' + "Sélectionnez un autre sort ou une autre action.")
+                add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' +
+                         "Sélectionnez un autre sort ou une autre action.")
                 fight_mode = 2
             elif player.get_stats()[0] == player.get_stats()[1]:
                 end_ = False
@@ -434,7 +435,8 @@ def magic_player(n, use=True):
     elif n == 2:
         if player.get_stats()[2] < 10:
             end_ = False
-            add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' + "Sélectionnez un autre sort ou une autre action.")
+            add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' +
+                     "Sélectionnez un autre sort ou une autre action.")
             fight_mode = 2
         else:
             player.change_mp(-10)
@@ -442,7 +444,8 @@ def magic_player(n, use=True):
     elif n == 3:
         if player.get_stats()[2] < 10:
             end_ = False
-            add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' + "Sélectionnez un autre sort ou une autre action.")
+            add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' +
+                     "Sélectionnez un autre sort ou une autre action.")
             fight_mode = 2
         else:
             player.change_boost_def(0, 0.15)
@@ -454,7 +457,8 @@ def magic_player(n, use=True):
     elif n == 4:
         if player.get_stats()[2] < 10:
             end_ = False
-            add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' + "Sélectionnez un autre sort ou une autre action.")
+            add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' +
+                     "Sélectionnez un autre sort ou une autre action.")
             fight_mode = 2
         else:
             player.change_boost_att(0, 0.15)
