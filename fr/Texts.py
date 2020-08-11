@@ -38,7 +38,7 @@ select_attack = "Sélectionnez une attaque."
 select_spell = "Sélectionnez un sort."
 select_object = "Sélectionnez un objet."
 description_attack = "Attaque 1 :|Coup d'épée basique. Inflige {} dégats.|||Attaque 2 :|Fait saigner l'ennemi pendant 4 tours. Inflige {} dégats. Total : {}.||Attaque 3 :|Attaque brutale. Inflige {} dégats. Vous inflige en retour {} dégats.||Attaque 4 :|Attaque spéciale. Basée en plus grande partie sur l'environnement de l'ennemi. Inflige {} dégats."
-description_magic = "Soin. Régénère 20% des PV max.|(+{})|Coût : __ PM||Bouclier magique. Tous les dégats subits lors de ce tour seront divisé par 1,5.|Coût : __ PM||Boost de défense. Augmente la défense de base de {}. (Max : 1, 3)|Coût : __ PM||Boost d'attaque. Augmente l'attaque de base de {}. (Max : 1, 3)|Coût : __ PM"
+description_magic = "Soin. Régénère 20% des PV max.|(+{})|Coût : 10 PM||Bouclier magique. Tous les dégats subits lors de ce tour seront divisé par 1,5.|Coût : 10 PM||Boost de défense. Augmente la défense de base de {}. (Max : 1, 3)|Coût : 20 PM||Boost d'attaque. Augmente l'attaque de base de {}. (Max : 1, 3)|Coût : 25 PM"
 description_object = [["Potion Soin (Minuscule)", 'Régénère 10 PV.|({})'],
                       ["Potion Soin (Petite)", "Régénère 20 PV.|({})"],
                       ["Potion Soin (Moyenne)", "Régénère 50 PV.|({})"],

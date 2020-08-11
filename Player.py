@@ -19,8 +19,8 @@ class Player(pygame.sprite.Sprite):
         self.hp_max = stat[1]
         self.level = stat[6]*0 + 1
         self.xp = stat[7]
-        self.hm = stat[2]
-        self.hm_max = stat[3]
+        self.mp = stat[2]
+        self.mp_max = stat[3]
         self.attack = stat[4]
         self.defense = stat[5]
         self.inventory = inventory
@@ -70,7 +70,7 @@ class Player(pygame.sprite.Sprite):
         return self.inventory
 
     def get_stats(self):
-        return self.hp, self.hp_max, self.hm, self.hm_max, self.attack, self.defense, self.level, self.xp, self.gold, \
+        return self.hp, self.hp_max, self.mp, self.mp_max, self.attack, self.defense, self.level, self.xp, self.gold, \
                self.num_sword, self.num_armor
 
     def change_att_2(self, damage, add=True):
@@ -78,20 +78,6 @@ class Player(pygame.sprite.Sprite):
             self.att_2.append([damage, 4 + self.boost_att_2])
         else:
             self.att_2 = []
-
-    def turn_att_2(self):
-        length = len(self.att_2)
-        if length != 0:
-            for i in range(len(self.att_2)):
-                self.att_2[i][1] -= 1
-            if self.att_2[0][1] == 0:
-                self.att_2.remove(self.att_2[0])
-        if length == 0 or length == len(self.att_2):
-            return 2
-        elif len(self.att_2) != 0:
-            return 1
-        else:
-            return 0
 
     def change_hp(self, n, use=True):
         hp = int(self.hp + n)
@@ -105,15 +91,15 @@ class Player(pygame.sprite.Sprite):
         else:
             return hp
 
-    def change_hm(self, n, use=True):
-        hm = int(self.hm + n)
-        if hm > self.hm_max:
-            hm = self.hm_max
+    def change_mp(self, n, use=True):
+        mp = int(self.mp + n)
+        if mp > self.mp_max:
+            mp = self.mp_max
         if use:
-            self.hm = hm
+            self.mp = mp
             return "PM régénérés."
         else:
-            return hm
+            return mp
 
     def get_crit(self):
         return self.proba_crit, self.mult_crtit
@@ -148,7 +134,7 @@ class Player(pygame.sprite.Sprite):
     def get_protect(self):
         return self.protect
 
-    def change_protect(self, n):
+    def change_protect(self, n=1):
         self.protect = n
 
     #  apres c du kk
@@ -168,6 +154,20 @@ class Player(pygame.sprite.Sprite):
         else:
             self.mult_crit = 2
     #  fin du kk
+
+    def turn_att_2(self):
+        length = len(self.att_2)
+        if length != 0:
+            for i in range(len(self.att_2)):
+                self.att_2[i][1] -= 1
+            if self.att_2[0][1] == 0:
+                self.att_2.remove(self.att_2[0])
+        if length == 0 or length == len(self.att_2):
+            return 2
+        elif len(self.att_2) != 0:
+            return 1
+        else:
+            return 0
 
     def box_change(self, n1):
         if self.box > n1 + 4:

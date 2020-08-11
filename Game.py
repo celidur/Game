@@ -37,6 +37,7 @@ x_y_generation = (x % 64, y % 64)
 area = _[5]
 map_ = []
 nb_case = 0
+end_ = True
 
 
 def init_fight(index):
@@ -345,7 +346,7 @@ def remove_text(n=1):
 
 
 def attack_player(n, use=True):
-    global prog
+    global prog, texts, fight_mode
     i = 6
     if enemy_.get_name()[1] == Texts.plain:
         i = 1
@@ -377,6 +378,8 @@ def attack_player(n, use=True):
         damage = 7 * crit * ((player.get_stats()[4] + player.get_equipment()[0].get_stat()[0]) / 2 +
                              player.get_equipment()[0].get_stat()[i] * 5) / enemy_.get_defense()
     if use:
+        remove_text(2)
+        fight_mode = 0
         if n == 1:
             enemy_.change_hp(-int(damage))
             add_text(
@@ -402,35 +405,70 @@ def attack_player(n, use=True):
 
 
 def magic_player(n, use=True):
+    global end_, texts, fight_mode
+    if use:
+        remove_text()
+        fight_mode = 0
     if n == 1:
         player.change_hp(0.2 * player.get_stats()[1], use)
         heal = player.change_hp(0.2 * player.get_stats()[1], False)
         if use:
-            player.change_hp(0.2 * player.get_stats()[1])
-            if player.get_stats()[0] == player.get_stats()[1]:
-                add_text("PV entièrement régénérés.", True, True)
+            if player.get_stats()[2] < 10:
+                end_ = False
+                add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' + "Sélectionnez un autre sort ou une autre action.")
+                fight_mode = 2
+            elif player.get_stats()[0] == player.get_stats()[1]:
+                end_ = False
+                add_text("Vous avez déjà tous vos PV." + ' ' + "Sélectionnez un autre sort ou une autre action.")
             else:
-                add_text("{} PV régénérés.".format(heal), True, True)
+                remove_text()
+                player.change_mp(-10)
+                player.change_hp(0.2 * player.get_stats()[1])
+                if player.get_stats()[0] == player.get_stats()[1]:
+                    add_text("PV entièrement régénérés.", True, True)
+                else:
+                    add_text("{} PV régénérés.".format(heal), True, True)
+
         else:
             return heal
     elif n == 2:
-        player.change_protect(1.5)
+        if player.get_stats()[2] < 10:
+            end_ = False
+            add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' + "Sélectionnez un autre sort ou une autre action.")
+            fight_mode = 2
+        else:
+            player.change_mp(-10)
+            player.change_protect(1.5)
     elif n == 3:
-        player.change_boost_def(0, 0.15)
-        add_text('Votre défense de base est désormais multipliée par {}.'.format(player.get_boost_stats()[1][0]), True,
-                 True)
-        if player.get_boost_stats()[1][0] == 1.3:
-            add_text('Votre défense de base est boostée à son maximum. (×1.3)', True, True)
+        if player.get_stats()[2] < 10:
+            end_ = False
+            add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' + "Sélectionnez un autre sort ou une autre action.")
+            fight_mode = 2
+        else:
+            player.change_boost_def(0, 0.15)
+            add_text('Votre défense de base est désormais multipliée par {}.'.format(player.get_boost_stats()[1][0]),
+                     True,
+                     True)
+            if player.get_boost_stats()[1][0] == 1.3:
+                add_text('Votre défense de base est boostée à son maximum. (×1.3)', True, True)
     elif n == 4:
-        player.change_boost_att(0, 0.15)
-        add_text('Votre attaque de base est désormais multipliée par {}.'.format(player.get_boost_stats()[0][0]), True,
-                 True)
-        if player.get_boost_stats()[0][0] == 1.3:
-            add_text('Votre attaque de base est boostée à son maximum. (×1.3)', True, True)
+        if player.get_stats()[2] < 10:
+            end_ = False
+            add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' + "Sélectionnez un autre sort ou une autre action.")
+            fight_mode = 2
+        else:
+            player.change_boost_att(0, 0.15)
+            add_text('Votre attaque de base est désormais multipliée par {}.'.format(player.get_boost_stats()[0][0]),
+                     True,
+                     True)
+            if player.get_boost_stats()[0][0] == 1.3:
+                add_text('Votre attaque de base est boostée à son maximum. (×1.3)', True, True)
 
 
 def end_turn():
-    global prog
+    global end_, prog
+    if not end_:
+        return None
     if player.att_2:
         damage = 0
         for i in range(len(player.att_2)):
@@ -442,11 +480,14 @@ def end_turn():
         add_text("l'ennemi ne souffre plus.", True, True)
     elif n == 1:
         add_text("L'ennemi souffre de moins en moins.", True, True)
-    player.change_protect(1)
+    player.change_protect()
+    add_text(Texts.select_action)
 
 
 def use_object(i, use=True):
+    global fight_mode
     if use:
+        fight_mode = 0
         player.inventory[1][i] -= 1
     if i == 0:
         return player.change_hp(10, use)
@@ -459,15 +500,15 @@ def use_object(i, use=True):
     elif i == 4:
         return player.change_hp(player.hp_max, use)
     elif i == 5:
-        return player.change_hm(10, use)
+        return player.change_mp(10, use)
     elif i == 6:
-        return player.change_hm(20, use)
+        return player.change_mp(20, use)
     elif i == 7:
-        return player.change_hm(50, use)
+        return player.change_mp(50, use)
     elif i == 8:
-        return player.change_hm(100, use)
+        return player.change_mp(100, use)
     elif i == 9:
-        return player.change_hm(player.hm_max, use)
+        return player.change_mp(player.mp_max, use)
     elif i == 10:
         pass
     elif i == 11:
