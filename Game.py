@@ -235,7 +235,7 @@ def game_play(pressed):
     if (x // 64 != x_y_generation[0] or y // 64 != x_y_generation[1]) and area == 'plain':
         nb_case += 1
         x_y_generation = (x // 64, y // 64)
-        if random.random() != nb_case * (2 + player.level / 100) / 5000:  # <=
+        if random.random() <= nb_case * (2 + player.level / 100) / 5000:  # <=
             menu = 4
             nb_case = 0
             debut_combat = True
@@ -372,7 +372,7 @@ def attack_player(n, use=True):
         damage = 2 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
                              player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
     elif n == 3:
-        damage = 10 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
+        damage = 12 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
                               player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
     elif n == 4:
         damage = 7 * crit * ((player.get_stats()[4] + player.get_equipment()[0].get_stat()[0]) / 2 +
@@ -390,10 +390,10 @@ def attack_player(n, use=True):
             add_text("Vous avez blessé {}. Il saigne.".format(enemy_.get_name()[0]), True, True)
         elif n == 3:
             enemy_.change_hp(-int(damage))
-            player.change_hp(-int(0.3 * damage / crit))
+            player.change_hp(-int(0.25 * damage / crit))
             add_text("Vous chargez {} et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)), True, True)
             add_text(
-                "Vous avez également été blessé par le choc. Vous subissez {} dégats.".format(int(0.3 * damage / crit)),
+                "Vous avez également été blessé par le choc. Vous subissez {} dégats.".format(int(0.25 * damage / crit)),
                 True, True)
         elif n == 4:
             enemy_.change_hp(-int(damage))

@@ -170,7 +170,7 @@ class Display:
                                                                             Game.attack_player(2, False),
                                                                             4 * Game.attack_player(2, False),
                                                                             Game.attack_player(3, False),
-                                                                            int(3 / 10 * Game.attack_player(3, False)),
+                                                                            int(0.25 * Game.attack_player(3, False)),
                                                                             Game.attack_player(4, False)),
                                  400, 415,
                                  'FRAMDCN.TTF',
