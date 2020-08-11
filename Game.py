@@ -490,54 +490,74 @@ def use_object(i, use=True):
         fight_mode = 0
         player.inventory[1][i] -= 1
     if i == 0:
-        return player.change_hp(10, use)
+        return Texts.description_object[i][1].format(player.change_hp(10, use))
     elif i == 1:
-        return player.change_hp(20, use)
+        return Texts.description_object[i][1].format(player.change_hp(20, use))
     elif i == 2:
-        return player.change_hp(50, use)
+        return Texts.description_object[i][1].format(player.change_hp(50, use))
     elif i == 3:
-        return player.change_hp(100, use)
+        return Texts.description_object[i][1].format(player.change_hp(100, use))
     elif i == 4:
-        return player.change_hp(player.hp_max, use)
+        return Texts.description_object[i][1].format(player.change_hp(player.hp_max, use))
     elif i == 5:
-        return player.change_mp(10, use)
+        return Texts.description_object[i][1].format(player.change_mp(10, use))
     elif i == 6:
-        return player.change_mp(20, use)
+        return Texts.description_object[i][1].format(player.change_mp(20, use))
     elif i == 7:
-        return player.change_mp(50, use)
+        return Texts.description_object[i][1].format(player.change_mp(50, use))
     elif i == 8:
-        return player.change_mp(100, use)
+        return Texts.description_object[i][1].format(player.change_mp(100, use))
     elif i == 9:
-        return player.change_mp(player.mp_max, use)
+        return Texts.description_object[i][1].format(player.change_mp(player.mp_max, use))
     elif i == 10:
-        pass
+        return Texts.description_object[i][1].format(0)
     elif i == 11:
-        pass
+        return Texts.description_object[i][1].format(0)
     elif i == 12:
-        pass
+        return Texts.description_object[i][1].format(0)
     elif i == 13:
-        pass
+        return Texts.description_object[i][1].format(0)
     elif i == 14:
-        pass
+        return Texts.description_object[i][1].format(0)
     elif i == 15:
-        pass
+        return Texts.description_object[i][1].format(0)
     elif i == 16:
-        pass
+        return Texts.description_object[i][1].format(0)
     elif i == 17:
-        pass
+        return Texts.description_object[i][1].format(0)
     elif i == 18:
-        pass
+        return Texts.description_object[i][1].format(0)
     elif i == 19:
-        pass
+        return Texts.description_object[i][1].format(0)
     elif i == 20:
-        pass
+        return Texts.description_object[i][1].format(0)
     elif i == 21:
-        pass
+        return Texts.description_object[i][1].format(0)
     elif i == 22:
-        pass
+        return Texts.description_object[i][1].format(0)
     elif i == 23:
-        pass
+        return Texts.description_object[i][1].format(0)
     elif i == 24:
-        pass
+        return Texts.description_object[i][1].format(0, 0)
     elif i == 25:
-        pass
+        return Texts.description_object[i][1].format(0)
+    elif i == 26:
+        return Texts.description_object[i][1].format(0)
+    elif i == 27:
+        return Texts.description_object[i][1].format(0)
+    elif i == 28:
+        return Texts.description_object[i][1].format(0)
+    elif i == 29:
+        return Texts.description_object[i][1].format(0)
+    elif i == 30:
+        return Texts.description_object[i][1].format(0)
+    elif i == 31:
+        return Texts.description_object[i][1].format(0)
+    elif i == 32:
+        return Texts.description_object[i][1].format(0)
+    elif i == 33:
+        return Texts.description_object[i][1].format(0)
+    elif i == 34:
+        return Texts.description_object[i][1].format(0)
+    elif i == 35:
+        return Texts.description_object[i][1].format(0)
