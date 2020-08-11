@@ -387,7 +387,7 @@ def attack_player(n, use=True):
             add_text("Vous avez blessé {}. Il saigne.".format(enemy_.get_name()[0]), True, True)
         elif n == 3:
             enemy_.change_hp(-int(damage))
-            player.change_hp(-int(0.3 * damage))
+            player.change_hp(-int(0.3 * damage / crit))
             add_text("Vous chargez {} et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)), True, True)
             add_text(
                 "Vous avez également été blessé par le choc. Vous subissez {} dégats.".format(int(0.3 * damage / crit)),
@@ -403,10 +403,18 @@ def attack_player(n, use=True):
 
 def magic_player(n, use=True):
     if n == 1:
-        player.change_hp(0.2 * player.get_stats()[1])
-        add_text("")
+        player.change_hp(0.2 * player.get_stats()[1], use)
+        heal = player.change_hp(0.2 * player.get_stats()[1], False)
+        if use:
+            player.change_hp(0.2 * player.get_stats()[1])
+            if player.get_stats()[0] == player.get_stats()[1]:
+                add_text("PV entièrement régénérés.", True, True)
+            else:
+                add_text("{} PV régénérés.".format(heal), True, True)
+        else:
+            return heal
     elif n == 2:
-        pass
+        player.change_protect(1.5)
     elif n == 3:
         player.change_boost_def(0, 0.15)
         add_text('Votre défense de base est désormais multipliée par {}.'.format(player.get_boost_stats()[1][0]), True,
@@ -434,6 +442,7 @@ def end_turn():
         add_text("l'ennemi ne souffre plus.", True, True)
     elif n == 1:
         add_text("L'ennemi souffre de moins en moins.", True, True)
+    player.change_protect(1)
 
 
 def use_object(i, use=True):

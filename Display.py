@@ -172,7 +172,7 @@ class Display:
                                                                             Game.attack_player(3, False),
                                                                             int(3 / 10 * Game.attack_player(3, False)),
                                                                             Game.attack_player(4, False)),
-                                 400, 420,
+                                 400, 415,
                                  'FRAMDCN.TTF',
                                  15, 0,
                                  (255, 255, 255), 270, False)
@@ -184,9 +184,9 @@ class Display:
             Game.button_magic4.display_button()
             Game.button_back.display_button()
             Display.display_text(self,
-                                 Game.Texts.description_magic.format(int(0.2 * Game.player.get_stats()[1]), 1.5, 10,
-                                                                     12), 400, 420, 'FRAMDCN.TTF', 20, 0,
-                                 (255, 255, 255), 270, False)
+                                 Game.Texts.description_magic.format(
+                                     Game.magic_player(1, False) - Game.player.get_stats()[0], 10, 12), 400, 415,
+                                 'FRAMDCN.TTF', 15, 0, (255, 255, 255), 270, False)
         elif Game.fight_mode == 3:
             x, y, scroll = pos_inventory
             Game.Screen.blit(pygame.image.load('assets/inventory/set_cases_fight_0.png'), (270, 420))

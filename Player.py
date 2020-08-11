@@ -40,6 +40,7 @@ class Player(pygame.sprite.Sprite):
         self.mult_crtit = 2
         self.att_2 = []
         self.boost_att_2 = 0
+        self.protect = 1
         self.gold = stat[8]
         self.num_armor = stat[10]
         self.num_sword = stat[9]
@@ -63,9 +64,14 @@ class Player(pygame.sprite.Sprite):
         self.mult_crtit = 2
         self.att_2 = []
         self.boost_att_2 = 0
+        self.protect = 1
 
     def get_inventory(self):
         return self.inventory
+
+    def get_stats(self):
+        return self.hp, self.hp_max, self.hm, self.hm_max, self.attack, self.defense, self.level, self.xp, self.gold, \
+               self.num_sword, self.num_armor
 
     def change_att_2(self, damage, add=True):
         if add:
@@ -138,6 +144,12 @@ class Player(pygame.sprite.Sprite):
                 self.boost_def[i] = -int(0.2 * self.defense + self.armor.get_stat()[0])
             elif self.boost_def[i] > 0.2 * self.defense + self.armor.get_stat()[0]:
                 self.boost_def[i] = int(0.2 * self.defense + self.armor.get_stat()[0])
+
+    def get_protect(self):
+        return self.protect
+
+    def change_protect(self, n):
+        self.protect = n
 
     #  apres c du kk
     def change_proba_crit(self, n):
@@ -352,10 +364,6 @@ class Player(pygame.sprite.Sprite):
                     if map_game[8][8][3][3] or map_game[9][8][3][2]:
                         return False
         return True
-
-    def get_stats(self):
-        return self.hp, self.hp_max, self.hm, self.hm_max, self.attack, self.defense, self.level, self.xp, self.gold, \
-               self.num_sword, self.num_armor
 
 '''
 5 hp
