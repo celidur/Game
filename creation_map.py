@@ -38,7 +38,7 @@ Screen = pygame.display.set_mode((image_size_length * 64, 11 * 64 + 30))
 x, y, layer, velocity, pressed, x1, y1, x2, y2 = 59 * 64, 13 * 64, 0, 15, {}, -1, -1, -1, -1
 arial_font, a, x_input, y_input, layer_input = pygame.font.SysFont("arial", 14), False, False, False, False
 velocity_input, b_input, user_input_value = False, False, ""
-player = Player()
+player = Player([0] * 11, [[0], [0] * 36, [0]])
 
 
 def save():
@@ -69,9 +69,9 @@ def management_Screen(X1, X2, Y1, Y2, n, Block):
         for Y_case in range(Y1, Y2):
             if 0 <= X_case + x // 64 < Length and y // 64 + Y_case >= 0 and Y_case + y // 64 < Width:
                 if n == 3:
-                    if Map[x // 64 + X_case][y // 64 + Y_case][n] == [True]*4:
+                    if Map[x // 64 + X_case][y // 64 + Y_case][n] == [True] * 4:
                         Afficher_case(Block["0"], X_case, Y_case)
-                    elif Map[x // 64 + X_case][y // 64 + Y_case][n] != [False]*4:
+                    elif Map[x // 64 + X_case][y // 64 + Y_case][n] != [False] * 4:
                         if Map[x // 64 + X_case][y // 64 + Y_case][n][0]:
                             Afficher_case(Block["1"], X_case, Y_case)
                         if Map[x // 64 + X_case][y // 64 + Y_case][n][1]:

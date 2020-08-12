@@ -165,7 +165,7 @@ block = {
 }
 block2 = {
     'tree': [pygame.image.load("assets/tree/Tree.png"), -24, 15],
-    'tree2': [pygame.image.load("assets/tree/Tree2.png"), 0, 0],
+    'tree2': [pygame.image.load("assets/temp/tree.png"), -125, -175],  # "assets/tree/Tree2.png"
     'tree0': [pygame.image.load("assets/tree/Tree_r.png"), -24, 15],
     'h1': [pygame.image.load("assets/house/house1.png"), -95, -265],
     'church': [pygame.image.load("assets/house/church.png"), -128, -390],

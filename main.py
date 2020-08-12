@@ -1,11 +1,64 @@
 import time
-
+import asyncio
 import Game
 import pygame
 
 temp = time.time()
 onclick, running, pressed, pos = False, True, {}, [0, 0]
+ready = False
+loading_pos = [(0, -40), (-20, -35), (-35, -20), (-40, 0), (-35, 20), (-20, 35), (0, 40), (20, 35), (35, 20), (40, 0),
+               (35, -20), (20, -35)]
+
+
+async def loading_animation(start, x, y):
+    global ready, loading_pos
+    n, t = 0, 0
+    while not ready or time.time() < start + 0:
+        if ready:
+            t = 1 / 12
+        Game.Screen.blit(pygame.image.load("assets/temp/loading_background.png"), (0, 0))
+        for i in range(12):
+            Game.Screen.blit(pygame.image.load("assets/icons/loading/{}.png".format((i + n) % 12)),
+                             (loading_pos[i][0] + x, loading_pos[i][1] + y))
+        pygame.display.flip()
+        n += 1
+        n %= 12
+        await asyncio.sleep(t)
+
+
+async def loading_map():
+    global ready
+    t = time.time()
+    map_splited = []
+    for lines in range((len(Game.Map)) + 15 // 16):
+        strip = []
+        for columns in range((len(Game.Map[0])) + 15 // 16):
+            mini_map = []
+            for line in range(16):
+                mini_lines = []
+                for column in range(16):
+                    if lines * 16 + line > len(Game.Map) - 1 or columns * 16 + column > len(Game.Map[0]) - 1:
+                        mini_lines.append(None)
+                    else:
+                        mini_lines.append(Game.Map[lines * 16 + line][columns * 16 + column][0])  # enlever le [0]
+                    if time.time() > t + 1 / 12:
+                        t = time.time()
+                        await asyncio.sleep(0)
+                mini_map.append(mini_lines)
+            strip.append(mini_map)
+        map_splited.append(strip)
+    ready = True
+
+
+async def prepare_map(start):
+    t1 = asyncio.create_task(loading_animation(start, 352, 600))
+    t2 = asyncio.create_task(loading_map())
+    await asyncio.gather(t1, t2)
+
+
 while running:
+    while not ready:
+        asyncio.run(prepare_map(time.time()))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             if Game.menu != 5:
