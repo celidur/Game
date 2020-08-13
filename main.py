@@ -3,6 +3,12 @@ import asyncio
 import Game
 import pygame
 
+temp = time.time()
+onclick, running, pressed, pos = False, True, {}, [0, 0]
+ready = False
+loading_pos = [(0, -40), (-20, -35), (-35, -20), (-40, 0), (-35, 20), (-20, 35), (0, 40), (20, 35), (35, 20), (40, 0),
+               (35, -20), (20, -35)]
+
 
 async def loading_animation(start, x, y):
     global ready, loading_pos
