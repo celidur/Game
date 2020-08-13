@@ -23,17 +23,28 @@ class Display:
             Game.Texts.mountain: (123, 95, 62),
             Game.Texts.volcano: (163, 41, 18)}
 
-    def display_update(self, n, x_case, y_case):
+    def display_chunks(self):
+        i = (Game.x + 512) // 1024
+        j = (Game.y + 512) // 1024
+        if i < len(Game.map_chunk) and j < len(Game.map_chunk[0]):
+            Game.Screen.blit(Game.map_chunk[i][j],
+                            (0 - Game.x + 322 + 1024 * i, 0 - Game.y + 322 + 1024 * j))
+        if i < len(Game.map_chunk) and j - 1 >= 0:
+            Game.Screen.blit(Game.map_chunk[i][j - 1],
+                             (0 - Game.x + 322 + 1024 * i, 0 - Game.y + 322 + 1024 * j - 1024))
+        if i - 1 >= 0 and j < len(Game.map_chunk[0]):
+            Game.Screen.blit(Game.map_chunk[i - 1][j],
+                             (0 - Game.x + 322 + 1024 * i - 1024, 0 - Game.y + 322 + 1024 * j))
+        if i - 1 >= 0 and j - 1 >= 0:
+            Game.Screen.blit(Game.map_chunk[i - 1][j - 1],
+                             (0 - Game.x + 322 + 1024 * i - 1024, 0 - Game.y + 322 + 1024 * j - 1024))
+
+    def display_update(self, x_case, y_case):
         try:
-            if n == 4:
-                block_2 = self.block2[self.map[x_case][y_case][4]]
-                Game.Screen.blit(block_2[0],
-                                 (x_case * 64 - 128 - (Game.x + 32) % 64 + block_2[1] - 32,
-                                  y_case * 64 - 128 - (Game.y + 32) % 64 + block_2[2] - 32))
-            else:
-                Game.Screen.blit(self.block[self.map[x_case][y_case][n]],
-                                 (x_case * 64 - 128 - (Game.x + 32) % 64 - 32,
-                                  y_case * 64 - 128 - (Game.y + 32) % 64 - 32))
+            block_2 = self.block2[self.map[x_case][y_case][4]]
+            Game.Screen.blit(block_2[0],
+                             (x_case * 64 - 128 - (Game.x + 32) % 64 + block_2[1] - 32,
+                              y_case * 64 - 128 - (Game.y + 32) % 64 + block_2[2] - 32))
         except KeyError:
             pass
 
@@ -42,17 +53,12 @@ class Display:
             Game.Screen.blit(self.background, (0, 0))
         else:
             Game.Screen.blit(background, (0, 0))
-        for X_case in range(2, 15):
-            for Y_case in range(2, 15):
-                if self.map[X_case][Y_case] is not None:
-                    self.display_update(0, X_case, Y_case)
-                    self.display_update(1, X_case, Y_case)
-                    self.display_update(2, X_case, Y_case)
-        Game.Screen.blit(Game.player.image, (11 * 32 - 32, 11 * 32 - 32))
+        self.display_chunks()
+        Game.Screen.blit(Game.player.image, (320, 320))
         for X_case in range(16):
             for Y_case in range(19):
                 if self.map[X_case][Y_case] is not None:
-                    self.display_update(4, X_case, Y_case)
+                    self.display_update(X_case, Y_case)
         if Game.menu == 0:
             Game.button_shop.display_button()
             Game.button_menu.display_button()

@@ -10,10 +10,10 @@ loading_pos = [(0, -40), (-20, -35), (-35, -20), (-40, 0), (-35, 20), (-20, 35),
                (35, -20), (20, -35)]
 
 
-async def loading_animation(start, x, y):
+async def loading_animation(x, y):
     global ready, loading_pos
     n = 0
-    while not ready or time.time() < start + 0:
+    while not ready:
         Game.Screen.blit(pygame.image.load("assets/temp/loading_background.png"), (0, 0))
         for i in range(12):
             Game.Screen.blit(pygame.image.load("assets/icons/loading/{}.png".format((i + n) % 12)),
@@ -21,12 +21,12 @@ async def loading_animation(start, x, y):
         pygame.display.flip()
         n += 1
         n %= 12
-        await asyncio.sleep(1/12)
+        await asyncio.sleep(1 / 12)
 
 
 async def loading_map():
     global ready
-    map_splited = []
+    map_split = []
     map = Game.Map
     for lines in range((len(map) + 15) // 16):
         strip = []
@@ -36,25 +36,39 @@ async def loading_map():
                 mini_lines = []
                 for column in range(16):
                     if lines * 16 + line > len(map) - 1 or columns * 16 + column > len(map[0]) - 1:
-                        mini_lines.append(None)
+                        mini_lines.append([None, None, None])
                     else:
-                        mini_lines.append(map[lines * 16 + line][columns * 16 + column])
+                        mini_lines.append(map[lines * 16 + line][columns * 16 + column][:3])
                     await asyncio.sleep(0)
                 mini_map.append(mini_lines)
             strip.append(mini_map)
-        map_splited.append(strip)
+        map_split.append(strip)
+    for x_chunk in range(len(map_split)):
+        strip = []
+        for y_chunk in range(len(map_split[0])):
+            chunk = pygame.Surface((16 * 64, 16 * 64))
+            for x in range(16):
+                for y in range(16):
+                    for layer in range(3):
+                        try:
+                            chunk.blit(Game.block[map_split[x_chunk][y_chunk][x][y][layer]], (x * 64, y * 64))
+                        except:
+                            continue
+                    await asyncio.sleep(0)
+            strip.append(chunk)
+        Game.map_chunk.append(strip)
     ready = True
 
 
-async def prepare_map(start):
-    t1 = asyncio.create_task(loading_animation(start, 352, 600))
+async def prepare_map():
+    t1 = asyncio.create_task(loading_animation( 352, 600))
     t2 = asyncio.create_task(loading_map())
     await asyncio.gather(t1, t2)
 
 
 while running:
     while not ready:
-        asyncio.run(prepare_map(time.time()))
+        asyncio.run(prepare_map())
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             if Game.menu != 5:
