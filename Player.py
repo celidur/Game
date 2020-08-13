@@ -235,151 +235,153 @@ class Player(pygame.sprite.Sprite):
         return x, y
 
     def collision(self, map_collision, d, x, y):
+        l, w = len(map_collision), len(map_collision[0])
+        x_, y_ = (x + 32) // 64, (y + 32) // 64
         if d == 0:
             x1 = x - self.velocity
             if 12 >= x1 % 64 or x1 % 64 >= 32:
                 if 52 >= y % 64 >= 32:
                     if y % 64 < 44:
-                        if map_collision[8][7][2] or map_collision[8][8][0]:
+                        if map_collision[x_][y_ - 1][2] or map_collision[x_][y_][0]:
                             return False
                     else:
-                        if map_collision[8][7][2] or map_collision[8][8][2] or map_collision[8][8][0]:
+                        if map_collision[x_][y_ - 1][2] or map_collision[x_][y_][2] or map_collision[x_][y_][0]:
                             return False
                 elif 12 <= y % 64 < 32:
                     if y % 64 > 20:
-                        if map_collision[8][9][2] or map_collision[8][8][0]:
+                        if map_collision[x_][(y_ + 1) % w][2] or map_collision[x_][y_][0]:
                             return False
                     else:
-                        if map_collision[8][9][2] or map_collision[8][8][2] or map_collision[8][8][0]:
+                        if map_collision[x_][(y_ + 1) % w][2] or map_collision[x_][y_][2] or map_collision[x_][y_][0]:
                             return False
                 else:
-                    if map_collision[8][8][0] or map_collision[8][8][2]:
+                    if map_collision[x_][y_][0] or map_collision[x_][y_][2]:
                         return False
 
             if 32 <= x1 % 64 <= 44:
                 if 52 >= y % 64 >= 32:
                     if y % 64 < 44:
-                        if map_collision[7][7][3] or map_collision[7][8][1]:
+                        if map_collision[x_ - 1][y_ - 1][3] or map_collision[x_ - 1][y_][1]:
                             return False
                     else:
-                        if map_collision[7][7][3] or map_collision[7][8][3] or map_collision[7][8][1]:
+                        if map_collision[x_ - 1][y_ - 1][3] or map_collision[x_ - 1][y_][3] or map_collision[x_ - 1][y_][1]:
                             return False
                 elif 12 <= y % 64 < 32:
                     if y % 64 > 20:
-                        if map_collision[7][9][3] or map_collision[7][8][1]:
+                        if map_collision[x_ - 1][(y_ + 1) % w][3] or map_collision[x_ - 1][y_][1]:
                             return False
                     else:
-                        if map_collision[7][9][3] or map_collision[7][8][3] or map_collision[7][8][1]:
+                        if map_collision[x_ - 1][(y_ + 1) % w][3] or map_collision[x_ - 1][y_][3] or map_collision[x_ - 1][y_][1]:
                             return False
                 else:
-                    if map_collision[7][8][1] or map_collision[7][8][3]:
+                    if map_collision[x_ - 1][y_][1] or map_collision[x_ - 1][y_][3]:
                         return False
         elif d == 1:
             x1 = x + self.velocity
             if 32 >= x1 % 64 or x1 % 64 >= 52:
                 if 52 >= y % 64 >= 32:
                     if y % 64 < 44:
-                        if map_collision[8][7][3] or map_collision[8][8][1]:
+                        if map_collision[x_][y_ - 1][3] or map_collision[x_][y_][1]:
                             return False
                     else:
-                        if map_collision[8][7][3] or map_collision[8][8][3] or map_collision[8][8][1]:
+                        if map_collision[x_][y_ - 1][3] or map_collision[x_][y_][3] or map_collision[x_][y_][1]:
                             return False
                 elif 12 <= y % 64 < 32:
                     if y % 64 > 20:
-                        if map_collision[8][9][3] or map_collision[8][8][1]:
+                        if map_collision[x_][(y_ + 1) % w][3] or map_collision[x_][y_][1]:
                             return False
                     else:
-                        if map_collision[8][9][3] or map_collision[8][8][3] or map_collision[8][8][1]:
+                        if map_collision[x_][(y_ + 1) % w][3] or map_collision[x_][y_][3] or map_collision[x_][y_][1]:
                             return False
                 else:
-                    if map_collision[8][8][1] or map_collision[8][8][3]:
+                    if map_collision[x_][y_][1] or map_collision[x_][y_][3]:
                         return False
 
             if 32 >= x1 % 64 >= 20:
                 if 52 >= y % 64 >= 32:
                     if y % 64 < 44:
-                        if map_collision[9][7][2] or map_collision[9][8][0]:
+                        if map_collision[(x_ + 1) % l][y_ - 1][2] or map_collision[(x_ + 1) % l][y_][0]:
                             return False
                     else:
-                        if map_collision[9][7][2] or map_collision[9][8][2] or map_collision[9][8][0]:
+                        if map_collision[(x_ + 1) % l][y_ - 1][2] or map_collision[(x_ + 1) % l][y_][2] or map_collision[(x_ + 1) % l][y_][0]:
                             return False
                 elif 12 <= y % 64 < 32:
                     if y % 64 > 20:
-                        if map_collision[9][9][2] or map_collision[9][8][0]:
+                        if map_collision[(x_ + 1) % l][(y_ + 1) % w][2] or map_collision[(x_ + 1) % l][y_][0]:
                             return False
                     else:
-                        if map_collision[9][9][2] or map_collision[9][8][2] or map_collision[9][8][0]:
+                        if map_collision[(x_ + 1) % l][(y_ + 1) % w][2] or map_collision[(x_ + 1) % l][y_][2] or map_collision[(x_ + 1) % l][y_][0]:
                             return False
                 else:
-                    if map_collision[9][8][0] or map_collision[9][8][2]:
+                    if map_collision[(x_ + 1) % l][y_][0] or map_collision[(x_ + 1) % l][y_][2]:
                         return False
         elif d == 2:
             y1 = y - self.velocity
             if 32 <= y1 % 64 <= 52:
                 if 32 <= x % 64 <= 44:
-                    if map_collision[7][7][3] or map_collision[8][7][2]:
+                    if map_collision[x_ - 1][y_ - 1][3] or map_collision[x_][y_ - 1][2]:
                         return False
                 elif 44 < x % 64 < 52:
-                    if map_collision[8][7][2]:
+                    if map_collision[x_][y_ - 1][2]:
                         return False
                 elif 52 <= x % 64 or x % 64 <= 12:
-                    if map_collision[8][7][2] or map_collision[8][7][3]:
+                    if map_collision[x_][y_ - 1][2] or map_collision[x_][y_ - 1][3]:
                         return False
                 elif 12 < x % 64 < 20:
-                    if map_collision[8][7][3]:
+                    if map_collision[x_][y_ - 1][3]:
                         return False
                 else:
-                    if map_collision[8][7][3] or map_collision[9][7][2]:
+                    if map_collision[x_][y_ - 1][3] or map_collision[(x_ + 1) % l][y_ - 1][2]:
                         return False
             if 32 <= y1 % 64 or y1 % 64 <= 20:
                 if 32 <= x % 64 <= 44:
-                    if map_collision[7][8][1] or map_collision[8][8][0]:
+                    if map_collision[x_ - 1][y_][1] or map_collision[x_][y_][0]:
                         return False
                 elif 44 < x % 64 < 52:
-                    if map_collision[8][8][0]:
+                    if map_collision[x_][y_][0]:
                         return False
                 elif 52 <= x % 64 or x % 64 <= 12:
-                    if map_collision[8][8][0] or map_collision[8][8][1]:
+                    if map_collision[x_][y_][0] or map_collision[x_][y_][1]:
                         return False
                 elif 12 < x % 64 < 20:
-                    if map_collision[8][8][1]:
+                    if map_collision[x_][y_][1]:
                         return False
                 else:
-                    if map_collision[8][8][1] or map_collision[9][8][0]:
+                    if map_collision[x_][y_][1] or map_collision[(x_ + 1) % l][y_][0]:
                         return False
         elif d == 3:
             y1 = y + self.velocity
             if 12 <= y1 % 64 <= 32:
                 if 32 <= x % 64 <= 44:
-                    if map_collision[7][9][1] or map_collision[8][9][0]:
+                    if map_collision[x_ - 1][(y_ + 1) % w][1] or map_collision[x_][(y_ + 1) % w][0]:
                         return False
                 elif 44 < x % 64 < 52:
-                    if map_collision[8][9][0]:
+                    if map_collision[x_][(y_ + 1) % w][0]:
                         return False
                 elif 52 <= x % 64 or x % 64 <= 12:
-                    if map_collision[8][9][0] or map_collision[8][9][1]:
+                    if map_collision[x_][(y_ + 1) % w][0] or map_collision[x_][(y_ + 1) % w][1]:
                         return False
                 elif 12 < x % 64 < 20:
-                    if map_collision[8][9][1]:
+                    if map_collision[x_][(y_ + 1) % w][1]:
                         return False
                 else:
-                    if map_collision[8][9][1] or map_collision[9][9][0]:
+                    if map_collision[x_][(y_ + 1) % w][1] or map_collision[(x_ + 1) % l][(y_ + 1) % w][0]:
                         return False
             if 32 > y1 % 64 or y1 % 64 >= 44:
                 if 32 <= x % 64 <= 44:
-                    if map_collision[7][8][3] or map_collision[8][8][2]:
+                    if map_collision[x_ - 1][y_][3] or map_collision[x_][y_][2]:
                         return False
                 elif 44 < x % 64 < 52:
-                    if map_collision[8][8][2]:
+                    if map_collision[x_][y_][2]:
                         return False
                 elif 52 <= x % 64 or x % 64 <= 12:
-                    if map_collision[8][8][2] or map_collision[8][8][3]:
+                    if map_collision[x_][y_][2] or map_collision[x_][y_][3]:
                         return False
                 elif 12 < x % 64 < 20:
-                    if map_collision[8][8][3]:
+                    if map_collision[x_][y_][3]:
                         return False
                 else:
-                    if map_collision[8][8][3] or map_collision[9][8][2]:
+                    if map_collision[x_][3] or map_collision[(x_ + 1) % l][8][2]:
                         return False
         return True
 
