@@ -3,17 +3,11 @@ import asyncio
 import Game
 import pygame
 
-temp = time.time()
-onclick, running, pressed, pos = False, True, {}, [0, 0]
-ready = False
-loading_pos = [(0, -40), (-20, -35), (-35, -20), (-40, 0), (-35, 20), (-20, 35), (0, 40), (20, 35), (35, 20), (40, 0),
-               (35, -20), (20, -35)]
-
 
 async def loading_animation(start, x, y):
     global ready, loading_pos
     n = 0
-    while not ready or time.time() < start + 3:
+    while not ready or time.time() < start + 0:
         Game.Screen.blit(pygame.image.load("assets/temp/loading_background.png"), (0, 0))
         for i in range(12):
             Game.Screen.blit(pygame.image.load("assets/icons/loading/{}.png".format((i + n) % 12)),
