@@ -6,6 +6,7 @@ from armor import Armor
 class Player(pygame.sprite.Sprite):
     def __init__(self, stat, inventory):
         super().__init__()
+        self.mult_crit = 2
         self.frame = time.time()
         self.player = pygame.image.load('assets/player.png').convert_alpha()
         self.list, self.box, self.direction = [], 0, "down"
@@ -17,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.velocity = 5
         self.hp = stat[0]
         self.hp_max = stat[1]
-        self.level = stat[6]*0 + 1
+        self.level = stat[6] * 0 + 1
         self.xp = stat[7]
         self.mp = stat[2]
         self.mp_max = stat[3]
@@ -153,6 +154,7 @@ class Player(pygame.sprite.Sprite):
                 self.mult_crit = 2.5
         else:
             self.mult_crit = 2
+
     #  fin du kk
 
     def turn_att_2(self):
@@ -207,20 +209,24 @@ class Player(pygame.sprite.Sprite):
                     self.box = 12
                 self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
 
-    def player_move(self, pressed, x, y, map_game, width, length, settings):
-        if (pressed.get(settings[1]) or pressed.get(settings[5])) and (x + 63) // 64 > 0 and self.collision(map_game, 0, x, y):
+    def player_move(self, pressed, x, y, map_collision, width, length, settings):
+        if (pressed.get(settings[1]) or pressed.get(settings[5])) and (x + 63) // 64 > 0 and self.collision(
+                map_collision, 0, x, y):
             x -= self.velocity
             self.direction = "left"
             self.move()
-        elif (pressed.get(settings[0]) or pressed.get(settings[4])) and x // 64 < length - 1 and self.collision(map_game, 1, x, y):
+        elif (pressed.get(settings[0]) or pressed.get(settings[4])) and x // 64 < length - 1 and self.collision(
+                map_collision, 1, x, y):
             x += self.velocity
             self.direction = "right"
             self.move()
-        elif (pressed.get(settings[3]) or pressed.get(settings[7])) and (y + 63) // 64 > 0 and self.collision(map_game, 2, x, y):
+        elif (pressed.get(settings[3]) or pressed.get(settings[7])) and (y + 63) // 64 > 0 and self.collision(
+                map_collision, 2, x, y):
             y -= self.velocity
             self.direction = "up"
             self.move()
-        elif (pressed.get(settings[2]) or pressed.get(settings[6])) and y // 64 < width - 1 and self.collision(map_game, 3, x, y):
+        elif (pressed.get(settings[2]) or pressed.get(settings[6])) and y // 64 < width - 1 and self.collision(
+                map_collision, 3, x, y):
             y += self.velocity
             self.direction = "down"
             self.move()
@@ -228,154 +234,155 @@ class Player(pygame.sprite.Sprite):
             self.move(False)
         return x, y
 
-    def collision(self, map_game, d, x, y):
+    def collision(self, map_collision, d, x, y):
         if d == 0:
             x1 = x - self.velocity
             if 12 >= x1 % 64 or x1 % 64 >= 32:
                 if 52 >= y % 64 >= 32:
                     if y % 64 < 44:
-                        if map_game[8][7][3][2] or map_game[8][8][3][0]:
+                        if map_collision[8][7][2] or map_collision[8][8][0]:
                             return False
                     else:
-                        if map_game[8][7][3][2] or map_game[8][8][3][2] or map_game[8][8][3][0]:
+                        if map_collision[8][7][2] or map_collision[8][8][2] or map_collision[8][8][0]:
                             return False
                 elif 12 <= y % 64 < 32:
                     if y % 64 > 20:
-                        if map_game[8][9][3][2] or map_game[8][8][3][0]:
+                        if map_collision[8][9][2] or map_collision[8][8][0]:
                             return False
                     else:
-                        if map_game[8][9][3][2] or map_game[8][8][3][2] or map_game[8][8][3][0]:
+                        if map_collision[8][9][2] or map_collision[8][8][2] or map_collision[8][8][0]:
                             return False
                 else:
-                    if map_game[8][8][3][0] or map_game[8][8][3][2]:
+                    if map_collision[8][8][0] or map_collision[8][8][2]:
                         return False
 
             if 32 <= x1 % 64 <= 44:
                 if 52 >= y % 64 >= 32:
                     if y % 64 < 44:
-                        if map_game[7][7][3][3] or map_game[7][8][3][1]:
+                        if map_collision[7][7][3] or map_collision[7][8][1]:
                             return False
                     else:
-                        if map_game[7][7][3][3] or map_game[7][8][3][3] or map_game[7][8][3][1]:
+                        if map_collision[7][7][3] or map_collision[7][8][3] or map_collision[7][8][1]:
                             return False
                 elif 12 <= y % 64 < 32:
                     if y % 64 > 20:
-                        if map_game[7][9][3][3] or map_game[7][8][3][1]:
+                        if map_collision[7][9][3] or map_collision[7][8][1]:
                             return False
                     else:
-                        if map_game[7][9][3][3] or map_game[7][8][3][3] or map_game[7][8][3][1]:
+                        if map_collision[7][9][3] or map_collision[7][8][3] or map_collision[7][8][1]:
                             return False
                 else:
-                    if map_game[7][8][3][1] or map_game[7][8][3][3]:
+                    if map_collision[7][8][1] or map_collision[7][8][3]:
                         return False
         elif d == 1:
             x1 = x + self.velocity
             if 32 >= x1 % 64 or x1 % 64 >= 52:
                 if 52 >= y % 64 >= 32:
                     if y % 64 < 44:
-                        if map_game[8][7][3][3] or map_game[8][8][3][1]:
+                        if map_collision[8][7][3] or map_collision[8][8][1]:
                             return False
                     else:
-                        if map_game[8][7][3][3] or map_game[8][8][3][3] or map_game[8][8][3][1]:
+                        if map_collision[8][7][3] or map_collision[8][8][3] or map_collision[8][8][1]:
                             return False
                 elif 12 <= y % 64 < 32:
                     if y % 64 > 20:
-                        if map_game[8][9][3][3] or map_game[8][8][3][1]:
+                        if map_collision[8][9][3] or map_collision[8][8][1]:
                             return False
                     else:
-                        if map_game[8][9][3][3] or map_game[8][8][3][3] or map_game[8][8][3][1]:
+                        if map_collision[8][9][3] or map_collision[8][8][3] or map_collision[8][8][1]:
                             return False
                 else:
-                    if map_game[8][8][3][1] or map_game[8][8][3][3]:
+                    if map_collision[8][8][1] or map_collision[8][8][3]:
                         return False
 
             if 32 >= x1 % 64 >= 20:
                 if 52 >= y % 64 >= 32:
                     if y % 64 < 44:
-                        if map_game[9][7][3][2] or map_game[9][8][3][0]:
+                        if map_collision[9][7][2] or map_collision[9][8][0]:
                             return False
                     else:
-                        if map_game[9][7][3][2] or map_game[9][8][3][2] or map_game[9][8][3][0]:
+                        if map_collision[9][7][2] or map_collision[9][8][2] or map_collision[9][8][0]:
                             return False
                 elif 12 <= y % 64 < 32:
                     if y % 64 > 20:
-                        if map_game[9][9][3][2] or map_game[9][8][3][0]:
+                        if map_collision[9][9][2] or map_collision[9][8][0]:
                             return False
                     else:
-                        if map_game[9][9][3][2] or map_game[9][8][3][2] or map_game[9][8][3][0]:
+                        if map_collision[9][9][2] or map_collision[9][8][2] or map_collision[9][8][0]:
                             return False
                 else:
-                    if map_game[9][8][3][0] or map_game[9][8][3][2]:
+                    if map_collision[9][8][0] or map_collision[9][8][2]:
                         return False
         elif d == 2:
             y1 = y - self.velocity
             if 32 <= y1 % 64 <= 52:
                 if 32 <= x % 64 <= 44:
-                    if map_game[7][7][3][3] or map_game[8][7][3][2]:
+                    if map_collision[7][7][3] or map_collision[8][7][2]:
                         return False
                 elif 44 < x % 64 < 52:
-                    if map_game[8][7][3][2]:
+                    if map_collision[8][7][2]:
                         return False
                 elif 52 <= x % 64 or x % 64 <= 12:
-                    if map_game[8][7][3][2] or map_game[8][7][3][3]:
+                    if map_collision[8][7][2] or map_collision[8][7][3]:
                         return False
                 elif 12 < x % 64 < 20:
-                    if map_game[8][7][3][3]:
+                    if map_collision[8][7][3]:
                         return False
                 else:
-                    if map_game[8][7][3][3] or map_game[9][7][3][2]:
+                    if map_collision[8][7][3] or map_collision[9][7][2]:
                         return False
             if 32 <= y1 % 64 or y1 % 64 <= 20:
                 if 32 <= x % 64 <= 44:
-                    if map_game[7][8][3][1] or map_game[8][8][3][0]:
+                    if map_collision[7][8][1] or map_collision[8][8][0]:
                         return False
                 elif 44 < x % 64 < 52:
-                    if map_game[8][8][3][0]:
+                    if map_collision[8][8][0]:
                         return False
                 elif 52 <= x % 64 or x % 64 <= 12:
-                    if map_game[8][8][3][0] or map_game[8][8][3][1]:
+                    if map_collision[8][8][0] or map_collision[8][8][1]:
                         return False
                 elif 12 < x % 64 < 20:
-                    if map_game[8][8][3][1]:
+                    if map_collision[8][8][1]:
                         return False
                 else:
-                    if map_game[8][8][3][1] or map_game[9][8][3][0]:
+                    if map_collision[8][8][1] or map_collision[9][8][0]:
                         return False
         elif d == 3:
             y1 = y + self.velocity
             if 12 <= y1 % 64 <= 32:
                 if 32 <= x % 64 <= 44:
-                    if map_game[7][9][3][1] or map_game[8][9][3][0]:
+                    if map_collision[7][9][1] or map_collision[8][9][0]:
                         return False
                 elif 44 < x % 64 < 52:
-                    if map_game[8][9][3][0]:
+                    if map_collision[8][9][0]:
                         return False
                 elif 52 <= x % 64 or x % 64 <= 12:
-                    if map_game[8][9][3][0] or map_game[8][9][3][1]:
+                    if map_collision[8][9][0] or map_collision[8][9][1]:
                         return False
                 elif 12 < x % 64 < 20:
-                    if map_game[8][9][3][1]:
+                    if map_collision[8][9][1]:
                         return False
                 else:
-                    if map_game[8][9][3][1] or map_game[9][9][3][0]:
+                    if map_collision[8][9][1] or map_collision[9][9][0]:
                         return False
             if 32 > y1 % 64 or y1 % 64 >= 44:
                 if 32 <= x % 64 <= 44:
-                    if map_game[7][8][3][3] or map_game[8][8][3][2]:
+                    if map_collision[7][8][3] or map_collision[8][8][2]:
                         return False
                 elif 44 < x % 64 < 52:
-                    if map_game[8][8][3][2]:
+                    if map_collision[8][8][2]:
                         return False
                 elif 52 <= x % 64 or x % 64 <= 12:
-                    if map_game[8][8][3][2] or map_game[8][8][3][3]:
+                    if map_collision[8][8][2] or map_collision[8][8][3]:
                         return False
                 elif 12 < x % 64 < 20:
-                    if map_game[8][8][3][3]:
+                    if map_collision[8][8][3]:
                         return False
                 else:
-                    if map_game[8][8][3][3] or map_game[9][8][3][2]:
+                    if map_collision[8][8][3] or map_collision[9][8][2]:
                         return False
         return True
+
 
 '''
 5 hp

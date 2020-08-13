@@ -11,6 +11,7 @@ class Display:
         self.size_window = size_window
         self.background = background
         self.ii = 0
+        self.map_chunk = 0
         self.map = map_game
         self.i1 = time.time() + 1
         self.arial = pygame.font.Font("font/FRAMDCN.TTF", 20)
@@ -48,17 +49,14 @@ class Display:
         except KeyError:
             pass
 
-    def display_game(self, background):
-        if background is None:
-            Game.Screen.blit(self.background, (0, 0))
-        else:
-            Game.Screen.blit(background, (0, 0))
+    def display_game(self):
+        Game.Screen.blit(self.background, (0, 0))
         self.display_chunks()
         Game.Screen.blit(Game.player.image, (320, 320))
-        for X_case in range(16):
+        """for X_case in range(16):
             for Y_case in range(19):
                 if self.map[X_case][Y_case] is not None:
-                    self.display_update(X_case, Y_case)
+                    self.display_update(X_case, Y_case)"""
         if Game.menu == 0:
             Game.button_shop.display_button()
             Game.button_menu.display_button()
@@ -74,9 +72,9 @@ class Display:
         Game.button_save.display_button()
         Game.button_exit.display_button()
 
-    def display(self, map_game, background=None):
-        self.map = map_game
-        self.display_game(background)
+    def display(self, map_chunk):
+        self.map_chunk = map_chunk
+        self.display_game()
         if Game.menu == 2:
             self.display_pause()
         pygame.display.flip()
