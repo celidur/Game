@@ -178,41 +178,37 @@ class Player(pygame.sprite.Sprite):
     def get_equipment(self):
         return self.sword, self.armor
 
-    def move(self, direction):
+    def move(self):
         if time.time() > self.frame:
             self.box += 1
             self.frame = time.time() + 0.1
-            if direction == "same":
-                direction = self.direction
-                self.box = -2
-            if direction == 'down':
+            if self.direction == 'down':
                 self.box_change(-1)
                 self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
-            elif direction == 'left':
+            elif self.direction == 'left':
                 self.box_change(3)
                 self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
-            elif direction == 'up':
+            elif self.direction == 'up':
                 self.box_change(7)
                 self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
-            elif direction == 'right':
+            elif self.direction == 'right':
                 self.box_change(11)
                 self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
-            self.direction = direction
+
     def player_move(self, pressed, x, y, map_game, width, length, settings):
         if (pressed.get(settings[1]) or pressed.get(settings[5])) and (x + 63) // 64 > 0 and self.collision(map_game, 0, x, y):
             x -= self.velocity
-            self.move("left")
+            self.direction = "left"
         elif (pressed.get(settings[0]) or pressed.get(settings[4])) and x // 64 < length - 1 and self.collision(map_game, 1, x, y):
             x += self.velocity
-            self.move("right")
+            self.direction = "right"
         elif (pressed.get(settings[3]) or pressed.get(settings[7])) and (y + 63) // 64 > 0 and self.collision(map_game, 2, x, y):
             y -= self.velocity
-            self.move("up")
+            self.direction = "up"
         elif (pressed.get(settings[2]) or pressed.get(settings[6])) and y // 64 < width - 1 and self.collision(map_game, 3, x, y):
             y += self.velocity
-            self.move("down")
-        else:
-            self.move("same")
+            self.direction = "down"
+        self.move()
         return x, y
 
     def collision(self, map_game, d, x, y):

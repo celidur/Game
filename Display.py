@@ -10,9 +10,9 @@ class Display:
         self.block2 = block2
         self.size_window = size_window
         self.background = background
-        # self.ii = 0
+        self.ii = 0
         self.map = map_game
-        # self.i1 = time.time() + 1
+        self.i1 = time.time() + 1
         self.arial = pygame.font.Font("font/FRAMDCN.TTF", 20)
         self.dialogue = pygame.font.Font("font/rpg_.FON", 16)
         self.colors = {
@@ -74,11 +74,11 @@ class Display:
         if Game.menu == 2:
             self.display_pause()
         pygame.display.flip()
-        # self.ii += 1
-        # if time.time() > self.i1:
-        #    print(self.ii)
-        #    self.i1 = time.time() + 1
-        #    self.ii = 0
+        self.ii += 1
+        if time.time() > self.i1:
+            print(self.ii)
+            self.i1 = time.time() + 1
+            self.ii = 0
 
     def display_fight(self, background, monster, size, hp, name, player_stats, pos_inventory):
         Game.Screen.blit(background, (0, 0))
