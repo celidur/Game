@@ -27,18 +27,17 @@ async def loading_animation(x, y):
 async def loading_map():
     global ready
     map_split = []
-    map = Game.Map
-    for lines in range((len(map) + 15) // 16):
+    for lines in range((len(Game.Map) + 15) // 16):
         strip = []
-        for columns in range((len(map[0]) + 15) // 16):
+        for columns in range((len(Game.Map[0]) + 15) // 16):
             mini_map = []
             for line in range(16):
                 mini_lines = []
                 for column in range(16):
-                    if lines * 16 + line > len(map) - 1 or columns * 16 + column > len(map[0]) - 1:
+                    if lines * 16 + line > len(Game.Map) - 1 or columns * 16 + column > len(Game.Map[0]) - 1:
                         mini_lines.append([None, None, None])
                     else:
-                        mini_lines.append(map[lines * 16 + line][columns * 16 + column][:3])
+                        mini_lines.append(Game.Map[lines * 16 + line][columns * 16 + column][:3])
                     await asyncio.sleep(0)
                 mini_map.append(mini_lines)
             strip.append(mini_map)
@@ -52,7 +51,7 @@ async def loading_map():
                     for layer in range(3):
                         try:
                             chunk.blit(Game.block[map_split[x_chunk][y_chunk][x][y][layer]], (x * 64, y * 64))
-                        except:
+                        except KeyError:
                             continue
                     await asyncio.sleep(0)
             strip.append(chunk)
@@ -61,7 +60,7 @@ async def loading_map():
 
 
 async def prepare_map():
-    t1 = asyncio.create_task(loading_animation( 352, 600))
+    t1 = asyncio.create_task(loading_animation(352, 600))
     t2 = asyncio.create_task(loading_map())
     await asyncio.gather(t1, t2)
 

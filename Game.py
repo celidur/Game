@@ -30,7 +30,6 @@ use_obj = False
 prog = 1
 x_y_generation = (x % 64, y % 64)
 area = _[5]
-map_ = []
 nb_case = 0
 end_ = True
 map_chunk = []
@@ -61,7 +60,7 @@ def game_fight(pressed):  # menu=4
     if debut_combat:
         init_fight(chose_enemy())
         debut_combat = False
-    while not time.time() > frame + 1 / 80:
+    while not time.time() > frame + 1 / 61:
         pass
     frame = time.time()
     if fight_mode == 3 and time.time() > temp + 1 / 7:
@@ -252,7 +251,7 @@ def add_text(text, c=True, add=False):
 
 def remove_text(n=1):
     global texts, change
-    for i in range(n):
+    for e in range(n):
         texts = texts.split('|')
         del texts[-1]
         texts = '|'.join(texts)
@@ -260,17 +259,17 @@ def remove_text(n=1):
 
 def attack_player(n, use=True):
     global prog, texts, fight_mode
-    i = 6
+    env = 6
     if enemy_.get_name()[1] == Texts.plain:
-        i = 1
+        env = 1
     elif enemy_.get_name()[1] == Texts.desert:
-        i = 2
+        env = 2
     elif enemy_.get_name()[1] == Texts.snow:
-        i = 3
+        env = 3
     elif enemy_.get_name()[1] == Texts.forest:
-        i = 4
+        env = 4
     elif enemy_.get_name()[1] == Texts.mountain:
-        i = 5
+        env = 5
 
     if random.random() < player.get_crit()[0] and use:
         crit = player.get_crit()[1]
@@ -280,16 +279,16 @@ def attack_player(n, use=True):
     damage = 0
     if n == 1:
         damage = 7 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
-                             player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
+                             player.get_equipment()[0].get_stat()[env]) / enemy_.get_defense()
     elif n == 2:
         damage = 2 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
-                             player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
+                             player.get_equipment()[0].get_stat()[env]) / enemy_.get_defense()
     elif n == 3:
         damage = 12 * crit * (player.get_stats()[4] + player.get_equipment()[0].get_stat()[0] +
-                              player.get_equipment()[0].get_stat()[i]) / enemy_.get_defense()
+                              player.get_equipment()[0].get_stat()[env]) / enemy_.get_defense()
     elif n == 4:
         damage = 7 * crit * ((player.get_stats()[4] + player.get_equipment()[0].get_stat()[0]) / 2 +
-                             player.get_equipment()[0].get_stat()[i] * 5) / enemy_.get_defense()
+                             player.get_equipment()[0].get_stat()[env] * 5) / enemy_.get_defense()
     if use:
         remove_text(2)
         fight_mode = 0
@@ -306,8 +305,8 @@ def attack_player(n, use=True):
             player.change_hp(-int(0.25 * damage / crit))
             add_text("Vous chargez {} et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)), True, True)
             add_text(
-                "Vous avez également été blessé par le choc. Vous subissez {} dégats.".format(int(0.25 * damage / crit)),
-                True, True)
+                "Vous avez également été blessé par le choc. Vous subissez {} dégats.".format(
+                    int(0.25 * damage / crit)), True, True)
         elif n == 4:
             enemy_.change_hp(-int(damage))
             add_text("Vous mobilisez votre attaque spéciale pour infliger {} dégats à {}.".format(int(damage),
@@ -388,8 +387,8 @@ def end_turn():
         return None
     if player.att_2:
         damage = 0
-        for i in range(len(player.att_2)):
-            damage += player.att_2[i][0]
+        for __ in range(len(player.att_2)):
+            damage += player.att_2[__][0]
         enemy_.change_hp(-int(damage))
         add_text("L'ennemi souffre. Il subit {} dégats.".format(damage), True, True)
     n = player.turn_att_2()
@@ -401,80 +400,80 @@ def end_turn():
     add_text(Texts.select_action)
 
 
-def use_object(i, use=True):
+def use_object(index_object, use=True):
     global fight_mode
     if use:
         fight_mode = 0
-        player.inventory[1][i] -= 1
-    if i == 0:
-        return Texts.description_object[i][1].format(player.change_hp(10, use))
-    elif i == 1:
-        return Texts.description_object[i][1].format(player.change_hp(20, use))
-    elif i == 2:
-        return Texts.description_object[i][1].format(player.change_hp(50, use))
-    elif i == 3:
-        return Texts.description_object[i][1].format(player.change_hp(100, use))
-    elif i == 4:
-        return Texts.description_object[i][1].format(player.change_hp(player.hp_max, use))
-    elif i == 5:
-        return Texts.description_object[i][1].format(player.change_mp(10, use))
-    elif i == 6:
-        return Texts.description_object[i][1].format(player.change_mp(20, use))
-    elif i == 7:
-        return Texts.description_object[i][1].format(player.change_mp(50, use))
-    elif i == 8:
-        return Texts.description_object[i][1].format(player.change_mp(100, use))
-    elif i == 9:
-        return Texts.description_object[i][1].format(player.change_mp(player.mp_max, use))
-    elif i == 10:
-        return Texts.description_object[i][1].format(0)
-    elif i == 11:
-        return Texts.description_object[i][1].format(0)
-    elif i == 12:
-        return Texts.description_object[i][1].format(0)
-    elif i == 13:
-        return Texts.description_object[i][1].format(0)
-    elif i == 14:
-        return Texts.description_object[i][1].format(0)
-    elif i == 15:
-        return Texts.description_object[i][1].format(0)
-    elif i == 16:
-        return Texts.description_object[i][1].format(0)
-    elif i == 17:
-        return Texts.description_object[i][1].format(0)
-    elif i == 18:
-        return Texts.description_object[i][1].format(0)
-    elif i == 19:
-        return Texts.description_object[i][1].format(0)
-    elif i == 20:
-        return Texts.description_object[i][1].format(0)
-    elif i == 21:
-        return Texts.description_object[i][1].format(0)
-    elif i == 22:
-        return Texts.description_object[i][1].format(0)
-    elif i == 23:
-        return Texts.description_object[i][1].format(0)
-    elif i == 24:
-        return Texts.description_object[i][1].format(0, 0)
-    elif i == 25:
-        return Texts.description_object[i][1].format(0)
-    elif i == 26:
-        return Texts.description_object[i][1].format(0)
-    elif i == 27:
-        return Texts.description_object[i][1].format(0)
-    elif i == 28:
-        return Texts.description_object[i][1].format(0)
-    elif i == 29:
-        return Texts.description_object[i][1].format(0)
-    elif i == 30:
-        return Texts.description_object[i][1].format(0)
-    elif i == 31:
-        return Texts.description_object[i][1].format(0)
-    elif i == 32:
-        return Texts.description_object[i][1].format(0)
-    elif i == 33:
-        return Texts.description_object[i][1].format(0)
-    elif i == 34:
-        return Texts.description_object[i][1].format(0)
-    elif i == 35:
-        return Texts.description_object[i][1].format(0)
+        player.inventory[1][index_object] -= 1
+    if index_object == 0:
+        return Texts.description_object[index_object][1].format(player.change_hp(10, use))
+    elif index_object == 1:
+        return Texts.description_object[index_object][1].format(player.change_hp(20, use))
+    elif index_object == 2:
+        return Texts.description_object[index_object][1].format(player.change_hp(50, use))
+    elif index_object == 3:
+        return Texts.description_object[index_object][1].format(player.change_hp(100, use))
+    elif index_object == 4:
+        return Texts.description_object[index_object][1].format(player.change_hp(player.hp_max, use))
+    elif index_object == 5:
+        return Texts.description_object[index_object][1].format(player.change_mp(10, use))
+    elif index_object == 6:
+        return Texts.description_object[index_object][1].format(player.change_mp(20, use))
+    elif index_object == 7:
+        return Texts.description_object[index_object][1].format(player.change_mp(50, use))
+    elif index_object == 8:
+        return Texts.description_object[index_object][1].format(player.change_mp(100, use))
+    elif index_object == 9:
+        return Texts.description_object[index_object][1].format(player.change_mp(player.mp_max, use))
+    elif index_object == 10:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 11:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 12:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 13:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 14:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 15:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 16:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 17:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 18:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 19:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 20:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 21:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 22:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 23:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 24:
+        return Texts.description_object[index_object][1].format(0, 0)
+    elif index_object == 25:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 26:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 27:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 28:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 29:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 30:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 31:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 32:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 33:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 34:
+        return Texts.description_object[index_object][1].format(0)
+    elif index_object == 35:
+        return Texts.description_object[index_object][1].format(0)

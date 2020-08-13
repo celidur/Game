@@ -35,8 +35,8 @@ class Player(pygame.sprite.Sprite):
                            0, 0, 0, 0, 0,
                            0],
                           []]
-        self.boost_att = [1, 0, 0, 0, 0, 0, 0]
-        self.boost_def = [1, 0, 0, 0, 0, 0, 0]
+        self.boost_att = [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        self.boost_def = [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
         self.proba_crit = 0.2
         self.mult_crtit = 2
         self.att_2 = []

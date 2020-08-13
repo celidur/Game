@@ -11,7 +11,7 @@ class Display:
         self.size_window = size_window
         self.background = background
         self.ii = 0
-        self.map_chunk = 0
+        self.map_chunk = map_game
         self.map = map_game
         self.i1 = time.time() + 1
         self.arial = pygame.font.Font("font/FRAMDCN.TTF", 20)
@@ -27,17 +27,17 @@ class Display:
     def display_chunks(self):
         i = (Game.x + 512) // 1024
         j = (Game.y + 512) // 1024
-        if i < len(Game.map_chunk) and j < len(Game.map_chunk[0]):
-            Game.Screen.blit(Game.map_chunk[i][j],
-                            (0 - Game.x + 322 + 1024 * i, 0 - Game.y + 322 + 1024 * j))
+        if i < len(self.map_chunk) and j < len(self.map_chunk[0]):
+            Game.Screen.blit(self.map_chunk[i][j],
+                             (0 - Game.x + 322 + 1024 * i, 0 - Game.y + 322 + 1024 * j))
         if i < len(Game.map_chunk) and j - 1 >= 0:
-            Game.Screen.blit(Game.map_chunk[i][j - 1],
+            Game.Screen.blit(self.map_chunk[i][j - 1],
                              (0 - Game.x + 322 + 1024 * i, 0 - Game.y + 322 + 1024 * j - 1024))
-        if i - 1 >= 0 and j < len(Game.map_chunk[0]):
+        if i - 1 >= 0 and j < len(self.map_chunk[0]):
             Game.Screen.blit(Game.map_chunk[i - 1][j],
                              (0 - Game.x + 322 + 1024 * i - 1024, 0 - Game.y + 322 + 1024 * j))
         if i - 1 >= 0 and j - 1 >= 0:
-            Game.Screen.blit(Game.map_chunk[i - 1][j - 1],
+            Game.Screen.blit(self.map_chunk[i - 1][j - 1],
                              (0 - Game.x + 322 + 1024 * i - 1024, 0 - Game.y + 322 + 1024 * j - 1024))
 
     def display_update(self, x_case, y_case):
