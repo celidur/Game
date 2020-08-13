@@ -12,10 +12,8 @@ loading_pos = [(0, -40), (-20, -35), (-35, -20), (-40, 0), (-35, 20), (-20, 35),
 
 async def loading_animation(start, x, y):
     global ready, loading_pos
-    n, t = 0, 0
-    while not ready or time.time() < start + 0:
-        if ready:
-            t = 1 / 12
+    n = 0
+    while not ready or time.time() < start + 3:
         Game.Screen.blit(pygame.image.load("assets/temp/loading_background.png"), (0, 0))
         for i in range(12):
             Game.Screen.blit(pygame.image.load("assets/icons/loading/{}.png".format((i + n) % 12)),
@@ -23,27 +21,25 @@ async def loading_animation(start, x, y):
         pygame.display.flip()
         n += 1
         n %= 12
-        await asyncio.sleep(t)
+        await asyncio.sleep(1/12)
 
 
 async def loading_map():
     global ready
-    t = time.time()
     map_splited = []
-    for lines in range((len(Game.Map)) + 15 // 16):
+    map = Game.Map
+    for lines in range((len(map) + 15) // 16):
         strip = []
-        for columns in range((len(Game.Map[0])) + 15 // 16):
+        for columns in range((len(map[0]) + 15) // 16):
             mini_map = []
             for line in range(16):
                 mini_lines = []
                 for column in range(16):
-                    if lines * 16 + line > len(Game.Map) - 1 or columns * 16 + column > len(Game.Map[0]) - 1:
+                    if lines * 16 + line > len(map) - 1 or columns * 16 + column > len(map[0]) - 1:
                         mini_lines.append(None)
                     else:
-                        mini_lines.append(Game.Map[lines * 16 + line][columns * 16 + column][0])  # enlever le [0]
-                    if time.time() > t + 1 / 12:
-                        t = time.time()
-                        await asyncio.sleep(0)
+                        mini_lines.append(map[lines * 16 + line][columns * 16 + column])
+                    await asyncio.sleep(0)
                 mini_map.append(mini_lines)
             strip.append(mini_map)
         map_splited.append(strip)
