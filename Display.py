@@ -29,16 +29,16 @@ class Display:
         j = (Game.y + 512) // 1024
         if i < len(self.map_chunk) and j < len(self.map_chunk[0]):
             Game.Screen.blit(self.map_chunk[i][j],
-                             (0 - Game.x + 322 + 1024 * i, 0 - Game.y + 322 + 1024 * j))
+                             (0 - Game.x + 320 + 1024 * i, 0 - Game.y + 320 + 1024 * j))
         if i < len(Game.map_chunk) and j - 1 >= 0:
             Game.Screen.blit(self.map_chunk[i][j - 1],
-                             (0 - Game.x + 322 + 1024 * i, 0 - Game.y + 322 + 1024 * j - 1024))
+                             (0 - Game.x + 320 + 1024 * i, 0 - Game.y + 320 + 1024 * j - 1024))
         if i - 1 >= 0 and j < len(self.map_chunk[0]):
             Game.Screen.blit(Game.map_chunk[i - 1][j],
-                             (0 - Game.x + 322 + 1024 * i - 1024, 0 - Game.y + 322 + 1024 * j))
+                             (0 - Game.x + 320 + 1024 * i - 1024, 0 - Game.y + 320 + 1024 * j))
         if i - 1 >= 0 and j - 1 >= 0:
             Game.Screen.blit(self.map_chunk[i - 1][j - 1],
-                             (0 - Game.x + 322 + 1024 * i - 1024, 0 - Game.y + 322 + 1024 * j - 1024))
+                             (0 - Game.x + 320 + 1024 * i - 1024, 0 - Game.y + 320 + 1024 * j - 1024))
 
     def display_update(self, x_case, y_case):
         try:
@@ -52,11 +52,9 @@ class Display:
     def display_game(self):
         Game.Screen.blit(self.background, (0, 0))
         self.display_chunks()
+        # affichage objets
         Game.Screen.blit(Game.player.image, (320, 320))
-        """for X_case in range(16):
-            for Y_case in range(19):
-                if self.map[X_case][Y_case] is not None:
-                    self.display_update(X_case, Y_case)"""
+        # affichage objets
         if Game.menu == 0:
             Game.button_shop.display_button()
             Game.button_menu.display_button()

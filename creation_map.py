@@ -35,7 +35,7 @@ pygame.init()
 image_size_length = 11
 pygame.display.set_caption("generated")
 Screen = pygame.display.set_mode((image_size_length * 64, 11 * 64 + 30))
-x, y, layer, velocity, pressed, x1, y1, x2, y2 = 59 * 64, 13 * 64, 0, 15, {}, -1, -1, -1, -1
+x, y, layer, velocity, pressed, x1, y1, x2, y2 = 59 * 64, 13 * 64, 0, 2, {}, -1, -1, -1, -1
 arial_font, a, x_input, y_input, layer_input = pygame.font.SysFont("arial", 14), False, False, False, False
 velocity_input, b_input, user_input_value = False, False, ""
 player = Player([0] * 11, [[0], [0] * 36, [0]])
@@ -175,7 +175,7 @@ def Keyboard_pressed(Pressed):
         if not move:
             player.move("left")
     elif not move:
-        player.move("same")
+        player.move(False)
     if a:
         if Pressed.get(pygame.K_SPACE):
             change_case([True] * 4, 3)
