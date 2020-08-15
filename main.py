@@ -68,7 +68,9 @@ async def prepare_map():
 while running:
     while not ready:
         asyncio.run(prepare_map())
+    Game.fadeout()
     if not pygame.mixer_music.get_busy():
+        pygame.mixer_music.load(Game.music[Game.area])
         pygame.mixer_music.play(loops=-1)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -169,8 +171,8 @@ while running:
                     Game.fight_mode = 0
                 elif Game.button_confirm.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 0
+                    Game.fade = [True, Game.volume, time.time(), 1]
                     Game.menu = 0
-                    pygame.mixer_music.load(Game.music[Game.area])
         elif pressed.get(pygame.K_ESCAPE) and temp + 1 / 5 < time.time():
             temp = time.time()
             if Game.fight_mode != 0:

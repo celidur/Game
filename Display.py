@@ -52,9 +52,26 @@ class Display:
     def display_game(self):
         Game.Screen.blit(self.background, (0, 0))
         self.display_chunks()
-        # affichage objets
+        for i in range(Game.x // 64 - 10, Game.x // 64 + 10):
+            for j in range(Game.y // 64 - 10, Game.y // 64 + 2):
+                if Game.map_object[i][j] == '' or\
+                        not (0 <= i < len(Game.map_object)) or not (0 <= j < len(Game.map_object[0])):
+                    continue
+                if j * 64 < Game.y:
+                    Game.Screen.blit(Game.block2[Game.map_object[i][j]][0],
+                                     (i * 64 + Game.block2[Game.map_object[i][j]][1] - Game.x + 320,
+                                      j * 64 + Game.block2[Game.map_object[i][j]][2] - Game.y + 320))
+
         Game.Screen.blit(Game.player.image, (320, 320))
-        # affichage objets
+
+        for i in range(Game.x // 64 - 10, Game.x // 64 + 10):
+            for j in range(Game.y // 64, Game.y // 64 + 14):
+                if Game.map_object[i][j] == '':
+                    continue
+                if j * 64 >= Game.y:
+                    Game.Screen.blit(Game.block2[Game.map_object[i][j]][0],
+                                     (i * 64 + Game.block2[Game.map_object[i][j]][1] - Game.x + 320,
+                                      j * 64 + Game.block2[Game.map_object[i][j]][2] - Game.y + 320))
         if Game.menu == 0:
             Game.button_shop.display_button()
             Game.button_menu.display_button()

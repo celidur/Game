@@ -11,11 +11,15 @@ _, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory
     button_use, enemy = import_language()
 player = Player(_[0], _[1])
 map_collision = []
+map_object = []
 for i in Map:
     temp = []
+    temp_2 = []
     for j in i:
         temp.append(j[3])
+        temp_2.append(j[4])
     map_collision.append(temp)
+    map_object.append(temp_2)
 x, y, menu, temp = _[3], _[4], 0, time.time()
 Settings = _[2]
 display = Display(block, block2, Width, Length, size_window, background, Map)
@@ -33,17 +37,19 @@ area = _[5]
 nb_case = 0
 end_ = True
 map_chunk = []
+volume = 0.5
 pygame.mixer_music.load(music[area])
+pygame.mixer_music.set_volume(volume)
+fade = [False, volume, 0, 0]  # fade, volume, début, durée
 
 
 def init_fight(index):
-    global enemy_, texts, prog, enemy
+    global enemy_, texts, prog, enemy, fade, volume
     player.init()
     enemy_ = Enemy(enemy[index])
     texts = '{} sauvage apparaît.|{}'.format(enemy_.get_name()[0], Texts.select_action)
     prog = 2
-    pygame.mixer_music.load(music['combat'])
-    pygame.mixer_music.play(loops=-1)
+    fade = [True, volume, time.time(), 1]
 
 
 def save():
@@ -59,7 +65,7 @@ def save():
 
 def game_fight(pressed):  # menu=4
     global menu, frame, player, enemy_, fight_mode, debut_combat, pos_inventory, \
-        temp, texts
+        temp, texts, fade
     if debut_combat:
         init_fight(chose_enemy())
         debut_combat = False
@@ -100,7 +106,9 @@ def game_fight(pressed):  # menu=4
                 else:
                     pos_inventory = (pos_inventory[0], 4, 36 // 5 - 4)
         temp = time.time()
-    if fight_mode == -1:
+    if fight_mode == -1 and not fade[0]:
+        pygame.mixer_music.load(music['combat'])
+        pygame.mixer_music.play(loops=-1)
         fight_mode = 0
         pygame.time.delay(500)
         Screen.blit(enemy_.get_background(), (0, 0))
@@ -200,6 +208,9 @@ def game_fight(pressed):  # menu=4
             (665 - len(str(player.get_equipment()[1].get_stat()[4]) + '+') * 8, 650))
         pygame.display.flip()
         time.sleep(0.5)
+    elif fight_mode == -1:
+        # transition
+        pass
     else:
         display.display_fight(enemy_.get_background(), enemy_.get_image(), enemy_.get_size(), enemy_.get_hp(),
                               enemy_.get_name(), player.get_stats(), pos_inventory)
@@ -208,7 +219,7 @@ def game_fight(pressed):  # menu=4
 
 def game_play(pressed):
     global menu, temp, x, y, map_chunk, frame, x_y_generation, area, nb_case, debut_combat, \
-        fight_mode, map_collision
+        fight_mode, map_collision, fade
     while not time.time() > frame + 1 / 61:
         pass
     frame = time.time()
@@ -218,15 +229,19 @@ def game_play(pressed):
     x, y = player.player_move(pressed, x, y, map_collision, Width, Length, Settings)
     display.display(map_chunk)
     if y // 64 == 31 and 45 <= x // 64 <= 50:
-        area = 'plain'
-        pygame.mixer_music.load(music[area])
+        if area != 'plain':
+            if not fade[0]:
+                fade = [True, volume, time.time(), 1]
+            area = 'plain'
     elif y // 64 == 30 and 45 <= x // 64 <= 50:
-        area = 'village'
-        pygame.mixer_music.load(music[area])
+        if area != 'village':
+            if not fade[0]:
+                fade = [True, volume, time.time(), 1]
+            area = 'village'
     if (x // 64 != x_y_generation[0] or y // 64 != x_y_generation[1]) and area == 'plain':
         nb_case += 1
         x_y_generation = (x // 64, y // 64)
-        if random.random() != nb_case * (2 + player.level / 100) / 5000:  # <=
+        if random.random() == nb_case * (2 + player.level / 100) / 5000:  # <=
             menu = 4
             nb_case = 0
             debut_combat = True
@@ -497,3 +512,15 @@ def use_object(index_object, use=True):
         return Texts.description_object[index_object][1].format(0)
     elif index_object == 35:
         return Texts.description_object[index_object][1].format(0)
+
+
+def fadeout():
+    global fade, volume
+    if fade[0]:
+        vol = fade[1] - ((time.time() - fade[2]) / fade[3]) * fade[1]
+        if vol <= 0:
+            fade = [False, volume, 0, 0]
+            pygame.mixer_music.stop()
+            pygame.mixer_music.set_volume(volume)
+        else:
+            pygame.mixer_music.set_volume(vol)
