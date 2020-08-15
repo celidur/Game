@@ -54,8 +54,9 @@ class Display:
         self.display_chunks()
         for i in range(Game.x // 64 - 10, Game.x // 64 + 10):
             for j in range(Game.y // 64 - 10, Game.y // 64 + 2):
-                if Game.map_object[i][j] == '' or\
-                        not (0 <= i < len(Game.map_object)) or not (0 <= j < len(Game.map_object[0])):
+                if not (0 <= i < len(Game.map_object)) or not (0 <= j < len(Game.map_object[0])):
+                    continue
+                elif Game.map_object[i][j] == '':
                     continue
                 if j * 64 < Game.y:
                     Game.Screen.blit(Game.block2[Game.map_object[i][j]][0],
@@ -66,7 +67,9 @@ class Display:
 
         for i in range(Game.x // 64 - 10, Game.x // 64 + 10):
             for j in range(Game.y // 64, Game.y // 64 + 14):
-                if Game.map_object[i][j] == '':
+                if not (0 <= i < len(Game.map_object)) or not (0 <= j < len(Game.map_object[0])):
+                    continue
+                elif Game.map_object[i][j] == '':
                     continue
                 if j * 64 >= Game.y:
                     Game.Screen.blit(Game.block2[Game.map_object[i][j]][0],
