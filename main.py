@@ -68,6 +68,8 @@ async def prepare_map():
 while running:
     while not ready:
         asyncio.run(prepare_map())
+    if not pygame.mixer_music.get_busy():
+        pygame.mixer_music.play(loops=-1)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             if Game.menu != 5:

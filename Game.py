@@ -33,6 +33,7 @@ area = _[5]
 nb_case = 0
 end_ = True
 map_chunk = []
+pygame.mixer_music.load(music[area])
 
 
 def init_fight(index):
@@ -216,12 +217,14 @@ def game_play(pressed):
     display.display(map_chunk)
     if y // 64 == 31 and 45 <= x // 64 <= 50:
         area = 'plain'
+        pygame.mixer_music.load(music[area])
     elif y // 64 == 30 and 45 <= x // 64 <= 50:
         area = 'village'
+        pygame.mixer_music.load(music[area])
     if (x // 64 != x_y_generation[0] or y // 64 != x_y_generation[1]) and area == 'plain':
         nb_case += 1
         x_y_generation = (x // 64, y // 64)
-        if random.random() != nb_case * (2 + player.level / 100) / 5000:  # <=
+        if random.random() <= nb_case * (2 + player.level / 100) / 5000:  # <=
             menu = 4
             nb_case = 0
             debut_combat = True
