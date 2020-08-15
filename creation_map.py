@@ -233,25 +233,25 @@ def Keyboard_pressed(Pressed):
         elif Pressed.get(pygame.K_KP_MINUS):
             change_case("", layer)
         elif Pressed.get(pygame.K_1):
-            change_case("fence_0", layer)
+            change_case("fence_1", 4)
         elif Pressed.get(pygame.K_2):
-            change_case("fence_1", layer)
+            change_case("fence_2", 4)
         elif Pressed.get(pygame.K_3):
-            change_case("fence_2", layer)
+            change_case("fence_3", 4)
         elif Pressed.get(pygame.K_4):
-            change_case("fence_3", layer)
+            change_case("fence_r", 4)
         elif Pressed.get(pygame.K_5):
-            change_case("fence_l3", layer)
+            change_case("fence_r2", 4)
         elif Pressed.get(pygame.K_6):
-            change_case("fence_lu", layer)
+            change_case("fence_r3", 4)
         elif Pressed.get(pygame.K_7):
-            change_case("fence_ru", layer)
+            change_case("fence_ru", 4)
         elif Pressed.get(pygame.K_8):
-            change_case("fence_r", layer)
+            change_case("fence_r", 4)
         elif Pressed.get(pygame.K_9):
-            change_case("fence_rd", layer)
+            change_case("fence_rd", 4)
         elif Pressed.get(pygame.K_0):
-            change_case("fence_ld", layer)
+            change_case("fence_0", 4)
         elif Pressed.get(pygame.K_o) and b != "cliff" and b != "paving2":
             change_case(b + "_dr_2", layer)
         elif Pressed.get(pygame.K_p) and b != "cliff" and b != "paving2":
