@@ -6,9 +6,9 @@ import random
 from Enemy import Enemy
 
 _, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
-          button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-          button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
-          button_use, enemy = import_language()
+    button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
+    button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
+    button_use, enemy = import_language()
 player = Player(_[0], _[1])
 map_collision = []
 for i in Map:
@@ -197,6 +197,10 @@ def game_fight(pressed):  # menu=4
             (665 - len(str(player.get_equipment()[1].get_stat()[4]) + '+') * 8, 650))
         pygame.display.flip()
         time.sleep(0.5)
+    else:
+        display.display_fight(enemy_.get_background(), enemy_.get_image(), enemy_.get_size(), enemy_.get_hp(),
+                              enemy_.get_name(), player.get_stats(), pos_inventory)
+    pygame.display.flip()
 
 
 def game_play(pressed):
@@ -217,7 +221,7 @@ def game_play(pressed):
     if (x // 64 != x_y_generation[0] or y // 64 != x_y_generation[1]) and area == 'plain':
         nb_case += 1
         x_y_generation = (x // 64, y // 64)
-        if random.random() == nb_case * (2 + player.level / 100) / 5000:  # <=
+        if random.random() != nb_case * (2 + player.level / 100) / 5000:  # <=
             menu = 4
             nb_case = 0
             debut_combat = True
@@ -258,7 +262,7 @@ def remove_text(n=1):
 
 
 def attack_player(n, use=True):
-    global prog, texts, fight_mode
+    global prog, texts, fight_mode, end_
     env = 6
     if enemy_.get_name()[1] == Texts.plain:
         env = 1
@@ -290,17 +294,20 @@ def attack_player(n, use=True):
         damage = 7 * crit * ((player.get_stats()[4] + player.get_equipment()[0].get_stat()[0]) / 2 +
                              player.get_equipment()[0].get_stat()[env] * 5) / enemy_.get_defense()
     if use:
-        remove_text(2)
+        remove_text()
         fight_mode = 0
         if n == 1:
+            remove_text()
             enemy_.change_hp(-int(damage))
             add_text(
                 "Vous frappez {} de votre épée et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)),
                 True, True)
         elif n == 2:
+            remove_text()
             player.change_att_2(int(damage))
             add_text("Vous avez blessé {}. Il saigne.".format(enemy_.get_name()[0]), True, True)
         elif n == 3:
+            remove_text()
             enemy_.change_hp(-int(damage))
             player.change_hp(-int(0.25 * damage / crit))
             add_text("Vous chargez {} et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)), True, True)
@@ -308,10 +315,18 @@ def attack_player(n, use=True):
                 "Vous avez également été blessé par le choc. Vous subissez {} dégats.".format(
                     int(0.25 * damage / crit)), True, True)
         elif n == 4:
-            enemy_.change_hp(-int(damage))
-            add_text("Vous mobilisez votre attaque spéciale pour infliger {} dégats à {}.".format(int(damage),
-                                                                                                  enemy_.get_name()[0]),
-                     True, True)
+            if player.get_stats()[2] < 10:
+                end_ = False
+                add_text("Mana insuffisant." + ' ' +
+                         "Sélectionnez un autre sort ou une autre action.")
+                fight_mode = 1
+            else:
+                remove_text()
+                enemy_.change_hp(-int(damage))
+                add_text("Vous mobilisez votre attaque spéciale pour infliger {} dégats à {}.".format(int(damage),
+                                                                                                      enemy_.get_name()[
+                                                                                                          0]),
+                         True, True)
     else:
         return int(damage)
 
@@ -327,7 +342,7 @@ def magic_player(n, use=True):
         if use:
             if player.get_stats()[2] < 10:
                 end_ = False
-                add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' +
+                add_text("Mana insuffisant." + ' ' +
                          "Sélectionnez un autre sort ou une autre action.")
                 fight_mode = 2
             elif player.get_stats()[0] == player.get_stats()[1]:
@@ -347,7 +362,7 @@ def magic_player(n, use=True):
     elif n == 2:
         if player.get_stats()[2] < 10:
             end_ = False
-            add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' +
+            add_text("Mana insuffisant." + ' ' +
                      "Sélectionnez un autre sort ou une autre action.")
             fight_mode = 2
         else:
@@ -356,7 +371,7 @@ def magic_player(n, use=True):
     elif n == 3:
         if player.get_stats()[2] < 10:
             end_ = False
-            add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' +
+            add_text("Mana insuffisant." + ' ' +
                      "Sélectionnez un autre sort ou une autre action.")
             fight_mode = 2
         else:
@@ -425,7 +440,7 @@ def use_object(index_object, use=True):
         return Texts.description_object[index_object][1].format(player.change_mp(100, use))
     elif index_object == 9:
         return Texts.description_object[index_object][1].format(player.change_mp(player.mp_max, use))
-    elif index_object == 10:
+    elif index_object == 10:  #
         return Texts.description_object[index_object][1].format(0)
     elif index_object == 11:
         return Texts.description_object[index_object][1].format(0)
@@ -456,15 +471,15 @@ def use_object(index_object, use=True):
     elif index_object == 24:
         return Texts.description_object[index_object][1].format(0, 0)
     elif index_object == 25:
-        return Texts.description_object[index_object][1].format(0)
+        return Texts.description_object[index_object][1]
     elif index_object == 26:
-        return Texts.description_object[index_object][1].format(0)
+        return Texts.description_object[index_object][1]
     elif index_object == 27:
-        return Texts.description_object[index_object][1].format(0)
+        return Texts.description_object[index_object][1]
     elif index_object == 28:
-        return Texts.description_object[index_object][1].format(0)
+        return Texts.description_object[index_object][1]
     elif index_object == 29:
-        return Texts.description_object[index_object][1].format(0)
+        return Texts.description_object[index_object][1]
     elif index_object == 30:
         return Texts.description_object[index_object][1].format(0)
     elif index_object == 31:

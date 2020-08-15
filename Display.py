@@ -70,7 +70,7 @@ class Display:
         Game.button_save.display_button()
         Game.button_exit.display_button()
 
-    def display(self, map_chunk):
+    def display(self, map_chunk):  # #
         self.map_chunk = map_chunk
         self.display_game()
         if Game.menu == 2:
@@ -306,6 +306,8 @@ class Display:
                             Game.Screen.blit(self.dialogue.render(char, False, color), (x_pos + x, y_pos + y))
                             pygame.display.flip()
                             time.sleep(0.05)
+                            if char == '.':
+                                time.sleep(0.5)
                         elif change_old:
                             Game.Screen.blit(
                                 self.dialogue.render(char, False, (color[0] // 1.7, color[1] // 1.7, color[2] // 1.7)),
@@ -320,5 +322,3 @@ class Display:
                 Game.Screen.blit(font_.render(line, False, color), (x_pos + x, y_pos + y))
             x = 0
             y += size
-            if len(texts) - 1 > i >= len(texts) - prog:
-                time.sleep(1)
