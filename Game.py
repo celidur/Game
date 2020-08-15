@@ -42,6 +42,8 @@ def init_fight(index):
     enemy_ = Enemy(enemy[index])
     texts = '{} sauvage apparaît.|{}'.format(enemy_.get_name()[0], Texts.select_action)
     prog = 2
+    pygame.mixer_music.load(music['combat'])
+    pygame.mixer_music.play(loops=-1)
 
 
 def save():
@@ -100,10 +102,10 @@ def game_fight(pressed):  # menu=4
         temp = time.time()
     if fight_mode == -1:
         fight_mode = 0
-        time.sleep(0.5)
+        pygame.time.delay(500)
         Screen.blit(enemy_.get_background(), (0, 0))
         pygame.display.flip()
-        time.sleep(1)
+        pygame.time.delay(1000)
         Screen.blit(enemy_.get_image(), enemy_.get_size())
         Screen.blit(display.arial.render(enemy_.get_name()[0], False, display.colors[enemy_.get_name()[1]]),
                     (65, 357))
@@ -224,7 +226,7 @@ def game_play(pressed):
     if (x // 64 != x_y_generation[0] or y // 64 != x_y_generation[1]) and area == 'plain':
         nb_case += 1
         x_y_generation = (x // 64, y // 64)
-        if random.random() <= nb_case * (2 + player.level / 100) / 5000:  # <=
+        if random.random() != nb_case * (2 + player.level / 100) / 5000:  # <=
             menu = 4
             nb_case = 0
             debut_combat = True

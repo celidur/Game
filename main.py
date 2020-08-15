@@ -170,6 +170,7 @@ while running:
                 elif Game.button_confirm.button_clicked(pos[0], pos[1]):
                     Game.fight_mode = 0
                     Game.menu = 0
+                    pygame.mixer_music.load(Game.music[Game.area])
         elif pressed.get(pygame.K_ESCAPE) and temp + 1 / 5 < time.time():
             temp = time.time()
             if Game.fight_mode != 0:

@@ -284,5 +284,6 @@ pygame.display.set_caption("Game")
 Screen = pygame.display.set_mode((size_window[0], size_window[1]))
 music = {
     'village': 'sound/electropoze.wav',
-    'plain': 'sound/speice.wav'
+    'plain': 'sound/speice.wav',
+    'combat': 'sound/synthey.wav'
 }
