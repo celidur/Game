@@ -115,10 +115,23 @@ class Display:
     def display_fight(self, background, monster, size, hp, name, player_stats, pos_inventory):
         if Game.fight_mode == -2:
             if Game.game_chunk == []:
-                Game.game_chunk.append(self.map_chunk[(Game.x + 512) // 1024][(Game.y + 512) // 1024].copy())
-                Game.game_chunk.append(self.map_chunk[(Game.x + 512) // 1024][(Game.y + 512) // 1024 - 1].copy())
-                Game.game_chunk.append(self.map_chunk[(Game.x + 512) // 1024 - 1][(Game.y + 512) // 1024].copy())
-                Game.game_chunk.append(self.map_chunk[(Game.x + 512) // 1024 - 1][(Game.y + 512) // 1024 - 1].copy())
+                r = pygame.Surface((1024, 1024), pygame.SRCALPHA)
+                try:
+                    Game.game_chunk.append(self.map_chunk[(Game.x + 512) // 1024][(Game.y + 512) // 1024].copy())
+                except IndexError:
+                    Game.game_chunk.append(r.copy())
+                try:
+                    Game.game_chunk.append(self.map_chunk[(Game.x + 512) // 1024][(Game.y + 512) // 1024 - 1].copy())
+                except IndexError:
+                    Game.game_chunk.append(r.copy())
+                try:
+                    Game.game_chunk.append(self.map_chunk[(Game.x + 512) // 1024 - 1][(Game.y + 512) // 1024].copy())
+                except IndexError:
+                    Game.game_chunk.append(r.copy())
+                try:
+                    Game.game_chunk.append(self.map_chunk[(Game.x + 512) // 1024 - 1][(Game.y + 512) // 1024 - 1].copy())
+                except IndexError:
+                    Game.game_chunk.append(r.copy())
             global list_
             try:
                 if list_ == []:

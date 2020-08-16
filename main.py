@@ -7,10 +7,10 @@ import random
 temp = time.time()
 onclick, running, pressed, pos = False, True, {}, [0, 0]
 ready = False
-loading_text = "loading map"
+loading_text = "Creating a flat Earth"
 loading_pos = [(0, -40), (-20, -35), (-35, -20), (-40, 0), (-35, 20), (-20, 35), (0, 40), (20, 35), (35, 20), (40, 0),
                (35, -20), (20, -35)]
-font_ = pygame.font.Font("font/FRAMDCN.TTF", 20)
+font_ = pygame.font.Font("font/FRAMDCN.TTF", 16)
 progress = 0
 
 
@@ -19,11 +19,13 @@ async def loading_animation(x, y):
     n = 0
     while not ready:
         Game.Screen.blit(pygame.image.load("assets/temp/loading_background.png"), (0, 0))
+        pygame.draw.rect(Game.Screen, (0, 255, 0), [252, 650, int(progress * 200), 16])
+        Game.Screen.blit(font_.render('{} %'.format(int(progress * 100)), False, (255, 255, 255)),
+                         (262 + int(progress * 200), 650))
         Game.Screen.blit(font_.render(loading_text, False, (255, 255, 255)),
                          (352 - font_.size(loading_text)[0] // 2, 670))
         Game.Screen.blit(font_.render('.' * (n // 3), False, (255, 255, 255)),
                          (352 + font_.size(loading_text)[0] // 2, 670))
-
         for i in range(12):
             Game.Screen.blit(pygame.image.load("assets/icons/loading/{}.png".format((i + n) % 12)),
                              (loading_pos[i][0] + x - 9, loading_pos[i][1] + y - 9))
@@ -66,22 +68,25 @@ async def loading_map():
                     await asyncio.sleep(0)
             strip.append(chunk)
         Game.map_chunk.append(strip)
-    loading_text = "suffling random numbers"
+    loading_text = "Shuffling random numbers"
+    progress = 0
     for i in range(4 * 1024):
-        progress = i / (4 * 1024)
         for j in range(1024):
             Game.list_coord.append((i // 1024, i % 1024, j))
         await asyncio.sleep(0)
     for i in reversed(range(1, len(Game.list_coord))):
+        progress = 1 - i / (4 * 1024 * 1024)
         j = int(random.random() * (i + 1))
         Game.list_coord[i], Game.list_coord[j] = Game.list_coord[j], Game.list_coord[i]
         if i % 1024 == 0:
             await asyncio.sleep(0)
+    progress = 1
+    await asyncio.sleep(0.5)
     ready = True
 
 
 async def prepare_map():
-    t1 = asyncio.create_task(loading_animation(352, 600))
+    t1 = asyncio.create_task(loading_animation(352, 580))
     t2 = asyncio.create_task(loading_map())
     await asyncio.gather(t1, t2)
 
