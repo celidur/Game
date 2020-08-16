@@ -181,7 +181,10 @@ while running:
                 Game.fight_mode = 0
             else:
                 Game.fight_mode = 4
-
+        elif pressed.get(pygame.K_RETURN) and Game.fight_mode == 4:
+            Game.fight_mode = 0
+            Game.fade = [True, Game.volume, time.time(), 1]
+            Game.menu = 0
         Game.game_fight(pressed)
     onclick = False
 Game.save()
