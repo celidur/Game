@@ -2,22 +2,31 @@ import time
 import asyncio
 import Game
 import pygame
+import random
 
 temp = time.time()
 onclick, running, pressed, pos = False, True, {}, [0, 0]
 ready = False
+loading_text = "loading map"
 loading_pos = [(0, -40), (-20, -35), (-35, -20), (-40, 0), (-35, 20), (-20, 35), (0, 40), (20, 35), (35, 20), (40, 0),
                (35, -20), (20, -35)]
+font_ = pygame.font.Font("font/FRAMDCN.TTF", 20)
+progress = 0
 
 
 async def loading_animation(x, y):
-    global ready, loading_pos
+    global ready, loading_pos, loading_text, font_, progress
     n = 0
     while not ready:
         Game.Screen.blit(pygame.image.load("assets/temp/loading_background.png"), (0, 0))
+        Game.Screen.blit(font_.render(loading_text, False, (255, 255, 255)),
+                         (352 - font_.size(loading_text)[0] // 2, 670))
+        Game.Screen.blit(font_.render('.' * (n // 3), False, (255, 255, 255)),
+                         (352 + font_.size(loading_text)[0] // 2, 670))
+
         for i in range(12):
             Game.Screen.blit(pygame.image.load("assets/icons/loading/{}.png".format((i + n) % 12)),
-                             (loading_pos[i][0] + x, loading_pos[i][1] + y))
+                             (loading_pos[i][0] + x - 9, loading_pos[i][1] + y - 9))
         pygame.display.flip()
         n += 1
         n %= 12
@@ -25,7 +34,7 @@ async def loading_animation(x, y):
 
 
 async def loading_map():
-    global ready
+    global ready, loading_text, progress
     map_split = []
     for lines in range((len(Game.Map) + 15) // 16):
         strip = []
@@ -45,8 +54,9 @@ async def loading_map():
     for x_chunk in range(len(map_split)):
         strip = []
         for y_chunk in range(len(map_split[0])):
-            chunk = pygame.Surface((16 * 64, 16 * 64))
+            chunk = pygame.Surface((16 * 64, 16 * 64), pygame.SRCALPHA, 32)
             for x in range(16):
+                progress = (((y_chunk + (x / 16)) / len(map_split[0])) + x_chunk) / len(map_split)
                 for y in range(16):
                     for layer in range(3):
                         try:
@@ -56,6 +66,17 @@ async def loading_map():
                     await asyncio.sleep(0)
             strip.append(chunk)
         Game.map_chunk.append(strip)
+    loading_text = "suffling random numbers"
+    for i in range(4 * 1024):
+        progress = i / (4 * 1024)
+        for j in range(1024):
+            Game.list_coord.append((i // 1024, i % 1024, j))
+        await asyncio.sleep(0)
+    for i in reversed(range(1, len(Game.list_coord))):
+        j = int(random.random() * (i + 1))
+        Game.list_coord[i], Game.list_coord[j] = Game.list_coord[j], Game.list_coord[i]
+        if i % 1024 == 0:
+            await asyncio.sleep(0)
     ready = True
 
 
@@ -69,7 +90,7 @@ while running:
     while not ready:
         asyncio.run(prepare_map())
     Game.fadeout()
-    if not pygame.mixer_music.get_busy():
+    if not pygame.mixer_music.get_busy() and Game.fight_mode != -2:
         pygame.mixer_music.load(Game.music[Game.area])
         pygame.mixer_music.play(loops=-1)
     for event in pygame.event.get():
