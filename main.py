@@ -75,10 +75,10 @@ async def loading_map():
             Game.list_coord.append((i // 1024, i % 1024, j))
         await asyncio.sleep(0)
     for i in reversed(range(1, len(Game.list_coord))):
-        progress = 1 - i / (4 * 1024 * 1024)
         j = int(random.random() * (i + 1))
         Game.list_coord[i], Game.list_coord[j] = Game.list_coord[j], Game.list_coord[i]
         if i % 1024 == 0:
+            progress = 1 - i / (4 * 1024 * 1024)
             await asyncio.sleep(0)
     progress = 1
     await asyncio.sleep(0.5)
