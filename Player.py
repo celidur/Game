@@ -18,9 +18,9 @@ class Player(pygame.sprite.Sprite):
         self.velocity = 5
         self.hp = stat[0]
         self.hp_max = stat[1]
-        self.level = stat[6] * 0 + 1
+        self.level = stat[6] * 0 + 1  #
         self.xp = stat[7]
-        self.mp = stat[2]
+        self.mp = stat[2] * 0 + 50  #
         self.mp_max = stat[3]
         self.attack = stat[4]
         self.defense = stat[5]

@@ -65,7 +65,7 @@ def save():
         pickler.dump(save_game)
 
 
-def game_fight(pressed):  # menu=4
+def game_fight(pressed):  # menu = 4
     global menu, frame, player, enemy_, fight_mode, debut_combat, pos_inventory, \
         temp, texts, fade
     if debut_combat:
@@ -191,9 +191,8 @@ def attack_player(n, use=True):
     elif enemy_.get_name()[1] == Texts.mountain:
         env = 5
 
-    if random.random() < player.get_crit()[0] and use:
+    if random.random() != player.get_crit()[0] and use:  # <
         crit = player.get_crit()[1]
-        add_text("Coup critique !!!", True, True)
     else:
         crit = 1
     damage = 0
@@ -214,16 +213,22 @@ def attack_player(n, use=True):
         fight_mode = 0
         if n == 1:
             remove_text()
+            if crit != 1:
+                add_text("Coup critique !", True, True)
             enemy_.change_hp(-int(damage))
             add_text(
                 "Vous frappez {} de votre épée et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)),
                 True, True)
         elif n == 2:
             remove_text()
+            if crit != 1:
+                add_text("Coup critique !", True, True)
             player.change_att_2(int(damage))
             add_text("Vous avez blessé {}. Il saigne.".format(enemy_.get_name()[0]), True, True)
         elif n == 3:
             remove_text()
+            if crit != 1:
+                add_text("Coup critique !", True, True)
             enemy_.change_hp(-int(damage))
             player.change_hp(-int(0.25 * damage / crit))
             add_text("Vous chargez {} et lui infligez {} dégats.".format(enemy_.get_name()[0], int(damage)), True, True)
@@ -238,6 +243,8 @@ def attack_player(n, use=True):
                 fight_mode = 1
             else:
                 remove_text()
+                if crit != 1:
+                    add_text("Coup critique !", True, True)
                 enemy_.change_hp(-int(damage))
                 add_text("Vous mobilisez votre attaque spéciale pour infliger {} dégats à {}.".format(int(damage),
                                                                                                       enemy_.get_name()[
@@ -253,17 +260,16 @@ def magic_player(n, use=True):
         remove_text()
         fight_mode = 0
     if n == 1:
-        player.change_hp(0.2 * player.get_stats()[1], use)
         heal = player.change_hp(0.2 * player.get_stats()[1], False)
         if use:
             if player.get_stats()[2] < 10:
                 end_ = False
                 add_text("Mana insuffisant." + ' ' +
-                         "Sélectionnez un autre sort ou une autre action.")
+                         "Sélectionnez autre action.")
                 fight_mode = 2
             elif player.get_stats()[0] == player.get_stats()[1]:
                 end_ = False
-                add_text("Vous avez déjà tous vos PV." + ' ' + "Sélectionnez un autre sort ou une autre action.")
+                add_text("Vous avez déjà tous vos PV." + ' ' + "Sélectionnez une autre action.")
             else:
                 remove_text()
                 player.change_mp(-10)
@@ -271,7 +277,7 @@ def magic_player(n, use=True):
                 if player.get_stats()[0] == player.get_stats()[1]:
                     add_text("PV entièrement régénérés.", True, True)
                 else:
-                    add_text("{} PV régénérés.".format(heal), True, True)
+                    add_text("{} PV régénérés.".format(heal - player.get_stats()[0]), True, True)
 
         else:
             return heal
@@ -279,16 +285,18 @@ def magic_player(n, use=True):
         if player.get_stats()[2] < 10:
             end_ = False
             add_text("Mana insuffisant." + ' ' +
-                     "Sélectionnez un autre sort ou une autre action.")
+                     "Sélectionnez une autre action.")
             fight_mode = 2
         else:
             player.change_mp(-10)
             player.change_protect(1.5)
+            add_text("Vous formez un bouclier magique de force {} autour de vous pour vous protéger.".format(1.5),
+                     True, True)
     elif n == 3:
         if player.get_stats()[2] < 10:
             end_ = False
             add_text("Mana insuffisant." + ' ' +
-                     "Sélectionnez un autre sort ou une autre action.")
+                     "Sélectionnez une autre action.")
             fight_mode = 2
         else:
             player.change_boost_def(0, 0.15)
@@ -301,7 +309,7 @@ def magic_player(n, use=True):
         if player.get_stats()[2] < 10:
             end_ = False
             add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' +
-                     "Sélectionnez un autre sort ou une autre action.")
+                     "Sélectionnez une autre action.")
             fight_mode = 2
         else:
             player.change_boost_att(0, 0.15)
@@ -313,7 +321,7 @@ def magic_player(n, use=True):
 
 
 def end_turn():
-    global end_, prog
+    global end_, prog, enemy_
     if not end_:
         return None
     if player.att_2:
@@ -328,6 +336,11 @@ def end_turn():
     elif n == 1:
         add_text("L'ennemi souffre de moins en moins.", True, True)
     player.change_protect()
+    v = enemy_.chose_attack_enemy()
+    if v == 0:
+        hp = enemy_.get_hp()[0]
+        enemy_.attack_enemy(v)
+        add_text("L'ennemi se soigne et récupère {} PV.".format(enemy_.get_hp()[0] - hp), True, True)
     add_text(Texts.select_action)
 
 

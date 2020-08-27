@@ -76,7 +76,7 @@ def import_language():
     enemy = [
         ["Monster", 100, 10, 10, 5, 10, (218, 42), Texts.volcano,
          pygame.image.load("assets/battle/backgrounds/plain.png"),
-         pygame.image.load("assets/battle/enemies/enemy1.png")]
+         pygame.image.load("assets/battle/enemies/enemy1.png"), [1, 0]]
     ]
     return _, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
            button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \

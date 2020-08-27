@@ -37,8 +37,8 @@ select_action = "Sélectionnez une action."
 select_attack = "Sélectionnez une attaque."
 select_spell = "Sélectionnez un sort."
 select_object = "Sélectionnez un objet."
-description_attack = "Attaque 1 :|Coup d'épée basique. Inflige {} dégats.|||Attaque 2 :|Fait saigner l'ennemi pendant 4 tours. Inflige {} dégats. Total : {}.||Attaque 3 :|Attaque brutale. Inflige {} dégats. Vous inflige en retour {} dégats.||Attaque 4 :|Attaque spéciale. Basée en plus grande partie sur l'environnement de l'ennemi. Inflige {} dégats."
-description_magic = "Soin. Régénère 20% des PV max.|(+{})|Coût : 10 PM||Bouclier magique. Tous les dégats subits lors de ce tour seront divisé par 1,5.|Coût : 10 PM||Boost de défense. Augmente la défense de base de {}. (Max : 1, 3)|Coût : 20 PM||Boost d'attaque. Augmente l'attaque de base de {}. (Max : 1, 3)|Coût : 25 PM"
+description_attack = "Attaque 1 :|Coup d'épée basique. Inflige {} dégâts.|||Attaque 2 :|Fait saigner l'ennemi pendant 4 tours. Inflige {} dégâts. Total : {}.||Attaque 3 :|Attaque brutale. Inflige {} dégâts. Vous inflige en retour {} dégâts.||Attaque 4 :|Attaque spéciale. Basée en plus grande partie sur l'environnement de l'ennemi. Inflige {} dégâts."
+description_magic = "Soin. Régénère 20% des PV max.|(+{})|Coût : 10 PM||Bouclier magique. Tous les dégâts subits lors de ce tour seront divisé par 1,5.|Coût : 10 PM||Boost de défense. Augmente la défense de base de {}. (Max : 1, 3)|Coût : 20 PM||Boost d'attaque. Augmente l'attaque de base de {}. (Max : 1, 3)|Coût : 25 PM"
 description_object = [["Potion Soin (Minuscule)", 'Régénère 10 PV.|({})'],
                       ["Potion Soin (Petite)", "Régénère 20 PV.|({})"],
                       ["Potion Soin (Moyenne)", "Régénère 50 PV.|({})"],
@@ -74,7 +74,7 @@ description_object = [["Potion Soin (Minuscule)", 'Régénère 10 PV.|({})'],
                       ["Boost PV max", "Augmente vos PV max.||+50|Max : +100"],
                       ["Boost PM max", "Augmente vos PM max.||+15|Max : +30"],
                       ["Boost Probabilité Critique", "Augmente la probabilité de réaliser un coup critique.||+5%"],
-                      ["Boost Multiplicateur Critique", "Augmente le multiplicateur de dégats en cas de coup critique.||+0,1"],
+                      ["Boost Multiplicateur Critique", "Augmente le multiplicateur de dégâts en cas de coup critique.||+0,1"],
                       #  30-34
                       ["", "Diminue l'attaque de {}.||-10%|Min : "],
                       ["", ""],

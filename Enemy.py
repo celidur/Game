@@ -1,4 +1,5 @@
 import pygame
+import random
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -19,6 +20,30 @@ class Enemy(pygame.sprite.Sprite):
         self.environment = stat[7]
         self.background = stat[8]
         self.image = stat[9]
+        self.attacks = stat[10]
+
+    def chose_attack_enemy(self):
+        n = random.random()
+        if n > 2:  # proba soin en plus
+            return 1
+        n = random.random()
+        if n <= self.attacks[0]:
+            return 0  # soin
+        n -= self.attacks[0]
+        if n <= self.attacks[1]:
+            return 1  # attaque de base
+        n -= self.attacks[1]
+        if n <= self.attacks[2]:
+            return 2  # attaque moyenne
+        n -= self.attacks[2]
+
+    def attack_enemy(self, n):
+        if n == 0:  # soin
+            self.change_hp(0.2 * self.hp_max)
+        elif n == 1:  # attaque de base
+            pass
+        elif n == 2:  # attaque moyenne
+            pass
 
     def get_attack(self):
         return self.attack
@@ -39,7 +64,7 @@ class Enemy(pygame.sprite.Sprite):
         return self.hp, self.hp_max
 
     def change_hp(self, n):
-        self.hp += n
+        self.hp = int(self.hp + n)
         if self.hp < 0:
             self.hp = 0
         elif self.hp > self.hp_max:
@@ -61,6 +86,20 @@ class Enemy(pygame.sprite.Sprite):
             self.boost_def = 0.7
         elif self.boost_def > 1.3:
             self.boost_def = 1.3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     #  kk
     def change_boost_proba_crtit_enemy(self, n):
