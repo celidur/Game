@@ -6,9 +6,9 @@ import pygame
 class Display:
     def __init__(self, block, block2, width, length, size_window, background, map_game):
         self.Width, self.Length = width, length
-        self.list_ = []
         self.block = block
         self.block2 = block2
+        self.list_ = []
         self.size_window = size_window
         self.background = background
         self.ii = 0
@@ -133,7 +133,8 @@ class Display:
                                            [(Game.y + 512) // 1024 - 1].copy())
                 except IndexError:
                     Game.game_chunk.append(r.copy())
-            self.list_ = Game.list_coord.copy()
+            if not self.list_:
+                self.list_ = Game.list_coord.copy()
             for pxl in self.list_[:int(4 * 1024 * 1024 / 32)]:
                 Game.game_chunk[pxl[0]].set_at((pxl[1], pxl[2]), (0, 0, 0, 0))
             del self.list_[:int(4 * 1024 * 1024 / 32)]
@@ -383,8 +384,8 @@ class Display:
                                          (270 + x * 50, 420 + y * 50))
                     if (line + scroll) * 5 + colone < 36:
                         Game.Screen.blit(
-                            pygame.image.load(
-                                'game/assets/inventory/potions/{}.png'.format(str(((line + scroll) * 5 + colone) % 25))),
+                            pygame.image.load('game/assets/inventory/potions/{}.png'.format(
+                                str(((line + scroll) * 5 + colone) % 25))),
                             (274 + colone * 50, 424 + line * 50))
                         if Game.player.get_inventory()[1][(line + scroll) * 5 + colone] == 0:
                             Game.Screen.blit(pygame.image.load('game/assets/inventory/black.png'),
@@ -502,6 +503,7 @@ class Display:
             if change_old and i < len(texts) - 1:
                 Game.Screen.blit(font_.render(line, False, (color[0] // 1.7, color[1] // 1.7, color[2] // 1.7)),
                                  (x_pos + x, y_pos + y))
+
             else:
                 Game.Screen.blit(font_.render(line, False, color), (x_pos + x, y_pos + y))
             x = 0
