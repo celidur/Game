@@ -1,4 +1,4 @@
-import Game
+from game import Game
 import pygame
 
 pygame.init()
@@ -12,7 +12,7 @@ class Button:
         self.position_button = position_button
         self.text = text
         if text is not None:
-            self.police = pygame.font.Font("font/{}".format(police), size_police)
+            self.police = pygame.font.Font("game/font/{}".format(police), size_police)
             self.color_text = color_text
             self.ID = ID
             self.position_text = self.pos_text()

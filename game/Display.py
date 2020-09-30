@@ -1,11 +1,12 @@
 import time
-import Game
+from game import Game
 import pygame
 
 
 class Display:
     def __init__(self, block, block2, width, length, size_window, background, map_game):
         self.Width, self.Length = width, length
+        self.list_ = []
         self.block = block
         self.block2 = block2
         self.size_window = size_window
@@ -14,8 +15,8 @@ class Display:
         self.map_chunk = map_game
         self.map = map_game
         self.i1 = time.time() + 1
-        self.arial = pygame.font.Font("font/FRAMDCN.TTF", 20)
-        self.dialogue = pygame.font.Font("font/rpg_.FON", 16)
+        self.arial = pygame.font.Font("game/font/FRAMDCN.TTF", 20)
+        self.dialogue = pygame.font.Font("game/font/rpg_.FON", 16)
         self.colors = {
             Game.Texts.plain: (68, 255, 0),
             Game.Texts.desert: (249, 210, 39),
@@ -113,7 +114,7 @@ class Display:
 
     def display_fight(self, background, monster, size, hp, name, player_stats, pos_inventory):
         if Game.fight_mode == -2:
-            if Game.game_chunk == []:
+            if not Game.game_chunk:
                 r = pygame.Surface((1024, 1024), pygame.SRCALPHA)
                 try:
                     Game.game_chunk.append(self.map_chunk[(Game.x + 512) // 1024][(Game.y + 512) // 1024].copy())
@@ -128,22 +129,18 @@ class Display:
                 except IndexError:
                     Game.game_chunk.append(r.copy())
                 try:
-                    Game.game_chunk.append(self.map_chunk[(Game.x + 512) // 1024 - 1][(Game.y + 512) // 1024 - 1].copy())
+                    Game.game_chunk.append(self.map_chunk[(Game.x + 512) // 1024 - 1]
+                                           [(Game.y + 512) // 1024 - 1].copy())
                 except IndexError:
                     Game.game_chunk.append(r.copy())
-            global list_
-            try:
-                if list_ == []:
-                    list_ = Game.list_coord.copy()
-            except NameError:
-                list_ = Game.list_coord.copy()
-            for pxl in list_[:int(4 * 1024 * 1024 / 32)]:
+            self.list_ = Game.list_coord.copy()
+            for pxl in self.list_[:int(4 * 1024 * 1024 / 32)]:
                 Game.game_chunk[pxl[0]].set_at((pxl[1], pxl[2]), (0, 0, 0, 0))
-            del list_[:int(4 * 1024 * 1024 / 32)]
+            del self.list_[:int(4 * 1024 * 1024 / 32)]
             Game.Screen.blit(Game.enemy_.get_background(), (0, 0))
             Display.display_chunks(self, True)
             pygame.display.flip()
-            if len(list_) == 0:
+            if len(self.list_) == 0:
                 Game.fight_mode = -1
                 Game.game_chunk = []
             return 0
@@ -182,7 +179,7 @@ class Display:
                 (255, 255, 255)), (430, 357))
             pygame.display.flip()
             pygame.time.delay(250)
-            Game.Screen.blit(pygame.image.load('assets/battle/backgrounds/stats.png'), (418, 420))
+            Game.Screen.blit(pygame.image.load('game/assets/battle/backgrounds/stats.png'), (418, 420))
             pygame.display.flip()
             pygame.time.delay(250)
             Game.Screen.blit(
@@ -282,7 +279,7 @@ class Display:
             Game.button_magic.display_button()
             Game.button_inventory.display_button()
             Game.button_leave.display_button()
-            Game.Screen.blit(pygame.image.load('assets/battle/backgrounds/stats.png'), (418, 420))
+            Game.Screen.blit(pygame.image.load('game/assets/battle/backgrounds/stats.png'), (418, 420))
             Game.Screen.blit(
                 self.arial.render("{}   {}".format(Game.Texts.attack_stat, Game.Texts.defense_stat), False,
                                   (255, 255, 255)), (530, 440))
@@ -378,28 +375,28 @@ class Display:
                                  'FRAMDCN.TTF', 15, 0, (255, 255, 255), 270, False)
         elif Game.fight_mode == 3:
             x, y, scroll = pos_inventory
-            Game.Screen.blit(pygame.image.load('assets/inventory/set_cases_fight_0.png'), (270, 420))
+            Game.Screen.blit(pygame.image.load('game/assets/inventory/set_cases_fight_0.png'), (270, 420))
             for line in range(5):
                 for colone in range(5):
                     if [x, y] == [colone, line]:
-                        Game.Screen.blit(pygame.image.load('assets/inventory/case_select.png'),
+                        Game.Screen.blit(pygame.image.load('game/assets/inventory/case_select.png'),
                                          (270 + x * 50, 420 + y * 50))
                     if (line + scroll) * 5 + colone < 36:
                         Game.Screen.blit(
                             pygame.image.load(
-                                'assets/inventory/potions/{}.png'.format(str(((line + scroll) * 5 + colone) % 25))),
+                                'game/assets/inventory/potions/{}.png'.format(str(((line + scroll) * 5 + colone) % 25))),
                             (274 + colone * 50, 424 + line * 50))
                         if Game.player.get_inventory()[1][(line + scroll) * 5 + colone] == 0:
-                            Game.Screen.blit(pygame.image.load('assets/inventory/black.png'),
+                            Game.Screen.blit(pygame.image.load('game/assets/inventory/black.png'),
                                              (270 + colone * 50, 420 + line * 50))
                     else:
-                        Game.Screen.blit(pygame.image.load('assets/inventory/black.png'),
+                        Game.Screen.blit(pygame.image.load('game/assets/inventory/black.png'),
                                          (270 + colone * 50, 420 + line * 50))
                     if [x, y] == [colone, line]:
-                        Game.Screen.blit(pygame.image.load('assets/inventory/case_select.png'),
+                        Game.Screen.blit(pygame.image.load('game/assets/inventory/case_select.png'),
                                          (270 + x * 50, 420 + y * 50))
             Game.Screen.blit(
-                pygame.image.load('assets/inventory/potions/{}.png'.format(str(((y + scroll) * 5 + x) % 25))),
+                pygame.image.load('game/assets/inventory/potions/{}.png'.format(str(((y + scroll) * 5 + x) % 25))),
                 (520, 410))
             Display.display_text(self, Game.Texts.description_object[(y + scroll) * 5 + x][0], 560, 410,
                                  'FRAMDCN.TTF',
@@ -450,12 +447,12 @@ class Display:
             Game.button_back.display_button(433, 348, 'center')
 
     def display_text(self, texts, x_pos, y_pos, font, size, prog, color, length, change_old, point=False):
-        font_ = pygame.font.Font("font/" + font, size)
+        font_ = pygame.font.Font("game/font/" + font, size)
         x, y = 0, 0
         texts = texts.split('|')
         for i in range(len(texts)):
             if point:
-                font_2 = pygame.font.Font("font/FRAMDCN.TTF", 32)
+                font_2 = pygame.font.Font("game/font/FRAMDCN.TTF", 32)
                 if prog == 0:
                     if change_old and i < len(texts) - 1:
                         Game.Screen.blit(font_2.render('·', False, (color[0] // 1.7, color[1] // 1.7, color[2] // 1.7)),

@@ -1,4 +1,4 @@
-import creation_map
+from game import creation_map
 import pygame
 running = True
 pressed = {}

@@ -3,14 +3,14 @@ import pickle
 
 import pygame
 
-import Button
+from game import Button
 
 
 def import_map():
-    with open('file/map.txt', 'rb') as file:
+    with open('game/file/map.txt', 'rb') as file:
         file = pickle.Unpickler(file)
         map1 = file.load()
-    with open('file/size.txt', 'rb') as file:
+    with open('game/file/size.txt', 'rb') as file:
         file = pickle.Unpickler(file)
         size = file.load()
     return map1, size[0], size[1]
@@ -19,23 +19,27 @@ def import_map():
 Texts = None
 
 
-def import_language():
-    global Texts
-    with open('language/language.txt', 'rb') as file:
-        file = pickle.Unpickler(file)
-        language = file.load()
+def import_save():
     try:
-        with open('save/save_game.txt', 'rb') as file:
+        with open('game/save/save_game.txt', 'rb') as file:
             file = pickle.Unpickler(file)
             _ = file.load()
     except pickle.UnpicklingError:
         _ = [(100, 100, 0, 50, 10, 10, 1, 0, 5, 1, 1), [[], [3, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                                              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], []],
              (275, 276, 274, 273, 100, 113, 115, 122), 2941, 3455, 'plain']
+    return _
+
+
+def import_language():
+    global Texts
+    with open('game/language/language.txt', 'rb') as file:
+        file = pickle.Unpickler(file)
+        language = file.load()
     if language == "fr":
-        from fr import Texts
+        from game.fr import Texts
     elif language == "en":
-        from en import Texts
+        from game.en import Texts
     button_pause = Button.Button(None, (0, 0, 0), [257, 240, 190, 65], Texts.resume, 'center', 32, board,
                                  'FRAMDCN.TTF')
     button_setting = Button.Button(None, (0, 0, 0), [257, 320, 190, 65], Texts.settings, 'center', 30, board,
@@ -75,48 +79,48 @@ def import_language():
                                'center', 25, None, 'FRAMDCN.TTF')
     enemy = [
         ["Monster", 100, 10, 10, 5, 10, (218, 42), Texts.volcano,
-         pygame.image.load("assets/battle/backgrounds/plain.png"),
-         pygame.image.load("assets/battle/enemies/enemy1.png"), [1, 0]]
+         pygame.image.load("game/assets/battle/backgrounds/plain.png"),
+         pygame.image.load("game/assets/battle/enemies/enemy1.png"), [1, 0]]
     ]
-    return _, Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
+    return Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
            button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
            button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, button_use, enemy
 
 
 def change_language(language):
     try:
-        os.remove("language/language.txt")
+        os.remove("game/language/language.txt")
     except FileNotFoundError:
         pass
-    with open("language/language.txt", 'wb') as file:
+    with open("game/language/language.txt", 'wb') as file:
         pickler = pickle.Pickler(file)
         pickler.dump(language)
     return import_language()
 
 
-board = pygame.image.load('assets/button/board.png')
+board = pygame.image.load('game/assets/button/board.png')
 
 button_shop = Button.Button((0, 0, 0), None, [615, 702, 32, 32], None, None, 0,
-                            pygame.image.load('assets/icons/shop.png'))
+                            pygame.image.load('game/assets/icons/shop.png'))
 button_menu = Button.Button((0, 0, 0), None, [660, 700, 32, 32], None, None, 0,
-                            pygame.image.load('assets/icons/menu.png'))
+                            pygame.image.load('game/assets/icons/menu.png'))
 size_window = [704, 736]
 
 # Picture
 
-flower = pygame.image.load("assets/flower.png")
-sand = pygame.image.load('assets/sand.png')
-sand2 = pygame.image.load('assets/sand2.png')
-dirt = pygame.image.load('assets/dirt.png')
-dirt2 = pygame.image.load('assets/dirt2.png')
-grass2 = pygame.image.load('assets/grass2.png')
-water = pygame.image.load('assets/water.png')
-water2 = pygame.image.load('assets/water2.png')
-paving1 = pygame.image.load('assets/paving1.png')
-paving2 = pygame.image.load('assets/paving2.png')
-cliff = pygame.image.load('assets/cliff.png')
-fence = pygame.image.load('assets/fence.png')
-background = pygame.image.load('assets/fond.png')
+flower = pygame.image.load("game/assets/flower.png")
+sand = pygame.image.load('game/assets/sand.png')
+sand2 = pygame.image.load('game/assets/sand2.png')
+dirt = pygame.image.load('game/assets/dirt.png')
+dirt2 = pygame.image.load('game/assets/dirt2.png')
+grass2 = pygame.image.load('game/assets/grass2.png')
+water = pygame.image.load('game/assets/water.png')
+water2 = pygame.image.load('game/assets/water2.png')
+paving1 = pygame.image.load('game/assets/paving1.png')
+paving2 = pygame.image.load('game/assets/paving2.png')
+cliff = pygame.image.load('game/assets/cliff.png')
+fence = pygame.image.load('game/assets/fence.png')
+background = pygame.image.load('game/assets/fond.png')
 block = {
     "sand_1": sand.subsurface(64, 64, 64, 64),
     "sand_dr": sand.subsurface(0, 0, 64, 64),
@@ -232,7 +236,7 @@ block = {
     "paving2_cu": paving2.subsurface(64, 128, 64, 64),
     "paving2_ur": paving2.subsurface(0, 128, 64, 64),
     "paving2_cr": paving2.subsurface(0, 64, 64, 64),
-    "stone": pygame.image.load("assets/grass/stone.png"),
+    "stone": pygame.image.load("game/assets/grass/stone.png"),
     "red1": flower.subsurface(0, 0, 64, 64),
     "red2": flower.subsurface(0, 64, 64, 64),
     "red3": flower.subsurface(0, 128, 64, 64),
@@ -242,8 +246,8 @@ block = {
     "yellow1": flower.subsurface(128, 0, 64, 64),
     "yellow2": flower.subsurface(128, 64, 64, 64),
     "yellow3": flower.subsurface(128, 128, 64, 64),
-    "1": pygame.transform.scale(pygame.image.load("assets/case.png"), (32, 32)),
-    "0": pygame.image.load("assets/case.png"),
+    "1": pygame.transform.scale(pygame.image.load("game/assets/case.png"), (32, 32)),
+    "0": pygame.image.load("game/assets/case.png"),
     "grass_1": cliff.subsurface(64, 64, 64, 64),
     "cliff_dr": cliff.subsurface(0, 0, 64, 64),
     "cliff_cd": cliff.subsurface(64, 0, 64, 64),
@@ -255,13 +259,13 @@ block = {
     "cliff_cr": cliff.subsurface(0, 64, 64, 64),
 }
 block2 = {
-    'tree': [pygame.image.load("assets/tree/Tree.png"), -55, -150],
-    'tree2': [pygame.image.load("assets/temp/tree.png"), -190, -280],  # "assets/tree/Tree2.png"
-    'tree0': [pygame.image.load("assets/tree/Tree_r.png"), -55, -150],
-    'h1': [pygame.image.load("assets/house/house1.png"), -95, -265],
-    'church': [pygame.image.load("assets/house/church.png"), -128, -390],
-    'h2': [pygame.image.load("assets/house/house2.png"), -96, -205],
-    'h3': [pygame.image.load("assets/house/house3.png"), -95, -285],
+    'tree': [pygame.image.load("game/assets/tree/Tree.png"), -55, -150],
+    'tree2': [pygame.image.load("game/assets/temp/tree.png"), -190, -280],  # "assets/tree/Tree2.png"
+    'tree0': [pygame.image.load("game/assets/tree/Tree_r.png"), -55, -150],
+    'h1': [pygame.image.load("game/assets/house/house1.png"), -95, -265],
+    'church': [pygame.image.load("game/assets/house/church.png"), -128, -390],
+    'h2': [pygame.image.load("game/assets/house/house2.png"), -96, -205],
+    'h3': [pygame.image.load("game/assets/house/house3.png"), -95, -285],
     "fence_0": [fence.subsurface(64, 128, 64, 64), 0, 0],
     "fence_1": [fence.subsurface(64, 0, 64, 64), 0, 0],
     "fence_2": [fence.subsurface(192, 0, 64, 64), 0, 0],
@@ -283,7 +287,7 @@ pygame.init()
 pygame.display.set_caption("Game")
 Screen = pygame.display.set_mode((size_window[0], size_window[1]))
 music = {
-    'village': 'sound/electropoze.wav',
-    'plain': 'sound/speice.wav',
-    'combat': 'sound/synthey.wav'
+    'village': 'game/sound/electropoze.wav',
+    'plain': 'game/sound/speice.wav',
+    'combat': 'game/sound/synthey.wav'
 }
