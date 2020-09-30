@@ -1,10 +1,10 @@
 import os
 import pickle
 import random
-from Variable2 import *
+from game.Variable2 import *
 import pygame
 from pygame import time
-from Player import Player
+from game.Player import Player
 
 
 def import_map():

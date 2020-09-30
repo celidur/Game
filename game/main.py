@@ -103,7 +103,7 @@ def runnig_game():
         if event.type == pygame.QUIT:
             if Game.menu != 5:
                 running = False
-                return
+                return False
         elif event.type == pygame.KEYDOWN:
             pressed[event.key] = True
         elif event.type == pygame.KEYUP:
@@ -129,7 +129,7 @@ def runnig_game():
                 Game.menu = 0
             elif Game.button_exit.button_clicked(pos[0], pos[1]):
                 running = False
-                return
+                return False
             elif Game.button_save.button_clicked(pos[0], pos[1]):
                 Game.save()
             elif Game.button_setting.button_clicked(pos[0], pos[1]):
@@ -218,4 +218,5 @@ def runnig_game():
             Game.menu = 0
         Game.game_fight(pressed)
     onclick = False
+    return True
 
