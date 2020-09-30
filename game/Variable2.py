@@ -1,17 +1,17 @@
 import pygame
-fond = pygame.image.load('assets/fond.png')
-flower = pygame.image.load("assets/flower.png")
-sand = pygame.image.load('assets/sand.png')
-sand2 = pygame.image.load('assets/sand2.png')
-dirt = pygame.image.load('assets/dirt.png')
-dirt2 = pygame.image.load('assets/dirt2.png')
-grass2 = pygame.image.load('assets/grass2.png')
-water = pygame.image.load('assets/water.png')
-water2 = pygame.image.load('assets/water2.png')
-paving1 = pygame.image.load('assets/paving1.png')
-paving2 = pygame.image.load('assets/paving2.png')
-cliff = pygame.image.load('assets/cliff.png')
-fence = pygame.image.load('assets/fence.png')
+fond = pygame.image.load('game/assets/fond.png')
+flower = pygame.image.load("game/assets/flower.png")
+sand = pygame.image.load('game/assets/sand.png')
+sand2 = pygame.image.load('game/assets/sand2.png')
+dirt = pygame.image.load('game/assets/dirt.png')
+dirt2 = pygame.image.load('game/assets/dirt2.png')
+grass2 = pygame.image.load('game/assets/grass2.png')
+water = pygame.image.load('game/assets/water.png')
+water2 = pygame.image.load('game/assets/water2.png')
+paving1 = pygame.image.load('game/assets/paving1.png')
+paving2 = pygame.image.load('game/assets/paving2.png')
+cliff = pygame.image.load('game/assets/cliff.png')
+fence = pygame.image.load('game/assets/fence.png')
 block = {
     "sand_1": sand.subsurface(64, 64, 64, 64),
     "sand_dr": sand.subsurface(0, 0, 64, 64),
@@ -127,7 +127,7 @@ block = {
     "paving2_cu": paving2.subsurface(64, 128, 64, 64),
     "paving2_ur": paving2.subsurface(0, 128, 64, 64),
     "paving2_cr": paving2.subsurface(0, 64, 64, 64),
-    "stone": pygame.image.load("assets/grass/stone.png"),
+    "stone": pygame.image.load("game/assets/grass/stone.png"),
     "red1": flower.subsurface(0, 0, 64, 64),
     "red2": flower.subsurface(0, 64, 64, 64),
     "red3": flower.subsurface(0, 128, 64, 64),
@@ -137,8 +137,8 @@ block = {
     "yellow1": flower.subsurface(128, 0, 64, 64),
     "yellow2": flower.subsurface(128, 64, 64, 64),
     "yellow3": flower.subsurface(128, 128, 64, 64),
-    "1": pygame.transform.scale(pygame.image.load("assets/case.png"), (32, 32)),
-    "0": pygame.image.load("assets/case.png"),
+    "1": pygame.transform.scale(pygame.image.load("game/assets/case.png"), (32, 32)),
+    "0": pygame.image.load("game/assets/case.png"),
     "grass_1": cliff.subsurface(64, 64, 64, 64),
     "cliff_dr": cliff.subsurface(0, 0, 64, 64),
     "cliff_cd": cliff.subsurface(64, 0, 64, 64),
@@ -150,13 +150,13 @@ block = {
     "cliff_cr": cliff.subsurface(0, 64, 64, 64),
 }
 block2 = {
-    'tree': [pygame.image.load("assets/tree/Tree.png"), -55, -150],
-    'tree2': [pygame.image.load("assets/temp/tree.png"), -190, -280],  # "assets/tree/Tree2.png"
-    'tree0': [pygame.image.load("assets/tree/Tree_r.png"), -55, -150],
-    'h1': [pygame.image.load("assets/house/house1.png"), -95, -265],
-    'church': [pygame.image.load("assets/house/church.png"), -128, -390],
-    'h2': [pygame.image.load("assets/house/house2.png"), -96, -205],
-    'h3': [pygame.image.load("assets/house/house3.png"), -95, -285],
+    'tree': [pygame.image.load("game/assets/tree/Tree.png"), -55, -150],
+    'tree2': [pygame.image.load("game/assets/temp/tree.png"), -190, -280],  # "assets/tree/Tree2.png"
+    'tree0': [pygame.image.load("game/assets/tree/Tree_r.png"), -55, -150],
+    'h1': [pygame.image.load("game/assets/house/house1.png"), -95, -265],
+    'church': [pygame.image.load("game/assets/house/church.png"), -128, -390],
+    'h2': [pygame.image.load("game/assets/house/house2.png"), -96, -205],
+    'h3': [pygame.image.load("game/assets/house/house3.png"), -95, -285],
     "fence_0": [fence.subsurface(64, 128, 64, 64), 0, 0],
     "fence_1": [fence.subsurface(64, 0, 64, 64), 0, 0],
     "fence_2": [fence.subsurface(192, 0, 64, 64), 0, 0],

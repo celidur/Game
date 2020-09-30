@@ -8,10 +8,10 @@ from game.Player import Player
 
 
 def import_map():
-    with open('file/map.txt', 'rb') as file:
+    with open('game/file/map.txt', 'rb') as file:
         file = pickle.Unpickler(file)
         map1 = file.load()
-    with open('file/size.txt', 'rb') as file:
+    with open('game/file/size.txt', 'rb') as file:
         file = pickle.Unpickler(file)
         size = file.load()
     length, width = size[0], size[1]
@@ -44,17 +44,17 @@ player = Player([0] * 11, [[0], [0] * 36, [0]])
 def save():
     global Map
     try:
-        os.remove("file/map.txt")
+        os.remove("game/file/map.txt")
     except FileNotFoundError:
         pass
     try:
-        os.remove("file/size.txt")
+        os.remove("game/file/size.txt")
     except FileNotFoundError:
         pass
-    with open('file/map.txt', 'wb') as file:
+    with open('game/file/map.txt', 'wb') as file:
         pickler = pickle.Pickler(file)
         pickler.dump(Map)
-    with open('file/size.txt', 'wb') as file:
+    with open('game/file/size.txt', 'wb') as file:
         size = [Length, Width]
         pickler = pickle.Pickler(file)
         pickler.dump(size)
