@@ -11,10 +11,10 @@ while running:
     if menu == 0:
         pass
     elif menu == 1:
-        from game import main
+        from game import Game
         menu = 2
     elif menu == 2:
-        running = main.runnig_game()
+        running = Game.running_game()
 
-main.Game.save()
+Game.save()
 quit()

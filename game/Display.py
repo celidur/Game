@@ -51,15 +51,6 @@ class Display:
             Game.Screen.blit(self.map_chunk[i - 1][j - 1],
                              (0 - Game.x + 320 + 1024 * i - 1024, 0 - Game.y + 320 + 1024 * j - 1024))
 
-    def display_update(self, x_case, y_case):
-        try:
-            block_2 = self.block2[self.map[x_case][y_case][4]]
-            Game.Screen.blit(block_2[0],
-                             (x_case * 64 - 128 - (Game.x + 32) % 64 + block_2[1] - 32,
-                              y_case * 64 - 128 - (Game.y + 32) % 64 + block_2[2] - 32))
-        except KeyError:
-            pass
-
     def display_game(self):
         Game.Screen.blit(self.background, (0, 0))
         self.display_chunks()
@@ -88,8 +79,6 @@ class Display:
         if Game.menu == 0:
             Game.button_shop.display_button()
             Game.button_menu.display_button()
-        elif Game.menu == 1:
-            self.display_pause()
 
     def display_pause(self):
         s = pygame.Surface((self.size_window[0], self.size_window[1]), pygame.SRCALPHA)
@@ -103,7 +92,7 @@ class Display:
     def display(self, map_chunk):  # #
         self.map_chunk = map_chunk
         self.display_game()
-        if Game.menu == 2:
+        if Game.menu == 2 or Game.menu == 1:
             self.display_pause()
         pygame.display.flip()
         self.ii += 1
@@ -146,8 +135,6 @@ class Display:
                 Game.game_chunk = []
             return 0
         if Game.fight_mode == -1:
-            pygame.mixer_music.load(Game.music['combat'])
-            pygame.mixer_music.play(loops=-1)
             Game.fight_mode = 0
             pygame.time.delay(250)
             Game.Screen.blit(Game.enemy_.get_background(), (0, 0))

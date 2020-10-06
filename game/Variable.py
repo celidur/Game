@@ -13,7 +13,7 @@ def import_map():
     with open('game/file/size.txt', 'rb') as file:
         file = pickle.Unpickler(file)
         size = file.load()
-    return map1, size[0], size[1]
+    return map1[0], map1[1], map1[2], size[0], size[1]
 
 
 Texts = None
@@ -282,7 +282,7 @@ block2 = {
     "fence_ru": [fence.subsurface(128, 0, 64, 64), 0, 0],
 }
 
-Map, Length, Width = import_map()
+Map, map_object, map_collision, Length, Width = import_map()
 pygame.init()
 pygame.display.set_caption("Game")
 Screen = pygame.display.set_mode((size_window[0], size_window[1]))

@@ -15,7 +15,7 @@ def import_map():
         file = pickle.Unpickler(file)
         size = file.load()
     length, width = size[0], size[1]
-    return map1, length, width
+    return map1[0], length, width
 
 
 def generation_map(length, width):
@@ -35,7 +35,7 @@ pygame.init()
 image_size_length = 11
 pygame.display.set_caption("generated")
 Screen = pygame.display.set_mode((image_size_length * 64, 11 * 64 + 30))
-x, y, layer, velocity, pressed, x1, y1, x2, y2 = 59 * 64, 13 * 64, 0, 2, {}, -1, -1, -1, -1
+x, y, layer, velocity, pressed, x1, y1, x2, y2 = 59 * 64, 13 * 64, 0, 8, {}, -1, -1, -1, -1
 arial_font, a, x_input, y_input, layer_input = pygame.font.SysFont("arial", 14), False, False, False, False
 velocity_input, b_input, user_input_value = False, False, ""
 player = Player([0] * 11, [[0], [0] * 36, [0]])
@@ -43,6 +43,16 @@ player = Player([0] * 11, [[0], [0] * 36, [0]])
 
 def save():
     global Map
+    map_collision = []
+    map_object = []
+    for i in Map:
+        temp = []
+        temp_2 = []
+        for j in i:
+            temp.append(j[3])
+            temp_2.append(j[4])
+        map_collision.append(temp)
+        map_object.append(temp_2)
     try:
         os.remove("game/file/map.txt")
     except FileNotFoundError:
@@ -53,7 +63,7 @@ def save():
         pass
     with open('game/file/map.txt', 'wb') as file:
         pickler = pickle.Pickler(file)
-        pickler.dump(Map)
+        pickler.dump([Map, map_object, map_collision])
     with open('game/file/size.txt', 'wb') as file:
         size = [Length, Width]
         pickler = pickle.Pickler(file)
