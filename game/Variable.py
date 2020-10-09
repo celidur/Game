@@ -34,7 +34,7 @@ def import_save():
     except pickle.UnpicklingError:
         return False
     try:
-        with open('game/save/{}/save_game.txt'.format(nb), 'rb') as file:
+        with open('game/save/{}/save_game'.format(nb), 'rb') as file:
             file = pickle.Unpickler(file)
             _ = file.load()
     except pickle.UnpicklingError and FileNotFoundError:

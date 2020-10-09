@@ -67,15 +67,16 @@ def save():
             nb = file.load()
     except pickle.UnpicklingError:
         return False
-    try:
-        os.remove('game/save/{}/save_game.txt'.format(nb))
-    except FileNotFoundError:
-        pass
     if not os.path.exists('game/save/{}'.format(nb)):
         os.makedirs('game/save/{}'.format(nb))
-    with open('game/save/{}/save_game.txt'.format(nb), 'wb') as file:
+    with open('game/save/{}/save_game_'.format(nb), 'wb') as file:
         pickler = pickle.Pickler(file)
         pickler.dump(save_game)
+    try:
+        os.remove('game/save/{}/save_game'.format(nb))
+    except FileNotFoundError:
+        pass
+    os.rename('game/save/{}/save_game_'.format(nb), 'game/save/{}/save_game'.format(nb))
 
 
 async def loading_animation(x_, y_):

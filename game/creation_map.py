@@ -8,10 +8,18 @@ from game.Player import Player
 
 
 def import_map():
-    with open('game/file/map.txt', 'rb') as file:
-        file = pickle.Unpickler(file)
-        map1 = file.load()
-
+    try:
+        with open('game/file/map.txt', 'rb') as file:
+            file = pickle.Unpickler(file)
+            map1 = file.load()
+    except FileNotFoundError:
+        with open('game/file/map_.txt', 'rb') as file:
+            file = pickle.Unpickler(file)
+            map1 = file.load()
+    try:
+        os.remove("game/file/map_.txt")
+    except FileNotFoundError:
+        pass
     length, width = map1[1][0], map1[1][1]
     return map1[0][0], length, width
 
@@ -52,17 +60,14 @@ def save():
         map_collision.append(temp)
         map_object.append(temp_2)
     map = [[Map, map_object, map_collision], [Length, Width]]
+    with open('game/file/map_.txt', 'wb') as file:
+        pickler = pickle.Pickler(file)
+        pickler.dump(map)
     try:
         os.remove("game/file/map.txt")
     except FileNotFoundError:
         pass
-    try:
-        os.remove("game/file/size.txt")
-    except FileNotFoundError:
-        pass
-    with open('game/file/map.txt', 'wb') as file:
-        pickler = pickle.Pickler(file)
-        pickler.dump(map)
+    os.rename('game/file/map_.txt', 'game/file/map.txt')
 
 
 def Afficher_case(Block, x_case, y_case, move_x=0, move_y=0):
