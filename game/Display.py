@@ -77,7 +77,8 @@ class Display:
                                      (i * 64 + Game.block2[Game.map_object[i][j]][1] - Game.x + 320,
                                       j * 64 + Game.block2[Game.map_object[i][j]][2] - Game.y + 320))
         if Game.menu == 0:
-            Game.button_shop.display_button()
+            if Game.area == 'village':
+                Game.button_shop.display_button()
             Game.button_menu.display_button()
 
     def display_pause(self):

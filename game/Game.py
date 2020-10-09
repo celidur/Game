@@ -8,9 +8,9 @@ import random
 from game.Enemy import Enemy
 
 Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
-       button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-       button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
-       button_use, enemy = import_language()
+button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
+button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
+button_use, enemy = import_language()
 _ = import_save()
 player = Player(_[0], _[1])
 x, y, menu, temp = _[3], _[4], 0, time.time()
@@ -34,7 +34,7 @@ volume = 0.5
 fade = [False, volume, 0, 0]  # fade, volume, début, durée
 game_chunk = []
 list_coord = []
-
+pressed2 = {}
 time_temp = time.time()
 onclick, running, pressed, pos = False, True, {}, [0, 0]
 ready = False
@@ -152,7 +152,7 @@ async def prepare_map():
 
 def running_game():
     global running, onclick, pos, time_temp, menu, fight_mode, pos_inventory, prog, end_, pressed, fade, frame, \
-        player, enemy_, debut_combat, temp, texts, area, x_y_generation, x, y, nb_case, map_chunk
+        player, enemy_, debut_combat, temp, texts, area, x_y_generation, x, y, nb_case, map_chunk, pressed2
     while not ready:
         asyncio.run(prepare_map())
     fadeout()
@@ -163,6 +163,7 @@ def running_game():
                 return False
         elif event.type == pygame.KEYDOWN:
             pressed[event.key] = True
+            pressed2[event.key] = True
         elif event.type == pygame.KEYUP:
             pressed[event.key] = False
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -172,17 +173,15 @@ def running_game():
         if onclick:
             if button_menu.button_clicked(pos[0], pos[1]):
                 menu = 2
-            elif button_shop.button_clicked(pos[0], pos[1]):
+            elif button_shop.button_clicked(pos[0], pos[1]) and area == 'village':
                 pass
-            elif button_inventory.button_clicked(pos[0], pos[1]):
-                pass
+            # ajouter test bouton iventaire
         else:
             while not time.time() > frame + 1 / 61:
                 pass
             frame = time.time()
-            if pressed.get(pygame.K_ESCAPE) and time.time() > temp:
-                menu, temp = 2, time.time() + 0.2
-                return
+            if pressed2.get(pygame.K_ESCAPE):
+                menu = 2
             x, y = player.player_move(pressed, x, y, map_collision, Width, Length, Settings)
             display.display(map_chunk)
             if y // 64 == 31 and 45 <= x // 64 <= 50:
@@ -195,6 +194,7 @@ def running_game():
                     if not fade[0]:
                         fade = [True, volume, time.time(), 1]
                     area = 'village'
+                    nb_case = 0
             if (x // 64 != x_y_generation[0] or y // 64 != x_y_generation[1]) and area == 'plain':
                 nb_case += 1
                 x_y_generation = (x // 64, y // 64)
@@ -217,8 +217,8 @@ def running_game():
             elif button_setting.button_clicked(pos[0], pos[1]):
                 pass
         else:
-            if pressed.get(pygame.K_ESCAPE) and time.time() > temp:
-                menu, temp = 0, time.time() + 0.2
+            if pressed2.get(pygame.K_ESCAPE):
+                menu = 0
             display.display(map_chunk)
     elif menu == 3:  # menu shop
         pass
@@ -288,15 +288,14 @@ def running_game():
                     fight_mode = 0
                     fade = [True, volume, time.time(), 1]
                     menu = 0
-        elif pressed.get(pygame.K_ESCAPE) and time_temp + 1 / 5 < time.time():
-            time_temp = time.time()
+        elif pressed2.get(pygame.K_ESCAPE):
             if fight_mode != 0:
                 if fight_mode != 4:
                     remove_text()
                 fight_mode = 0
             else:
                 fight_mode = 4
-        elif pressed.get(pygame.K_RETURN) and fight_mode == 4:
+        elif pressed2.get(pygame.K_RETURN) and fight_mode == 4:
             fight_mode = 0
             fade = [True, volume, time.time(), 1]
             menu = 0
@@ -306,8 +305,9 @@ def running_game():
         while not time.time() > frame + 1 / 61:
             pass
         frame = time.time()
-        if fight_mode == 3 and time.time() > temp + 1 / 7:
-            if pressed.get(Settings[0]) or pressed.get(Settings[4]):
+        if fight_mode == 3:
+            if ((pressed.get(Settings[0]) or pressed.get(Settings[4])) and time.time() > temp + 1 / 7) or \
+                    pressed2.get(Settings[0]) or pressed2.get(Settings[4]):
                 pos_inventory = (
                     ((pos_inventory[0] + 1) % 5),
                     (pos_inventory[1] * 5 + pos_inventory[0] + 1) // 5,
@@ -316,7 +316,9 @@ def running_game():
                     pos_inventory = (pos_inventory[0], 4, pos_inventory[2] + 1)
                 if (pos_inventory[1] + pos_inventory[2]) * 5 + pos_inventory[0] >= 36:
                     pos_inventory = (0, 0, 0)
-            elif pressed.get(Settings[1]) or pressed.get(Settings[5]):
+                temp = time.time()
+            elif ((pressed.get(Settings[1]) or pressed.get(Settings[5])) and time.time() > temp + 1 / 7) or \
+                    pressed2.get(Settings[0]) or pressed2.get(Settings[4]):
                 pos_inventory = (
                     (pos_inventory[1] * 5 + pos_inventory[0] - 1) % 5,
                     (pos_inventory[1] * 5 + pos_inventory[0] - 1) // 5,
@@ -325,13 +327,17 @@ def running_game():
                     pos_inventory = (pos_inventory[0], 0, pos_inventory[2] - 1)
                 if pos_inventory[2] < 0:
                     pos_inventory = (36 % 5 - 1, 4, 36 // 5 - 4)
-            elif pressed.get(Settings[2]) or pressed.get(Settings[6]):
+                temp = time.time()
+            elif ((pressed.get(Settings[2]) or pressed.get(Settings[6])) and time.time() > temp + 1 / 7) or \
+                    pressed2.get(Settings[0]) or pressed2.get(Settings[4]):
                 pos_inventory = (pos_inventory[0], pos_inventory[1] + 1, pos_inventory[2])
                 if pos_inventory[1] >= 5:
                     pos_inventory = (pos_inventory[0], 4, pos_inventory[2] + 1)
                 if (pos_inventory[1] + pos_inventory[2]) * 5 + pos_inventory[0] >= 36:
                     pos_inventory = (pos_inventory[0], 0, 0)
-            elif pressed.get(Settings[3]) or pressed.get(Settings[7]):
+                temp = time.time()
+            elif ((pressed.get(Settings[3]) or pressed.get(Settings[7])) and time.time() > temp + 1 / 7) or \
+                    pressed2.get(Settings[0]) or pressed2.get(Settings[4]):
                 pos_inventory = (pos_inventory[0], pos_inventory[1] - 1, pos_inventory[2])
                 if pos_inventory[1] < 0:
                     pos_inventory = (pos_inventory[0], 0, pos_inventory[2] - 1)
@@ -340,11 +346,11 @@ def running_game():
                         pos_inventory = (pos_inventory[0], 3, 36 // 5 - 4)
                     else:
                         pos_inventory = (pos_inventory[0], 4, 36 // 5 - 4)
-            temp = time.time()
+                temp = time.time()
         display.display_fight(enemy_.get_background(), enemy_.get_image(), enemy_.get_size(), enemy_.get_hp(),
                               enemy_.get_name(), player.get_stats(), pos_inventory)
         pygame.display.flip()
-    onclick = False
+    onclick, pressed2 = False, {}
     if menu != 4:
         fight_mode = 0
     return True
