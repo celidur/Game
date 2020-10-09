@@ -16,15 +16,31 @@ def import_map():
 Texts = None
 
 
-def import_save():
+def import_temp():
     try:
-        with open('game/save/save_game.txt', 'rb') as file:
+        with open('game/file/temp', 'rb') as file:
             file = pickle.Unpickler(file)
             _ = file.load()
+    except FileNotFoundError:
+        _ = False
+    return _
+
+
+def import_save():
+    try:
+        with open('game/file/save', 'rb') as file:
+            file = pickle.Unpickler(file)
+            nb = file.load()
     except pickle.UnpicklingError:
-        _ = [(100, 100, 0, 50, 10, 10, 1, 0, 5, 1, 1), [[], [3, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], []],
-             (275, 276, 274, 273, 100, 113, 115, 122), 2941, 3455, 'plain']
+        return False
+    try:
+        with open('game/save/{}/save_game.txt'.format(nb), 'rb') as file:
+            file = pickle.Unpickler(file)
+            _ = file.load()
+    except pickle.UnpicklingError and FileNotFoundError:
+        _ = [(100, 100, 50, 50, 10, 10, 1, 0, 5, 1, 1), [[], [3, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], []],
+             [275, 276, 274, 273, 100, 97, 115, 119], 2941, 3455, 'plain']
     return _
 
 

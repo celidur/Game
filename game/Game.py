@@ -6,15 +6,17 @@ from game.Display import Display
 from game.Player import Player
 import random
 from game.Enemy import Enemy
-
+from pathlib import Path
 Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
 button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
 button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
 button_use, enemy = import_language()
 _ = import_save()
-player = Player(_[0], _[1])
-x, y, menu, temp = _[3], _[4], 0, time.time()
-Settings = _[2]
+if _:
+    player = Player(_[0], _[1])
+    x, y, menu, temp = _[3], _[4], 0, time.time()
+    Settings = _[2]
+    area = _[5]
 display = Display(block, block2, Width, Length, size_window, background, Map)
 frame = 0
 fight_mode = 0
@@ -26,7 +28,6 @@ pos_inventory = (0, 0, 0)
 use_obj = False
 prog = 1
 x_y_generation = (x % 64, y % 64)
-area = _[5]
 nb_case = 0
 end_ = True
 map_chunk = []
@@ -61,10 +62,18 @@ def init_fight():
 def save():
     save_game = [player.get_stats(), player.get_inventory(), Settings, x, y, area]
     try:
-        os.remove("game/save/save_game.txt")
+        with open('game/file/save', 'rb') as file:
+            file = pickle.Unpickler(file)
+            nb = file.load()
+    except pickle.UnpicklingError:
+        return False
+    try:
+        os.remove('game/save/{}/save_game.txt'.format(nb))
     except FileNotFoundError:
         pass
-    with open("game/save/save_game.txt", 'wb') as file:
+    if not os.path.exists('game/save/{}'.format(nb)):
+        os.makedirs('game/save/{}'.format(nb))
+    with open('game/save/{}/save_game.txt'.format(nb), 'wb') as file:
         pickler = pickle.Pickler(file)
         pickler.dump(save_game)
 
@@ -90,7 +99,7 @@ async def loading_animation(x_, y_):
         await asyncio.sleep(1 / 12)
 
 
-async def loading_map():
+async def loading_map(a):
     global ready, loading_text, progress
     map_split = []
     for lines in range((len(Map) + 15) // 16):
@@ -124,19 +133,28 @@ async def loading_map():
                     await asyncio.sleep(0)
             strip.append(chunk)
         map_chunk.append(strip)
-    loading_text = "Shuffling random numbers"
-    progress = 0
-    for i_1 in range(4 * 1024):
-        for j2 in range(1024):
-            list_coord.append((i_1 // 1024, i_1 % 1024, j2))
-        await asyncio.sleep(0)
-    for i_1 in reversed(range(1, len(list_coord))):
-        j2 = int(random.random() * (i_1 + 1))
-        list_coord[i_1], list_coord[j2] = list_coord[j2], list_coord[i_1]
-        if i_1 % 1024 == 0:
-            progress = 1 - i_1 / (4 * 1024 * 1024)
+    if a:
+        loading_text = "Shuffling random numbers"
+        progress = 0
+        for i_1 in range(4 * 1024):
+            for j2 in range(1024):
+                list_coord.append((i_1 // 1024, i_1 % 1024, j2))
             await asyncio.sleep(0)
-    progress = 1
+        for i_1 in reversed(range(1, len(list_coord))):
+            j2 = int(random.random() * (i_1 + 1))
+            list_coord[i_1], list_coord[j2] = list_coord[j2], list_coord[i_1]
+            if i_1 % 1024 == 0:
+                progress = 1 - i_1 / (4 * 1024 * 1024)
+                await asyncio.sleep(0)
+        progress = 1
+        try:
+            os.remove("game/file/temp")
+        except FileNotFoundError:
+            pass
+        await asyncio.sleep(0)
+        with open("game/file/temp", 'wb') as file:
+            pickler = pickle.Pickler(file)
+            pickler.dump(list_coord)
     await asyncio.sleep(0.5)
     ready = True
     pygame.mixer_music.load(music[area])
@@ -144,17 +162,25 @@ async def loading_map():
     pygame.mixer_music.play(loops=-1)
 
 
-async def prepare_map():
+async def prepare_map(a=True):
     t1 = asyncio.create_task(loading_animation(352, 580))
-    t2 = asyncio.create_task(loading_map())
+    t2 = asyncio.create_task(loading_map(a))
     await asyncio.gather(t1, t2)
 
 
 def running_game():
     global running, onclick, pos, time_temp, menu, fight_mode, pos_inventory, prog, end_, pressed, fade, frame, \
-        player, enemy_, debut_combat, temp, texts, area, x_y_generation, x, y, nb_case, map_chunk, pressed2
+        player, enemy_, debut_combat, temp, texts, area, x_y_generation, x, y, nb_case, map_chunk, pressed2, list_coord, \
+        ready
+    if not _:
+        return 1
     while not ready:
-        asyncio.run(prepare_map())
+        v = import_temp()
+        if v:
+            list_coord = v
+            asyncio.run(prepare_map(False))
+        else:
+            asyncio.run(prepare_map())
     fadeout()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
