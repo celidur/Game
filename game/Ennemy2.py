@@ -1,10 +1,11 @@
+import random
+
 import pygame
 import time
-from game import Armor
 
 
-class Player(pygame.sprite.Sprite):
-    def __init__(self, stat, inventory):
+class Ennemy2(pygame.sprite.Sprite):
+    def __init__(self, x, y):
         super().__init__()
         self.mult_crit = 2
         self.frame = time.time()
@@ -16,169 +17,17 @@ class Player(pygame.sprite.Sprite):
         self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
         self.rect = self.image.get_rect()
         self.velocity = 5
-        self.hp = stat[0]
-        self.hp_max = stat[1]
-        self.level = stat[6] * 0 + 1  #
-        self.xp = stat[7]
-        self.mp = stat[2] * 0 + 50  #
-        self.mp_max = stat[3]
-        self.attack = stat[4]
-        self.defense = stat[5]
-        self.inventory = inventory
-        self.inventory = [[],
-                          [3, 0, 0, 0, 0,
-                           1, 0, 0, 0, 0,
-                           0, 0, 0, 0, 0,
-                           0, 0, 0, 0, 0,
-                           0, 0, 0, 0, 0,
-                           0, 0, 0, 0, 0,
-                           0, 0, 0, 0, 0,
-                           0],
-                          []]
-        self.boost_att = [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-        self.boost_def = [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-        self.proba_crit = 0.2
-        self.mult_crtit = 2
-        self.att_2 = []
-        self.boost_att_2 = 0
-        self.protect = 1
-        self.gold = stat[8]
-        self.num_armor = stat[10]
-        self.num_sword = stat[9]
-        self.armor = Armor.Armor(Armor.armor[self.num_armor - 1][0], Armor.armor[self.num_armor - 1][1],
-                                 Armor.armor[self.num_armor - 1][2],
-                                 Armor.armor[self.num_armor - 1][3],
-                                 Armor.armor[self.num_armor - 1][4],
-                                 Armor.armor[self.num_armor - 1][5],
-                                 Armor.armor[self.num_armor - 1][6])
-        self.sword = Armor.Sword(Armor.sword[self.num_sword - 1][0], Armor.sword[self.num_sword - 1][1],
-                                 Armor.sword[self.num_sword - 1][2],
-                                 Armor.sword[self.num_sword - 1][3],
-                                 Armor.sword[self.num_sword - 1][4],
-                                 Armor.sword[self.num_sword - 1][5],
-                                 Armor.sword[self.num_sword - 1][6])
-
-    def init(self):
-        self.boost_att = [1, 0, 0, 0, 0, 0, 0]
-        self.boost_def = [1, 0, 0, 0, 0, 0, 0]
-        self.proba_crit = 0.2
-        self.mult_crtit = 2
-        self.att_2 = []
-        self.boost_att_2 = 0
-        self.protect = 1
-
-    def get_inventory(self):
-        return self.inventory
-
-    def get_stats(self):
-        return self.hp, self.hp_max, self.mp, self.mp_max, self.attack, self.defense, self.level, self.xp, self.gold, \
-               self.num_sword, self.num_armor
-
-    def change_att_2(self, damage, add=True):
-        if add:
-            self.att_2.append([damage, 4 + self.boost_att_2])
-        else:
-            self.att_2 = []
-
-    def change_hp(self, n, use=True):
-        hp = int(self.hp + n)
-        if hp < 0:
-            hp = 0
-        elif hp > self.hp_max:
-            hp = self.hp_max
-        if use:
-            self.hp = hp
-            return "PV régénérés."
-        else:
-            return hp
-
-    def change_mp(self, n, use=True):
-        mp = int(self.mp + n)
-        if mp > self.mp_max:
-            mp = self.mp_max
-        if use:
-            self.mp = mp
-            return "PM régénérés."
-        else:
-            return mp
-
-    def get_crit(self):
-        return self.proba_crit, self.mult_crtit
-
-    def get_boost_stats(self):
-        return self.boost_att, self.boost_def
-
-    def change_boost_att(self, i, n):
-        self.boost_att[i] = round(self.boost_att[i] + n, 2)
-        if self.boost_att[0] < 0.7:
-            self.boost_att[0] = 0.7
-        elif self.boost_att[0] > 1.3:
-            self.boost_att[0] = 1.3
-        for i in range(1, 7):
-            if self.boost_att[i] < -0.2 * self.attack + self.sword.get_stat()[0]:
-                self.boost_att[i] = -int(0.2 * self.attack + self.sword.get_stat()[0])
-            elif self.boost_att[i] > 0.2 * self.attack + self.sword.get_stat()[0]:
-                self.boost_att[i] = int(0.2 * self.attack + self.sword.get_stat()[0])
-
-    def change_boost_def(self, i, n):
-        self.boost_def[i] = round(self.boost_def[i] + n, 2)
-        if self.boost_def[0] < 0.7:
-            self.boost_def[0] = 0.7
-        if self.boost_def[0] > 1.3:
-            self.boost_def[0] = 1.3
-        for i in range(1, 7):
-            if self.boost_def[i] < -0.2 * self.defense + self.armor.get_stat()[0]:
-                self.boost_def[i] = -int(0.2 * self.defense + self.armor.get_stat()[0])
-            elif self.boost_def[i] > 0.2 * self.defense + self.armor.get_stat()[0]:
-                self.boost_def[i] = int(0.2 * self.defense + self.armor.get_stat()[0])
-
-    def get_protect(self):
-        return self.protect
-
-    def change_protect(self, n=1):
-        self.protect = n
-
-    #  apres c du kk
-    def change_proba_crit(self, n):
-        if n:
-            self.proba_crit += 0.05
-            if self.proba_crit > 0.3:
-                self.proba_crit = 0.3
-        else:
-            self.proba_crit = 0.2
-
-    def change_mult_crit(self, n):
-        if n:
-            self.mult_crit += 0.1
-            if self.mult_crit > 2.5:
-                self.mult_crit = 2.5
-        else:
-            self.mult_crit = 2
-
-    #  fin du kk
-
-    def turn_att_2(self):
-        length = len(self.att_2)
-        if length != 0:
-            for i in range(len(self.att_2)):
-                self.att_2[i][1] -= 1
-            if self.att_2[0][1] == 0:
-                self.att_2.remove(self.att_2[0])
-        if length == 0 or length == len(self.att_2):
-            return 2
-        elif len(self.att_2) != 0:
-            return 1
-        else:
-            return 0
+        self.x, self.y = x, y
+        self.last_direction = []
+        self.nb = 0
+        self.a, self.b = 0, 0
+        self.time = time.time()
 
     def box_change(self, n1):
         if self.box > n1 + 4:
             self.box = n1 + 1
         elif self.box < n1:
             self.box = n1 + 1
-
-    def get_equipment(self):
-        return self.sword, self.armor
 
     def move(self, move=True):
         if time.time() > self.frame:
@@ -209,44 +58,66 @@ class Player(pygame.sprite.Sprite):
                     self.box = 12
                 self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
 
-    def player_move(self, pressed, x, y, map_collision, width, length, settings):
-        move = False
-        direction = []
-        if (pressed.get(settings[1]) or pressed.get(settings[5])) and (x + 63) // 64 > 0 and self.collision(
-                map_collision, 0, x, y):
-            self.direction = "left"
-            direction.append("left")
-            move = True
-        elif (pressed.get(settings[0]) or pressed.get(settings[4])) and x // 64 < length - 1 and self.collision(
-                map_collision, 1, x, y):
-            self.direction = "right"
-            direction.append("right")
-            move = True
-        if (pressed.get(settings[3]) or pressed.get(settings[7])) and (y + 63) // 64 > 0 and self.collision(
-                map_collision, 2, x, y):
-            self.direction = "up"
-            direction.append("up")
-            move = True
-        elif (pressed.get(settings[2]) or pressed.get(settings[6])) and y // 64 < width - 1 and self.collision(
-                map_collision, 3, x, y):
-            self.direction = "down"
-            direction.append("down")
-            move = True
-        if len(direction) == 2:
-            velocity = int(self.velocity / 1.4)
-        else:
-            velocity = self.velocity
-        for d in direction:
-            if d == "left":
-                x -= velocity
-            elif d == "right":
-                x += velocity
-            elif d == "up":
-                y -= velocity
-            elif d == "down":
-                y += velocity
-        self.move(move)
-        return x, y
+    def enemy_move(self, map_collision, width, length, x, y):
+        if time.time() - 0.025 > self.time:
+            self.time = time.time()
+            self.last_direction = []
+            move = False
+            if 4 * 64 > self.x - x > 4 * -64 and 4 * 64 > self.y - y > 4 * -64:  # diriger vers le joueur
+                self.a, self.b = 0, 0
+                self.nb = 0
+                if self.x - x > 32:
+                    self.a = -1
+                elif self.x - x < -32:
+                    self.a = 1
+                if self.y - y > 32:
+                    self.b = -1
+                elif self.y - y < -32:
+                    self.b = 1
+            else:
+                if self.nb <= 0:
+                    a = random.randint(0, 18)
+                    self.a = (a % 3)-1
+                    if a < 3:
+                        self.b = 0
+                    elif a < 6:
+                        self.b = 1
+                    else:
+                        self.b = -1
+                    if a > 8:
+                        self.a, self.b = 0, 0
+                    self.nb = random.randint(10, 30)
+                self.nb -= 1
+            if (self.x + 63) // 64 > 0 and self.collision(map_collision, 0, self.x, self.y) and self.a == -1:
+                self.direction = "left"
+                self.last_direction.append("left")
+                move = True
+            elif self.x // 64 < length - 1 and self.collision(map_collision, 1, self.x, self.y) and self.a == 1:
+                self.direction = "right"
+                self.last_direction.append("right")
+                move = True
+            if (self.y + 63) // 64 > 0 and self.collision(map_collision, 2, self.x, self.y) and self.b == -1:
+                self.direction = "up"
+                self.last_direction.append("up")
+                move = True
+            elif self.y // 64 < width - 1 and self.collision(map_collision, 3, self.x, self.y) and self.b == 1:
+                self.direction = "down"
+                self.last_direction.append("down")
+                move = True
+            if len(self.last_direction) == 2:
+                velocity = int(self.velocity / 1.4)
+            else:
+                velocity = self.velocity
+            for d in self.last_direction:
+                if d == "left":
+                    self.x -= velocity
+                elif d == "right":
+                    self.x += velocity
+                elif d == "up":
+                    self.y -= velocity
+                elif d == "down":
+                    self.y += velocity
+            self.move(move)
 
     def collision(self, map_collision, d, x, y):
         l, w = len(map_collision), len(map_collision[0])
@@ -385,47 +256,3 @@ class Player(pygame.sprite.Sprite):
                         map_collision[(x_case + 1) % l][(y_case + 1) % w][3]:
                     return False
         return True
-
-
-'''
-5 hp
-10, 20, 50, 100, tout
-
-1 hp_max
-50, max:2×
-
-5 mp
-5, 10, 15, 25, tout
-
-1 mp max
-15, max:2×
-
-1 att+def
-+0.08 max:0.3
-
-12 stat spé + 1 att + 1 def + 1 total
-+0.15, +0.04, +0.04, +0.03 max:stat_spé+0.2(*att_base)
-
-2 crit
-proba 0.2 +0.05 max:0.3
-mult 2 +0.1 max:2.5
-
-1 def + 1 att + 1 total  enemy
--0.1, -0.1, -0.7 min:base*0.7
-
-2 crit   enemy
-proba 0.2 -0.03 min:base-0.09
-mult 2 -0.1 min:1.6
-
-boost_att_2
-+1 tour, max:1
-
-10_hp               20_hp               50_hp               100_hp                  all_hp
-5_mp                10_mp               15_mp               25_mp                   all_mp
-0.15_att_plain      0.15_def_plain      0.15_att_desert     0.15_def_desert         0.15_att_snow
-0.15_def_snow       0.15_att_forest     0.15_def_forest     0.15_att_mountain       0.15_def_mountain
-0.15_att_volcano    0.15_def_volcano    0.04_att_spe        0.04_def_spe            0.03_stat_spe
-0.08_att_def        50_hp_max           15_mp_max           0.05_crit_proba_player  0.1_crit_mult_player
-_0.1_att_enemy      _0.1_def_enemy      _0.7_stat_enemy     _0.03_crit_proba_enemy  _0.1_crit_mult_enemy
-1_turn_att_2
-'''

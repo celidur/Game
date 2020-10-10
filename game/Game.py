@@ -6,7 +6,7 @@ from game.Display import Display
 from game.Player import Player
 import random
 from game.Enemy import Enemy
-from pathlib import Path
+from game.Ennemy2 import Ennemy2
 Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
 button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
 button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
@@ -44,6 +44,7 @@ loading_pos = [(0, -40), (-20, -35), (-35, -20), (-40, 0), (-35, 20), (-20, 35),
                (35, -20), (20, -35)]
 font_ = pygame.font.Font("game/font/FRAMDCN.TTF", 16)
 progress = 0
+enemy_map = Ennemy2(2941, 3335)
 
 
 def init_fight():
@@ -197,6 +198,7 @@ def running_game():
             onclick = True
             pos = pygame.mouse.get_pos()
     if menu == 0:
+        enemy_map.enemy_move(map_collision, Width, Length, x, y)
         if onclick:
             if button_menu.button_clicked(pos[0], pos[1]):
                 menu = 2
@@ -225,7 +227,7 @@ def running_game():
             if (x // 64 != x_y_generation[0] or y // 64 != x_y_generation[1]) and area == 'plain':
                 nb_case += 1
                 x_y_generation = (x // 64, y // 64)
-                if random.random() <= nb_case * (2 + player.level / 100) / 5000:  # <=
+                if random.random() == nb_case * (2 + player.level / 100) / 5000:  # <=
                     menu = 4
                     nb_case = 0
                     debut_combat = True

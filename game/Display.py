@@ -64,8 +64,12 @@ class Display:
                     Game.Screen.blit(Game.block2[Game.map_object[i][j]][0],
                                      (i * 64 + Game.block2[Game.map_object[i][j]][1] - Game.x + 320,
                                       j * 64 + Game.block2[Game.map_object[i][j]][2] - Game.y + 320))
-
-        Game.Screen.blit(Game.player.image, (320, 320))
+        if Game.y - Game.enemy_map.y < 0:
+            Game.Screen.blit(Game.player.image, (320, 320))
+            Game.Screen.blit(Game.enemy_map.image, (320 + Game.enemy_map.x - Game.x, 320 + Game.enemy_map.y - Game.y))
+        else:
+            Game.Screen.blit(Game.enemy_map.image, (320 + Game.enemy_map.x - Game.x, 320 + Game.enemy_map.y - Game.y))
+            Game.Screen.blit(Game.player.image, (320, 320))
         for j in range(Game.y // 64, Game.y // 64 + 14):
             for i in range(Game.x // 64 - 10, Game.x // 64 + 10):
                 if not (0 <= i < len(Game.map_object)) or not (0 <= j < len(Game.map_object[0])):
