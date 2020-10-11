@@ -29,37 +29,50 @@ def generation_map(length, width):
     for j in range(length):
         L = []
         for i in range(width):
-            L.append(['grass_1', '', "0", ""])
+            L.append(['grass_1', '', '', [False, False, False, False], '']
+)
         map1.append(L)
-    return map1, length, width
+    return map1
 
 
+def add_map(length, width):
+    Map_.append(generation_map(length, width))
+    Length_.append(length)
+    Width_.append(width)
+
+
+nb_map = 2
 b = "sand"
-Map, Length, Width = import_map()
+Map_, Length_, Width_ = import_map()
+Map, Length, Width = Map_[nb_map], Length_[nb_map], Width_[nb_map]
 # Map, Length, Width = generation_map(53,36)
 pygame.init()
 image_size_length = 11
 pygame.display.set_caption("generated")
 Screen = pygame.display.set_mode((image_size_length * 64, 11 * 64 + 30))
-x, y, layer, velocity, pressed, x1, y1, x2, y2 = 59 * 64, 13 * 64, 0, 8, {}, -1, -1, -1, -1
+x, y, layer, velocity, pressed, x1, y1, x2, y2 = 0 * 64, 0 * 64, 0, 8, {}, -1, -1, -1, -1
 arial_font, a, x_input, y_input, layer_input = pygame.font.SysFont("arial", 14), False, False, False, False
 velocity_input, b_input, user_input_value = False, False, ""
 player = Player([0] * 11, [[0], [0] * 36, [0]])
 
 
 def save():
-    global Map
-    map_collision = []
-    map_object = []
-    for i in Map:
-        temp = []
-        temp_2 = []
-        for j in i:
-            temp.append(j[3])
-            temp_2.append(j[4])
-        map_collision.append(temp)
-        map_object.append(temp_2)
-    map = [[Map, map_object, map_collision], [Length, Width]]
+    global Map_
+    Map_collision, Map_objet = [], []
+    for j in Map_:
+        map_collision = []
+        map_object = []
+        for i in j:
+            temp = []
+            temp_2 = []
+            for j in i:
+                temp.append(j[3])
+                temp_2.append(j[4])
+            map_collision.append(temp)
+            map_object.append(temp_2)
+        Map_collision.append(map_collision)
+        Map_objet.append(map_object)
+    map = [[Map_, Map_objet, Map_collision], [Length_, Width_]]
     with open('game/file/map_.txt', 'wb') as file:
         pickler = pickle.Pickler(file)
         pickler.dump(map)
@@ -349,14 +362,16 @@ def input_game(size, m=0):
 def Add_up():
     global Map, Length, Width
     for i in range(Length):
-        Map[i].insert(0, ['grass_1', '', '', False, ''])
+        Map[i].insert(0, ['grass_1', '', '', [False, False, False, False], '']
+                      )
     Width += 1
 
 
 def Add_down():
     global Map, Length, Width
     for i in range(Length):
-        Map[i].append(['grass_1', '', '', False, ''])
+        Map[i].append(['grass_1', '', '', [False, False, False, False], '']
+                      )
     Width += 1
 
 
@@ -364,7 +379,7 @@ def Add_left():
     global Map, Length, Width
     l = []
     for i in range(Width):
-        l += [['grass_1', '', '', False, '']]
+        l += [['grass_1', '', '', [False, False, False, False], '']]
     Map.insert(0, l)
     Length += 1
 
@@ -373,7 +388,7 @@ def Add_right():
     global Map, Length, Width
     l = []
     for i in range(Width):
-        l += [['grass_1', '', '', False, '']]
+        l += [['grass_1', '', '', [False, False, False, False], '']]
     Map.append(l)
     Length += 1
 

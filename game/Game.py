@@ -8,16 +8,24 @@ import random
 from game.Enemy import Enemy
 from game.Ennemy2 import Ennemy2
 Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
-button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
-button_use, enemy = import_language()
+       button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
+       button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
+       button_use, enemy = import_language()
 _ = import_save()
+nb_map = 0
 if _:
     player = Player(_[0], _[1])
-    x, y, menu, temp = _[3], _[4], 0, time.time()
+    x_t, y_t, menu, temp = _[3], _[4], 0, time.time()
     Settings = _[2]
     area = _[5]
-display = Display(block, block2, Width, Length, size_window, background, Map)
+    while len(x_t) < len(Map_t):
+        x_t.append(0)
+    while len(y_t) < len(Map_t):
+        y_t.append(0)
+    x, y = x_t[nb_map], y_t[nb_map]
+    x_y_generation = (x_t[nb_map] % 64, y_t[nb_map] % 64)
+Map, map_object, map_collision, Length, Width = [], [], [], 0, 0
+display = Display(block, block2, size_window, background)
 frame = 0
 fight_mode = 0
 enemy_ = Enemy(enemy[0])
@@ -27,14 +35,13 @@ texts = ''
 pos_inventory = (0, 0, 0)
 use_obj = False
 prog = 1
-x_y_generation = (x % 64, y % 64)
 nb_case = 0
 end_ = True
-map_chunk = []
 volume = 0.5
 fade = [False, volume, 0, 0]  # fade, volume, début, durée
 game_chunk = []
 list_coord = []
+Map_chunk = []
 pressed2 = {}
 time_temp = time.time()
 onclick, running, pressed, pos = False, True, {}, [0, 0]
@@ -44,8 +51,9 @@ loading_pos = [(0, -40), (-20, -35), (-35, -20), (-40, 0), (-35, 20), (-20, 35),
                (35, -20), (20, -35)]
 font_ = pygame.font.Font("game/font/FRAMDCN.TTF", 16)
 progress = 0
-enemy_map = Ennemy2(2941, 3335)
-
+enemy_map = []
+#for i in range(1000):
+#    enemy_map.append(Ennemy2(3060, 2236))
 
 def init_fight():
     global enemy_, texts, prog, enemy, fade, volume
@@ -61,7 +69,7 @@ def init_fight():
 
 
 def save():
-    save_game = [player.get_stats(), player.get_inventory(), Settings, x, y, area]
+    save_game = [player.get_stats(), player.get_inventory(), Settings, x_t, y_t, area]
     try:
         with open('game/file/save', 'rb') as file:
             file = pickle.Unpickler(file)
@@ -102,39 +110,42 @@ async def loading_animation(x_, y_):
 
 
 async def loading_map(a):
-    global ready, loading_text, progress
-    map_split = []
-    for lines in range((len(Map) + 15) // 16):
-        strip = []
-        for columns in range((len(Map[0]) + 15) // 16):
-            mini_map = []
-            for line in range(16):
-                mini_lines = []
-                for column in range(16):
-                    if lines * 16 + line > len(Map) - 1 or columns * 16 + column > len(Map[0]) - 1:
-                        mini_lines.append([None, None, None])
-                    else:
-                        mini_lines.append(Map[lines * 16 + line][columns * 16 + column][:3])
-                    await asyncio.sleep(0)
-                mini_map.append(mini_lines)
-            strip.append(mini_map)
-        map_split.append(strip)
-    for x_chunk in range(len(map_split)):
-        strip = []
-        for y_chunk in range(len(map_split[0])):
-            chunk = pygame.Surface((16 * 64, 16 * 64), pygame.SRCALPHA, 32)
-            for x_temp in range(16):
-                progress = (((y_chunk + (x_temp / 16)) / len(map_split[0])) + x_chunk) / len(map_split)
-                for y_temp in range(16):
-                    for layer in range(3):
-                        try:
-                            chunk.blit(block[map_split[x_chunk][y_chunk][x_temp][y_temp][layer]],
-                                       (x_temp * 64, y_temp * 64))
-                        except KeyError:
-                            continue
-                    await asyncio.sleep(0)
-            strip.append(chunk)
-        map_chunk.append(strip)
+    global ready, loading_text, progress, Map_chunk
+    for i in Map_t:
+        map_split = []
+        temp_ = []
+        for lines in range((len(i) + 15) // 16):
+            strip = []
+            for columns in range((len(i[0]) + 15) // 16):
+                mini_map = []
+                for line in range(16):
+                    mini_lines = []
+                    for column in range(16):
+                        if lines * 16 + line > len(i) - 1 or columns * 16 + column > len(i[0]) - 1:
+                            mini_lines.append([None, None, None])
+                        else:
+                            mini_lines.append(i[lines * 16 + line][columns * 16 + column][:3])
+                        await asyncio.sleep(0)
+                    mini_map.append(mini_lines)
+                strip.append(mini_map)
+            map_split.append(strip)
+        for x_chunk in range(len(map_split)):
+            strip = []
+            for y_chunk in range(len(map_split[0])):
+                chunk = pygame.Surface((16 * 64, 16 * 64), pygame.SRCALPHA, 32)
+                for x_temp in range(16):
+                    progress = (((y_chunk + (x_temp / 16)) / len(map_split[0])) + x_chunk) / len(map_split)
+                    for y_temp in range(16):
+                        for layer in range(3):
+                            try:
+                                chunk.blit(block[map_split[x_chunk][y_chunk][x_temp][y_temp][layer]],
+                                           (x_temp * 64, y_temp * 64))
+                            except KeyError:
+                                continue
+                        await asyncio.sleep(0)
+                strip.append(chunk)
+            temp_.append(strip)
+        Map_chunk.append(temp_)
     if a:
         loading_text = "Shuffling random numbers"
         progress = 0
@@ -172,8 +183,8 @@ async def prepare_map(a=True):
 
 def running_game():
     global running, onclick, pos, time_temp, menu, fight_mode, pos_inventory, prog, end_, pressed, fade, frame, \
-        player, enemy_, debut_combat, temp, texts, area, x_y_generation, x, y, nb_case, map_chunk, pressed2, list_coord, \
-        ready
+        player, enemy_, debut_combat, temp, texts, area, x_y_generation, x, y, nb_case, map_chunk, pressed2, \
+        list_coord, ready, x_t, y_t, Map, map_object, map_collision, Length, Width, nb_map
     if not _:
         return 1
     while not ready:
@@ -184,6 +195,10 @@ def running_game():
         else:
             asyncio.run(prepare_map())
     fadeout()
+    Map, map_object, map_collision, Length, Width = Map_t[nb_map], map_object_t[nb_map], map_collision_t[nb_map], \
+                                                    Length_t[nb_map], Width_t[nb_map]
+    x, y = x_t[nb_map], y_t[nb_map]
+    map_chunk = Map_chunk[nb_map]
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             if menu != 5:
@@ -197,8 +212,15 @@ def running_game():
         if event.type == pygame.MOUSEBUTTONDOWN:
             onclick = True
             pos = pygame.mouse.get_pos()
+    if pressed2.get(pygame.K_KP_PLUS):
+        nb_map = (nb_map+1)%len(Map_t)
+        Map, map_object, map_collision, Length, Width = Map_t[nb_map], map_object_t[nb_map], map_collision_t[nb_map], \
+                                                        Length_t[nb_map], Width_t[nb_map]
+        x, y = x_t[nb_map], y_t[nb_map]
+        map_chunk = Map_chunk[nb_map]
     if menu == 0:
-        enemy_map.enemy_move(map_collision, Width, Length, x, y)
+        for enemy__ in enemy_map:
+            enemy__.enemy_move(map_collision, Width, Length, x, y)
         if onclick:
             if button_menu.button_clicked(pos[0], pos[1]):
                 menu = 2
@@ -212,6 +234,7 @@ def running_game():
             if pressed2.get(pygame.K_ESCAPE):
                 menu = 2
             x, y = player.player_move(pressed, x, y, map_collision, Width, Length, Settings)
+            x_t[nb_map], y_t[nb_map] = x, y
             display.display(map_chunk)
             if y // 64 == 31 and 45 <= x // 64 <= 50:
                 if area != 'plain':

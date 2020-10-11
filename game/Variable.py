@@ -295,7 +295,7 @@ block2 = {
     "fence_ru": [fence.subsurface(128, 0, 64, 64), 0, 0],
 }
 
-Map, map_object, map_collision, Length, Width = import_map()
+Map_t, map_object_t, map_collision_t, Length_t, Width_t = import_map()
 pygame.init()
 pygame.display.set_caption("Game")
 Screen = pygame.display.set_mode((size_window[0], size_window[1]))

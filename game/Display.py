@@ -4,16 +4,13 @@ import pygame
 
 
 class Display:
-    def __init__(self, block, block2, width, length, size_window, background, map_game):
-        self.Width, self.Length = width, length
+    def __init__(self, block, block2, size_window, background):
         self.block = block
         self.block2 = block2
         self.list_ = []
         self.size_window = size_window
         self.background = background
         self.ii = 0
-        self.map_chunk = map_game
-        self.map = map_game
         self.i1 = time.time() + 1
         self.arial = pygame.font.Font("game/font/FRAMDCN.TTF", 20)
         self.dialogue = pygame.font.Font("game/font/rpg_.FON", 16)
@@ -64,12 +61,14 @@ class Display:
                     Game.Screen.blit(Game.block2[Game.map_object[i][j]][0],
                                      (i * 64 + Game.block2[Game.map_object[i][j]][1] - Game.x + 320,
                                       j * 64 + Game.block2[Game.map_object[i][j]][2] - Game.y + 320))
-        if Game.y - Game.enemy_map.y < 0:
-            Game.Screen.blit(Game.player.image, (320, 320))
-            Game.Screen.blit(Game.enemy_map.image, (320 + Game.enemy_map.x - Game.x, 320 + Game.enemy_map.y - Game.y))
-        else:
-            Game.Screen.blit(Game.enemy_map.image, (320 + Game.enemy_map.x - Game.x, 320 + Game.enemy_map.y - Game.y))
-            Game.Screen.blit(Game.player.image, (320, 320))
+
+        for i in Game.enemy_map:
+            if Game.y - i.y > 0:
+                Game.Screen.blit(i.image, (320 + i.x - Game.x, 320 + i.y - Game.y))
+        Game.Screen.blit(Game.player.image, (320, 320))
+        for i in Game.enemy_map:
+            if Game.y - i.y < 0:
+                Game.Screen.blit(i.image, (320 + i.x - Game.x, 320 + i.y - Game.y))
         for j in range(Game.y // 64, Game.y // 64 + 14):
             for i in range(Game.x // 64 - 10, Game.x // 64 + 10):
                 if not (0 <= i < len(Game.map_object)) or not (0 <= j < len(Game.map_object[0])):
