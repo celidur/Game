@@ -122,6 +122,7 @@ size_window = [704, 736]
 # Picture
 
 flower = pygame.image.load("game/assets/flower.png")
+bunker = pygame.image.load('game/assets/bunker.png')
 sand = pygame.image.load('game/assets/sand.png')
 sand2 = pygame.image.load('game/assets/sand2.png')
 dirt = pygame.image.load('game/assets/dirt.png')
@@ -135,6 +136,19 @@ cliff = pygame.image.load('game/assets/cliff.png')
 fence = pygame.image.load('game/assets/fence.png')
 background = pygame.image.load('game/assets/fond.png')
 block = {
+    "bunker_1": bunker.subsurface(64, 64, 64, 64),
+    "bunker_dr": bunker.subsurface(0, 0, 64, 64),
+    "bunker_cd": bunker.subsurface(64, 0, 64, 64),
+    "bunker_dl": bunker.subsurface(128, 0, 64, 64),
+    "bunker_cl": bunker.subsurface(128, 64, 64, 64),
+    "bunker_ul": bunker.subsurface(128, 128, 64, 64),
+    "bunker_cu": bunker.subsurface(64, 128, 64, 64),
+    "bunker_ur": bunker.subsurface(0, 128, 64, 64),
+    "bunker_cr": bunker.subsurface(0, 64, 64, 64),
+    "bunker_dr_2": bunker.subsurface(256, 64, 64, 64),
+    "bunker_dl_2": bunker.subsurface(192, 64, 64, 64),
+    "bunker_ur_2": bunker.subsurface(256, 0, 64, 64),
+    "bunker_ul_2": bunker.subsurface(192, 0, 64, 64),
     "sand_1": sand.subsurface(64, 64, 64, 64),
     "sand_dr": sand.subsurface(0, 0, 64, 64),
     "sand_cd": sand.subsurface(64, 0, 64, 64),

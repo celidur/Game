@@ -56,6 +56,8 @@ while running:
                         creation_map.y1, creation_map.y2 = creation_map.y2, creation_map.y1
                     for i in range(creation_map.x1, creation_map.x2 + 1):
                         for j in range(creation_map.y1, creation_map.y2 + 1):
+                            if creation_map.b == '0':
+                                creation_map.b = ''
                             creation_map.Map[i][j][creation_map.layer] = creation_map.b
                     creation_map.x2, creation_map.y2, creation_map.x1, creation_map.y1 = -1, -1, -1, -1
 

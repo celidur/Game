@@ -41,7 +41,7 @@ def add_map(length, width):
     Width_.append(width)
 
 
-nb_map = 2
+nb_map = 1
 b = "sand"
 Map_, Length_, Width_ = import_map()
 Map, Length, Width = Map_[nb_map], Length_[nb_map], Width_[nb_map]

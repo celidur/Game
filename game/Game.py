@@ -22,6 +22,8 @@ if _:
         x_t.append(0)
     while len(y_t) < len(Map_t):
         y_t.append(0)
+    x_t[1]=47*64
+    y_t[1]=47*64
     x, y = x_t[nb_map], y_t[nb_map]
     x_y_generation = (x_t[nb_map] % 64, y_t[nb_map] % 64)
 Map, map_object, map_collision, Length, Width = [], [], [], 0, 0
