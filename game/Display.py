@@ -4,13 +4,12 @@ import pygame
 
 
 class Display:
-    def __init__(self, block, block2, size_window, background):
+    def __init__(self, block, block2, size_window):
         self.block = block
         self.block2 = block2
         self.map_chunk = []
         self.list_ = []
         self.size_window = size_window
-        self.background = background
         self.ii = 0
         self.i1 = time.time() + 1
         self.arial = pygame.font.Font("game/font/FRAMDCN.TTF", 20)
@@ -50,7 +49,7 @@ class Display:
                              (0 - Game.x + 320 + 1024 * i - 1024, 0 - Game.y + 320 + 1024 * j - 1024))
 
     def display_game(self):
-        Game.Screen.blit(self.background, (0, 0))
+        pygame.draw.rect(Game.Screen, (55, 25, 5), [0, 0, 740, 740])
         self.display_chunks()
         for j in range(Game.y // 64 - 10, Game.y // 64 + 2):
             for i in range(Game.x // 64 - 10, Game.x // 64 + 10):

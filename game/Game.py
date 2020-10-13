@@ -28,7 +28,7 @@ if _:
     player = Player(_[0], _[1], x, y)
     x_y_generation = (x_t[nb_map] % 64, y_t[nb_map] % 64)
 Map, map_object, map_collision, Length, Width = [], [], [], 0, 0
-display = Display(block, block2, size_window, background)
+display = Display(block, block2, size_window)
 frame = 0
 fight_mode = 0
 enemy_ = Enemy(enemy[0])
