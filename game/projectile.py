@@ -4,7 +4,7 @@ import pygame
 class Projectile(pygame.sprite.Sprite):
     def __init__(self, player):
         super().__init__()
-        self.velocity = 5
+        self.velocity = 10
         self.player = player
         self.direction = player.direction
         if self.direction == 'right' or self.direction == 'left':
@@ -28,6 +28,7 @@ class Projectile(pygame.sprite.Sprite):
             self.rect.y = 350
         self.x = self.rect.x - 320 + player.x
         self.y = self.rect.y - 320 + player.y
+        self.x_y = (self.x, self.y)
 
     def mov(self):
         if self.direction == 'right' or self.direction == 'left':
@@ -38,5 +39,5 @@ class Projectile(pygame.sprite.Sprite):
             self.y += self.velocity
             self.rect.x = self.x - self.player.x + 320
             self.rect.y = self.y - self.player.y + 320
-        if self.rect.x < 0 or self.rect.x > 704 or self.rect.y < 0 or self.rect.y > 734:
+        if not(-64*10 < self.x - self.x_y[0] < 64*10 and -64*10 < self.y - self.x_y[1] < 64*10):
             self.player.all_projectiles.remove(self)
