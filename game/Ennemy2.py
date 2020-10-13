@@ -1,7 +1,7 @@
 import random
+import time
 
 import pygame
-import time
 
 
 class Ennemy2(pygame.sprite.Sprite):
@@ -22,6 +22,7 @@ class Ennemy2(pygame.sprite.Sprite):
         self.nb = 0
         self.a, self.b = 0, 0
         self.time = time.time()
+        self.go_to = None
 
     def box_change(self, n1):
         if self.box > n1 + 4:
@@ -58,33 +59,66 @@ class Ennemy2(pygame.sprite.Sprite):
                     self.box = 12
                 self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
 
-    def enemy_move(self, map_collision, width, length, x, y):
+    def enemy_move(self, map_collision, width, length, x, y, n_p):
+        print('to go (first)', self.go_to)
         self.time = time.time()
         self.last_direction = []
         move = False
-        if 4 * 64 > self.x - x > 4 * -64 and 4 * 64 > self.y - y > 4 * -64:
+        d = -1
+        for i in range(1, 5):
+            if ((self.x + 32) // 64, (self.y + 32) // 64) in n_p[i]:
+                d = i
+                break
+        print('actual layer :', d, ((self.x + 32) // 64, (self.y + 32) // 64))
+        if d > 0:
+            for coord in n_p[i - 1]:
+                if -1 <= (self.x + 32) // 64 - coord[0] <= 1 and -1 <= (self.y + 32) // 64 - coord[1] <= 1:
+                    self.go_to = coord
+                    print('target :', coord)
+                    break
+        if -32 < self.x - x < 32 and -32 < self.y - y < 32:
+            self.go_to = None
             self.a, self.b = 0, 0
             self.nb = 0
-            if self.x - x > 32:
+        print('to go', self.go_to)
+        if ((self.x + 32) // 64, (self.y + 32) // 64) == self.go_to:
+            self.go_to = None
+        if self.go_to is not None:
+            if self.x - self.go_to[0] * 64 > 32:
                 self.a = -1
-            elif self.x - x < -32:
+            elif self.x - self.go_to[0] * 64 < -32:
                 self.a = 1
-            if self.y - y > 32:
+            if self.y - self.go_to[1] * 64 > 32:
                 self.b = -1
-            elif self.y - y < -32:
+            elif self.y - self.go_to[1] * 64 < -32:
                 self.b = 1
-        else:
-            if self.nb <= 0:
-                a = random.randint(0, 18)
-                self.a = (a % 3)-1
-                if a < 3:
-                    self.b = 0
-                elif a < 6:
-                    self.b = 1
-                else:
+            """if 4 * 64 > self.x - x > 4 * -64 and 4 * 64 > self.y - y > 4 * -64:
+                self.a, self.b = 0, 0
+                self.nb = 0
+                if self.x - x > 32:
+                    self.a = -1
+                elif self.x - x < -32:
+                    self.a = 1
+                if self.y - y > 32:
                     self.b = -1
-                if a > 8:
-                    self.a, self.b = 0, 0
+                elif self.y - y < -32:
+                    self.b = 1"""
+        else:
+            print('random')
+            if self.nb <= 0:
+                r = random.randint(0, 18)
+                if r in [0, 1, 2]:
+                    self.a = -1
+                elif r in [3, 4, 5]:
+                    self.a = 1
+                else:
+                    self.a = 0
+                if r in [0, 3, 6]:
+                    self.b = -1
+                elif r in [1, 4, 7]:
+                    self.b = -1
+                else:
+                    self.b = 0
                 self.nb = random.randint(10, 30)
             self.nb -= 1
         if (self.x + 63) // 64 > 0 and self.collision(map_collision, 0, self.x, self.y) and self.a == -1:

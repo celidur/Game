@@ -7,6 +7,7 @@ class Display:
     def __init__(self, block, block2, size_window, background):
         self.block = block
         self.block2 = block2
+        self.map_chunk = []
         self.list_ = []
         self.size_window = size_window
         self.background = background
@@ -38,11 +39,11 @@ class Display:
         if i < len(self.map_chunk) and j < len(self.map_chunk[0]):
             Game.Screen.blit(self.map_chunk[i][j],
                              (0 - Game.x + 320 + 1024 * i, 0 - Game.y + 320 + 1024 * j))
-        if i < len(Game.map_chunk) and j - 1 >= 0:
+        if i < len(self.map_chunk) and j - 1 >= 0:
             Game.Screen.blit(self.map_chunk[i][j - 1],
                              (0 - Game.x + 320 + 1024 * i, 0 - Game.y + 320 + 1024 * j - 1024))
         if i - 1 >= 0 and j < len(self.map_chunk[0]):
-            Game.Screen.blit(Game.map_chunk[i - 1][j],
+            Game.Screen.blit(self.map_chunk[i - 1][j],
                              (0 - Game.x + 320 + 1024 * i - 1024, 0 - Game.y + 320 + 1024 * j))
         if i - 1 >= 0 and j - 1 >= 0:
             Game.Screen.blit(self.map_chunk[i - 1][j - 1],
