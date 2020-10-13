@@ -14,7 +14,6 @@ Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, b
 _ = import_save()
 nb_map = 0
 if _:
-    player = Player(_[0], _[1])
     x_t, y_t, menu, temp = _[3], _[4], 0, time.time()
     Settings = _[2]
     area = _[5]
@@ -25,6 +24,7 @@ if _:
     x_t[1]=47*64
     y_t[1]=47*64
     x, y = x_t[nb_map], y_t[nb_map]
+    player = Player(_[0], _[1], x, y)
     x_y_generation = (x_t[nb_map] % 64, y_t[nb_map] % 64)
 Map, map_object, map_collision, Length, Width = [], [], [], 0, 0
 display = Display(block, block2, size_window, background)

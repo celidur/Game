@@ -5,9 +5,10 @@ from game.projectile import Projectile
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, stat, inventory):
+    def __init__(self, stat, inventory, x, y):
         super().__init__()
         self.mult_crit = 2
+        self.x, self.y = x, y
         self.frame = time.time()
         self.player = pygame.image.load('game/assets/player.png').convert_alpha()
         self.list, self.box, self.direction = [], 0, "down"
@@ -217,6 +218,7 @@ class Player(pygame.sprite.Sprite):
     def player_move(self, pressed, x, y, map_collision, width, length, settings):
         move = False
         direction = []
+        self.x, self.y = x, y
         if (pressed.get(settings[1]) or pressed.get(settings[5])) and (x + 63) // 64 > 0 and self.collision(
                 map_collision, 0, x, y):
             self.direction = "left"
