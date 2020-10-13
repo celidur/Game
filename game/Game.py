@@ -57,6 +57,7 @@ enemy_map = []
 #for i in range(1000):
 #    enemy_map.append(Ennemy2(3060, 2236))
 
+
 def init_fight():
     global enemy_, texts, prog, enemy, fade, volume
     player.init()
@@ -215,7 +216,7 @@ def running_game():
             onclick = True
             pos = pygame.mouse.get_pos()
     if pressed2.get(pygame.K_KP_PLUS):
-        nb_map = (nb_map+1)%len(Map_t)
+        nb_map = (nb_map+1) % len(Map_t)
         Map, map_object, map_collision, Length, Width = Map_t[nb_map], map_object_t[nb_map], map_collision_t[nb_map], \
                                                         Length_t[nb_map], Width_t[nb_map]
         x, y = x_t[nb_map], y_t[nb_map]
@@ -223,6 +224,8 @@ def running_game():
     if menu == 0:
         for enemy__ in enemy_map:
             enemy__.enemy_move(map_collision, Width, Length, x, y)
+        for projectile in player.all_projectiles:
+            projectile.mov()
         if onclick:
             if button_menu.button_clicked(pos[0], pos[1]):
                 menu = 2
@@ -235,6 +238,8 @@ def running_game():
             frame = time.time()
             if pressed2.get(pygame.K_ESCAPE):
                 menu = 2
+            elif pressed2.get(pygame.K_SPACE):
+                player.launch_projectile()
             x, y = player.player_move(pressed, x, y, map_collision, Width, Length, Settings)
             x_t[nb_map], y_t[nb_map] = x, y
             display.display(map_chunk)

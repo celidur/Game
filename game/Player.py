@@ -1,6 +1,7 @@
 import pygame
 import time
 from game import Armor
+from game.projectile import Projectile
 
 
 class Player(pygame.sprite.Sprite):
@@ -45,6 +46,7 @@ class Player(pygame.sprite.Sprite):
         self.gold = stat[8]
         self.num_armor = stat[10]
         self.num_sword = stat[9]
+        self.all_projectiles = pygame.sprite.Group()
         self.armor = Armor.Armor(Armor.armor[self.num_armor - 1][0], Armor.armor[self.num_armor - 1][1],
                                  Armor.armor[self.num_armor - 1][2],
                                  Armor.armor[self.num_armor - 1][3],
@@ -79,6 +81,9 @@ class Player(pygame.sprite.Sprite):
             self.att_2.append([damage, 4 + self.boost_att_2])
         else:
             self.att_2 = []
+
+    def launch_projectile(self):
+        self.all_projectiles.add(Projectile(self))
 
     def change_hp(self, n, use=True):
         hp = int(self.hp + n)

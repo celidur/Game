@@ -66,6 +66,7 @@ class Display:
             if Game.y - i.y > 0:
                 Game.Screen.blit(i.image, (320 + i.x - Game.x, 320 + i.y - Game.y))
         Game.Screen.blit(Game.player.image, (320, 320))
+        Game.player.all_projectiles.draw(Game.Screen)
         for i in Game.enemy_map:
             if Game.y - i.y < 0:
                 Game.Screen.blit(i.image, (320 + i.x - Game.x, 320 + i.y - Game.y))
