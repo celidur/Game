@@ -223,6 +223,8 @@ def running_game():
     if menu == 0:
         for enemy__ in enemy_map:
             enemy__.enemy_move(map_collision, Width, Length, x, y)
+        for projectile in player.all_projectiles:
+            projectile.mov()
         if onclick:
             if button_menu.button_clicked(pos[0], pos[1]):
                 menu = 2
@@ -235,6 +237,8 @@ def running_game():
             frame = time.time()
             if pressed2.get(pygame.K_ESCAPE):
                 menu = 2
+            elif pressed2.get(pygame.K_SPACE):
+                player.launch_projectile()
             x, y = player.player_move(pressed, x, y, map_collision, Width, Length, Settings)
             x_t[nb_map], y_t[nb_map] = x, y
             display.display(map_chunk)
