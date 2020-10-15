@@ -63,10 +63,9 @@ class Ennemy2(pygame.sprite.Sprite):
         self.last_direction = []
         move = False
         x_32, y_32 = ((self.x + 32) // 32) * 32 + 16, ((self.y + 32) // 32) * 32 + 16
-
         go_to = None
         d = -1
-        for layer in range(0, 9):
+        for layer in range(0, 13):
             if (x_32, y_32) in n_p[layer]:
                 d = layer
                 break
@@ -75,25 +74,26 @@ class Ennemy2(pygame.sprite.Sprite):
             for new_case in n_p[d - 1]:
                 if -32 <= x_32 - new_case[0] <= 32 and -32 <= y_32 - new_case[1] <= 32:
                     go_to = new_case
-                    print(go_to)
-                    if go_to[0] == x_32 or go_to[1] == y_32:
+                    if new_case[0] == x_32 or new_case[1] == y_32:
                         break
-        print('a')
+
         if d == 0:
             go_to = n_p[0][0]
-
-        if d > 0 and (x_32 - x > 32 or x_32 - x < -32 or y_32 - y > 32 or y_32 - y < -32):
-            if x_32 < go_to[0]:
-                self.a = 1
-            if x_32 > go_to[0]:
-                self.a = -1
-            if y_32 < go_to[1]:
-                self.b = 1
-            if y_32 > go_to[1]:
-                self.b = -1
-            print(self.a, self.b)
-        else:
             self.a, self.b = 0, 0
+
+        if d > 0:
+            self.a, self.b = 0, 0
+            if self.x - x > 32 or self.x - x < -32:
+                if x_32 < go_to[0]:
+                    self.a = 1
+                if x_32 > go_to[0]:
+                    self.a = -1
+            if self.y - y > 32 or self.y - y < -32:
+                if y_32 < go_to[1]:
+                    self.b = 1
+                if y_32 > go_to[1]:
+                    self.b = -1
+
         if d < 0:
             if self.nb <= 0:
                 r = random.randint(0, 18)

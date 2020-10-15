@@ -55,7 +55,7 @@ loading_pos = [(0, -40), (-20, -35), (-35, -20), (-40, 0), (-35, 20), (-20, 35),
 font_ = pygame.font.Font("game/font/FRAMDCN.TTF", 16)
 progress = 0
 enemy_map = []
-near_player = [[], [], [], [], [], [], [], [], []]
+near_player = [[], [], [], [], [], [], [], [], [], [], [], [], []]
 x_32, y_32 = 0, 0
 
 for i in range(1):
@@ -63,10 +63,10 @@ for i in range(1):
 
 
 def refresh_near_player(map, x, y):
-    n_p = [[], [], [], [], [], [], [], [], []]
+    n_p = [[], [], [], [], [], [], [], [], [], [], [], [], []]
     x_p, y_p = ((x + 32) // 32) * 32 + 16, ((y + 32) // 32) * 32 + 16
     n_p[0].append((x_p, y_p))
-    for i in range(8):
+    for i in range(12):
         for case in n_p[i]:
             for a in [-32, 0, 32]:
                 for b in [-32, 0, 32]:

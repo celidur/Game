@@ -1,9 +1,7 @@
 import os
 import pickle
-import random
 from game.Variable2 import *
 import pygame
-from pygame import time
 from game.Player import Player
 
 
@@ -42,7 +40,7 @@ def add_map(length, width):
 
 
 nb_map = 1
-b = "sand"
+b = "bunker"
 Map_, Length_, Width_ = import_map()
 Map, Length, Width = Map_[nb_map], Length_[nb_map], Width_[nb_map]
 # Map, Length, Width = generation_map(53,36)
@@ -50,10 +48,10 @@ pygame.init()
 image_size_length = 11
 pygame.display.set_caption("generated")
 Screen = pygame.display.set_mode((image_size_length * 64, 11 * 64 + 30))
-x, y, layer, velocity, pressed, x1, y1, x2, y2 = 0 * 64, 0 * 64, 0, 8, {}, -1, -1, -1, -1
+x, y, layer, velocity, pressed, x1, y1, x2, y2 = 38 * 64, 31 * 64, 0, 8, {}, -1, -1, -1, -1
 arial_font, a, x_input, y_input, layer_input = pygame.font.SysFont("arial", 14), False, False, False, False
 velocity_input, b_input, user_input_value = False, False, ""
-player = Player([0] * 11, [[0], [0] * 36, [0]])
+player = Player([0] * 11, [[0], [0] * 36, [0]], 0, 0)
 
 
 def save():
@@ -284,24 +282,19 @@ def Keyboard_pressed(Pressed):
         elif Pressed.get(pygame.K_SEMICOLON) and b != "cliff" and b != "paving2":
             change_case(b + "_ul_2", layer)
         elif Pressed.get(pygame.K_n):
-            change_case("grass_1", layer)
+            change_case("bunker_ul_4", layer)
         elif Pressed.get(pygame.K_KP0):
             change_case("", layer)
         elif Pressed.get(pygame.K_b):
-            n = random.randint(0, 2)
-            if n == 0:
-                f = "red"
-            elif n == 1:
-                f = "yellow"
-            else:
-                f = "blue"
-            f += str(random.randint(1, 3))
-            change_case(f, layer)
-            time.wait(42)
+            change_case("bunker_ur_4", layer)
         elif Pressed.get(pygame.K_v):
-            change_case("stone", layer)
+            change_case("bunker_ur_3", layer)
+        elif Pressed.get(pygame.K_x):
+            change_case("bunker_ul_3", layer)
+        elif Pressed.get(pygame.K_w):
+            change_case("bunker_u", layer)
         elif Pressed.get(pygame.K_F1):
-            change_case("h1", 4)
+            change_case("locker", 4)
         elif Pressed.get(pygame.K_F2):
             change_case("tree", 4)
         elif Pressed.get(pygame.K_F3):

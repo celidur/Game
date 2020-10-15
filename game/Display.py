@@ -63,14 +63,14 @@ class Display:
                                      (i * 64 + Game.block2[Game.map_object[i][j]][1] - Game.x + 320,
                                       j * 64 + Game.block2[Game.map_object[i][j]][2] - Game.y + 320))
 
-        for i in Game.enemy_map:
-            if Game.y - i.y > 0:
-                Game.Screen.blit(i.image, (320 + i.x - Game.x, 320 + i.y - Game.y))
+        for enemy in Game.enemy_map:
+            if Game.y - enemy.y >= 0:
+                Game.Screen.blit(enemy.image, (320 + enemy.x - Game.x, 320 + enemy.y - Game.y))
         Game.Screen.blit(Game.player.image, (320, 320))
         Game.player.all_projectiles.draw(Game.Screen)
-        for i in Game.enemy_map:
-            if Game.y - i.y < 0:
-                Game.Screen.blit(i.image, (320 + i.x - Game.x, 320 + i.y - Game.y))
+        for enemy in Game.enemy_map:
+            if Game.y - enemy.y < 0:
+                Game.Screen.blit(enemy.image, (320 + enemy.x - Game.x, 320 + enemy.y - Game.y))
         for j in range(Game.y // 64, Game.y // 64 + 14):
             for i in range(Game.x // 64 - 10, Game.x // 64 + 10):
                 if not (0 <= i < len(Game.map_object)) or not (0 <= j < len(Game.map_object[0])):

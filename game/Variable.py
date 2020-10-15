@@ -135,6 +135,8 @@ paving2 = pygame.image.load('game/assets/paving2.png')
 cliff = pygame.image.load('game/assets/cliff.png')
 fence = pygame.image.load('game/assets/fence.png')
 background = pygame.image.load('game/assets/fond.png')
+background = pygame.Surface((10000, 10000))
+background.fill((31, 16, 2))
 block = {
     "bunker_1": bunker.subsurface(64, 64, 64, 64),
     "bunker_dr": bunker.subsurface(0, 0, 64, 64),
@@ -149,6 +151,11 @@ block = {
     "bunker_dl_2": bunker.subsurface(192, 64, 64, 64),
     "bunker_ur_2": bunker.subsurface(256, 0, 64, 64),
     "bunker_ul_2": bunker.subsurface(192, 0, 64, 64),
+    "bunker_u": bunker.subsurface(0, 192, 64, 64),
+    "bunker_ur_3": bunker.subsurface(64, 192, 64, 64),
+    "bunker_ul_3": bunker.subsurface(128, 192, 64, 64),
+    "bunker_ur_4": bunker.subsurface(192, 192, 64, 64),
+    "bunker_ul_4": bunker.subsurface(256, 192, 64, 64),
     "sand_1": sand.subsurface(64, 64, 64, 64),
     "sand_dr": sand.subsurface(0, 0, 64, 64),
     "sand_cd": sand.subsurface(64, 0, 64, 64),
@@ -293,6 +300,7 @@ block2 = {
     'church': [pygame.image.load("game/assets/house/church.png"), -128, -390],
     'h2': [pygame.image.load("game/assets/house/house2.png"), -96, -205],
     'h3': [pygame.image.load("game/assets/house/house3.png"), -95, -285],
+    "locker": [pygame.image.load("game/assets/casier.png"), -16, 16],
     "fence_0": [fence.subsurface(64, 128, 64, 64), 0, 0],
     "fence_1": [fence.subsurface(64, 0, 64, 64), 0, 0],
     "fence_2": [fence.subsurface(192, 0, 64, 64), 0, 0],
