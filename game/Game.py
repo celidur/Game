@@ -1,16 +1,17 @@
-from game.Variable import *
-import time
 import asyncio
-import pygame
-from game.Display import Display
-from game.Player import Player
 import random
+import time
+
+from game.Display import Display
 from game.Enemy import Enemy
 from game.Ennemy2 import Ennemy2
+from game.Player import Player
+from game.Variable import *
+
 Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
-       button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-       button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
-       button_use, enemy = import_language()
+button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
+button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, \
+button_use, enemy = import_language()
 _ = import_save()
 nb_map = 0
 if _:
@@ -21,8 +22,8 @@ if _:
         x_t.append(0)
     while len(y_t) < len(Map_t):
         y_t.append(0)
-    x_t[1]=47*64
-    y_t[1]=47*64
+    x_t[1] = 47 * 64
+    y_t[1] = 47 * 64
     x, y = x_t[nb_map], y_t[nb_map]
     player = Player(_[0], _[1], x, y)
     x_y_generation = (x_t[nb_map] % 64, y_t[nb_map] % 64)
@@ -39,7 +40,7 @@ use_obj = False
 prog = 1
 nb_case = 0
 end_ = True
-volume = 0.5
+volume = 0.2
 fade = [False, volume, 0, 0]  # fade, volume, début, durée
 game_chunk = []
 list_coord = []
@@ -54,8 +55,45 @@ loading_pos = [(0, -40), (-20, -35), (-35, -20), (-40, 0), (-35, 20), (-20, 35),
 font_ = pygame.font.Font("game/font/FRAMDCN.TTF", 16)
 progress = 0
 enemy_map = []
-#for i in range(1000):
-#    enemy_map.append(Ennemy2(3060, 2236))
+near_player = [[], [], [], [], [], [], [], [], []]
+x_32, y_32 = 0, 0
+
+for i in range(1):
+    enemy_map.append(Ennemy2(3060, 2236))
+
+
+def refresh_near_player(map, x, y):
+    n_p = [[], [], [], [], [], [], [], [], []]
+    x_p, y_p = ((x + 32) // 32) * 32 + 16, ((y + 32) // 32) * 32 + 16
+    n_p[0].append((x_p, y_p))
+    for i in range(8):
+        for case in n_p[i]:
+            for a in [-32, 0, 32]:
+                for b in [-32, 0, 32]:
+                    if (a, b) == (0, 0):
+                        continue
+                    new_case = (case[0] + a, case[1] + b)
+                    placed = False
+                    for layer in n_p:
+                        if placed:
+                            break
+                        if new_case in layer:
+                            placed = True
+                            break
+                    if placed:
+                        continue
+                    if (new_case[1] % 64) // 32 == 0:
+                        n = 0
+                    else:
+                        n = 2
+                    if (new_case[0] % 64) // 32 == 0:
+                        pass
+                    else:
+                        n += 1
+                    if not map[new_case[0] // 64][new_case[1] // 64][n]:
+                        n_p[i + 1].append(new_case)
+    return n_p
+
 
 def init_fight():
     global enemy_, texts, prog, enemy, fade, volume
@@ -186,7 +224,7 @@ async def prepare_map(a=True):
 def running_game():
     global running, onclick, pos, time_temp, menu, fight_mode, pos_inventory, prog, end_, pressed, fade, frame, \
         player, enemy_, debut_combat, temp, texts, area, x_y_generation, x, y, nb_case, map_chunk, pressed2, \
-        list_coord, ready, x_t, y_t, Map, map_object, map_collision, Length, Width, nb_map
+        list_coord, ready, x_t, y_t, Map, map_object, map_collision, Length, Width, nb_map, near_player, x_32, y_32
     if not _:
         return 1
     while not ready:
@@ -201,6 +239,10 @@ def running_game():
                                                     Length_t[nb_map], Width_t[nb_map]
     x, y = x_t[nb_map], y_t[nb_map]
     map_chunk = Map_chunk[nb_map]
+    x_32_, y_32_ = x // 32, y // 32
+    if (x_32, y_32) != (x_32_, y_32_):
+        x_32, y_32 = x_32_, y_32_
+        near_player = refresh_near_player(map_collision, x, y)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             if menu != 5:
@@ -215,14 +257,14 @@ def running_game():
             onclick = True
             pos = pygame.mouse.get_pos()
     if pressed2.get(pygame.K_KP_PLUS):
-        nb_map = (nb_map+1)%len(Map_t)
+        nb_map = (nb_map + 1) % len(Map_t)
         Map, map_object, map_collision, Length, Width = Map_t[nb_map], map_object_t[nb_map], map_collision_t[nb_map], \
                                                         Length_t[nb_map], Width_t[nb_map]
         x, y = x_t[nb_map], y_t[nb_map]
         map_chunk = Map_chunk[nb_map]
     if menu == 0:
         for enemy__ in enemy_map:
-            enemy__.enemy_move(map_collision, Width, Length, x, y)
+            enemy__.enemy_move(map_collision, Width, Length, x, y, near_player)
         for projectile in player.all_projectiles:
             projectile.mov()
         if onclick:

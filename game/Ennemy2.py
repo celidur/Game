@@ -60,51 +60,41 @@ class Ennemy2(pygame.sprite.Sprite):
                 self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
 
     def enemy_move(self, map_collision, width, length, x, y, n_p):
-        print('to go (first)', self.go_to)
-        self.time = time.time()
         self.last_direction = []
         move = False
+        x_32, y_32 = ((self.x + 32) // 32) * 32 + 16, ((self.y + 32) // 32) * 32 + 16
+
+        go_to = None
         d = -1
-        for i in range(1, 5):
-            if ((self.x + 32) // 64, (self.y + 32) // 64) in n_p[i]:
-                d = i
+        for layer in range(0, 9):
+            if (x_32, y_32) in n_p[layer]:
+                d = layer
                 break
-        print('actual layer :', d, ((self.x + 32) // 64, (self.y + 32) // 64))
+
         if d > 0:
-            for coord in n_p[i - 1]:
-                if -1 <= (self.x + 32) // 64 - coord[0] <= 1 and -1 <= (self.y + 32) // 64 - coord[1] <= 1:
-                    self.go_to = coord
-                    print('target :', coord)
-                    break
-        if -32 < self.x - x < 32 and -32 < self.y - y < 32:
-            self.go_to = None
-            self.a, self.b = 0, 0
-            self.nb = 0
-        print('to go', self.go_to)
-        if ((self.x + 32) // 64, (self.y + 32) // 64) == self.go_to:
-            self.go_to = None
-        if self.go_to is not None:
-            if self.x - self.go_to[0] * 64 > 32:
-                self.a = -1
-            elif self.x - self.go_to[0] * 64 < -32:
+            for new_case in n_p[d - 1]:
+                if -32 <= x_32 - new_case[0] <= 32 and -32 <= y_32 - new_case[1] <= 32:
+                    go_to = new_case
+                    print(go_to)
+                    if go_to[0] == x_32 or go_to[1] == y_32:
+                        break
+        print('a')
+        if d == 0:
+            go_to = n_p[0][0]
+
+        if d > 0 and (x_32 - x > 32 or x_32 - x < -32 or y_32 - y > 32 or y_32 - y < -32):
+            if x_32 < go_to[0]:
                 self.a = 1
-            if self.y - self.go_to[1] * 64 > 32:
-                self.b = -1
-            elif self.y - self.go_to[1] * 64 < -32:
+            if x_32 > go_to[0]:
+                self.a = -1
+            if y_32 < go_to[1]:
                 self.b = 1
-            """if 4 * 64 > self.x - x > 4 * -64 and 4 * 64 > self.y - y > 4 * -64:
-                self.a, self.b = 0, 0
-                self.nb = 0
-                if self.x - x > 32:
-                    self.a = -1
-                elif self.x - x < -32:
-                    self.a = 1
-                if self.y - y > 32:
-                    self.b = -1
-                elif self.y - y < -32:
-                    self.b = 1"""
+            if y_32 > go_to[1]:
+                self.b = -1
+            print(self.a, self.b)
         else:
-            print('random')
+            self.a, self.b = 0, 0
+        if d < 0:
             if self.nb <= 0:
                 r = random.randint(0, 18)
                 if r in [0, 1, 2]:
