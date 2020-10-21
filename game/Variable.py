@@ -134,7 +134,6 @@ paving1 = pygame.image.load('game/assets/paving1.png')
 paving2 = pygame.image.load('game/assets/paving2.png')
 cliff = pygame.image.load('game/assets/cliff.png')
 fence = pygame.image.load('game/assets/fence.png')
-background = pygame.image.load('game/assets/fond.png')
 background = pygame.Surface((10000, 10000))
 background.fill((31, 16, 2))
 block = {

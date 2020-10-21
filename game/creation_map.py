@@ -111,7 +111,7 @@ def management_Screen(X1, X2, Y1, Y2, n, Block):
 
 def Afficher():
     global Width, Length, x, y, x_input, user_input_value, a
-    Screen.blit(fond, (0, 0))
+    pygame.draw.rect(Screen, (55, 25, 5), [0, 0, 740, 740])
     management_Screen(-5, 3, -6, 7, 0, block)
     management_Screen(-5, 3, -6, 7, 1, block)
     management_Screen(-5, 3, -6, 7, 2, block)

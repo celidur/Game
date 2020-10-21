@@ -1,5 +1,4 @@
 import pygame
-fond = pygame.image.load('game/assets/fond.png')
 flower = pygame.image.load("game/assets/flower.png")
 bunker = pygame.image.load('game/assets/bunker.png')
 sand = pygame.image.load('game/assets/sand.png')
