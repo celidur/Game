@@ -92,6 +92,10 @@ def refresh_near_player(map, x, y):
                         n += 1
                     if not map[new_case[0] // 64][new_case[1] // 64][n]:
                         n_p[i + 1].append(new_case)
+
+    #for layer in range(len(n_p)):
+    #    for i in range(len(n_p[layer])):
+    #        n_p[layer][i] = n_p[layer][i][0] - 32, n_p[layer][i][1] - 32
     return n_p
 
 
@@ -238,6 +242,7 @@ def running_game():
     Map, map_object, map_collision, Length, Width = Map_t[nb_map], map_object_t[nb_map], map_collision_t[nb_map], \
                                                     Length_t[nb_map], Width_t[nb_map]
     x, y = x_t[nb_map], y_t[nb_map]
+    #x, y = (3280//64)*64 - 200, (2000//64)*64 - 200
     map_chunk = Map_chunk[nb_map]
     x_32_, y_32_ = x // 32, y // 32
     if (x_32, y_32) != (x_32_, y_32_):

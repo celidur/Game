@@ -23,6 +23,8 @@ class Ennemy2(pygame.sprite.Sprite):
         self.a, self.b = 0, 0
         self.time = time.time()
         self.go_to = None
+        self.blocked_x = False
+        self.blocked_y = False
 
     def box_change(self, n1):
         if self.box > n1 + 4:
@@ -63,6 +65,7 @@ class Ennemy2(pygame.sprite.Sprite):
         self.last_direction = []
         move = False
         x_32, y_32 = ((self.x + 32) // 32) * 32 + 16, ((self.y + 32) // 32) * 32 + 16
+        #print(x_32, y_32)
         go_to = None
         d = -1
         for layer in range(0, 13):
@@ -111,22 +114,53 @@ class Ennemy2(pygame.sprite.Sprite):
                     self.b = 0
                 self.nb = random.randint(10, 30)
             self.nb -= 1
-        if (self.x + 63) // 64 > 0 and self.collision(map_collision, 0, self.x, self.y) and self.a == -1:
-            self.direction = "left"
-            self.last_direction.append("left")
-            move = True
-        elif self.x // 64 < length - 1 and self.collision(map_collision, 1, self.x, self.y) and self.a == 1:
-            self.direction = "right"
-            self.last_direction.append("right")
-            move = True
-        if (self.y + 63) // 64 > 0 and self.collision(map_collision, 2, self.x, self.y) and self.b == -1:
-            self.direction = "up"
-            self.last_direction.append("up")
-            move = True
-        elif self.y // 64 < width - 1 and self.collision(map_collision, 3, self.x, self.y) and self.b == 1:
-            self.direction = "down"
-            self.last_direction.append("down")
-            move = True
+        #print(go_to)
+        if go_to:
+            if self.blocked_x:
+                #print('enemy :', self.x, self.y)
+                if self.y > go_to[1]:
+                    #print('u')
+                    self.b = -1
+                elif self.y < go_to[1]:
+                    #print('d')
+                    self.b = 1
+            if self.blocked_y:
+                if self.x > go_to[0]:
+                    self.a = -1
+                elif self.x < go_to[0]:
+                    self.a = 1
+
+        self.blocked_x, self.blocked_y = False, False
+
+        if self.a == -1:
+            if self.collision(map_collision, 0, self.x, self.y):
+                self.direction = "left"
+                self.last_direction.append("left")
+                move = True
+            else:
+                self.blocked_x = True
+        elif self.a == 1:
+            if self.collision(map_collision, 1, self.x, self.y):
+                self.direction = "right"
+                self.last_direction.append("right")
+                move = True
+            else:
+                self.blocked_x = True
+        if self.b == -1:
+            if self.collision(map_collision, 2, self.x, self.y):
+                self.direction = "up"
+                self.last_direction.append("up")
+                move = True
+            else:
+                self.blocked_y = True
+        elif self.b == 1:
+            if self.collision(map_collision, 3, self.x, self.y):
+                self.direction = "down"
+                self.last_direction.append("down")
+                move = True
+            else:
+                self.blocked_y = True
+
         if len(self.last_direction) == 2:
             velocity = int(self.velocity / 1.4)
         else:
@@ -141,6 +175,11 @@ class Ennemy2(pygame.sprite.Sprite):
             elif d == "down":
                 self.y += velocity
         self.move(move)
+        print(self.b)
+        print('player :', x, y)
+        print('enemy :', self.x, self.y)
+        print(go_to)
+        print()
 
     def collision(self, map_collision, d, x, y):
         l, w = len(map_collision), len(map_collision[0])

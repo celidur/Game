@@ -156,6 +156,7 @@ block = {
     "bunker_ul_3": bunker.subsurface(128, 192, 64, 64),
     "bunker_ur_4": bunker.subsurface(192, 192, 64, 64),
     "bunker_ul_4": bunker.subsurface(256, 192, 64, 64),
+    "bunker_area_8": bunker.subsurface(256, 128, 64, 64),
     "sand_1": sand.subsurface(64, 64, 64, 64),
     "sand_dr": sand.subsurface(0, 0, 64, 64),
     "sand_cd": sand.subsurface(64, 0, 64, 64),

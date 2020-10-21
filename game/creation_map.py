@@ -292,6 +292,8 @@ def Keyboard_pressed(Pressed):
         elif Pressed.get(pygame.K_x):
             change_case("bunker_ul_3", layer)
         elif Pressed.get(pygame.K_w):
+            change_case("bunker_area_8", layer)
+        elif Pressed.get(pygame.K_z):
             change_case("bunker_u", layer)
         elif Pressed.get(pygame.K_F1):
             change_case("locker", 4)
