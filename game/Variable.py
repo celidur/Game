@@ -26,15 +26,13 @@ def import_temp():
     return _
 
 
-def import_save():
+def import_save(nb_save):
     try:
-        with open('game/file/save', 'rb') as file:
-            file = pickle.Unpickler(file)
-            nb = file.load()
-    except pickle.UnpicklingError:
-        return False
+        os.rename('game/save/{}/save_game_'.format(nb_save), 'game/save/{}/save_game'.format(nb_save))
+    except FileNotFoundError:
+        pass
     try:
-        with open('game/save/{}/save_game'.format(nb), 'rb') as file:
+        with open('game/save/{}/save_game'.format(nb_save), 'rb') as file:
             file = pickle.Unpickler(file)
             _ = file.load()
     except pickle.UnpicklingError and FileNotFoundError:
@@ -95,7 +93,7 @@ def import_language():
          pygame.image.load("game/assets/battle/backgrounds/plain.png"),
          pygame.image.load("game/assets/battle/enemies/enemy1.png"), [1, 0]]
     ]
-    return Texts, button_exit, button_menu, button_magic, button_leave, button_inventory, button_attack, \
+    return Texts, button_exit, button_magic, button_leave, button_inventory, button_attack, \
            button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
            button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, button_use, enemy
 
@@ -112,12 +110,6 @@ def change_language(language):
 
 
 board = pygame.image.load('game/assets/button/board.png')
-
-button_shop = Button.Button((0, 0, 0), None, [615, 702, 32, 32], None, None, 0,
-                            pygame.image.load('game/assets/icons/shop.png'))
-button_menu = Button.Button((0, 0, 0), None, [660, 700, 32, 32], None, None, 0,
-                            pygame.image.load('game/assets/icons/menu.png'))
-size_window = [704, 736]
 
 # Picture
 
@@ -317,10 +309,6 @@ block2 = {
     "fence_ru": [fence.subsurface(128, 0, 64, 64), 0, 0],
 }
 
-Map_t, map_object_t, map_collision_t, Length_t, Width_t = import_map()
-pygame.init()
-pygame.display.set_caption("Game")
-Screen = pygame.display.set_mode((size_window[0], size_window[1]))
 music = {
     'village': 'game/sound/electropoze.wav',
     'plain': 'game/sound/speice.wav',

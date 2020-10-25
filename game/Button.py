@@ -17,7 +17,7 @@ class Button:
             self.ID = ID
             self.position_text = self.pos_text()
 
-    def display_button(self, position_x=None, position_y=None, ID=None, position_text=None):
+    def display_button(self, Screen, position_x=None, position_y=None, ID=None, position_text=None):
         if position_x is None:
             position_x, position_y = self.position_button[0], self.position_button[1]
         if self.text is not None and ID is not None:
@@ -26,12 +26,13 @@ class Button:
         elif self.text is not None:
             position_text = self.position_text
         if self.image is not None:
-            Game.Screen.blit(self.image, (position_x, position_y))
+            Screen.blit(self.image, (position_x, position_y))
         else:
-            pygame.draw.rect(Game.Screen, self.color_button,
+            pygame.draw.rect(Screen, self.color_button,
                              [position_x, position_y, self.position_button[2], self.position_button[3]])
         if self.text is not None:
-            Game.Screen.blit(self.police.render(self.text, False, self.color_text), position_text)
+            Screen.blit(self.police.render(self.text, False, self.color_text), position_text)
+        return Screen
 
     def button_clicked(self, x, y, position_x=None, position_y=None):
         if position_x is None:

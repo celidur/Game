@@ -1,16 +1,6 @@
 import pygame
-import os
-import pickle
+from game import Game
 
-
-def save(a):
-    try:
-        os.remove("game/file/save")
-    except FileNotFoundError:
-        pass
-    with open("game/file/save", 'wb') as file:
-        pickler = pickle.Pickler(file)
-        pickler.dump(a)
 
 size_window = [704, 736]
 pygame.init()
@@ -18,16 +8,19 @@ pygame.display.set_caption("Game")
 Screen = pygame.display.set_mode((size_window[0], size_window[1]))
 menu = 1
 running = True
-save_ = 1
-save(save_)
+save = 1
+Game_ = None
 while running:
     if menu == 0:
         pass
     elif menu == 1:
-        from game import Game
-        menu = 2
+        Game_ = Game.Game(save, Screen, size_window)
+        if Game_.check_save():
+            menu = 2
+        else:
+            menu = 0
     elif menu == 2:
-        running = Game.running_game()
+        running = Game_.running_game()
 
-Game.save()
+Game_.save()
 quit()
