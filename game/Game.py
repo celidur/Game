@@ -29,7 +29,7 @@ class Game:
             self.x_t[1] = 47 * 64
             self.y_t[1] = 47 * 64
             self.x, self.y = self.x_t[self.nb_map], self.y_t[self.nb_map]
-            self.player = Player(self._[0], self._[1], self.x, self.y)
+            self.player = Player(self._[0], self._[1], self)
             self.x_y_generation = (self.x_t[self.nb_map] % 64, self.y_t[self.nb_map] % 64)
         else:
             self.check = False
@@ -56,7 +56,7 @@ class Game:
         self.prog = 1
         self.nb_case = 0
         self.end_ = True
-
+        self.instance = True
         self.game_chunk = []
         self.list_coord = []
         self.Map_chunk = []
@@ -130,11 +130,6 @@ class Game:
         return n_p
 
     def running_game(self):
-        if not self.ready:
-            self.Map, self.map_object, self.map_collision, self.Length, self.Width = self.Map_t[self.nb_map], \
-                self.map_object_t[self.nb_map], self.map_collision_t[self.nb_map], self.Length_t[self.nb_map], \
-                self.Width_t[self.nb_map]
-            self.x, self.y = self.x_t[self.nb_map], self.y_t[self.nb_map]
         while not self.ready:
             v = import_temp()
             if v:
@@ -144,7 +139,13 @@ class Game:
                 asyncio.run(self.prepare_map(True))
         self.fadeout()
         # x, y = (3280//64)*64 - 200, (2000//64)*64 - 200
-        self.map_chunk = self.Map_chunk[self.nb_map]
+        if self.instance:
+            self.Map, self.map_object, self.map_collision, self.Length, self.Width = self.Map_t[self.nb_map], \
+                self.map_object_t[self.nb_map], self.map_collision_t[self.nb_map], self.Length_t[self.nb_map], \
+                self.Width_t[self.nb_map]
+            self.x, self.y = self.x_t[self.nb_map], self.y_t[self.nb_map]
+            self.map_chunk = self.Map_chunk[self.nb_map]
+            self.instance = False
         x_32_, y_32_ = self.x // 32, self.y // 32
         if (self.x_32, self.y_32) != (x_32_, y_32_):
             self.x_32, self.y_32 = x_32_, y_32_
@@ -163,15 +164,12 @@ class Game:
                 self.onclick = True
                 self.pos = pygame.mouse.get_pos()
         if self.pressed2.get(pygame.K_KP_PLUS):
-            self.nb_map = (self.nb_map + 1) % len(self.Map_t)
-            self.Map, self.map_object, self.map_collision, self.Length, self.Width = self.Map_t[self.nb_map], \
-                self.map_object_t[self.nb_map], self.map_collision_t[self.nb_map], self.Length_t[self.nb_map], \
-                self.Width_t[self.nb_map]
-            self.x, self.y = self.x_t[self.nb_map], self.y_t[self.nb_map]
-            self.map_chunk = self.Map_chunk[self.nb_map]
+            self.pressed2[pygame.K_KP_PLUS], self.instance = False, True
+            self.nb_map = (self.nb_map + 1) % len(self.map_object_t)
+            return True
         if self.menu == 0:
             for enemy__ in self.enemy_map:
-                enemy__.enemy_move(self.map_collision, self.Width, self.Length, self.x, self.y, self.near_player)
+                enemy__.enemy_move()
             for projectile in self.player.all_projectiles:
                 projectile.mov()
             if self.onclick:
@@ -181,15 +179,14 @@ class Game:
                     pass
                 # ajouter test bouton iventaire
             else:
-                while not time.time() > self.frame + 1 / 61:
+                while not time.time() > self.frame + 1 / 10000:
                     pass
                 self.frame = time.time()
                 if self.pressed2.get(pygame.K_ESCAPE):
                     self.menu = 2
                 elif self.pressed2.get(pygame.K_SPACE):
                     self.player.launch_projectile()
-                self.x, self.y = self.player.player_move(self.pressed, self.x, self.y, self.map_collision,
-                                                         self.Width, self.Length, self.Settings)
+                self.player.player_move()
                 self.x_t[self.nb_map], self.y_t[self.nb_map] = self.x, self.y
                 self.display.display(self.map_chunk)
                 if self.y // 64 == 31 and 45 <= self.x // 64 <= 50:

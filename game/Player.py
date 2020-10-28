@@ -5,10 +5,10 @@ from game.projectile import Projectile
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, stat, inventory, x, y):
+    def __init__(self, stat, inventory, Game):
         super().__init__()
+        self.Game = Game
         self.mult_crit = 2
-        self.x, self.y = x, y
         self.frame = time.time()
         self.player = pygame.image.load('game/assets/player.png').convert_alpha()
         self.list, self.box, self.direction = [], 0, "down"
@@ -215,27 +215,32 @@ class Player(pygame.sprite.Sprite):
                     self.box = 12
                 self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
 
-    def player_move(self, pressed, x, y, map_collision, width, length, settings):
+    def player_move(self):
         move = False
         direction = []
-        self.x, self.y = x, y
-        if (pressed.get(settings[1]) or pressed.get(settings[5])) and (x + 63) // 64 > 0 and self.collision(
-                map_collision, 0, x, y):
+        if (self.Game.pressed.get(self.Game.Settings[1]) or self.Game.pressed.get(self.Game.Settings[5])) and \
+                (self.Game.pressed.get(self.Game.Settings[0]) or self.Game.pressed.get(self.Game.Settings[4])):
+            pass
+        elif (self.Game.pressed.get(self.Game.Settings[1]) or self.Game.pressed.get(self.Game.Settings[5])) and (
+                self.Game.x + 63) // 64 > 0 and self.collision(0):
             self.direction = "left"
             direction.append("left")
             move = True
-        elif (pressed.get(settings[0]) or pressed.get(settings[4])) and x // 64 < length - 1 and self.collision(
-                map_collision, 1, x, y):
+        elif (self.Game.pressed.get(self.Game.Settings[0]) or self.Game.pressed.get(
+                self.Game.Settings[4])) and self.Game.x // 64 < self.Game.Length - 1 and self.collision(1):
             self.direction = "right"
             direction.append("right")
             move = True
-        if (pressed.get(settings[3]) or pressed.get(settings[7])) and (y + 63) // 64 > 0 and self.collision(
-                map_collision, 2, x, y):
+        if (self.Game.pressed.get(self.Game.Settings[3]) or self.Game.pressed.get(self.Game.Settings[7])) and\
+                (self.Game.pressed.get(self.Game.Settings[2]) or self.Game.pressed.get(self.Game.Settings[6])):
+            pass
+        elif (self.Game.pressed.get(self.Game.Settings[3]) or self.Game.pressed.get(self.Game.Settings[7])) and (
+                self.Game.y + 63) // 64 > 0 and self.collision(2):
             self.direction = "up"
             direction.append("up")
             move = True
-        elif (pressed.get(settings[2]) or pressed.get(settings[6])) and y // 64 < width - 1 and self.collision(
-                map_collision, 3, x, y):
+        elif (self.Game.pressed.get(self.Game.Settings[2]) or self.Game.pressed.get(
+                self.Game.Settings[6])) and self.Game.y // 64 < self.Game.Width - 1 and self.collision(3):
             self.direction = "down"
             direction.append("down")
             move = True
@@ -245,27 +250,26 @@ class Player(pygame.sprite.Sprite):
             velocity = self.velocity
         for d in direction:
             if d == "left":
-                x -= velocity
+                self.Game.x -= velocity
             elif d == "right":
-                x += velocity
+                self.Game.x += velocity
             elif d == "up":
-                y -= velocity
+                self.Game.y -= velocity
             elif d == "down":
-                y += velocity
+                self.Game.y += velocity
         self.move(move)
-        return x, y
 
-    def collision(self, map_collision, d, x, y):
-        l, w = len(map_collision), len(map_collision[0])
+    def collision(self, d):
+        l, w = len(self.Game.map_collision), len(self.Game.map_collision[0])
         x1, y1 = 0, 0
         if d == 0:
-            x1, y1 = x - self.velocity, y
+            x1, y1 = self.Game.x - self.velocity, self.Game.y
         elif d == 1:
-            x1, y1 = x + self.velocity, y
+            x1, y1 = self.Game.x + self.velocity, self.Game.y
         elif d == 2:
-            x1, y1 = x, y - self.velocity
+            x1, y1 = self.Game.x, self.Game.y - self.velocity
         elif d == 3:
-            x1, y1 = x, y + self.velocity
+            x1, y1 = self.Game.x, self.Game.y + self.velocity
 
         x_case, y_case = x1 // 64, y1 // 64
         x_, y_ = x1 % 64, y1 % 64
@@ -275,121 +279,132 @@ class Player(pygame.sprite.Sprite):
             if x_ < 12:
                 # bas case_act
                 # gauche case_act + droite case_act
-                if map_collision[x_case][y_case][2] or map_collision[x_case][y_case][3]:
+                if self.Game.map_collision[x_case][y_case][2] or self.Game.map_collision[x_case][y_case][3]:
                     return False
             elif x_ <= 20:
                 # bas case_act
                 # droite case_act
-                if map_collision[x_case][y_case][3]:
+                if self.Game.map_collision[x_case][y_case][3]:
                     return False
             elif x_ < 44:
                 # bas case_act
                 # droite case_act + gauche case_droite
-                if map_collision[x_case][y_case][3] or map_collision[(x_case + 1) % l][y_case][2]:
+                if self.Game.map_collision[x_case][y_case][3] or self.Game.map_collision[(x_case + 1) % l][y_case][2]:
                     return False
             elif x_ <= 52:
                 # bas case_act
                 # gauche case_droite
-                if map_collision[(x_case + 1) % l][y_case][2]:
+                if self.Game.map_collision[(x_case + 1) % l][y_case][2]:
                     return False
             else:  # x_ < 64
                 # bas case_act
                 # gauche case_droite + droite case_droite
-                if map_collision[(x_case + 1) % l][y_case][2] or map_collision[(x_case + 1) % l][y_case][3]:
+                if self.Game.map_collision[(x_case + 1) % l][y_case][2] or \
+                        self.Game.map_collision[(x_case + 1) % l][y_case][3]:
                     return False
         elif y_ < 32:
             # bas  case_act + haut case_inf
             if x_ < 12:
                 # bas  case_act + haut case_inf
                 # gauche case_act + droite case_act
-                if map_collision[x_case][y_case][2] or map_collision[x_case][y_case][3] or \
-                        map_collision[x_case][(y_case + 1) % w][0] or map_collision[x_case][(y_case + 1) % w][1]:
+                if self.Game.map_collision[x_case][y_case][2] or self.Game.map_collision[x_case][y_case][3] or \
+                        self.Game.map_collision[x_case][(y_case + 1) % w][0] or \
+                        self.Game.map_collision[x_case][(y_case + 1) % w][1]:
                     return False
             elif x_ <= 20:
                 # bas  case_act + haut case_inf
                 # droite case_act
-                if map_collision[x_case][y_case][3] or map_collision[x_case][(y_case + 1) % w][1]:
+                if self.Game.map_collision[x_case][y_case][3] or self.Game.map_collision[x_case][(y_case + 1) % w][1]:
                     return False
             elif x_ < 44:
                 # bas  case_act + haut case_inf
                 # droite case_act + gauche case_droite
-                if map_collision[x_case][y_case][3] or map_collision[(x_case + 1) % l][y_case][2] or \
-                        map_collision[x_case][(y_case + 1) % w][1] or \
-                        map_collision[(x_case + 1) % l][(y_case + 1) % w][0]:
+                if self.Game.map_collision[x_case][y_case][3] or \
+                        self.Game.map_collision[(x_case + 1) % l][y_case][2] or \
+                        self.Game.map_collision[x_case][(y_case + 1) % w][1] or \
+                        self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][0]:
                     return False
             elif x_ <= 52:
                 # bas  case_act + haut case_inf
                 # gauche case_droite
-                if map_collision[(x_case + 1) % l][y_case][2] or map_collision[(x_case + 1) % l][(y_case + 1) % w][0]:
+                if self.Game.map_collision[(x_case + 1) % l][y_case][2] or \
+                        self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][0]:
                     return False
             else:  # x_ < 64
                 # bas  case_act + haut case_inf
                 # gauche case_droite + droite case_droite
-                if map_collision[(x_case + 1) % l][y_case][2] or map_collision[(x_case + 1) % l][y_case][3] or \
-                        map_collision[(x_case + 1) % l][(y_case + 1) % w][0] or \
-                        map_collision[(x_case + 1) % l][(y_case + 1) % w][1]:
+                if self.Game.map_collision[(x_case + 1) % l][y_case][2] or \
+                        self.Game.map_collision[(x_case + 1) % l][y_case][3] or \
+                        self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][0] or \
+                        self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][1]:
                     return False
         elif y_ <= 40:
             # haut case_inf
             if x_ < 12:
                 # haut case_inf
                 # gauche case_act + droite case_act
-                if map_collision[x_case][(y_case + 1) % w][0] or map_collision[x_case][(y_case + 1) % w][1]:
+                if self.Game.map_collision[x_case][(y_case + 1) % w][0] or \
+                        self.Game.map_collision[x_case][(y_case + 1) % w][1]:
                     return False
             elif x_ <= 20:
                 # haut case_inf
                 # droite case_act
-                if map_collision[x_case][(y_case + 1) % w][1]:
+                if self.Game.map_collision[x_case][(y_case + 1) % w][1]:
                     return False
             elif x_ < 44:
                 # haut case_inf
                 # droite case_act + gauche case_droite
-                if map_collision[x_case][(y_case + 1) % w][1] or map_collision[(x_case + 1) % l][(y_case + 1) % w][0]:
+                if self.Game.map_collision[x_case][(y_case + 1) % w][1] or \
+                        self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][0]:
                     return False
             elif x_ <= 52:
                 # haut case_inf
                 # gauche case_droite
-                if map_collision[(x_case + 1) % l][(y_case + 1) % w][0]:
+                if self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][0]:
                     return False
             else:  # x_ < 64
                 # haut case_inf
                 # gauche case_droite + droite case_droite
-                if map_collision[(x_case + 1) % l][(y_case + 1) % w][0] or \
-                        map_collision[(x_case + 1) % l][(y_case + 1) % w][1]:
+                if self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][0] or \
+                        self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][1]:
                     return False
         else:  # y_ < 64
             # haut case_inf + bas case_inf
             if x_ < 12:
                 # haut case_inf + bas case_inf
                 # gauche case_act + droite case_act
-                if map_collision[x_case][(y_case + 1) % w][0] or map_collision[x_case][(y_case + 1) % w][1] or \
-                        map_collision[x_case][(y_case + 1) % w][2] or map_collision[x_case][(y_case + 1) % w][3]:
+                if self.Game.map_collision[x_case][(y_case + 1) % w][0] or \
+                        self.Game.map_collision[x_case][(y_case + 1) % w][1] or \
+                        self.Game.map_collision[x_case][(y_case + 1) % w][2] or \
+                        self.Game.map_collision[x_case][(y_case + 1) % w][3]:
                     return False
             elif x_ <= 20:
                 # haut case_inf + bas case_inf
                 # droite case_act
-                if map_collision[x_case][(y_case + 1) % w][1] or map_collision[x_case][(y_case + 1) % w][3]:
+                if self.Game.map_collision[x_case][(y_case + 1) % w][1] or \
+                        self.Game.map_collision[x_case][(y_case + 1) % w][3]:
                     return False
             elif x_ < 44:
                 # haut case_inf + bas case_inf
                 # droite case_act + gauche case_droite
-                if map_collision[x_case][(y_case + 1) % w][1] or map_collision[(x_case + 1) % l][(y_case + 1) % w][0] or \
-                        map_collision[x_case][(y_case + 1) % w][3] or \
-                        map_collision[(x_case + 1) % l][(y_case + 1) % w][2]:
+                if self.Game.map_collision[x_case][(y_case + 1) % w][1] or \
+                        self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][0] or \
+                        self.Game.map_collision[x_case][(y_case + 1) % w][3] or \
+                        self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][2]:
                     return False
             elif x_ <= 52:
                 # haut case_inf + bas case_inf
                 # gauche case_droite
-                if map_collision[(x_case + 1) % l][(y_case + 1) % w][0] or \
-                        map_collision[(x_case + 1) % l][(y_case + 1) % w][2]:
+                if self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][0] or \
+                        self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][2]:
                     return False
             else:  # x_ < 64
                 # haut case_inf + bas case_inf
                 # gauche case_droite + droite case_droite
-                if map_collision[(x_case + 1) % l][(y_case + 1) % w][0] or \
-                        map_collision[(x_case + 1) % l][(y_case + 1) % w][1] or \
-                        map_collision[(x_case + 1) % l][(y_case + 1) % w][2] or \
-                        map_collision[(x_case + 1) % l][(y_case + 1) % w][3]:
+                if self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][0] or \
+                        self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][1] or \
+                        self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][2] or \
+                        self.Game.map_collision[(x_case + 1) % l][(y_case + 1) % w][3]:
                     return False
         return True
 
