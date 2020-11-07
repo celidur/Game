@@ -1,7 +1,7 @@
 import pygame
 import time
 from game import Armor
-from game.projectile import Projectile
+from game.Projectile import Projectile
 
 
 class Player(pygame.sprite.Sprite):
