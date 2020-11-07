@@ -95,7 +95,7 @@ class Game:
 
     def refresh_near_player(self):
         n_p = [[], [], [], [], [], [], [], [], [], [], [], [], []]
-        x_p, y_p = ((self.x + 32) // 32) * 32 + 16, ((self.y + 32) // 32) * 32 + 16
+        x_p, y_p = ((self.x + 32) // 32) * 32 - 16, ((self.y + 32) // 32) * 32 - 16
         n_p[0].append((x_p, y_p))
         for i in range(12):
             for case in n_p[i]:
@@ -110,20 +110,16 @@ class Game:
                         if placed:
                             continue
 
-                        if (new_case[1] % 64) // 32 == 0:
+                        if ((new_case[1] + 32) % 64) // 32 == 0:
                             n = 0
                         else:
                             n = 2
-                        if (new_case[0] % 64) // 32 == 0:
+                        if ((new_case[0] + 32) % 64) // 32 == 0:
                             pass
                         else:
                             n += 1
-                        if not self.map_collision[new_case[0] // 64][new_case[1] // 64][n]:
+                        if not self.map_collision[(new_case[0] + 32) // 64][(new_case[1] + 32) // 64][n]:
                             n_p[i + 1].append(new_case)
-        # j'ai rien modifier donc il faut pense au "self." pour se qui est en commentaire
-        for layer in range(13):
-            for i in range(len(n_p[layer])):
-                n_p[layer][i] = n_p[layer][i][0] - 32, n_p[layer][i][1] - 32
         return n_p
 
     def loading(self):
