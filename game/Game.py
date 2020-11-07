@@ -36,9 +36,9 @@ class Game:
         self.volume = 0.2
         self.fade = [False, self.volume, 0, 0]  # fade, volume, début, durée
         self.Texts, self.button_exit, self.button_magic, self.button_leave, self.button_inventory, self.button_attack, \
-        self.button_save, self.button_pause, self.button_setting, self.button_attack1, self.button_attack2, \
-        self.button_attack4, self.button_attack3, self.button_back, self.button_magic1, self.button_magic2, \
-        self.button_magic3, self.button_magic4, self.button_confirm, self.button_use, self.enemy = import_language()
+            self.button_save, self.button_pause, self.button_setting, self.button_attack1, self.button_attack2, \
+            self.button_attack4, self.button_attack3, self.button_back, self.button_magic1, self.button_magic2, \
+            self.button_magic3, self.button_magic4, self.button_confirm, self.button_use, self.enemy = import_language()
         self.button_shop = Button.Button((0, 0, 0), None, [615, 702, 32, 32], None, None, 0,
                                          pygame.image.load('game/assets/icons/shop.png'))
         self.button_menu = Button.Button((0, 0, 0), None, [660, 700, 32, 32], None, None, 0,
@@ -126,7 +126,7 @@ class Game:
                 n_p[layer][i] = n_p[layer][i][0] - 32, n_p[layer][i][1] - 32
         return n_p
 
-    def running_game(self):
+    def loading(self):
         while not self.ready:
             v = import_temp()
             if v:
@@ -134,21 +134,8 @@ class Game:
                 asyncio.run(self.prepare_map(False))
             else:
                 asyncio.run(self.prepare_map(True))
-        self.fadeout()
-        # x, y = (3280//64)*64 - 200, (2000//64)*64 - 200
-        if self.instance:
-            self.Map, self.map_object, self.map_collision, self.Length, self.Width = self.Map_t[self.nb_map], \
-                                                                                     self.map_object_t[self.nb_map], \
-                                                                                     self.map_collision_t[self.nb_map], \
-                                                                                     self.Length_t[self.nb_map], \
-                                                                                     self.Width_t[self.nb_map]
-            self.x, self.y = self.x_t[self.nb_map], self.y_t[self.nb_map]
-            self.map_chunk = self.Map_chunk[self.nb_map]
-            self.instance = False
-        x_32_, y_32_ = self.x // 32, self.y // 32
-        if (self.x_32, self.y_32) != (x_32_, y_32_):
-            self.x_32, self.y_32 = x_32_, y_32_
-            self.near_player = self.refresh_near_player()
+
+    def get_pressed(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 if self.menu != 5:
@@ -162,10 +149,27 @@ class Game:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.onclick = True
                 self.pos = pygame.mouse.get_pos()
+
+    def running_game(self):
+        self.fadeout()
+        # x, y = (3280//64)*64 - 200, (2000//64)*64 - 200
+        if self.instance:
+            self.Map, self.map_object, self.Length, self.Width = self.Map_t[self.nb_map], \
+                                                                 self.map_object_t[self.nb_map], \
+                                                                 self.Length_t[self.nb_map], \
+                                                                 self.Width_t[self.nb_map]
+            self.map_collision = self.map_collision_t[self.nb_map]
+            self.x, self.y = self.x_t[self.nb_map], self.y_t[self.nb_map]
+            self.map_chunk = self.Map_chunk[self.nb_map]
+            self.instance = False
+        x_32_, y_32_ = self.x // 32, self.y // 32
+        if (self.x_32, self.y_32) != (x_32_, y_32_):
+            self.x_32, self.y_32 = x_32_, y_32_
+            self.near_player = self.refresh_near_player()
         if self.pressed2.get(pygame.K_KP_PLUS):
             self.pressed2[pygame.K_KP_PLUS], self.instance = False, True
             self.nb_map = (self.nb_map + 1) % len(self.map_object_t)
-            return True
+            return
         if self.menu == 0:
             for enemy__ in self.enemy_map:
                 enemy__.enemy_move()
@@ -178,8 +182,6 @@ class Game:
                     pass
                 # ajouter test bouton iventaire
             else:
-                while not time.time() > self.frame + 1 / 10000:
-                    pass
                 self.frame = time.time()
                 if self.pressed2.get(pygame.K_ESCAPE):
                     self.menu = 2
@@ -187,7 +189,6 @@ class Game:
                     self.player.launch_projectile()
                 self.player.player_move()
                 self.x_t[self.nb_map], self.y_t[self.nb_map] = self.x, self.y
-                self.display.display(self.map_chunk)
                 if self.y // 64 == 31 and 45 <= self.x // 64 <= 50:
                     if self.area != 'plain':
                         if not self.fade[0]:
@@ -216,7 +217,7 @@ class Game:
                     self.menu = 0
                 elif self.button_exit.button_clicked(self.pos[0], self.pos[1]):
                     self.running = False
-                    return False
+                    return
                 elif self.button_save.button_clicked(self.pos[0], self.pos[1]):
                     self.save()
                 elif self.button_setting.button_clicked(self.pos[0], self.pos[1]):
@@ -224,7 +225,6 @@ class Game:
             else:
                 if self.pressed2.get(pygame.K_ESCAPE):
                     self.menu = 0
-                self.display.display(self.map_chunk)
         elif self.menu == 3:  # menu shop
             pass
         elif self.menu == 4:
@@ -355,14 +355,24 @@ class Game:
                         else:
                             self.pos_inventory = (self.pos_inventory[0], 4, 36 // 5 - 4)
                     self.temp = time.time()
-            self.display.display_fight(self.enemy_.get_background(), self.enemy_.get_image(), self.enemy_.get_size(),
-                                       self.enemy_.get_hp(), self.enemy_.get_name(), self.player.get_stats(),
-                                       self.pos_inventory)
+
             pygame.display.flip()
         self.onclick, self.pressed2 = False, {}
         if self.menu != 4:
             self.fight_mode = 0
-        return True
+        return
+
+    def refresh_screen(self):
+        if self.menu == 0:
+            self.display.display()
+        elif self.menu == 1:
+            pass
+        elif self.menu == 2:
+            self.display.display()
+        elif self.menu == 3:
+            pass
+        elif self.menu == 4:
+            self.display.display_fight()
 
     def add_text(self, text, c=True, add=False):
         self.texts = self.texts.split('|')
@@ -381,12 +391,12 @@ class Game:
         else:
             index = 0
         self.enemy_ = Enemy(self.enemy[index])
-        self.texts = '{} sauvage apparaît.|{}'.format(self.enemy_.get_name()[0], self.Texts.select_action)
+        self.texts = '{} sauvage apparaît.|{}'.format(self.enemy_.name(), self.Texts.select_action)
         self.prog = 2
         self.fade = [True, self.volume, time.time(), 3]
 
     def save(self):
-        save_game = [self.player.get_stats(), self.player.get_inventory(), self.Settings, self.x_t, self.y_t, self.area]
+        save_game = [self.player.stats, self.player.inventory, self.Settings, self.x_t, self.y_t, self.area]
         if not os.path.exists('game/save/{}'.format(self.nb_save)):
             os.makedirs('game/save/{}'.format(self.nb_save))
         with open('game/save/{}/save_game_'.format(self.nb_save), 'wb') as file:
@@ -494,15 +504,15 @@ class Game:
 
     def attack_player(self, n, use=True):
         env = 6
-        if self.enemy_.get_name()[1] == self.Texts.plain:
+        if self.enemy_.environment == self.Texts.plain:
             env = 1
-        elif self.enemy_.get_name()[1] == self.Texts.desert:
+        elif self.enemy_.environment == self.Texts.desert:
             env = 2
-        elif self.enemy_.get_name()[1] == self.Texts.snow:
+        elif self.enemy_.environment == self.Texts.snow:
             env = 3
-        elif self.enemy_.get_name()[1] == self.Texts.forest:
+        elif self.enemy_.environment == self.Texts.forest:
             env = 4
-        elif self.enemy_.get_name()[1] == self.Texts.mountain:
+        elif self.enemy_.environment == self.Texts.mountain:
             env = 5
 
         if random.random() != self.player.get_crit()[0] and use:  # <
@@ -511,16 +521,16 @@ class Game:
             crit = 1
         damage = 0
         if n == 1:
-            damage = 7 * crit * (self.player.get_stats()[4] + self.player.get_equipment()[0].get_stat()[0] +
+            damage = 7 * crit * (self.player.attack + self.player.get_equipment()[0].get_stat()[0] +
                                  self.player.get_equipment()[0].get_stat()[env]) / self.enemy_.get_defense()
         elif n == 2:
-            damage = 2 * crit * (self.player.get_stats()[4] + self.player.get_equipment()[0].get_stat()[0] +
+            damage = 2 * crit * (self.player.attack + self.player.get_equipment()[0].get_stat()[0] +
                                  self.player.get_equipment()[0].get_stat()[env]) / self.enemy_.get_defense()
         elif n == 3:
-            damage = 12 * crit * (self.player.get_stats()[4] + self.player.get_equipment()[0].get_stat()[0] +
+            damage = 12 * crit * (self.player.attack + self.player.get_equipment()[0].get_stat()[0] +
                                   self.player.get_equipment()[0].get_stat()[env]) / self.enemy_.get_defense()
         elif n == 4:
-            damage = 7 * crit * ((self.player.get_stats()[4] + self.player.get_equipment()[0].get_stat()[0]) / 2 +
+            damage = 7 * crit * ((self.player.attack + self.player.get_equipment()[0].get_stat()[0]) / 2 +
                                  self.player.get_equipment()[0].get_stat()[env] * 5) / self.enemy_.get_defense()
         if use:
             self.remove_text()
@@ -531,26 +541,26 @@ class Game:
                     self.add_text("Coup critique !", True, True)
                 self.enemy_.change_hp(-int(damage))
                 self.add_text(
-                    "Vous frappez {} de votre épée et lui infligez {} dégats.".format(self.enemy_.get_name()[0],
+                    "Vous frappez {} de votre épée et lui infligez {} dégats.".format(self.enemy_.name(),
                                                                                       int(damage)), True, True)
             elif n == 2:
                 self.remove_text()
                 if crit != 1:
                     self.add_text("Coup critique !", True, True)
                 self.player.change_att_2(int(damage))
-                self.add_text("Vous avez blessé {}. Il saigne.".format(self.enemy_.get_name()[0]), True, True)
+                self.add_text("Vous avez blessé {}. Il saigne.".format(self.enemy_.name()), True, True)
             elif n == 3:
                 self.remove_text()
                 if crit != 1:
                     self.add_text("Coup critique !", True, True)
                 self.enemy_.change_hp(-int(damage))
                 self.player.change_hp(-int(0.25 * damage / crit))
-                self.add_text("Vous chargez {} et lui infligez {} dégats.".format(self.enemy_.get_name()[0],
+                self.add_text("Vous chargez {} et lui infligez {} dégats.".format(self.enemy_.name,
                                                                                   int(damage)), True, True)
                 self.add_text("Vous avez également été blessé par le choc. Vous subissez {} dégats.".format(
                     int(0.25 * damage / crit)), True, True)
             elif n == 4:
-                if self.player.get_stats()[2] < 10:
+                if self.player.mp < 10:
                     self.end_ = False
                     self.add_text("Mana insuffisant." + ' ' + "Sélectionnez un autre sort ou une autre action.")
                     self.fight_mode = 1
@@ -560,7 +570,7 @@ class Game:
                         self.add_text("Coup critique !", True, True)
                     self.enemy_.change_hp(-int(damage))
                     self.add_text("Vous mobilisez votre attaque spéciale pour infliger {} dégats à {}.".format(
-                        int(damage), self.enemy_.get_name()[0]), True, True)
+                        int(damage), self.enemy_.name), True, True)
         else:
             return int(damage)
 
@@ -569,28 +579,28 @@ class Game:
             self.remove_text()
             self.fight_mode = 0
         if n == 1:
-            heal = self.player.change_hp(0.2 * self.player.get_stats()[1], False)
+            heal = self.player.change_hp(0.2 * self.player.hp_max, False)
             if use:
-                if self.player.get_stats()[2] < 10:
+                if self.player.mp < 10:
                     self.end_ = False
                     self.add_text("Mana insuffisant." + ' ' + "Sélectionnez autre action.")
                     self.fight_mode = 2
-                elif self.player.get_stats()[0] == self.player.get_stats()[1]:
+                elif self.player.hp == self.player.hp_max:
                     self.end_ = False
                     self.add_text("Vous avez déjà tous vos PV." + ' ' + "Sélectionnez une autre action.")
                 else:
                     self.remove_text()
                     self.player.change_mp(-10)
-                    self.player.change_hp(0.2 * self.player.get_stats()[1])
-                    if self.player.get_stats()[0] == self.player.get_stats()[1]:
+                    self.player.change_hp(0.2 * self.player.hp_max)
+                    if self.player.hp == self.player.hp_max:
                         self.add_text("PV entièrement régénérés.", True, True)
                     else:
-                        self.add_text("{} PV régénérés.".format(heal - self.player.get_stats()[0]), True, True)
+                        self.add_text("{} PV régénérés.".format(heal - self.player.hp), True, True)
 
             else:
                 return heal
         elif n == 2:
-            if self.player.get_stats()[2] < 10:
+            if self.player.mp < 10:
                 self.end_ = False
                 self.add_text("Mana insuffisant." + ' ' + "Sélectionnez une autre action.")
                 self.fight_mode = 2
@@ -601,7 +611,7 @@ class Game:
                     "Vous formez un bouclier magique de force {} autour de vous pour vous protéger.".format(1.5),
                     True, True)
         elif n == 3:
-            if self.player.get_stats()[2] < 10:
+            if self.player.mp < 10:
                 self.end_ = False
                 self.add_text("Mana insuffisant." + ' ' + "Sélectionnez une autre action.")
                 self.fight_mode = 2
@@ -613,7 +623,7 @@ class Game:
                 if self.player.get_boost_stats()[1][0] == 1.3:
                     self.add_text('Votre défense de base est boostée à son maximum. (×1.3)', True, True)
         elif n == 4:
-            if self.player.get_stats()[2] < 10:
+            if self.player.mp < 10:
                 self.end_ = False
                 self.add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' +
                               "Sélectionnez une autre action.")
@@ -643,9 +653,9 @@ class Game:
         self.player.change_protect()
         v = self.enemy_.chose_attack_enemy()
         if v == 0:
-            hp = self.enemy_.get_hp()[0]
+            hp = self.enemy_.hp
             self.enemy_.attack_enemy(v)
-            self.add_text("L'ennemi se soigne et récupère {} PV.".format(self.enemy_.get_hp()[0] - hp), True, True)
+            self.add_text("L'ennemi se soigne et récupère {} PV.".format(self.enemy_.hp - hp), True, True)
         self.add_text(self.Texts.select_action)
 
     def use_object(self, index_object, use=True):

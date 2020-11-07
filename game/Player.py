@@ -60,6 +60,8 @@ class Player(pygame.sprite.Sprite):
                                  Armor.sword[self.num_sword - 1][4],
                                  Armor.sword[self.num_sword - 1][5],
                                  Armor.sword[self.num_sword - 1][6])
+        self.stats = (self.hp, self.hp_max, self.mp, self.mp_max, self.attack, self.defense, self.level, self.xp,
+                      self.gold, self.num_sword, self.num_armor)
 
     def init(self):
         self.boost_att = [1, 0, 0, 0, 0, 0, 0]
@@ -69,13 +71,6 @@ class Player(pygame.sprite.Sprite):
         self.att_2 = []
         self.boost_att_2 = 0
         self.protect = 1
-
-    def get_inventory(self):
-        return self.inventory
-
-    def get_stats(self):
-        return self.hp, self.hp_max, self.mp, self.mp_max, self.attack, self.defense, self.level, self.xp, self.gold, \
-               self.num_sword, self.num_armor
 
     def change_att_2(self, damage, add=True):
         if add:

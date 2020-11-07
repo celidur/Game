@@ -51,27 +51,12 @@ class Enemy(pygame.sprite.Sprite):
     def get_defense(self):
         return self.defense
 
-    def get_background(self):
-        return self.background
-
-    def get_name(self):
-        return self.name, self.environment
-
-    def get_image(self):
-        return self.image
-
-    def get_hp(self):
-        return self.hp, self.hp_max
-
     def change_hp(self, n):
         self.hp = int(self.hp + n)
         if self.hp < 0:
             self.hp = 0
         elif self.hp > self.hp_max:
             self.hp = self.hp_max
-
-    def get_size(self):
-        return self.size
 
     def change_boost_att(self, n):
         self.boost_att += n

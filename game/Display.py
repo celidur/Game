@@ -5,11 +5,8 @@ import pygame
 class Display:
     def __init__(self, size_window, Game):
         self.Game = Game
-        self.map_chunk = []
         self.list_ = []
         self.size_window = size_window
-        self.ii = 0
-        self.i1 = time.time() + 1
         self.arial = pygame.font.Font("game/font/FRAMDCN.TTF", 20)
         self.dialogue = pygame.font.Font("game/font/rpg_.FON", 16)
         self.colors = {
@@ -33,17 +30,17 @@ class Display:
             self.Game.Screen.blit(self.Game.game_chunk[3],
                                   (0 - self.Game.x + 320 + 1024 * i - 1024, 0 - self.Game.y + 320 + 1024 * j - 1024))
             return 0
-        if i < len(self.map_chunk) and j < len(self.map_chunk[0]):
-            self.Game.Screen.blit(self.map_chunk[i][j],
+        if i < len(self.Game.map_chunk) and j < len(self.Game.map_chunk[0]):
+            self.Game.Screen.blit(self.Game.map_chunk[i][j],
                                   (0 - self.Game.x + 320 + 1024 * i, 0 - self.Game.y + 320 + 1024 * j))
-        if i < len(self.map_chunk) and j - 1 >= 0:
-            self.Game.Screen.blit(self.map_chunk[i][j - 1],
+        if i < len(self.Game.map_chunk) and j - 1 >= 0:
+            self.Game.Screen.blit(self.Game.map_chunk[i][j - 1],
                                   (0 - self.Game.x + 320 + 1024 * i, 0 - self.Game.y + 320 + 1024 * j - 1024))
-        if i - 1 >= 0 and j < len(self.map_chunk[0]):
-            self.Game.Screen.blit(self.map_chunk[i - 1][j],
+        if i - 1 >= 0 and j < len(self.Game.map_chunk[0]):
+            self.Game.Screen.blit(self.Game.map_chunk[i - 1][j],
                                   (0 - self.Game.x + 320 + 1024 * i - 1024, 0 - self.Game.y + 320 + 1024 * j))
         if i - 1 >= 0 and j - 1 >= 0:
-            self.Game.Screen.blit(self.map_chunk[i - 1][j - 1],
+            self.Game.Screen.blit(self.Game.map_chunk[i - 1][j - 1],
                                   (0 - self.Game.x + 320 + 1024 * i - 1024, 0 - self.Game.y + 320 + 1024 * j - 1024))
 
     def display_game(self):
@@ -94,39 +91,33 @@ class Display:
         self.Game.Screen = self.Game.button_save.display_button(self.Game.Screen)
         self.Game.Screen = self.Game.button_exit.display_button(self.Game.Screen)
 
-    def display(self, map_chunk):  # #
-        self.map_chunk = map_chunk
+    def display(self):  # #
         self.display_game()
         if self.Game.menu == 2 or self.Game.menu == 1:
             self.display_pause()
         pygame.display.flip()
-        self.ii += 1
-        if time.time() > self.i1:
-            print("fps : {}".format(self.ii))
-            self.i1 = time.time() + 1
-            self.ii = 0
 
-    def display_fight(self, background, monster, size, hp, name, player_stats, pos_inventory):
+    def display_fight(self):
         if self.Game.fight_mode == -2:
             if not self.Game.game_chunk:
                 r = pygame.Surface((1024, 1024), pygame.SRCALPHA)
                 try:
                     self.Game.game_chunk.append(
-                        self.map_chunk[(self.Game.x + 512) // 1024][(self.Game.y + 512) // 1024].copy())
+                        self.Game.map_chunk[(self.Game.x + 512) // 1024][(self.Game.y + 512) // 1024].copy())
                 except IndexError:
                     self.Game.game_chunk.append(r.copy())
                 try:
                     self.Game.game_chunk.append(
-                        self.map_chunk[(self.Game.x + 512) // 1024][(self.Game.y + 512) // 1024 - 1].copy())
+                        self.Game.map_chunk[(self.Game.x + 512) // 1024][(self.Game.y + 512) // 1024 - 1].copy())
                 except IndexError:
                     self.Game.game_chunk.append(r.copy())
                 try:
                     self.Game.game_chunk.append(
-                        self.map_chunk[(self.Game.x + 512) // 1024 - 1][(self.Game.y + 512) // 1024].copy())
+                        self.Game.map_chunk[(self.Game.x + 512) // 1024 - 1][(self.Game.y + 512) // 1024].copy())
                 except IndexError:
                     self.Game.game_chunk.append(r.copy())
                 try:
-                    self.Game.game_chunk.append(self.map_chunk[(self.Game.x + 512) // 1024 - 1]
+                    self.Game.game_chunk.append(self.Game.map_chunk[(self.Game.x + 512) // 1024 - 1]
                                                 [(self.Game.y + 512) // 1024 - 1].copy())
                 except IndexError:
                     self.Game.game_chunk.append(r.copy())
@@ -145,7 +136,7 @@ class Display:
         if self.Game.fight_mode == -1:
             self.Game.fight_mode = 0
             pygame.time.delay(250)
-            self.Game.Screen.blit(self.Game.enemy_.get_background(), (0, 0))
+            self.Game.Screen.blit(self.Game.enemy_.background(), (0, 0))
             pygame.display.flip()
             pygame.time.delay(500)
             self.Game.Screen.blit(self.Game.enemy_.get_image(), self.Game.enemy_.get_size())
@@ -273,14 +264,17 @@ class Display:
                 (665 - len(str(self.Game.player.get_equipment()[1].get_stat()[4]) + '+') * 8, 670))
             pygame.display.flip()
             pygame.time.delay(250)
-        self.Game.Screen.blit(background, (0, 0))
-        self.Game.Screen.blit(monster, size)
+        self.Game.Screen.blit(self.Game.enemy_.background(), (0, 0))
+        self.Game.Screen.blit(self.Game.enemy_.image, self.Game.enemy_.size)
         self.Game.Screen.blit(
-            self.arial.render("{} : {}/{}  {} : {}/{}".format(self.Game.Texts.hp, player_stats[0], player_stats[1],
-                                                              self.Game.Texts.mp, player_stats[2], player_stats[3]),
+            self.arial.render("{} : {}/{}  {} : {}/{}".format(self.Game.Texts.hp, self.Game.player.hp,
+                                                              self.Game.player.hp_max, self.Game.Texts.mp,
+                                                              self.Game.player.mp, self.Game.player.mp_max),
                               False, (255, 255, 255)), (430, 357))
-        self.Game.Screen.blit(self.arial.render(name[0], False, self.colors[name[1]]), (65, 357))
-        self.Game.Screen.blit(self.arial.render("{}/{}".format(hp[0], hp[1]), False, (255, 255, 255)), (215, 357))
+        self.Game.Screen.blit(self.arial.render(self.Game.enemy_.name, False,
+                                                self.colors[self.Game.enemy_.environment]), (65, 357))
+        self.Game.Screen.blit(self.arial.render("{}/{}".format(self.Game.enemy_.hp, self.Game.enemy_.hp_max), False,
+                                                (255, 255, 255)), (215, 357))
         if self.Game.fight_mode == 0 or self.Game.fight_mode == 4:
             self.Game.Screen = self.Game.button_attack.display_button(self.Game.Screen)
             self.Game.Screen = self.Game.button_magic.display_button(self.Game.Screen)
@@ -391,7 +385,7 @@ class Display:
                                  415,
                                  'FRAMDCN.TTF', 15, 0, (255, 255, 255), 270, False)
         elif self.Game.fight_mode == 3:
-            x, y, scroll = pos_inventory
+            x, y, scroll = self.Game.po
             self.Game.Screen.blit(pygame.image.load('game/assets/inventory/set_cases_fight_0.png'), (270, 420))
             for line in range(5):
                 for colone in range(5):
