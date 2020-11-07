@@ -2,7 +2,57 @@ import os
 import pickle
 from game.Variable2 import *
 import pygame
-from game.Player import Player
+import time
+
+
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.mult_crit = 2
+        self.frame = time.time()
+        self.player = pygame.image.load('game/assets/player.png').convert_alpha()
+        self.list, self.box, self.direction = [], 0, "down"
+        for i in range(4):
+            for j in range(4):
+                self.list.append([i * 64, j * 64])
+        self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
+        self.rect = self.image.get_rect()
+        self.velocity = 5
+
+    def box_change(self, n1):
+        if self.box > n1 + 4:
+            self.box = n1 + 1
+        elif self.box < n1:
+            self.box = n1 + 1
+
+    def move(self, move=True):
+        if time.time() > self.frame:
+            self.box += 1
+            self.frame = time.time() + 0.1
+            if self.direction == 'down':
+                if move:
+                    self.box_change(-1)
+                else:
+                    self.box = 0
+                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
+            elif self.direction == 'left':
+                if move:
+                    self.box_change(3)
+                else:
+                    self.box = 4
+                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
+            elif self.direction == 'up':
+                if move:
+                    self.box_change(7)
+                else:
+                    self.box = 8
+                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
+            elif self.direction == 'right':
+                if move:
+                    self.box_change(11)
+                else:
+                    self.box = 12
+                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
 
 
 def import_map():
@@ -51,7 +101,7 @@ Screen = pygame.display.set_mode((image_size_length * 64, 11 * 64 + 30))
 x, y, layer, velocity, pressed, x1, y1, x2, y2 = 38 * 64, 31 * 64, 0, 8, {}, -1, -1, -1, -1
 arial_font, a, x_input, y_input, layer_input = pygame.font.SysFont("arial", 14), False, False, False, False
 velocity_input, b_input, user_input_value = False, False, ""
-player = Player([0] * 11, [[0], [0] * 36, [0]], 0, 0)
+player = Player()
 
 
 def save():
@@ -181,20 +231,24 @@ def Keyboard_pressed(Pressed):
     move = False
     if Pressed.get(pygame.K_DOWN) and y // 64 < Width - 1:
         y += velocity
-        player.move("down")
+        player.direction = "down"
+        player.move()
         move = True
     elif Pressed.get(pygame.K_UP) and (y + 63) // 64 > 0:
         y -= velocity
-        player.move("up")
+        player.direction = "up"
+        player.move()
         move = True
     if Pressed.get(pygame.K_RIGHT) and x // 64 < Length - 1:
         x += velocity
         if not move:
-            player.move("right")
+            player.direction = "right"
+        player.move()
     elif Pressed.get(pygame.K_LEFT) and (x + 63) // 64 > 0:
         x -= velocity
         if not move:
-            player.move("left")
+            player.direction = "left"
+        player.move()
     elif not move:
         player.move(False)
     if a:
