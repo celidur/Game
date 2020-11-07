@@ -4,8 +4,10 @@ import time
 from game.Variable import *
 from game.Display import Display
 from game.Enemy import Enemy
-# from game.Ennemy2 import Ennemy2
+from game.Ennemy2 import Ennemy2
 from game.Player import Player
+from operator import itemgetter
+from game.Object import Object
 
 
 class Game:
@@ -46,7 +48,18 @@ class Game:
         self.Map, self.map_object, self.map_collision, self.Length, self.Width = [], [], [], 0, 0
         self.display = Display(size_window, self)
         self.frame = 0
+        self.entities = []
+        for x in range(len(self.map_object_t[self.nb_map])):
+            for y in range(len(self.map_object_t[self.nb_map][0])):
+                a = self.map_object_t[self.nb_map][x][y]
+                if a in self.block2:
+                    a = block2[a]
+                    self.entities.append((x * 64, y * 64, Object(self, x * 64 + a[1], y * 64 + a[2], a[0])))
         self.fight_mode = 0
+        self.enemy_map = []
+        for i in range(1):
+            self.enemy_map.append(Ennemy2(self, 3060, 2236))
+            self.entities.append((self.enemy_map[i].x, self.enemy_map[i].y, self.enemy_map[i]))
         self.enemy_ = Enemy(self.enemy[0])
         self.change = True
         self.debut_combat = True
@@ -70,9 +83,9 @@ class Game:
                             (35, 20), (40, 0), (35, -20), (20, -35)]
         self.font_ = pygame.font.Font("game/font/FRAMDCN.TTF", 16)
         self.progress = 0
-        self.enemy_map = []
         self.near_player = [[], [], [], [], [], [], [], [], [], [], [], [], []]
         self.x_32, self.y_32 = 0, 0
+        self.refresh_entities = True
 
     def check_save(self):
         return self.check
@@ -168,7 +181,10 @@ class Game:
             return
         if self.menu == 0:
             for enemy__ in self.enemy_map:
+                self.entities.remove((enemy__.x, enemy__.y, enemy__))
                 enemy__.enemy_move()
+                self.entities.append((enemy__.x, enemy__.y, enemy__))
+                self.refresh_entities = True
             for projectile in self.player.all_projectiles:
                 projectile.mov()
             if self.onclick:
@@ -359,6 +375,9 @@ class Game:
         return
 
     def refresh_screen(self):
+        if self.refresh_entities:
+            for key in [0, 1]:
+                self.entities.sort(key=itemgetter(key))
         if self.menu == 0:
             self.display.display()
         elif self.menu == 1:
@@ -369,6 +388,7 @@ class Game:
             pass
         elif self.menu == 4:
             self.display.display_fight()
+        self.refresh_entities = False
 
     def add_text(self, text, c=True, add=False):
         self.texts = self.texts.split('|')

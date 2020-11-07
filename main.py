@@ -43,7 +43,7 @@ async def main_sec():
     t2 = asyncio.create_task(display())
     t3 = asyncio.create_task(pressed())
     await asyncio.gather(t1, t2, t3)
-    print(nb_frame_game, nb_frame_display)
+    print(nb_frame_display)
     time_start_sec, nb_frame_game, nb_frame_display = time.time(), 0, 0
 
 

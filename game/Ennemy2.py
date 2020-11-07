@@ -171,11 +171,11 @@ class Ennemy2(pygame.sprite.Sprite):
             elif d == "down":
                 self.y += velocity
         self.move(move)
-        print(self.b)
+        """print(self.b)
         print('player :', self.Game.x, self.Game.y)
         print('enemy :', self.x, self.y)
         print(go_to)
-        print()
+        print()"""
 
     def collision(self, d):
         l, w = len(self.Game.map_collision), len(self.Game.map_collision[0])

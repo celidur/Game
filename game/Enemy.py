@@ -72,20 +72,6 @@ class Enemy(pygame.sprite.Sprite):
         elif self.boost_def > 1.3:
             self.boost_def = 1.3
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     #  kk
     def change_boost_proba_crtit_enemy(self, n):
         if n:
