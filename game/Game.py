@@ -36,9 +36,9 @@ class Game:
         self.volume = 0.2
         self.fade = [False, self.volume, 0, 0]  # fade, volume, début, durée
         self.Texts, self.button_exit, self.button_magic, self.button_leave, self.button_inventory, self.button_attack, \
-            self.button_save, self.button_pause, self.button_setting, self.button_attack1, self.button_attack2, \
-            self.button_attack4, self.button_attack3, self.button_back, self.button_magic1, self.button_magic2, \
-            self.button_magic3, self.button_magic4, self.button_confirm, self.button_use, self.enemy = import_language()
+        self.button_save, self.button_pause, self.button_setting, self.button_attack1, self.button_attack2, \
+        self.button_attack4, self.button_attack3, self.button_back, self.button_magic1, self.button_magic2, \
+        self.button_magic3, self.button_magic4, self.button_confirm, self.button_use, self.enemy = import_language()
         self.button_shop = Button.Button((0, 0, 0), None, [615, 702, 32, 32], None, None, 0,
                                          pygame.image.load('game/assets/icons/shop.png'))
         self.button_menu = Button.Button((0, 0, 0), None, [660, 700, 32, 32], None, None, 0,
@@ -105,14 +105,11 @@ class Game:
                             continue
                         new_case = (case[0] + a, case[1] + b)
                         placed = False
-                        for layer in n_p:
-                            if placed:
-                                break
-                            if new_case in layer:
-                                placed = True
-                                break
+                        if new_case in n_p[i - 1] or new_case in n_p[i] or new_case in n_p[i + 1]:
+                            placed = True
                         if placed:
                             continue
+
                         if (new_case[1] % 64) // 32 == 0:
                             n = 0
                         else:
@@ -124,9 +121,9 @@ class Game:
                         if not self.map_collision[new_case[0] // 64][new_case[1] // 64][n]:
                             n_p[i + 1].append(new_case)
         # j'ai rien modifier donc il faut pense au "self." pour se qui est en commentaire
-        # for layer in range(len(n_p)):
-        #    for i in range(len(n_p[layer])):
-        #        n_p[layer][i] = n_p[layer][i][0] - 32, n_p[layer][i][1] - 32
+        for layer in range(13):
+            for i in range(len(n_p[layer])):
+                n_p[layer][i] = n_p[layer][i][0] - 32, n_p[layer][i][1] - 32
         return n_p
 
     def running_game(self):
@@ -141,8 +138,10 @@ class Game:
         # x, y = (3280//64)*64 - 200, (2000//64)*64 - 200
         if self.instance:
             self.Map, self.map_object, self.map_collision, self.Length, self.Width = self.Map_t[self.nb_map], \
-                self.map_object_t[self.nb_map], self.map_collision_t[self.nb_map], self.Length_t[self.nb_map], \
-                self.Width_t[self.nb_map]
+                                                                                     self.map_object_t[self.nb_map], \
+                                                                                     self.map_collision_t[self.nb_map], \
+                                                                                     self.Length_t[self.nb_map], \
+                                                                                     self.Width_t[self.nb_map]
             self.x, self.y = self.x_t[self.nb_map], self.y_t[self.nb_map]
             self.map_chunk = self.Map_chunk[self.nb_map]
             self.instance = False
