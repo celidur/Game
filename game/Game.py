@@ -8,6 +8,7 @@ from game.Ennemy2 import Ennemy2
 from game.Player import Player
 from operator import itemgetter
 from game.Object import Object
+from game.Chest import Chest
 
 
 class Game:
@@ -15,6 +16,7 @@ class Game:
         self.Screen = Screen
         self.block2 = block2
         self.block = block
+        self.Chest = [Chest(self,0,0,5)]
         self.nb_save = nb_save
         self._ = import_save(nb_save)
         self.nb_map = 0
@@ -41,9 +43,9 @@ class Game:
             self.button_save, self.button_pause, self.button_setting, self.button_attack1, self.button_attack2, \
             self.button_attack4, self.button_attack3, self.button_back, self.button_magic1, self.button_magic2, \
             self.button_magic3, self.button_magic4, self.button_confirm, self.button_use, self.enemy = import_language()
-        self.button_shop = Button.Button((0, 0, 0), None, [615, 702, 32, 32], None, None, 0,
+        self.button_shop = Button.Button((0, 0, 0), None, [615, 734, 32, 32], None, None, 0,
                                          pygame.image.load('game/assets/icons/shop.png'))
-        self.button_menu = Button.Button((0, 0, 0), None, [660, 700, 32, 32], None, None, 0,
+        self.button_menu = Button.Button((0, 0, 0), None, [660, 732, 32, 32], None, None, 0,
                                          pygame.image.load('game/assets/icons/menu.png'))
         self.Map, self.map_object, self.map_collision, self.Length, self.Width = [], [], [], 0, 0
         self.display = Display(size_window, self)
@@ -58,7 +60,7 @@ class Game:
         self.fight_mode = 0
         self.enemy_map = []
         for i in range(1):
-            self.enemy_map.append(Ennemy2(self, 3060, 2236))
+            self.enemy_map.append(Ennemy2(self, 3060, 2236, 'deer', mob['deer']))
             self.entities.append((self.enemy_map[i].x, self.enemy_map[i].y, self.enemy_map[i]))
         self.enemy_ = Enemy(self.enemy[0])
         self.change = True
@@ -69,6 +71,7 @@ class Game:
         self.prog = 1
         self.nb_case = 0
         self.end_ = True
+        self.nb_chest = 0
         self.instance = True
         self.game_chunk = []
         self.list_coord = []
@@ -179,7 +182,7 @@ class Game:
             self.pressed2[pygame.K_KP_PLUS], self.instance = False, True
             self.nb_map = (self.nb_map + 1) % len(self.map_object_t)
             return
-        if self.menu == 0:
+        if self.menu == 0 or self.menu == 1:
             for enemy__ in self.enemy_map:
                 self.entities.remove((enemy__.x, enemy__.y, enemy__))
                 enemy__.enemy_move()
@@ -187,6 +190,7 @@ class Game:
                 self.refresh_entities = True
             for projectile in self.player.all_projectiles:
                 projectile.mov()
+        if self.menu == 0:
             if self.onclick:
                 if self.button_menu.button_clicked(self.pos[0], self.pos[1]):
                     self.menu = 2
@@ -197,8 +201,10 @@ class Game:
                 self.frame = time.time()
                 if self.pressed2.get(pygame.K_ESCAPE):
                     self.menu = 2
-                elif self.pressed2.get(pygame.K_SPACE):
+                if self.pressed2.get(pygame.K_SPACE):
                     self.player.launch_projectile()
+                if self.pressed2.get(pygame.K_e):
+                    self.menu = 1
                 self.player.player_move()
                 self.x_t[self.nb_map], self.y_t[self.nb_map] = self.x, self.y
                 if self.y // 64 == 31 and 45 <= self.x // 64 <= 50:
@@ -222,7 +228,8 @@ class Game:
                         self.debut_combat = True
                         self.fight_mode = -2
         elif self.menu == 1:
-            pass  # mode inventaire
+            if self.pressed2.get(pygame.K_ESCAPE):
+                self.menu = 0
         elif self.menu == 2:  # mode pause
             if self.onclick:
                 if self.button_pause.button_clicked(self.pos[0], self.pos[1]):
@@ -318,8 +325,6 @@ class Game:
             if self.debut_combat:
                 self.init_fight()
                 self.debut_combat = False
-            while not time.time() > self.frame + 1 / 61:
-                pass
             self.frame = time.time()
             if self.fight_mode == 3:
                 if ((self.pressed.get(self.Settings[0]) or self.pressed.get(self.Settings[4])) and
@@ -381,7 +386,7 @@ class Game:
         if self.menu == 0:
             self.display.display()
         elif self.menu == 1:
-            pass
+            self.display.display()
         elif self.menu == 2:
             self.display.display()
         elif self.menu == 3:
@@ -407,7 +412,7 @@ class Game:
         else:
             index = 0
         self.enemy_ = Enemy(self.enemy[index])
-        self.texts = '{} sauvage apparaît.|{}'.format(self.enemy_.name(), self.Texts.select_action)
+        self.texts = '{} sauvage apparaît.|{}'.format(self.enemy_.name, self.Texts.select_action)
         self.prog = 2
         self.fade = [True, self.volume, time.time(), 3]
 

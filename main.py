@@ -47,10 +47,10 @@ async def main_sec():
     time_start_sec, nb_frame_game, nb_frame_display = time.time(), 0, 0
 
 
-size_window = [704, 736]
+size_window = [1024, 768]
 pygame.init()
 pygame.display.set_caption("Game")
-Screen = pygame.display.set_mode((size_window[0], size_window[1]))
+Screen = pygame.display.set_mode((size_window[0], size_window[1]), pygame.FULLSCREEN, pygame.HWSURFACE)
 menu = 2
 save = 1
 Game_ = Game.Game(save, Screen, size_window)
@@ -64,6 +64,7 @@ while Game_.running:
         if Game_.ready:
             menu = 1
             Game_.running_game()
+            pygame.display.get_surface()
         else:
             Game_.loading()
 Game_.save()

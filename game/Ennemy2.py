@@ -5,17 +5,20 @@ import pygame
 
 
 class Ennemy2(pygame.sprite.Sprite):
-    def __init__(self, Game, x, y):
+    def __init__(self, Game, x, y, image, dimension):
         super().__init__()
         self.Game = Game
+        self.dimension_x = dimension[0]
+        self.dimension_y = dimension[1]
         self.mult_crit = 2
         self.frame = time.time()
-        self.player = pygame.image.load('game/assets/player.png').convert_alpha()
+        self.player = pygame.image.load('game/assets/{}.png'.format(image)).convert_alpha()
         self.list, self.box, self.direction = [], 0, "down"
         for i in range(4):
             for j in range(4):
-                self.list.append([i * 64, j * 64])
-        self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
+                self.list.append([i * self.dimension_y, j * self.dimension_x])
+        self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
+                                            self.dimension_y)
         self.rect = self.image.get_rect()
         self.velocity = 3
         self.x, self.y = x, y
@@ -42,25 +45,29 @@ class Ennemy2(pygame.sprite.Sprite):
                     self.box_change(-1)
                 else:
                     self.box = 0
-                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
+                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
+                                                    self.dimension_y)
             elif self.direction == 'left':
                 if move:
                     self.box_change(3)
                 else:
                     self.box = 4
-                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
+                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
+                                                    self.dimension_y)
             elif self.direction == 'up':
                 if move:
                     self.box_change(7)
                 else:
                     self.box = 8
-                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
+                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
+                                                    self.dimension_y)
             elif self.direction == 'right':
                 if move:
                     self.box_change(11)
                 else:
                     self.box = 12
-                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
+                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
+                                                    self.dimension_y)
 
     def enemy_move(self):
         self.last_direction = []

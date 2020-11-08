@@ -314,3 +314,9 @@ music = {
     'plain': 'game/sound/speice.wav',
     'combat': 'game/sound/synthey.wav'
 }
+mob = {
+    'boar': (48, 48),
+    'player': (64, 64),
+    'deer': (48, 56),
+    'fallen': (48, 48)
+}

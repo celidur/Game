@@ -26,18 +26,18 @@ class Projectile(pygame.sprite.Sprite):
         else:
             self.rect.x = 350
             self.rect.y = 350
-        self.x = self.rect.x - 320 + player.x
-        self.y = self.rect.y - 320 + player.y
+        self.x = self.rect.x - 320 + player.Game.x
+        self.y = self.rect.y - 320 + player.Game.y
         self.x_y = (self.x, self.y)
 
     def mov(self):
         if self.direction == 'right' or self.direction == 'left':
             self.x += self.velocity
-            self.rect.y = self.y - self.player.y + 320
-            self.rect.x = self.x - self.player.x + 320
+            self.rect.y = self.y - self.player.Game.y + 320
+            self.rect.x = self.x - self.player.Game.x + 320
         else:
             self.y += self.velocity
-            self.rect.x = self.x - self.player.x + 320
-            self.rect.y = self.y - self.player.y + 320
+            self.rect.x = self.x - self.player.Game.x + 320
+            self.rect.y = self.y - self.player.Game.y + 320
         if not(-64*20 < self.x - self.x_y[0] < 64*20 and -64*20 < self.y - self.x_y[1] < 64*20):
             self.player.all_projectiles.remove(self)
