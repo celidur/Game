@@ -10,7 +10,7 @@ class Player(pygame.sprite.Sprite):
         self.Game = Game
         self.mult_crit = 2
         self.frame = time.time()
-        self.player = pygame.image.load('game/assets/player.png').convert_alpha()
+        self.player = pygame.image.load('game/assets/mobs/player.png').convert_alpha()
         self.list, self.box, self.direction = [], 0, "down"
         for i in range(4):
             for j in range(4):

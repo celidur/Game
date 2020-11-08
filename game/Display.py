@@ -78,6 +78,7 @@ class Display:
         s = pygame.Surface((328*2, 232*2), pygame.SRCALPHA)
         s.fill((7, 0, 0, 120))
         self.Game.Screen.blit(s, (23, 160))
+        self.Game.Screen.blit(pygame.image.load('game/assets/inventory/set_cases_chest.png'), (70, 220))
 
     def display(self):  # #
         self.display_game()
@@ -376,7 +377,7 @@ class Display:
                                  'FRAMDCN.TTF', 15, 0, (255, 255, 255), 270, False)
         elif self.Game.fight_mode == 3:
             x, y, scroll = self.Game.pos_inventory
-            self.Game.Screen.blit(pygame.image.load('game/assets/inventory/set_cases_fight_0.png'), (270, 420))
+            self.Game.Screen.blit(pygame.image.load('game/assets/inventory/set_cases_fight.png'), (270, 420))
             for line in range(5):
                 for colone in range(5):
                     if [x, y] == [colone, line]:

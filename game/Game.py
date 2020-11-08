@@ -60,7 +60,8 @@ class Game:
         self.fight_mode = 0
         self.enemy_map = []
         for i in range(1):
-            self.enemy_map.append(Ennemy2(self, 3060, 2236, 'deer', mob['deer']))
+            tag = 'player'
+            self.enemy_map.append(Ennemy2(self, 3060, 2236, tag, mob[tag]))
             self.entities.append((self.enemy_map[i].x, self.enemy_map[i].y, self.enemy_map[i]))
         self.enemy_ = Enemy(self.enemy[0])
         self.change = True
