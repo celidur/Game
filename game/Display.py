@@ -22,28 +22,29 @@ class Display:
         i = (self.Game.x + 512) // 1024
         j = (self.Game.y + 512) // 1024
         image = []
-        if fight:
+        """if fight:
             image.append(
-                (self.Game.game_chunk[0], (0 - self.Game.x + 320 + 1024 * i, 0 - self.Game.y + 320 + 1024 * j)))
+                (self.Game.game_chunk[0], (0 - self.Game.x + 512 + 1024 * i, 0 - self.Game.y + 320 + 1024 * j)))
             image.append(
-                (self.Game.game_chunk[1], (0 - self.Game.x + 320 + 1024 * i, 0 - self.Game.y + 320 + 1024 * j - 1024)))
+                (self.Game.game_chunk[1], (0 - self.Game.x + 512 + 1024 * i, 0 - self.Game.y + 320 + 1024 * j - 1024)))
             image.append(
-                (self.Game.game_chunk[2], (0 - self.Game.x + 320 + 1024 * i - 1024, 0 - self.Game.y + 320 + 1024 * j)))
+                (self.Game.game_chunk[2], (0 - self.Game.x + 512 + 1024 * i - 1024, 0 - self.Game.y + 320 + 1024 * j)))
             image.append((self.Game.game_chunk[3],
-                          (0 - self.Game.x + 320 + 1024 * i - 1024, 0 - self.Game.y + 320 + 1024 * j - 1024)))
-            return 0
-        if i < len(self.Game.map_chunk) and j < len(self.Game.map_chunk[0]):
-            image.append((self.Game.map_chunk[i][j],
-                          (0 - self.Game.x + 320 + 1024 * i, 0 - self.Game.y + 320 + 1024 * j)))
-        if i < len(self.Game.map_chunk) and j - 1 >= 0:
-            image.append((self.Game.map_chunk[i][j - 1],
-                          (0 - self.Game.x + 320 + 1024 * i, 0 - self.Game.y + 320 + 1024 * j - 1024)))
-        if i - 1 >= 0 and j < len(self.Game.map_chunk[0]):
-            image.append((self.Game.map_chunk[i - 1][j],
-                          (0 - self.Game.x + 320 + 1024 * i - 1024, 0 - self.Game.y + 320 + 1024 * j)))
-        if i - 1 >= 0 and j - 1 >= 0:
-            image.append((self.Game.map_chunk[i - 1][j - 1],
-                          (0 - self.Game.x + 320 + 1024 * i - 1024, 0 - self.Game.y + 320 + 1024 * j - 1024)))
+                          (0 - self.Game.x + 512 + 1024 * i - 1024, 0 - self.Game.y + 320 + 1024 * j - 1024)))
+            return 0"""
+
+        image.append((self.Game.map_chunk[i - 1][j - 1],
+                          (0 - self.Game.x + 480 + 1024 * i - 1024, 0 - self.Game.y + 352 + 1024 * j - 1024)))
+        image.append((self.Game.map_chunk[i][j - 1],
+                          (0 - self.Game.x + 480 + 1024 * i, 0 - self.Game.y + 352 + 1024 * j - 1024)))
+        image.append((self.Game.map_chunk[(i + 1) % len(self.Game.map_chunk)][j - 1],
+                          (0 - self.Game.x + 480 + 1024 * i + 1024, 0 - self.Game.y + 352 + 1024 * j - 1024)))
+        image.append((self.Game.map_chunk[i - 1][j],
+                          (0 - self.Game.x + 480 + 1024 * i - 1024, 0 - self.Game.y + 352 + 1024 * j)))
+        image.append((self.Game.map_chunk[i][j],
+                          (0 - self.Game.x + 480 + 1024 * i, 0 - self.Game.y + 352 + 1024 * j)))
+        image.append((self.Game.map_chunk[(i + 1) % len(self.Game.map_chunk)][j],
+                          (0 - self.Game.x + 480 + 1024 * i + 1024, 0 - self.Game.y + 352 + 1024 * j)))
         return image
 
     def display_game(self):
@@ -52,14 +53,25 @@ class Display:
         self.object = self.display_chunks()
         for i in self.Game.entities:
             if (i[1] == self.Game.y and i[0] >= self.Game.x or i[1] > self.Game.y) and not placed:
-                self.object.append((self.Game.player.image, (320, 320)))
+                self.object.append((self.Game.player.image, (480, 352)))
                 placed = True
-            self.object.append((i[2].image, (i[2].x - self.Game.x + 320, i[2].y - self.Game.y + 320)))
+            self.object.append((i[2].image, (i[2].x - self.Game.x + 480, i[2].y - self.Game.y + 352)))
         if not placed:
-            self.object.append((self.Game.player.image, (320, 320)))
+            self.object.append((self.Game.player.image, (480, 352)))
         self.Game.Screen.blits(self.object)
         """self.Game.player.all_projectiles.draw(self.Game.Screen)"""
-        pygame.draw.rect(self.Game.Screen, (0, 255, 0), [704, 0, 1024, 768])
+        for i in self.Game.entities:
+            for j in range(len(i[2].rects)):
+                s = pygame.Surface((i[2].rects[j].w, i[2].rects[j].h), pygame.SRCALPHA)
+                s.fill((0, 0, 0, 150))
+                self.Game.Screen.blit(s, (i[2].rects[j].x - self.Game.x + 480, i[2].rects[j].y -
+                                                               self.Game.y + 352))
+        s = pygame.Surface((self.Game.player.rects[0].w, self.Game.player.rects[0].h), pygame.SRCALPHA)
+        s.fill((0, 0, 0, 150))
+        self.Game.Screen.blit(s, (self.Game.player.rects[0].x - self.Game.x + 480, self.Game.player.rects[0].y -
+                                  self.Game.y + 352))
+        if self.Game.display_inventory:
+            self.Game.Screen.blit(pygame.image.load('game/assets/inventory/inventory_menu.png'), (704, 0))
         if self.Game.menu == 0:
             if self.Game.area == 'village':
                 self.Game.Screen = self.Game.button_shop.display_button(self.Game.Screen)
@@ -75,10 +87,7 @@ class Display:
         self.Game.Screen = self.Game.button_exit.display_button(self.Game.Screen)
 
     def display_chest(self):
-        s = pygame.Surface((328*2, 232*2), pygame.SRCALPHA)
-        s.fill((7, 0, 0, 120))
-        self.Game.Screen.blit(s, (23, 160))
-        self.Game.Screen.blit(pygame.image.load('game/assets/inventory/set_cases_chest.png'), (70, 220))
+        self.Game.Screen.blit(pygame.image.load('game/assets/inventory/chest_menu.png'), (144, 240))
 
     def display(self):  # #
         self.display_game()
@@ -153,10 +162,10 @@ class Display:
             pygame.display.flip()
             pygame.time.delay(250)
             self.Game.Screen.blit(self.Game.display.arial.render(
-                "{} : {}/{}  {} : {}/{}".format(self.Game.Texts.hp, self.Game.player.hp,
-                                                self.Game.player.hp_max,
-                                                self.Game.Texts.mp, self.Game.player.mp,
-                                                self.Game.player.mp_max),
+                "{} : {}/{}  {} : {}/{}".format(self.Game.Texts.hp, self.Game.image_full.hp,
+                                                self.Game.image_full.hp_max,
+                                                self.Game.Texts.mp, self.Game.image_full.mp,
+                                                self.Game.image_full.mp_max),
                 False,
                 (255, 255, 255)), (430, 357))
             pygame.display.flip()
@@ -173,94 +182,94 @@ class Display:
             self.Game.Screen.blit(self.Game.display.arial.render("Base", False, (255, 255, 255)), (430, 480))
             self.Game.Screen.blit(
                 self.Game.display.arial.render(
-                    str(self.Game.player.attack + self.Game.player.sword.get_stat()[0]), False,
-                    (255, 255, 255)), (585 - len(str(self.Game.player.attack +
-                                                     self.Game.player.sword.get_stat()[0])) * 8, 480))
+                    str(self.Game.image_full.attack + self.Game.image_full.sword.get_stat()[0]), False,
+                    (255, 255, 255)), (585 - len(str(self.Game.image_full.attack +
+                                                     self.Game.image_full.sword.get_stat()[0])) * 8, 480))
             self.Game.Screen.blit(
                 self.Game.display.arial.render(
-                    str(self.Game.player.defense + self.Game.player.armor.get_stat()[0]), False,
-                    (255, 255, 255)), (665 - len(str(self.Game.player.defense +
-                                                     self.Game.player.armor.get_stat()[0])) * 8, 480))
+                    str(self.Game.image_full.defense + self.Game.image_full.armor.get_stat()[0]), False,
+                    (255, 255, 255)), (665 - len(str(self.Game.image_full.defense +
+                                                     self.Game.image_full.armor.get_stat()[0])) * 8, 480))
             pygame.display.flip()
             pygame.time.delay(100)
             self.Game.Screen.blit(self.Game.display.arial.render(self.Game.Texts.plain, False, (68, 255, 0)),
                                   (430, 520))
             self.Game.Screen.blit(
-                self.Game.display.arial.render('+' + str(self.Game.player.sword.get_stat()[1]), False,
+                self.Game.display.arial.render('+' + str(self.Game.image_full.sword.get_stat()[1]), False,
                                                (255, 255, 255)),
-                (585 - len(str(self.Game.player.sword.get_stat()[6]) + '+') * 8, 520))
+                (585 - len(str(self.Game.image_full.sword.get_stat()[6]) + '+') * 8, 520))
             self.Game.Screen.blit(
-                self.Game.display.arial.render('+' + str(self.Game.player.armor.get_stat()[1]), False,
+                self.Game.display.arial.render('+' + str(self.Game.image_full.armor.get_stat()[1]), False,
                                                (255, 255, 255)),
-                (665 - len(str(self.Game.player.armor.get_stat()[6]) + '+') * 8, 520))
+                (665 - len(str(self.Game.image_full.armor.get_stat()[6]) + '+') * 8, 520))
             pygame.display.flip()
             pygame.time.delay(100)
             self.Game.Screen.blit(self.Game.display.arial.render(self.Game.Texts.desert, False, (249, 210, 39)),
                                   (430, 550))
             self.Game.Screen.blit(
-                self.Game.display.arial.render('+' + str(self.Game.player.sword.get_stat()[2]), False,
+                self.Game.display.arial.render('+' + str(self.Game.image_full.sword.get_stat()[2]), False,
                                                (255, 255, 255)),
-                (585 - len(str(self.Game.player.sword.get_stat()[2]) + '+') * 8, 550))
+                (585 - len(str(self.Game.image_full.sword.get_stat()[2]) + '+') * 8, 550))
             self.Game.Screen.blit(
-                self.Game.display.arial.render('+' + str(self.Game.player.armor.get_stat()[2]), False,
+                self.Game.display.arial.render('+' + str(self.Game.image_full.armor.get_stat()[2]), False,
                                                (255, 255, 255)),
-                (665 - len(str(self.Game.player.armor.get_stat()[2]) + '+') * 8, 550))
+                (665 - len(str(self.Game.image_full.armor.get_stat()[2]) + '+') * 8, 550))
             pygame.display.flip()
             pygame.time.delay(100)
             self.Game.Screen.blit(self.Game.display.arial.render(self.Game.Texts.snow, False, (152, 249, 219)),
                                   (430, 580))
             self.Game.Screen.blit(
-                self.Game.display.arial.render('+' + str(self.Game.player.sword.get_stat()[3]), False,
+                self.Game.display.arial.render('+' + str(self.Game.image_full.sword.get_stat()[3]), False,
                                                (255, 255, 255)),
-                (585 - len(str(self.Game.player.sword.get_stat()[1]) + '+') * 8, 580))
+                (585 - len(str(self.Game.image_full.sword.get_stat()[1]) + '+') * 8, 580))
             self.Game.Screen.blit(
-                self.Game.display.arial.render('+' + str(self.Game.player.armor.get_stat()[3]), False,
+                self.Game.display.arial.render('+' + str(self.Game.image_full.armor.get_stat()[3]), False,
                                                (255, 255, 255)),
-                (665 - len(str(self.Game.player.armor.get_stat()[1]) + '+') * 8, 580))
+                (665 - len(str(self.Game.image_full.armor.get_stat()[1]) + '+') * 8, 580))
             pygame.display.flip()
             pygame.time.delay(100)
             self.Game.Screen.blit(self.Game.display.arial.render(self.Game.Texts.forest, False, (11, 109, 13)),
                                   (430, 610))
             self.Game.Screen.blit(
-                self.Game.display.arial.render('+' + str(self.Game.player.sword.get_stat()[4]), False,
+                self.Game.display.arial.render('+' + str(self.Game.image_full.sword.get_stat()[4]), False,
                                                (255, 255, 255)),
-                (585 - len(str(self.Game.player.sword.get_stat()[3]) + '+') * 8, 610))
+                (585 - len(str(self.Game.image_full.sword.get_stat()[3]) + '+') * 8, 610))
             self.Game.Screen.blit(
-                self.Game.display.arial.render('+' + str(self.Game.player.armor.get_stat()[4]), False,
+                self.Game.display.arial.render('+' + str(self.Game.image_full.armor.get_stat()[4]), False,
                                                (255, 255, 255)),
-                (665 - len(str(self.Game.player.armor.get_stat()[3]) + '+') * 8, 610))
+                (665 - len(str(self.Game.image_full.armor.get_stat()[3]) + '+') * 8, 610))
             pygame.display.flip()
             pygame.time.delay(100)
             self.Game.Screen.blit(self.Game.display.arial.render(self.Game.Texts.mountain, False, (123, 95, 62)),
                                   (430, 640))
             self.Game.Screen.blit(
-                self.Game.display.arial.render('+' + str(self.Game.player.sword.get_stat()[5]), False,
+                self.Game.display.arial.render('+' + str(self.Game.image_full.sword.get_stat()[5]), False,
                                                (255, 255, 255)),
-                (585 - len(str(self.Game.player.sword.get_stat()[5]) + '+') * 8, 640))
+                (585 - len(str(self.Game.image_full.sword.get_stat()[5]) + '+') * 8, 640))
             self.Game.Screen.blit(
-                self.Game.display.arial.render('+' + str(self.Game.player.armor.get_stat()[5]), False,
+                self.Game.display.arial.render('+' + str(self.Game.image_full.armor.get_stat()[5]), False,
                                                (255, 255, 255)),
-                (665 - len(str(self.Game.player.armor.get_stat()[5]) + '+') * 8, 640))
+                (665 - len(str(self.Game.image_full.armor.get_stat()[5]) + '+') * 8, 640))
             pygame.display.flip()
             pygame.time.delay(100)
             self.Game.Screen.blit(self.Game.display.arial.render(self.Game.Texts.volcano, False, (163, 41, 18)),
                                   (430, 670))
             self.Game.Screen.blit(
-                self.Game.display.arial.render('+' + str(self.Game.player.sword.get_stat()[6]), False,
+                self.Game.display.arial.render('+' + str(self.Game.image_full.sword.get_stat()[6]), False,
                                                (255, 255, 255)),
-                (585 - len(str(self.Game.player.sword.get_stat()[4]) + '+') * 8, 670))
+                (585 - len(str(self.Game.image_full.sword.get_stat()[4]) + '+') * 8, 670))
             self.Game.Screen.blit(
-                self.Game.display.arial.render('+' + str(self.Game.player.armor.get_stat()[6]), False,
+                self.Game.display.arial.render('+' + str(self.Game.image_full.armor.get_stat()[6]), False,
                                                (255, 255, 255)),
-                (665 - len(str(self.Game.player.armor.get_stat()[4]) + '+') * 8, 670))
+                (665 - len(str(self.Game.image_full.armor.get_stat()[4]) + '+') * 8, 670))
             pygame.display.flip()
             pygame.time.delay(250)
         self.Game.Screen.blit(self.Game.enemy_.background, (0, 0))
         self.Game.Screen.blit(self.Game.enemy_.image, self.Game.enemy_.size)
         self.Game.Screen.blit(
-            self.arial.render("{} : {}/{}  {} : {}/{}".format(self.Game.Texts.hp, self.Game.player.hp,
-                                                              self.Game.player.hp_max, self.Game.Texts.mp,
-                                                              self.Game.player.mp, self.Game.player.mp_max),
+            self.arial.render("{} : {}/{}  {} : {}/{}".format(self.Game.Texts.hp, self.Game.image_full.hp,
+                                                              self.Game.image_full.hp_max, self.Game.Texts.mp,
+                                                              self.Game.image_full.mp, self.Game.image_full.mp_max),
                               False, (255, 255, 255)), (430, 357))
         self.Game.Screen.blit(self.arial.render(self.Game.enemy_.name, False,
                                                 self.colors[self.Game.enemy_.environment]), (65, 357))
@@ -279,73 +288,73 @@ class Display:
             self.Game.Screen.blit(self.arial.render("Base", False, (255, 255, 255)), (430, 480))
             self.Game.Screen.blit(
                 self.arial.render(
-                    str(self.Game.player.attack + self.Game.player.sword.get_stat()[0]), False,
+                    str(self.Game.image_full.attack + self.Game.image_full.sword.get_stat()[0]), False,
                     (255, 255, 255)),
                 (
                     585 - len(
-                        str(self.Game.player.attack + self.Game.player.sword.get_stat()[0])) * 8,
+                        str(self.Game.image_full.attack + self.Game.image_full.sword.get_stat()[0])) * 8,
                     480))
             self.Game.Screen.blit(
                 self.arial.render(
-                    str(self.Game.player.defense + self.Game.player.armor.get_stat()[0]), False,
+                    str(self.Game.image_full.defense + self.Game.image_full.armor.get_stat()[0]), False,
                     (255, 255, 255)),
                 (
                     665 - len(
-                        str(self.Game.player.defense + self.Game.player.armor.get_stat()[0])) * 8,
+                        str(self.Game.image_full.defense + self.Game.image_full.armor.get_stat()[0])) * 8,
                     480))
             # plaine
             self.Game.Screen.blit(self.arial.render(self.Game.Texts.plain, False, (68, 255, 0)), (430, 520))
             self.Game.Screen.blit(
-                self.arial.render('+' + str(self.Game.player.sword.get_stat()[1]), False, (255, 255, 255)),
-                (585 - len(str(self.Game.player.sword.get_stat()[6]) + '+') * 8, 520))
+                self.arial.render('+' + str(self.Game.image_full.sword.get_stat()[1]), False, (255, 255, 255)),
+                (585 - len(str(self.Game.image_full.sword.get_stat()[6]) + '+') * 8, 520))
             self.Game.Screen.blit(
-                self.arial.render('+' + str(self.Game.player.armor.get_stat()[1]), False, (255, 255, 255)),
-                (665 - len(str(self.Game.player.armor.get_stat()[6]) + '+') * 8, 520))
+                self.arial.render('+' + str(self.Game.image_full.armor.get_stat()[1]), False, (255, 255, 255)),
+                (665 - len(str(self.Game.image_full.armor.get_stat()[6]) + '+') * 8, 520))
 
             # désert
             self.Game.Screen.blit(self.arial.render(self.Game.Texts.desert, False, (249, 210, 39)), (430, 550))
             self.Game.Screen.blit(
-                self.arial.render('+' + str(self.Game.player.sword.get_stat()[2]), False, (255, 255, 255)),
-                (585 - len(str(self.Game.player.sword.get_stat()[2]) + '+') * 8, 550))
+                self.arial.render('+' + str(self.Game.image_full.sword.get_stat()[2]), False, (255, 255, 255)),
+                (585 - len(str(self.Game.image_full.sword.get_stat()[2]) + '+') * 8, 550))
             self.Game.Screen.blit(
-                self.arial.render('+' + str(self.Game.player.armor.get_stat()[2]), False, (255, 255, 255)),
-                (665 - len(str(self.Game.player.armor.get_stat()[2]) + '+') * 8, 550))
+                self.arial.render('+' + str(self.Game.image_full.armor.get_stat()[2]), False, (255, 255, 255)),
+                (665 - len(str(self.Game.image_full.armor.get_stat()[2]) + '+') * 8, 550))
 
             # neige
             self.Game.Screen.blit(self.arial.render(self.Game.Texts.snow, False, (152, 249, 219)), (430, 580))
             self.Game.Screen.blit(
-                self.arial.render('+' + str(self.Game.player.sword.get_stat()[3]), False, (255, 255, 255)),
-                (585 - len(str(self.Game.player.sword.get_stat()[1]) + '+') * 8, 580))
+                self.arial.render('+' + str(self.Game.image_full.sword.get_stat()[3]), False, (255, 255, 255)),
+                (585 - len(str(self.Game.image_full.sword.get_stat()[1]) + '+') * 8, 580))
             self.Game.Screen.blit(
-                self.arial.render('+' + str(self.Game.player.armor.get_stat()[3]), False, (255, 255, 255)),
-                (665 - len(str(self.Game.player.armor.get_stat()[1]) + '+') * 8, 580))
+                self.arial.render('+' + str(self.Game.image_full.armor.get_stat()[3]), False, (255, 255, 255)),
+                (665 - len(str(self.Game.image_full.armor.get_stat()[1]) + '+') * 8, 580))
 
             # forêt
             self.Game.Screen.blit(self.arial.render(self.Game.Texts.forest, False, (11, 109, 13)), (430, 610))
             self.Game.Screen.blit(
-                self.arial.render('+' + str(self.Game.player.sword.get_stat()[4]), False, (255, 255, 255)),
-                (585 - len(str(self.Game.player.sword.get_stat()[3]) + '+') * 8, 610))
+                self.arial.render('+' + str(self.Game.image_full.sword.get_stat()[4]), False, (255, 255, 255)),
+                (585 - len(str(self.Game.image_full.sword.get_stat()[3]) + '+') * 8, 610))
             self.Game.Screen.blit(
-                self.arial.render('+' + str(self.Game.player.armor.get_stat()[4]), False, (255, 255, 255)),
-                (665 - len(str(self.Game.player.armor.get_stat()[3]) + '+') * 8, 610))
+                self.arial.render('+' + str(self.Game.image_full.armor.get_stat()[4]), False, (255, 255, 255)),
+                (665 - len(str(self.Game.image_full.armor.get_stat()[3]) + '+') * 8, 610))
 
             # montagne
             self.Game.Screen.blit(self.arial.render(self.Game.Texts.mountain, False, (123, 95, 62)), (430, 640))
             self.Game.Screen.blit(
-                self.arial.render('+' + str(self.Game.player.sword.get_stat()[5]), False, (255, 255, 255)),
-                (585 - len(str(self.Game.player.sword.get_stat()[5]) + '+') * 8, 640))
+                self.arial.render('+' + str(self.Game.image_full.sword.get_stat()[5]), False, (255, 255, 255)),
+                (585 - len(str(self.Game.image_full.sword.get_stat()[5]) + '+') * 8, 640))
             self.Game.Screen.blit(
-                self.arial.render('+' + str(self.Game.player.armor.get_stat()[5]), False, (255, 255, 255)),
-                (665 - len(str(self.Game.player.armor.get_stat()[5]) + '+') * 8, 640))
+                self.arial.render('+' + str(self.Game.image_full.armor.get_stat()[5]), False, (255, 255, 255)),
+                (665 - len(str(self.Game.image_full.armor.get_stat()[5]) + '+') * 8, 640))
 
             # volcan
             self.Game.Screen.blit(self.arial.render(self.Game.Texts.volcano, False, (163, 41, 18)), (430, 670))
             self.Game.Screen.blit(
-                self.arial.render('+' + str(self.Game.player.sword.get_stat()[6]), False, (255, 255, 255)),
-                (585 - len(str(self.Game.player.sword.get_stat()[4]) + '+') * 8, 670))
+                self.arial.render('+' + str(self.Game.image_full.sword.get_stat()[6]), False, (255, 255, 255)),
+                (585 - len(str(self.Game.image_full.sword.get_stat()[4]) + '+') * 8, 670))
             self.Game.Screen.blit(
-                self.arial.render('+' + str(self.Game.player.armor.get_stat()[6]), False, (255, 255, 255)),
-                (665 - len(str(self.Game.player.armor.get_stat()[4]) + '+') * 8, 670))
+                self.arial.render('+' + str(self.Game.image_full.armor.get_stat()[6]), False, (255, 255, 255)),
+                (665 - len(str(self.Game.image_full.armor.get_stat()[4]) + '+') * 8, 670))
         elif self.Game.fight_mode == 1:
             self.Game.Screen = self.Game.button_attack1.display_button(self.Game.Screen)
             self.Game.Screen = self.Game.button_attack2.display_button(self.Game.Screen)
@@ -372,7 +381,7 @@ class Display:
             self.Game.Screen = self.Game.button_back.display_button(self.Game.Screen)
             Display.display_text(self,
                                  self.Game.Texts.description_magic.format(
-                                     self.Game.magic_player(1, False) - self.Game.player.hp, 10, 12), 400,
+                                     self.Game.magic_player(1, False) - self.Game.image_full.hp, 10, 12), 400,
                                  415,
                                  'FRAMDCN.TTF', 15, 0, (255, 255, 255), 270, False)
         elif self.Game.fight_mode == 3:
@@ -388,7 +397,7 @@ class Display:
                             pygame.image.load('game/assets/inventory/potions/{}.png'.format(
                                 str(((line + scroll) * 5 + colone) % 25))),
                             (274 + colone * 50, 424 + line * 50))
-                        if self.Game.player.inventory[1][(line + scroll) * 5 + colone] == 0:
+                        if self.Game.image_full.inventory[1][(line + scroll) * 5 + colone] == 0:
                             self.Game.Screen.blit(pygame.image.load('game/assets/inventory/black.png'),
                                                   (270 + colone * 50, 420 + line * 50))
                     else:
@@ -404,11 +413,11 @@ class Display:
                                  'FRAMDCN.TTF',
                                  16, 0, (255, 255, 255), 120, False)
             Display.display_text(self, "{} : {}||{}".format(
-                self.Game.Texts.quantity, self.Game.player.inventory[1][(y + scroll) * 5 + x],
+                self.Game.Texts.quantity, self.Game.image_full.inventory[1][(y + scroll) * 5 + x],
                 self.Game.use_object((y + scroll) * 5 + x, False)), 520, 450, 'FRAMDCN.TTF', 16, 0,
                                  (255, 255, 255), 160, False)
             self.Game.Screen = self.Game.button_back.display_button(self.Game.Screen, 280, 670, 'center')
-            if self.Game.player.inventory[1][(y + scroll) * 5 + x] > 0:
+            if self.Game.image_full.inventory[1][(y + scroll) * 5 + x] > 0:
                 self.Game.Screen = self.Game.button_use.display_button(self.Game.Screen)
                 self.Game.use_obj = True
             else:

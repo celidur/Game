@@ -285,28 +285,29 @@ block = {
     "cliff_cr": cliff.subsurface(0, 64, 64, 64),
 }
 block2 = {
-    'tree': [pygame.image.load("game/assets/tree/Tree.png"), -55, -150],
-    'tree2': [pygame.image.load("game/assets/temp/tree.png"), -190, -280],  # "assets/tree/Tree2.png"
-    'tree0': [pygame.image.load("game/assets/tree/Tree_r.png"), -55, -150],
-    'h1': [pygame.image.load("game/assets/house/house1.png"), -95, -265],
-    'church': [pygame.image.load("game/assets/house/church.png"), -128, -390],
-    'h2': [pygame.image.load("game/assets/house/house2.png"), -96, -205],
-    'h3': [pygame.image.load("game/assets/house/house3.png"), -95, -285],
-    "locker": [pygame.image.load("game/assets/casier.png"), -16, 16],
-    "fence_0": [fence.subsurface(64, 128, 64, 64), 0, 0],
-    "fence_1": [fence.subsurface(64, 0, 64, 64), 0, 0],
-    "fence_2": [fence.subsurface(192, 0, 64, 64), 0, 0],
-    "fence_3": [fence.subsurface(256, 0, 64, 64), 0, 0],
-    "fence_l": [fence.subsurface(0, 64, 64, 64), 0, 0],
-    "fence_l2": [fence.subsurface(256, 128, 64, 64), 0, 0],
-    "fence_l3": [fence.subsurface(192, 128, 64, 64), 0, 0],
-    "fence_ld": [fence.subsurface(0, 128, 64, 64), 0, 0],
-    "fence_lu": [fence.subsurface(0, 0, 64, 64), 0, 0],
-    "fence_r": [fence.subsurface(128, 64, 64, 64), 0, 0],
-    "fence_r2": [fence.subsurface(256, 64, 64, 64), 0, 0],
-    "fence_r3": [fence.subsurface(192, 64, 64, 64), 0, 0],
-    "fence_rd": [fence.subsurface(128, 128, 64, 64), 0, 0],
-    "fence_ru": [fence.subsurface(128, 0, 64, 64), 0, 0],
+    'tree': [pygame.image.load("game/assets/tree/Tree.png"), -55, -150, [[0, 0]], [[128, 128]]],#
+    'tree2': [pygame.image.load("game/assets/temp/tree.png"), -190, -280, [[0, 0]], [[128, 128]]], # "assets/tree/Tree2.png"#
+    'tree0': [pygame.image.load("game/assets/tree/Tree_r.png"), -55, -150, [[0, 0]], [[128, 128]]],#
+    'h1_l': [pygame.image.load("game/assets/house/house1.png"), -95, -265, [[20, 164]], [[216, 160]]],
+    'h1': [pygame.image.load("game/assets/house/house1.png"), -95, -265, [[20, 164], [156, 164], [20, 164]], [[82, 160], [82, 160],[218, 128]]],
+    'church': [pygame.image.load("game/assets/house/church.png"), -128, -390, [[0, 0]], [[128, 128]]],#
+    'h2': [pygame.image.load("game/assets/house/house2.png"), -96, -205, [[20, 100]], [[216, 160]]],
+    'h3': [pygame.image.load("game/assets/house/house3.png"), -95, -285, [[20, 164]], [[216, 160]]],
+    "locker": [pygame.image.load("game/assets/casier.png"), -16, 16, [[16, 0]], [[32, 64]]],#
+    "fence_0": [fence.subsurface(64, 128, 64, 64), 0, 0, [[0, 0]], [[128, 128]]],#
+    "fence_1": [fence.subsurface(64, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
+    "fence_2": [fence.subsurface(192, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
+    "fence_3": [fence.subsurface(256, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
+    "fence_l": [fence.subsurface(0, 64, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
+    "fence_l2": [fence.subsurface(256, 128, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
+    "fence_l3": [fence.subsurface(192, 128, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
+    "fence_ld": [fence.subsurface(0, 128, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
+    "fence_lu": [fence.subsurface(0, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
+    "fence_r": [fence.subsurface(128, 64, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
+    "fence_r2": [fence.subsurface(256, 64, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
+    "fence_r3": [fence.subsurface(192, 64, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
+    "fence_rd": [fence.subsurface(128, 128, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
+    "fence_ru": [fence.subsurface(128, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
 }
 
 music = {

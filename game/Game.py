@@ -16,11 +16,12 @@ class Game:
         self.Screen = Screen
         self.block2 = block2
         self.block = block
-        self.Chest = [Chest(self,0,0,5)]
+        self.Chest = [Chest(self, 0, 0, 5)]
         self.nb_save = nb_save
         self._ = import_save(nb_save)
         self.nb_map = 0
         self.check = True
+        self.display_inventory = False
         self.Map_t, self.map_object_t, self.map_collision_t, self.Length_t, self.Width_t = import_map()
         if self._:
             self.x_t, self.y_t, self.menu, self.temp = self._[3], self._[4], 0, time.time()
@@ -56,7 +57,7 @@ class Game:
                 a = self.map_object_t[self.nb_map][x][y]
                 if a in self.block2:
                     a = block2[a]
-                    self.entities.append((x * 64, y * 64, Object(self, x * 64 + a[1], y * 64 + a[2], a[0])))
+                    self.entities.append((x * 64, y * 64, Object(self, x * 64 + a[1], y * 64 + a[2], a[0], a[3], a[4])))
         self.fight_mode = 0
         self.enemy_map = []
         for i in range(1):
@@ -175,10 +176,10 @@ class Game:
             self.x, self.y = self.x_t[self.nb_map], self.y_t[self.nb_map]
             self.map_chunk = self.Map_chunk[self.nb_map]
             self.instance = False
-        x_32_, y_32_ = self.x // 32, self.y // 32
+        """x_32_, y_32_ = self.x // 32, self.y // 32
         if (self.x_32, self.y_32) != (x_32_, y_32_):
             self.x_32, self.y_32 = x_32_, y_32_
-            self.near_player = self.refresh_near_player()
+            self.near_player = self.refresh_near_player()"""
         if self.pressed2.get(pygame.K_KP_PLUS):
             self.pressed2[pygame.K_KP_PLUS], self.instance = False, True
             self.nb_map = (self.nb_map + 1) % len(self.map_object_t)
@@ -206,6 +207,8 @@ class Game:
                     self.player.launch_projectile()
                 if self.pressed2.get(pygame.K_e):
                     self.menu = 1
+                if self.pressed2.get(pygame.K_a):
+                    self.display_inventory = not self.display_inventory
                 self.player.player_move()
                 self.x_t[self.nb_map], self.y_t[self.nb_map] = self.x, self.y
                 if self.y // 64 == 31 and 45 <= self.x // 64 <= 50:

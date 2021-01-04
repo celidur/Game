@@ -12,13 +12,13 @@ class Ennemy2(pygame.sprite.Sprite):
         self.dimension_y = dimension[1]
         self.mult_crit = 2
         self.frame = time.time()
-        self.player = pygame.image.load('game/assets/mobs/{}.png'.format(image)).convert_alpha()
+        self.image_full = pygame.image.load('game/assets/mobs/{}.png'.format(image)).convert_alpha()
         self.list, self.box, self.direction = [], 0, "down"
         for i in range(4):
             for j in range(4):
                 self.list.append([i * self.dimension_y, j * self.dimension_x])
-        self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
-                                            self.dimension_y)
+        self.image = self.image_full.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
+                                                self.dimension_y)
         self.rect = self.image.get_rect()
         self.velocity = 3
         self.x, self.y = x, y
@@ -29,6 +29,7 @@ class Ennemy2(pygame.sprite.Sprite):
         self.go_to = None
         self.blocked_x = False
         self.blocked_y = False
+        self.rects = [pygame.Rect(self.x + 24, self.y + 38, 16, 16)]
 
     def box_change(self, n1):
         if self.box > n1 + 4:
@@ -45,29 +46,29 @@ class Ennemy2(pygame.sprite.Sprite):
                     self.box_change(-1)
                 else:
                     self.box = 0
-                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
-                                                    self.dimension_y)
+                self.image = self.image_full.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
+                                                        self.dimension_y)
             elif self.direction == 'left':
                 if move:
                     self.box_change(3)
                 else:
                     self.box = 4
-                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
-                                                    self.dimension_y)
+                self.image = self.image_full.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
+                                                        self.dimension_y)
             elif self.direction == 'up':
                 if move:
                     self.box_change(7)
                 else:
                     self.box = 8
-                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
-                                                    self.dimension_y)
+                self.image = self.image_full.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
+                                                        self.dimension_y)
             elif self.direction == 'right':
                 if move:
                     self.box_change(11)
                 else:
                     self.box = 12
-                self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
-                                                    self.dimension_y)
+                self.image = self.image_full.subsurface(self.list[self.box][1], self.list[self.box][0], self.dimension_x,
+                                                        self.dimension_y)
 
     def enemy_move(self):
         self.last_direction = []
@@ -171,18 +172,24 @@ class Ennemy2(pygame.sprite.Sprite):
         for d in self.last_direction:
             if d == "left":
                 self.x -= velocity
+                self.rect.x -= velocity
             elif d == "right":
                 self.x += velocity
+                self.rect.x += velocity
             elif d == "up":
                 self.y -= velocity
+                self.rect.y -= velocity
             elif d == "down":
                 self.y += velocity
+                self.rect.y += velocity
         self.move(move)
         """print(self.b)
         print('player :', self.Game.x, self.Game.y)
         print('enemy :', self.x, self.y)
         print(go_to)
         print()"""
+
+        self.rects = [pygame.Rect(self.x + 24, self.y + 38, 16, 16)]
 
     def collision(self, d):
         l, w = len(self.Game.map_collision), len(self.Game.map_collision[0])
