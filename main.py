@@ -50,7 +50,7 @@ async def main_sec():
 size_window = [1024, 768]
 pygame.init()
 pygame.display.set_caption("Game")
-Screen = pygame.display.set_mode((size_window[0], size_window[1]), pygame.FULLSCREEN, pygame.HWSURFACE)
+Screen = pygame.display.set_mode((size_window[0], size_window[1]), pygame.FULLSCREEN | pygame.HWSURFACE)
 menu = 2
 save = 1
 Game_ = Game.Game(save, Screen, size_window)

@@ -1,7 +1,7 @@
 import asyncio
 import random
 import time
-from game.Variable import *
+
 from game.Display import Display
 from game.Enemy import Enemy
 from game.Ennemy2 import Ennemy2
@@ -9,6 +9,7 @@ from game.Player import Player
 from operator import itemgetter
 from game.Object import Object
 from game.Chest import Chest
+from game.Variable import *
 
 
 class Game:
@@ -22,7 +23,7 @@ class Game:
         self.nb_map = 0
         self.check = True
         self.display_inventory = False
-        self.Map_t, self.map_object_t, self.map_collision_t, self.Length_t, self.Width_t = import_map()
+        self.Map_t, self.map_object_t, self.Length_t, self.Width_t = import_map()
         if self._:
             self.x_t, self.y_t, self.menu, self.temp = self._[3], self._[4], 0, time.time()
             self.Settings = self._[2]
@@ -48,7 +49,7 @@ class Game:
                                          pygame.image.load('game/assets/icons/shop.png'))
         self.button_menu = Button.Button((0, 0, 0), None, [660, 732, 32, 32], None, None, 0,
                                          pygame.image.load('game/assets/icons/menu.png'))
-        self.Map, self.map_object, self.map_collision, self.Length, self.Width = [], [], [], 0, 0
+        self.Map, self.map_object, self.Length, self.Width = [], [], 0, 0
         self.display = Display(size_window, self)
         self.frame = 0
         self.entities = []
@@ -111,35 +112,6 @@ class Game:
             else:
                 pygame.mixer_music.set_volume(vol)
 
-    def refresh_near_player(self):
-        n_p = [[], [], [], [], [], [], [], [], [], [], [], [], []]
-        x_p, y_p = ((self.x + 32) // 32) * 32 - 16, ((self.y + 32) // 32) * 32 - 16
-        n_p[0].append((x_p, y_p))
-        for i in range(12):
-            for case in n_p[i]:
-                for a in [-32, 0, 32]:
-                    for b in [-32, 0, 32]:
-                        if (a, b) == (0, 0):
-                            continue
-                        new_case = (case[0] + a, case[1] + b)
-                        placed = False
-                        if new_case in n_p[i - 1] or new_case in n_p[i] or new_case in n_p[i + 1]:
-                            placed = True
-                        if placed:
-                            continue
-
-                        if ((new_case[1] + 32) % 64) // 32 == 0:
-                            n = 0
-                        else:
-                            n = 2
-                        if ((new_case[0] + 32) % 64) // 32 == 0:
-                            pass
-                        else:
-                            n += 1
-                        if not self.map_collision[(new_case[0] + 32) // 64][(new_case[1] + 32) // 64][n]:
-                            n_p[i + 1].append(new_case)
-        return n_p
-
     def loading(self):
         while not self.ready:
             v = import_temp()
@@ -172,7 +144,6 @@ class Game:
                                                                  self.map_object_t[self.nb_map], \
                                                                  self.Length_t[self.nb_map], \
                                                                  self.Width_t[self.nb_map]
-            self.map_collision = self.map_collision_t[self.nb_map]
             self.x, self.y = self.x_t[self.nb_map], self.y_t[self.nb_map]
             self.map_chunk = self.Map_chunk[self.nb_map]
             self.instance = False

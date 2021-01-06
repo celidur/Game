@@ -1,8 +1,6 @@
 import os
 import pickle
-
 import pygame
-
 from game import Button
 
 
@@ -10,7 +8,7 @@ def import_map():
     with open('game/file/map.txt', 'rb') as file:
         file = pickle.Unpickler(file)
         map1 = file.load()
-    return map1[0][0], map1[0][1], map1[0][2], map1[1][0], map1[1][1]
+    return map1[0][0], map1[0][1], map1[1][0], map1[1][1]
 
 
 Texts = None
