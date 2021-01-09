@@ -3,7 +3,7 @@ import random
 import time
 
 from game.Display import Display
-from game.Ennemy2 import Ennemy2
+from game.Enemy import Enemy
 from game.Player import Player
 from operator import itemgetter
 from game.Object import Object
@@ -59,8 +59,9 @@ class Game:
         self.enemy_map = []
         for i in range(1):
             tag = 'player'
-            self.enemy_map.append(Ennemy2(self, 3060, 2236, tag, mob[tag]))
+            self.enemy_map.append(Enemy(self, 3060, 2236, tag, mob[tag]))
             self.entities.append((self.enemy_map[i].x, self.enemy_map[i].y, self.enemy_map[i]))
+        self.entities.append((self.x, self.y, self.player))
         self.change = True
         self.debut_combat = True
         self.texts = ''
@@ -146,7 +147,7 @@ class Game:
                 self.entities.remove((enemy__.x, enemy__.y, enemy__))
                 enemy__.enemy_move()
                 self.entities.append((enemy__.x, enemy__.y, enemy__))
-                self.refresh_entities = True
+            self.refresh_entities = True
             for projectile in self.player.all_projectiles:
                 projectile.mov()
         if self.menu == 0:
@@ -166,7 +167,9 @@ class Game:
                     self.menu = 1
                 if self.pressed2.get(pygame.K_a):
                     self.display_inventory = not self.display_inventory
+                self.entities.remove((self.x, self.y, self.player))
                 self.player.player_move()
+                self.entities.append((self.x, self.y, self.player))
                 self.x_t[self.nb_map], self.y_t[self.nb_map] = self.x, self.y
                 if self.y // 64 == 31 and 45 <= self.x // 64 <= 50:
                     if self.area != 'plain':
@@ -178,7 +181,6 @@ class Game:
                         if not self.fade[0]:
                             self.fade = [True, self.volume, time.time(), 1]
                         self.area = 'village'
-                        self.nb_case = 0
                 if (self.x // 64 != self.x_y_generation[0] or self.y // 64 != self.x_y_generation[1]) and \
                         self.area == 'plain':
                     self.x_y_generation = (self.x // 64, self.y // 64)

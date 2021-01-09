@@ -4,7 +4,7 @@ import time
 import pygame
 
 
-class Ennemy2(pygame.sprite.Sprite):
+class Enemy(pygame.sprite.Sprite):
     def __init__(self, Game, x, y, image, dimension):
         super().__init__()
         self.Game = Game
@@ -31,10 +31,8 @@ class Ennemy2(pygame.sprite.Sprite):
         self.blocked_y = False
         self.rects = [pygame.Rect(self.x + 24, self.y + 38, 16, 16)]
 
-    def box_change(self, n1):
-        if self.box > n1 + 4:
-            self.box = n1 + 1
-        elif self.box < n1:
+    def reset_box(self, n1):
+        if not n1 <= self.box <= n1 + 4:
             self.box = n1 + 1
 
     def move(self, move=True):
@@ -43,7 +41,7 @@ class Ennemy2(pygame.sprite.Sprite):
             self.frame = time.time() + 0.075
             if self.direction == 'down':
                 if move:
-                    self.box_change(-1)
+                    self.reset_box(-1)
                 else:
                     self.box = 0
                 self.image = self.image_full.subsurface(self.list[self.box][1], self.list[self.box][0],
@@ -51,7 +49,7 @@ class Ennemy2(pygame.sprite.Sprite):
                                                         self.dimension_y)
             elif self.direction == 'left':
                 if move:
-                    self.box_change(3)
+                    self.reset_box(3)
                 else:
                     self.box = 4
                 self.image = self.image_full.subsurface(self.list[self.box][1], self.list[self.box][0],
@@ -59,7 +57,7 @@ class Ennemy2(pygame.sprite.Sprite):
                                                         self.dimension_y)
             elif self.direction == 'up':
                 if move:
-                    self.box_change(7)
+                    self.reset_box(7)
                 else:
                     self.box = 8
                 self.image = self.image_full.subsurface(self.list[self.box][1], self.list[self.box][0],
@@ -67,7 +65,7 @@ class Ennemy2(pygame.sprite.Sprite):
                                                         self.dimension_y)
             elif self.direction == 'right':
                 if move:
-                    self.box_change(11)
+                    self.reset_box(11)
                 else:
                     self.box = 12
                 self.image = self.image_full.subsurface(self.list[self.box][1], self.list[self.box][0],

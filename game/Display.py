@@ -10,54 +10,31 @@ class Display:
         self.size_window = size_window
         self.arial = pygame.font.Font("game/font/FRAMDCN.TTF", 20)
         self.dialogue = pygame.font.Font("game/font/rpg_.FON", 16)
-        self.colors = {
-            self.Game.Texts.plain: (68, 255, 0),
-            self.Game.Texts.desert: (249, 210, 39),
-            self.Game.Texts.snow: (152, 249, 219),
-            self.Game.Texts.forest: (11, 109, 13),
-            self.Game.Texts.mountain: (123, 95, 62),
-            self.Game.Texts.volcano: (163, 41, 18)}
 
-    def display_chunks(self, fight=False):
+    def display_chunks(self):
         i = (self.Game.x + 512) // 1024
         j = (self.Game.y + 512) // 1024
-        image = []
-        """if fight:
-            image.append(
-                (self.Game.game_chunk[0], (0 - self.Game.x + 512 + 1024 * i, 0 - self.Game.y + 320 + 1024 * j)))
-            image.append(
-                (self.Game.game_chunk[1], (0 - self.Game.x + 512 + 1024 * i, 0 - self.Game.y + 320 + 1024 * j - 1024)))
-            image.append(
-                (self.Game.game_chunk[2], (0 - self.Game.x + 512 + 1024 * i - 1024, 0 - self.Game.y + 320 + 1024 * j)))
-            image.append((self.Game.game_chunk[3],
-                          (0 - self.Game.x + 512 + 1024 * i - 1024, 0 - self.Game.y + 320 + 1024 * j - 1024)))
-            return 0"""
-
-        image.append((self.Game.map_chunk[i - 1][j - 1],
-                          (0 - self.Game.x + 480 + 1024 * i - 1024, 0 - self.Game.y + 352 + 1024 * j - 1024)))
-        image.append((self.Game.map_chunk[i][j - 1],
-                          (0 - self.Game.x + 480 + 1024 * i, 0 - self.Game.y + 352 + 1024 * j - 1024)))
-        image.append((self.Game.map_chunk[(i + 1) % len(self.Game.map_chunk)][j - 1],
-                          (0 - self.Game.x + 480 + 1024 * i + 1024, 0 - self.Game.y + 352 + 1024 * j - 1024)))
-        image.append((self.Game.map_chunk[i - 1][j],
-                          (0 - self.Game.x + 480 + 1024 * i - 1024, 0 - self.Game.y + 352 + 1024 * j)))
-        image.append((self.Game.map_chunk[i][j],
-                          (0 - self.Game.x + 480 + 1024 * i, 0 - self.Game.y + 352 + 1024 * j)))
-        image.append((self.Game.map_chunk[(i + 1) % len(self.Game.map_chunk)][j],
-                          (0 - self.Game.x + 480 + 1024 * i + 1024, 0 - self.Game.y + 352 + 1024 * j)))
-        return image
+        return [(self.Game.map_chunk[i - 1][j - 1],
+                  (0 - self.Game.x + 480 + 1024 * i - 1024, 0 - self.Game.y + 352 + 1024 * j - 1024)),
+                 (self.Game.map_chunk[i][j - 1],
+                  (0 - self.Game.x + 480 + 1024 * i, 0 - self.Game.y + 352 + 1024 * j - 1024)),
+                 (self.Game.map_chunk[(i + 1) % len(self.Game.map_chunk)][j - 1],
+                  (0 - self.Game.x + 480 + 1024 * i + 1024, 0 - self.Game.y + 352 + 1024 * j - 1024)),
+                 (self.Game.map_chunk[i - 1][j],
+                  (0 - self.Game.x + 480 + 1024 * i - 1024, 0 - self.Game.y + 352 + 1024 * j)),
+                 (self.Game.map_chunk[i][j],
+                  (0 - self.Game.x + 480 + 1024 * i, 0 - self.Game.y + 352 + 1024 * j)),
+                 (self.Game.map_chunk[(i + 1) % len(self.Game.map_chunk)][j],
+                  (0 - self.Game.x + 480 + 1024 * i + 1024, 0 - self.Game.y + 352 + 1024 * j))]
 
     def display_game(self):
         pygame.draw.rect(self.Game.Screen, (55, 25, 5), [0, 0, 1080, 768])
-        placed = False
         self.object = self.display_chunks()
         for i in self.Game.entities:
-            if (i[1] == self.Game.y and i[0] >= self.Game.x or i[1] > self.Game.y) and not placed:
+            if i[2] == self.Game.player:
                 self.object.append((self.Game.player.image, (480, 352)))
-                placed = True
-            self.object.append((i[2].image, (i[2].x - self.Game.x + 480, i[2].y - self.Game.y + 352)))
-        if not placed:
-            self.object.append((self.Game.player.image, (480, 352)))
+            else:
+                self.object.append((i[2].image, (i[2].x - self.Game.x + 480, i[2].y - self.Game.y + 352)))
         self.Game.Screen.blits(self.object)
         """self.Game.player.all_projectiles.draw(self.Game.Screen)"""
         for i in self.Game.entities:
@@ -66,10 +43,6 @@ class Display:
                 s.fill((0, 0, 0, 150))
                 self.Game.Screen.blit(s, (i[2].rects[j].x - self.Game.x + 480, i[2].rects[j].y -
                                                                self.Game.y + 352))
-        s = pygame.Surface((self.Game.player.rects[0].w, self.Game.player.rects[0].h), pygame.SRCALPHA)
-        s.fill((0, 0, 0, 150))
-        self.Game.Screen.blit(s, (self.Game.player.rects[0].x - self.Game.x + 480, self.Game.player.rects[0].y -
-                                  self.Game.y + 352))
         if self.Game.display_inventory:
             self.Game.Screen.blit(pygame.image.load('game/assets/inventory/inventory_menu.png'), (704, 0))
         if self.Game.menu == 0:
@@ -87,7 +60,10 @@ class Display:
         self.Game.Screen = self.Game.button_exit.display_button(self.Game.Screen)
 
     def display_chest(self):
-        self.Game.Screen.blit(pygame.image.load('game/assets/inventory/chest_menu.png'), (144, 240))
+        if self.Game.display_inventory:
+            self.Game.Screen.blit(pygame.image.load('game/assets/inventory/chest_menu.png'), (144, 240))
+        else:
+            self.Game.Screen.blit(pygame.image.load('game/assets/inventory/chest_menu.png'), (304, 240))
 
     def display(self):  # #
         self.display_game()
