@@ -1,6 +1,8 @@
 import os
 import pickle
+
 import pygame
+
 from game import Button
 
 
@@ -56,44 +58,7 @@ def import_language():
     button_save = Button.Button(None, (0, 0, 0), [257, 400, 190, 65], Texts.save, 'center', 28, board, 'FRAMDCN.TTF')
     button_exit = Button.Button(None, (0, 0, 0), [257, 480, 190, 65], Texts.quit_game, 'center', 34, board,
                                 'FRAMDCN.TTF')
-    button_attack = Button.Button((127, 127, 127), (255, 255, 255), [280, 430, 110, 40], Texts.attack,
-                                  'center', 25, None, 'FRAMDCN.TTF')
-    button_magic = Button.Button((127, 127, 127), (255, 255, 255), [280, 505, 110, 40], Texts.magic,
-                                 'center', 25, None, 'FRAMDCN.TTF')
-    button_inventory = Button.Button((127, 127, 127), (255, 255, 255), [280, 580, 110, 40], Texts.inventory,
-                                     'center', 25, None, 'FRAMDCN.TTF')
-    button_leave = Button.Button((127, 127, 127), (255, 255, 255), [280, 655, 110, 40], Texts.leave,
-                                 'center', 25, None, 'FRAMDCN.TTF')
-    button_attack1 = Button.Button((127, 127, 127), (255, 255, 255), [280, 420, 110, 40], Texts.attack_1,
-                                   'center', 25, None, 'FRAMDCN.TTF')
-    button_attack2 = Button.Button((127, 127, 127), (255, 255, 255), [280, 480, 110, 40], Texts.attack_2,
-                                   'center', 25, None, 'FRAMDCN.TTF')
-    button_attack3 = Button.Button((127, 127, 127), (255, 255, 255), [280, 540, 110, 40], Texts.attack_3,
-                                   'center', 25, None, 'FRAMDCN.TTF')
-    button_attack4 = Button.Button((127, 127, 127), (255, 255, 255), [280, 600, 110, 40], Texts.attack_4,
-                                   'center', 25, None, 'FRAMDCN.TTF')
-    button_magic1 = Button.Button((127, 127, 127), (255, 255, 255), [280, 420, 110, 40], Texts.magic_1,
-                                  'center', 25, None, 'FRAMDCN.TTF')
-    button_magic2 = Button.Button((127, 127, 127), (255, 255, 255), [280, 480, 110, 40], Texts.magic_2,
-                                  'center', 25, None, 'FRAMDCN.TTF')
-    button_magic3 = Button.Button((127, 127, 127), (255, 255, 255), [280, 540, 110, 40], Texts.magic_3,
-                                  'center', 25, None, 'FRAMDCN.TTF')
-    button_magic4 = Button.Button((127, 127, 127), (255, 255, 255), [280, 600, 110, 40], Texts.magic_4,
-                                  'center', 25, None, 'FRAMDCN.TTF')
-    button_back = Button.Button((127, 127, 127), (255, 255, 255), [280, 660, 110, 40], Texts.back,
-                                'center', 25, None, 'FRAMDCN.TTF')
-    button_confirm = Button.Button((127, 127, 127), (255, 255, 255), [161, 348, 110, 40], Texts.confirm,
-                                   'center', 25, None, 'FRAMDCN.TTF')
-    button_use = Button.Button((127, 127, 127), (255, 255, 255), [500, 670, 110, 40], Texts.use,
-                               'center', 25, None, 'FRAMDCN.TTF')
-    enemy = [
-        ["Monster", 100, 10, 10, 5, 10, (218, 42), Texts.volcano,
-         pygame.image.load("game/assets/battle/backgrounds/plain.png"),
-         pygame.image.load("game/assets/battle/enemies/enemy1.png"), [1, 0]]
-    ]
-    return Texts, button_exit, button_magic, button_leave, button_inventory, button_attack, \
-           button_save, button_pause, button_setting, button_attack1, button_attack2, button_attack4, button_attack3, \
-           button_back, button_magic1, button_magic2, button_magic3, button_magic4, button_confirm, button_use, enemy
+    return Texts, button_exit, button_save, button_pause, button_setting
 
 
 def change_language(language):
@@ -283,29 +248,31 @@ block = {
     "cliff_cr": cliff.subsurface(0, 64, 64, 64),
 }
 block2 = {
-    'tree': [pygame.image.load("game/assets/tree/Tree.png"), -55, -150, [[0, 0]], [[128, 128]]],#
-    'tree2': [pygame.image.load("game/assets/temp/tree.png"), -190, -280, [[0, 0]], [[128, 128]]], # "assets/tree/Tree2.png"#
-    'tree0': [pygame.image.load("game/assets/tree/Tree_r.png"), -55, -150, [[0, 0]], [[128, 128]]],#
+    'tree': [pygame.image.load("game/assets/tree/Tree.png"), -55, -150, [[0, 0]], [[128, 128]]],  #
+    'tree2': [pygame.image.load("game/assets/temp/tree.png"), -190, -280, [[0, 0]], [[128, 128]]],
+    # "assets/tree/Tree2.png"#
+    'tree0': [pygame.image.load("game/assets/tree/Tree_r.png"), -55, -150, [[0, 0]], [[128, 128]]],  #
     'h1_l': [pygame.image.load("game/assets/house/house1.png"), -95, -265, [[20, 164]], [[216, 160]]],
-    'h1': [pygame.image.load("game/assets/house/house1.png"), -95, -265, [[20, 164], [156, 164], [20, 164]], [[82, 160], [82, 160],[218, 128]]],
-    'church': [pygame.image.load("game/assets/house/church.png"), -128, -390, [[0, 0]], [[128, 128]]],#
+    'h1': [pygame.image.load("game/assets/house/house1.png"), -95, -265, [[20, 164], [156, 164], [20, 164]],
+           [[82, 160], [82, 160], [218, 128]]],
+    'church': [pygame.image.load("game/assets/house/church.png"), -128, -390, [[0, 0]], [[128, 128]]],  #
     'h2': [pygame.image.load("game/assets/house/house2.png"), -96, -205, [[20, 100]], [[216, 160]]],
     'h3': [pygame.image.load("game/assets/house/house3.png"), -95, -285, [[20, 164]], [[216, 160]]],
-    "locker": [pygame.image.load("game/assets/casier.png"), -16, 16, [[16, 0]], [[32, 64]]],#
-    "fence_0": [fence.subsurface(64, 128, 64, 64), 0, 0, [[0, 0]], [[128, 128]]],#
-    "fence_1": [fence.subsurface(64, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
-    "fence_2": [fence.subsurface(192, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
-    "fence_3": [fence.subsurface(256, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
-    "fence_l": [fence.subsurface(0, 64, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
-    "fence_l2": [fence.subsurface(256, 128, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
-    "fence_l3": [fence.subsurface(192, 128, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
-    "fence_ld": [fence.subsurface(0, 128, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
-    "fence_lu": [fence.subsurface(0, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
-    "fence_r": [fence.subsurface(128, 64, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
-    "fence_r2": [fence.subsurface(256, 64, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
-    "fence_r3": [fence.subsurface(192, 64, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
-    "fence_rd": [fence.subsurface(128, 128, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
-    "fence_ru": [fence.subsurface(128, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],#
+    "locker": [pygame.image.load("game/assets/casier.png"), -16, 16, [[16, 0]], [[32, 64]]],  #
+    "fence_0": [fence.subsurface(64, 128, 64, 64), 0, 0, [[0, 0]], [[128, 128]]],  #
+    "fence_1": [fence.subsurface(64, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
+    "fence_2": [fence.subsurface(192, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
+    "fence_3": [fence.subsurface(256, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
+    "fence_l": [fence.subsurface(0, 64, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
+    "fence_l2": [fence.subsurface(256, 128, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
+    "fence_l3": [fence.subsurface(192, 128, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
+    "fence_ld": [fence.subsurface(0, 128, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
+    "fence_lu": [fence.subsurface(0, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
+    "fence_r": [fence.subsurface(128, 64, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
+    "fence_r2": [fence.subsurface(256, 64, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
+    "fence_r3": [fence.subsurface(192, 64, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
+    "fence_rd": [fence.subsurface(128, 128, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
+    "fence_ru": [fence.subsurface(128, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
 }
 
 music = {

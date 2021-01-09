@@ -3,7 +3,6 @@ import random
 import time
 
 from game.Display import Display
-from game.Enemy import Enemy
 from game.Ennemy2 import Ennemy2
 from game.Player import Player
 from operator import itemgetter
@@ -41,10 +40,7 @@ class Game:
             self.check = False
         self.volume = 0.2
         self.fade = [False, self.volume, 0, 0]  # fade, volume, début, durée
-        self.Texts, self.button_exit, self.button_magic, self.button_leave, self.button_inventory, self.button_attack, \
-            self.button_save, self.button_pause, self.button_setting, self.button_attack1, self.button_attack2, \
-            self.button_attack4, self.button_attack3, self.button_back, self.button_magic1, self.button_magic2, \
-            self.button_magic3, self.button_magic4, self.button_confirm, self.button_use, self.enemy = import_language()
+        self.Texts, self.button_exit, self.button_save, self.button_pause, self.button_setting = import_language()
         self.button_shop = Button.Button((0, 0, 0), None, [615, 734, 32, 32], None, None, 0,
                                          pygame.image.load('game/assets/icons/shop.png'))
         self.button_menu = Button.Button((0, 0, 0), None, [660, 732, 32, 32], None, None, 0,
@@ -65,14 +61,12 @@ class Game:
             tag = 'player'
             self.enemy_map.append(Ennemy2(self, 3060, 2236, tag, mob[tag]))
             self.entities.append((self.enemy_map[i].x, self.enemy_map[i].y, self.enemy_map[i]))
-        self.enemy_ = Enemy(self.enemy[0])
         self.change = True
         self.debut_combat = True
         self.texts = ''
         self.pos_inventory = (0, 0, 0)
         self.use_obj = False
         self.prog = 1
-        self.nb_case = 0
         self.end_ = True
         self.nb_chest = 0
         self.instance = True
@@ -89,12 +83,8 @@ class Game:
                             (35, 20), (40, 0), (35, -20), (20, -35)]
         self.font_ = pygame.font.Font("game/font/FRAMDCN.TTF", 16)
         self.progress = 0
-        self.near_player = [[], [], [], [], [], [], [], [], [], [], [], [], []]
         self.x_32, self.y_32 = 0, 0
         self.refresh_entities = True
-
-    def check_save(self):
-        return self.check
 
     def fadeout(self):
         if self.fade[0]:
@@ -147,10 +137,6 @@ class Game:
             self.x, self.y = self.x_t[self.nb_map], self.y_t[self.nb_map]
             self.map_chunk = self.Map_chunk[self.nb_map]
             self.instance = False
-        """x_32_, y_32_ = self.x // 32, self.y // 32
-        if (self.x_32, self.y_32) != (x_32_, y_32_):
-            self.x_32, self.y_32 = x_32_, y_32_
-            self.near_player = self.refresh_near_player()"""
         if self.pressed2.get(pygame.K_KP_PLUS):
             self.pressed2[pygame.K_KP_PLUS], self.instance = False, True
             self.nb_map = (self.nb_map + 1) % len(self.map_object_t)
@@ -195,13 +181,7 @@ class Game:
                         self.nb_case = 0
                 if (self.x // 64 != self.x_y_generation[0] or self.y // 64 != self.x_y_generation[1]) and \
                         self.area == 'plain':
-                    self.nb_case += 1
                     self.x_y_generation = (self.x // 64, self.y // 64)
-                    if random.random() == self.nb_case * (2 + self.player.level / 100) / 5000:  # <=
-                        self.menu = 4
-                        self.nb_case = 0
-                        self.debut_combat = True
-                        self.fight_mode = -2
         elif self.menu == 1:
             if self.pressed2.get(pygame.K_ESCAPE):
                 self.menu = 0
@@ -221,133 +201,6 @@ class Game:
                     self.menu = 0
         elif self.menu == 3:  # menu shop
             pass
-        elif self.menu == 4:
-            self.end_ = True
-            if self.onclick:
-                if self.fight_mode == 0:
-                    if self.button_attack.button_clicked(self.pos[0], self.pos[1]):
-                        self.fight_mode = 1
-                        self.add_text(self.Texts.select_attack)
-                        self.prog = 1
-                    elif self.button_magic.button_clicked(self.pos[0], self.pos[1]):
-                        self.fight_mode = 2
-                        self.add_text(self.Texts.select_spell)
-                        self.prog = 1
-                    elif self.button_inventory.button_clicked(self.pos[0], self.pos[1]):
-                        self.fight_mode = 3
-                        self.add_text(self.Texts.select_object)
-                        self.prog = 1
-                        self.pos_inventory = (0, 0, 0)
-                    elif self.button_leave.button_clicked(self.pos[0], self.pos[1]):
-                        self.fight_mode = 4
-                elif self.fight_mode == 1 or self.fight_mode == 2:
-                    if self.button_back.button_clicked(self.pos[0], self.pos[1]):
-                        self.fight_mode = 0
-                        self.remove_text()
-                    elif self.fight_mode == 1:
-                        if self.button_attack1.button_clicked(self.pos[0], self.pos[1]):
-                            self.attack_player(1)
-                            self.end_turn()
-                        elif self.button_attack2.button_clicked(self.pos[0], self.pos[1]):
-                            self.attack_player(2)
-                            self.end_turn()
-                        elif self.button_attack3.button_clicked(self.pos[0], self.pos[1]):
-                            self.attack_player(3)
-                            self.end_turn()
-                        elif self.button_attack4.button_clicked(self.pos[0], self.pos[1]):
-                            self.attack_player(4)
-                            self.end_turn()
-                    else:
-                        if self.button_magic1.button_clicked(self.pos[0], self.pos[1]):
-                            self.magic_player(1)
-                            self.end_turn()
-                        elif self.button_magic2.button_clicked(self.pos[0], self.pos[1]):
-                            self.magic_player(2)
-                            self.end_turn()
-                        elif self.button_magic3.button_clicked(self.pos[0], self.pos[1]):
-                            self.magic_player(3)
-                            self.end_turn()
-                        elif self.button_magic4.button_clicked(self.pos[0], self.pos[1]):
-                            self.magic_player(4)
-                            self.end_turn()
-                elif self.fight_mode == 3:
-                    if self.button_back.button_clicked(self.pos[0], self.pos[1], 280, 670):
-                        self.fight_mode = 0
-                        self.remove_text()
-                    elif self.button_use.button_clicked(self.pos[0], self.pos[1]) and self.use_obj:
-                        self.remove_text(2)
-                        self.add_text(self.use_object((self.pos_inventory[1] + self.pos_inventory[2]) * 5 +
-                                                      self.pos_inventory[0]), True, True)
-                        self.end_turn()
-                elif self.fight_mode == 4:
-                    if self.button_back.button_clicked(self.pos[0], self.pos[1], 433, 348):
-                        self.fight_mode = 0
-                    elif self.button_confirm.button_clicked(self.pos[0], self.pos[1]):
-                        self.fight_mode = 0
-                        self.fade = [True, self.volume, time.time(), 1]
-                        self.menu = 0
-            elif self.pressed2.get(pygame.K_ESCAPE):
-                if self.fight_mode != 0:
-                    if self.fight_mode != 4:
-                        self.remove_text()
-                    self.fight_mode = 0
-                else:
-                    self.fight_mode = 4
-            elif self.pressed2.get(pygame.K_RETURN) and self.fight_mode == 4:
-                self.fight_mode = 0
-                self.fade = [True, self.volume, time.time(), 1]
-                self.menu = 0
-            if self.debut_combat:
-                self.init_fight()
-                self.debut_combat = False
-            self.frame = time.time()
-            if self.fight_mode == 3:
-                if ((self.pressed.get(self.Settings[0]) or self.pressed.get(self.Settings[4])) and
-                    time.time() > self.temp + 1 / 7) or self.pressed2.get(self.Settings[0]) or \
-                        self.pressed2.get(self.Settings[4]):
-                    self.pos_inventory = (
-                        ((self.pos_inventory[0] + 1) % 5),
-                        (self.pos_inventory[1] * 5 + self.pos_inventory[0] + 1) // 5,
-                        self.pos_inventory[2])
-                    if self.pos_inventory[1] >= 5:
-                        self.pos_inventory = (self.pos_inventory[0], 4, self.pos_inventory[2] + 1)
-                    if (self.pos_inventory[1] + self.pos_inventory[2]) * 5 + self.pos_inventory[0] >= 36:
-                        self.pos_inventory = (0, 0, 0)
-                    self.temp = time.time()
-                elif ((self.pressed.get(self.Settings[1]) or self.pressed.get(self.Settings[5])) and
-                      time.time() > self.temp + 1 / 7) or self.pressed2.get(self.Settings[0]) or \
-                        self.pressed2.get(self.Settings[4]):
-                    self.pos_inventory = (
-                        (self.pos_inventory[1] * 5 + self.pos_inventory[0] - 1) % 5,
-                        (self.pos_inventory[1] * 5 + self.pos_inventory[0] - 1) // 5,
-                        self.pos_inventory[2])
-                    if self.pos_inventory[1] < 0:
-                        self.pos_inventory = (self.pos_inventory[0], 0, self.pos_inventory[2] - 1)
-                    if self.pos_inventory[2] < 0:
-                        self.pos_inventory = (36 % 5 - 1, 4, 36 // 5 - 4)
-                    self.temp = time.time()
-                elif ((self.pressed.get(self.Settings[2]) or self.pressed.get(self.Settings[6])) and
-                      time.time() > self.temp + 1 / 7) or self.pressed2.get(self.Settings[0]) or \
-                        self.pressed2.get(self.Settings[4]):
-                    self.pos_inventory = (self.pos_inventory[0], self.pos_inventory[1] + 1, self.pos_inventory[2])
-                    if self.pos_inventory[1] >= 5:
-                        self.pos_inventory = (self.pos_inventory[0], 4, self.pos_inventory[2] + 1)
-                    if (self.pos_inventory[1] + self.pos_inventory[2]) * 5 + self.pos_inventory[0] >= 36:
-                        self.pos_inventory = (self.pos_inventory[0], 0, 0)
-                    self.temp = time.time()
-                elif ((self.pressed.get(self.Settings[3]) or self.pressed.get(self.Settings[7])) and
-                      time.time() > self.temp + 1 / 7) or self.pressed2.get(self.Settings[0]) or \
-                        self.pressed2.get(self.Settings[4]):
-                    self.pos_inventory = (self.pos_inventory[0], self.pos_inventory[1] - 1, self.pos_inventory[2])
-                    if self.pos_inventory[1] < 0:
-                        self.pos_inventory = (self.pos_inventory[0], 0, self.pos_inventory[2] - 1)
-                    if self.pos_inventory[2] < 0:
-                        if self.pos_inventory[0] >= 36 % 5:
-                            self.pos_inventory = (self.pos_inventory[0], 3, 36 // 5 - 4)
-                        else:
-                            self.pos_inventory = (self.pos_inventory[0], 4, 36 // 5 - 4)
-                    self.temp = time.time()
-
             pygame.display.flip()
         self.onclick, self.pressed2 = False, {}
         if self.menu != 4:
@@ -366,30 +219,7 @@ class Game:
             self.display.display()
         elif self.menu == 3:
             pass
-        elif self.menu == 4:
-            self.display.display_fight()
         self.refresh_entities = False
-
-    def add_text(self, text, c=True, add=False):
-        self.texts = self.texts.split('|')
-        self.texts.append(text)
-        self.change = c
-        self.texts = '|'.join(self.texts)
-        if add:
-            self.prog += 1
-        if self.texts[0] == '|':
-            self.texts = self.texts[1:]
-
-    def init_fight(self):
-        self.player.init()
-        if self.area == 'plain':
-            index = 0
-        else:
-            index = 0
-        self.enemy_ = Enemy(self.enemy[index])
-        self.texts = '{} sauvage apparaît.|{}'.format(self.enemy_.name, self.Texts.select_action)
-        self.prog = 2
-        self.fade = [True, self.volume, time.time(), 3]
 
     def save(self):
         save_game = [self.player.stats, self.player.inventory, self.Settings, self.x_t, self.y_t, self.area]
@@ -491,242 +321,3 @@ class Game:
         t1 = asyncio.create_task(self.loading_animation(352, 580))
         t2 = asyncio.create_task(self.loading_map(a))
         await asyncio.gather(t1, t2)
-
-    def remove_text(self, n=1):
-        for i in range(n):
-            self.texts = self.texts.split('|')
-            del self.texts[-1]
-            self.texts = '|'.join(self.texts)
-
-    def attack_player(self, n, use=True):
-        env = 6
-        if self.enemy_.environment == self.Texts.plain:
-            env = 1
-        elif self.enemy_.environment == self.Texts.desert:
-            env = 2
-        elif self.enemy_.environment == self.Texts.snow:
-            env = 3
-        elif self.enemy_.environment == self.Texts.forest:
-            env = 4
-        elif self.enemy_.environment == self.Texts.mountain:
-            env = 5
-
-        if random.random() != self.player.get_crit()[0] and use:  # <
-            crit = self.player.get_crit()[1]
-        else:
-            crit = 1
-        damage = 0
-        if n == 1:
-            damage = 7 * crit * (self.player.attack + self.player.get_equipment()[0].get_stat()[0] +
-                                 self.player.get_equipment()[0].get_stat()[env]) / self.enemy_.get_defense()
-        elif n == 2:
-            damage = 2 * crit * (self.player.attack + self.player.get_equipment()[0].get_stat()[0] +
-                                 self.player.get_equipment()[0].get_stat()[env]) / self.enemy_.get_defense()
-        elif n == 3:
-            damage = 12 * crit * (self.player.attack + self.player.get_equipment()[0].get_stat()[0] +
-                                  self.player.get_equipment()[0].get_stat()[env]) / self.enemy_.get_defense()
-        elif n == 4:
-            damage = 7 * crit * ((self.player.attack + self.player.get_equipment()[0].get_stat()[0]) / 2 +
-                                 self.player.get_equipment()[0].get_stat()[env] * 5) / self.enemy_.get_defense()
-        if use:
-            self.remove_text()
-            self.fight_mode = 0
-            if n == 1:
-                self.remove_text()
-                if crit != 1:
-                    self.add_text("Coup critique !", True, True)
-                self.enemy_.change_hp(-int(damage))
-                self.add_text(
-                    "Vous frappez {} de votre épée et lui infligez {} dégats.".format(self.enemy_.name(),
-                                                                                      int(damage)), True, True)
-            elif n == 2:
-                self.remove_text()
-                if crit != 1:
-                    self.add_text("Coup critique !", True, True)
-                self.player.change_att_2(int(damage))
-                self.add_text("Vous avez blessé {}. Il saigne.".format(self.enemy_.name()), True, True)
-            elif n == 3:
-                self.remove_text()
-                if crit != 1:
-                    self.add_text("Coup critique !", True, True)
-                self.enemy_.change_hp(-int(damage))
-                self.player.change_hp(-int(0.25 * damage / crit))
-                self.add_text("Vous chargez {} et lui infligez {} dégats.".format(self.enemy_.name,
-                                                                                  int(damage)), True, True)
-                self.add_text("Vous avez également été blessé par le choc. Vous subissez {} dégats.".format(
-                    int(0.25 * damage / crit)), True, True)
-            elif n == 4:
-                if self.player.mp < 10:
-                    self.end_ = False
-                    self.add_text("Mana insuffisant." + ' ' + "Sélectionnez un autre sort ou une autre action.")
-                    self.fight_mode = 1
-                else:
-                    self.remove_text()
-                    if crit != 1:
-                        self.add_text("Coup critique !", True, True)
-                    self.enemy_.change_hp(-int(damage))
-                    self.add_text("Vous mobilisez votre attaque spéciale pour infliger {} dégats à {}.".format(
-                        int(damage), self.enemy_.name), True, True)
-        else:
-            return int(damage)
-
-    def magic_player(self, n, use=True):
-        if use:
-            self.remove_text()
-            self.fight_mode = 0
-        if n == 1:
-            heal = self.player.change_hp(0.2 * self.player.hp_max, False)
-            if use:
-                if self.player.mp < 10:
-                    self.end_ = False
-                    self.add_text("Mana insuffisant." + ' ' + "Sélectionnez autre action.")
-                    self.fight_mode = 2
-                elif self.player.hp == self.player.hp_max:
-                    self.end_ = False
-                    self.add_text("Vous avez déjà tous vos PV." + ' ' + "Sélectionnez une autre action.")
-                else:
-                    self.remove_text()
-                    self.player.change_mp(-10)
-                    self.player.change_hp(0.2 * self.player.hp_max)
-                    if self.player.hp == self.player.hp_max:
-                        self.add_text("PV entièrement régénérés.", True, True)
-                    else:
-                        self.add_text("{} PV régénérés.".format(heal - self.player.hp), True, True)
-
-            else:
-                return heal
-        elif n == 2:
-            if self.player.mp < 10:
-                self.end_ = False
-                self.add_text("Mana insuffisant." + ' ' + "Sélectionnez une autre action.")
-                self.fight_mode = 2
-            else:
-                self.player.change_mp(-10)
-                self.player.change_protect(1.5)
-                self.add_text(
-                    "Vous formez un bouclier magique de force {} autour de vous pour vous protéger.".format(1.5),
-                    True, True)
-        elif n == 3:
-            if self.player.mp < 10:
-                self.end_ = False
-                self.add_text("Mana insuffisant." + ' ' + "Sélectionnez une autre action.")
-                self.fight_mode = 2
-            else:
-                self.player.change_boost_def(0, 0.15)
-                self.add_text(
-                    'Votre défense de base est désormais multipliée par {}.'.format(
-                        self.player.get_boost_stats()[1][0]), True, True)
-                if self.player.get_boost_stats()[1][0] == 1.3:
-                    self.add_text('Votre défense de base est boostée à son maximum. (×1.3)', True, True)
-        elif n == 4:
-            if self.player.mp < 10:
-                self.end_ = False
-                self.add_text("Vous n'avez pas assez de Mana pour utiliser ce sort." + ' ' +
-                              "Sélectionnez une autre action.")
-                self.fight_mode = 2
-            else:
-                self.player.change_boost_att(0, 0.15)
-                self.add_text(
-                    'Votre attaque de base est désormais multipliée par {}.'.format(
-                        self.player.get_boost_stats()[0][0]), True, True)
-                if self.player.get_boost_stats()[0][0] == 1.3:
-                    self.add_text('Votre attaque de base est boostée à son maximum. (×1.3)', True, True)
-
-    def end_turn(self):
-        if not self.end_:
-            return None
-        if self.player.att_2:
-            damage = 0
-            for __ in range(len(self.player.att_2)):
-                damage += self.player.att_2[__][0]
-            self.enemy_.change_hp(-int(damage))
-            self.add_text("L'ennemi souffre. Il subit {} dégats.".format(damage), True, True)
-        n = self.player.turn_att_2()
-        if n == 0:
-            self.add_text("l'ennemi ne souffre plus.", True, True)
-        elif n == 1:
-            self.add_text("L'ennemi souffre de moins en moins.", True, True)
-        self.player.change_protect()
-        v = self.enemy_.chose_attack_enemy()
-        if v == 0:
-            hp = self.enemy_.hp
-            self.enemy_.attack_enemy(v)
-            self.add_text("L'ennemi se soigne et récupère {} PV.".format(self.enemy_.hp - hp), True, True)
-        self.add_text(self.Texts.select_action)
-
-    def use_object(self, index_object, use=True):
-        if use:
-            self.fight_mode = 0
-            self.player.inventory[1][index_object] -= 1
-        if index_object == 0:
-            return self.Texts.description_object[index_object][1].format(self.player.change_hp(10, use))
-        elif index_object == 1:
-            return self.Texts.description_object[index_object][1].format(self.player.change_hp(20, use))
-        elif index_object == 2:
-            return self.Texts.description_object[index_object][1].format(self.player.change_hp(50, use))
-        elif index_object == 3:
-            return self.Texts.description_object[index_object][1].format(self.player.change_hp(100, use))
-        elif index_object == 4:
-            return self.Texts.description_object[index_object][1].format(self.player.change_hp(self.player.hp_max, use))
-        elif index_object == 5:
-            return self.Texts.description_object[index_object][1].format(self.player.change_mp(10, use))
-        elif index_object == 6:
-            return self.Texts.description_object[index_object][1].format(self.player.change_mp(20, use))
-        elif index_object == 7:
-            return self.Texts.description_object[index_object][1].format(self.player.change_mp(50, use))
-        elif index_object == 8:
-            return self.Texts.description_object[index_object][1].format(self.player.change_mp(100, use))
-        elif index_object == 9:
-            return self.Texts.description_object[index_object][1].format(self.player.change_mp(self.player.mp_max, use))
-        elif index_object == 10:  #
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 11:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 12:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 13:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 14:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 15:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 16:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 17:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 18:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 19:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 20:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 21:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 22:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 23:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 24:
-            return self.Texts.description_object[index_object][1].format(0, 0)
-        elif index_object == 25:
-            return self.Texts.description_object[index_object][1]
-        elif index_object == 26:
-            return self.Texts.description_object[index_object][1]
-        elif index_object == 27:
-            return self.Texts.description_object[index_object][1]
-        elif index_object == 28:
-            return self.Texts.description_object[index_object][1]
-        elif index_object == 29:
-            return self.Texts.description_object[index_object][1]
-        elif index_object == 30:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 31:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 32:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 33:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 34:
-            return self.Texts.description_object[index_object][1].format(0)
-        elif index_object == 35:
-            return self.Texts.description_object[index_object][1].format(0)

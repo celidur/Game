@@ -54,7 +54,7 @@ Screen = pygame.display.set_mode((size_window[0], size_window[1]), pygame.FULLSC
 menu = 2
 save = 1
 Game_ = Game.Game(save, Screen, size_window)
-if Game_.check_save():
+if Game_.check:
     pass
 
 while Game_.running:
