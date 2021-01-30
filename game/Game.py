@@ -1,5 +1,4 @@
 import asyncio
-import random
 import time
 
 from game.Display import Display
@@ -55,28 +54,17 @@ class Game:
                 if a in self.block2:
                     a = block2[a]
                     self.entities.append((x * 64, y * 64, Object(self, x * 64 + a[1], y * 64 + a[2], a[0], a[3], a[4])))
-        self.fight_mode = 0
         self.enemy_map = []
         for i in range(1):
             tag = 'player'
             self.enemy_map.append(Enemy(self, 3060, 2236, tag, mob[tag]))
             self.entities.append((self.enemy_map[i].x, self.enemy_map[i].y, self.enemy_map[i]))
         self.entities.append((self.x, self.y, self.player))
-        self.change = True
-        self.debut_combat = True
-        self.texts = ''
-        self.pos_inventory = (0, 0, 0)
-        self.use_obj = False
-        self.prog = 1
-        self.end_ = True
         self.nb_chest = 0
         self.instance = True
-        self.game_chunk = []
-        self.list_coord = []
         self.Map_chunk = []
         self.map_chunk = []
         self.pressed2 = {}
-        self.time_temp = time.time()
         self.onclick, self.running, self.pressed, self.pos = False, True, {}, [0, 0]
         self.ready = False
         self.loading_text = "Creating a flat Earth"
@@ -84,7 +72,6 @@ class Game:
                             (35, 20), (40, 0), (35, -20), (20, -35)]
         self.font_ = pygame.font.Font("game/font/FRAMDCN.TTF", 16)
         self.progress = 0
-        self.x_32, self.y_32 = 0, 0
         self.refresh_entities = True
 
     def fadeout(self):
@@ -94,23 +81,14 @@ class Game:
                 self.fade = [False, self.volume, 0, 0]
                 pygame.mixer_music.stop()
                 pygame.mixer_music.set_volume(self.volume)
-                if self.fight_mode != 0:
-                    pygame.mixer_music.load(music['combat'])
-                    pygame.mixer_music.play(loops=-1)
-                else:
-                    pygame.mixer_music.load(music[self.area])
-                    pygame.mixer_music.play(loops=-1)
+                pygame.mixer_music.load(music[self.area])
+                pygame.mixer_music.play(loops=-1)
             else:
                 pygame.mixer_music.set_volume(vol)
 
     def loading(self):
         while not self.ready:
-            v = import_temp()
-            if v:
-                self.list_coord = v
-                asyncio.run(self.prepare_map(False))
-            else:
-                asyncio.run(self.prepare_map(True))
+            asyncio.run(self.prepare_map())
 
     def get_pressed(self):
         for event in pygame.event.get():
@@ -138,6 +116,21 @@ class Game:
             self.x, self.y = self.x_t[self.nb_map], self.y_t[self.nb_map]
             self.map_chunk = self.Map_chunk[self.nb_map]
             self.instance = False
+            self.entities = []
+            for x in range(len(self.map_object_t[self.nb_map])):
+                for y in range(len(self.map_object_t[self.nb_map][0])):
+                    a = self.map_object_t[self.nb_map][x][y]
+                    if a in self.block2:
+                        a = block2[a]
+                        self.entities.append(
+                            (x * 64, y * 64, Object(self, x * 64 + a[1], y * 64 + a[2], a[0], a[3], a[4])))
+            self.enemy_map = []
+            for i in range(1):
+                tag = 'player'
+                self.enemy_map.append(Enemy(self, 3060, 2236, tag, mob[tag]))
+                self.entities.append((self.enemy_map[i].x, self.enemy_map[i].y, self.enemy_map[i]))
+            self.entities.append((self.x, self.y, self.player))
+            self.refresh_screen()
         if self.pressed2.get(pygame.K_KP_PLUS):
             self.pressed2[pygame.K_KP_PLUS], self.instance = False, True
             self.nb_map = (self.nb_map + 1) % len(self.map_object_t)
@@ -205,8 +198,6 @@ class Game:
             pass
             pygame.display.flip()
         self.onclick, self.pressed2 = False, {}
-        if self.menu != 4:
-            self.fight_mode = 0
         return
 
     def refresh_screen(self):
@@ -255,7 +246,7 @@ class Game:
             n %= 12
             await asyncio.sleep(1 / 12)
 
-    async def loading_map(self, a):
+    async def loading_map(self):
         for i in self.Map_t:
             map_split = []
             temp_ = []
@@ -291,35 +282,13 @@ class Game:
                     strip.append(chunk)
                 temp_.append(strip)
             self.Map_chunk.append(temp_)
-        if a:
-            self.loading_text = "Shuffling random numbers"
-            self.progress = 0
-            for i_1 in range(4 * 1024):
-                for j2 in range(1024):
-                    self.list_coord.append((i_1 // 1024, i_1 % 1024, j2))
-                await asyncio.sleep(0)
-            for i_1 in reversed(range(1, len(self.list_coord))):
-                j2 = int(random.random() * (i_1 + 1))
-                self.list_coord[i_1], self.list_coord[j2] = self.list_coord[j2], self.list_coord[i_1]
-                if i_1 % 1024 == 0:
-                    self.progress = 1 - i_1 / (4 * 1024 * 1024)
-                    await asyncio.sleep(0)
-            self.progress = 1
-            try:
-                os.remove("game/file/temp")
-            except FileNotFoundError:
-                pass
-            await asyncio.sleep(0)
-            with open("game/file/temp", 'wb') as file:
-                pickler = pickle.Pickler(file)
-                pickler.dump(self.list_coord)
         await asyncio.sleep(0.5)
         self.ready = True
         pygame.mixer_music.load(music[self.area])
         pygame.mixer_music.set_volume(self.volume)
         pygame.mixer_music.play(loops=-1)
 
-    async def prepare_map(self, a):
+    async def prepare_map(self):
         t1 = asyncio.create_task(self.loading_animation(352, 580))
-        t2 = asyncio.create_task(self.loading_map(a))
+        t2 = asyncio.create_task(self.loading_map())
         await asyncio.gather(t1, t2)

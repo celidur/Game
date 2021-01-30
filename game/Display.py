@@ -15,17 +15,17 @@ class Display:
         i = (self.Game.x + 512) // 1024
         j = (self.Game.y + 512) // 1024
         return [(self.Game.map_chunk[i - 1][j - 1],
-                  (0 - self.Game.x + 480 + 1024 * i - 1024, 0 - self.Game.y + 352 + 1024 * j - 1024)),
+                  (0 - self.Game.x + 512 + 1024 * i - 1024, 0 - self.Game.y + 384 + 1024 * j - 1024)),
                  (self.Game.map_chunk[i][j - 1],
-                  (0 - self.Game.x + 480 + 1024 * i, 0 - self.Game.y + 352 + 1024 * j - 1024)),
+                  (0 - self.Game.x + 512 + 1024 * i, 0 - self.Game.y + 384 + 1024 * j - 1024)),
                  (self.Game.map_chunk[(i + 1) % len(self.Game.map_chunk)][j - 1],
-                  (0 - self.Game.x + 480 + 1024 * i + 1024, 0 - self.Game.y + 352 + 1024 * j - 1024)),
+                  (0 - self.Game.x + 512 + 1024 * i + 1024, 0 - self.Game.y + 384 + 1024 * j - 1024)),
                  (self.Game.map_chunk[i - 1][j],
-                  (0 - self.Game.x + 480 + 1024 * i - 1024, 0 - self.Game.y + 352 + 1024 * j)),
+                  (0 - self.Game.x + 512 + 1024 * i - 1024, 0 - self.Game.y + 384 + 1024 * j)),
                  (self.Game.map_chunk[i][j],
-                  (0 - self.Game.x + 480 + 1024 * i, 0 - self.Game.y + 352 + 1024 * j)),
+                  (0 - self.Game.x + 512 + 1024 * i, 0 - self.Game.y + 384 + 1024 * j)),
                  (self.Game.map_chunk[(i + 1) % len(self.Game.map_chunk)][j],
-                  (0 - self.Game.x + 480 + 1024 * i + 1024, 0 - self.Game.y + 352 + 1024 * j))]
+                  (0 - self.Game.x + 512 + 1024 * i + 1024, 0 - self.Game.y + 384 + 1024 * j))]
 
     def display_game(self):
         pygame.draw.rect(self.Game.Screen, (55, 25, 5), [0, 0, 1080, 768])
@@ -34,7 +34,7 @@ class Display:
             if i[2] == self.Game.player:
                 self.object.append((self.Game.player.image, (480, 352)))
             else:
-                self.object.append((i[2].image, (i[2].x - self.Game.x + 480, i[2].y - self.Game.y + 352)))
+                self.object.append((i[2].image, (i[2].x - self.Game.x + 512, i[2].y - self.Game.y + 384)))
         self.Game.Screen.blits(self.object)
         """self.Game.player.all_projectiles.draw(self.Game.Screen)"""
         for i in self.Game.entities:

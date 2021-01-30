@@ -29,7 +29,7 @@ class Enemy(pygame.sprite.Sprite):
         self.go_to = None
         self.blocked_x = False
         self.blocked_y = False
-        self.rects = [pygame.Rect(self.x + 24, self.y + 38, 16, 16)]
+        self.rects = [pygame.Rect(self.x + 24 + 32, self.y + 38 + 32, 16, 16)]
 
     def reset_box(self, n1):
         if not n1 <= self.box <= n1 + 4:
@@ -139,3 +139,11 @@ class Enemy(pygame.sprite.Sprite):
         print()"""
 
         self.rects = [pygame.Rect(self.x + 24, self.y + 38, 16, 16)]
+
+    def collision(self, rect):
+        for entity in self.Game.entities:
+            if entity[2] != self:
+                for j in range(len(entity[2].rects)):
+                    if rect.colliderect(entity[2].rects[j]):
+                        return False
+        return True

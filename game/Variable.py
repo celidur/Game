@@ -16,16 +16,6 @@ def import_map():
 Texts = None
 
 
-def import_temp():
-    try:
-        with open('game/file/temp', 'rb') as file:
-            file = pickle.Unpickler(file)
-            _ = file.load()
-    except FileNotFoundError:
-        _ = False
-    return _
-
-
 def import_save(nb_save):
     try:
         os.rename('game/save/{}/save_game_'.format(nb_save), 'game/save/{}/save_game'.format(nb_save))
@@ -51,12 +41,12 @@ def import_language():
         from game.fr import Texts
     elif language == "en":
         from game.en import Texts
-    button_pause = Button.Button(None, (0, 0, 0), [317, 240, 190, 65], Texts.resume, 'center', 32, board,
+    button_pause = Button.Button(None, (0, 0, 0), [417, 240, 190, 65], Texts.resume, 'center', 32, board,
                                  'FRAMDCN.TTF')
-    button_setting = Button.Button(None, (0, 0, 0), [317, 320, 190, 65], Texts.settings, 'center', 30, board,
+    button_setting = Button.Button(None, (0, 0, 0), [417, 320, 190, 65], Texts.settings, 'center', 30, board,
                                    'FRAMDCN.TTF')
-    button_save = Button.Button(None, (0, 0, 0), [317, 400, 190, 65], Texts.save, 'center', 28, board, 'FRAMDCN.TTF')
-    button_exit = Button.Button(None, (0, 0, 0), [317, 480, 190, 65], Texts.quit_game, 'center', 34, board,
+    button_save = Button.Button(None, (0, 0, 0), [417, 400, 190, 65], Texts.save, 'center', 28, board, 'FRAMDCN.TTF')
+    button_exit = Button.Button(None, (0, 0, 0), [417, 480, 190, 65], Texts.quit_game, 'center', 34, board,
                                 'FRAMDCN.TTF')
     return Texts, button_exit, button_save, button_pause, button_setting
 
