@@ -5,9 +5,9 @@ from game.Projectile import Projectile
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, stat, inventory, Game):
+    def __init__(self, stat, inventory, game):
         super().__init__()
-        self.Game = Game
+        self.Game = game
         self.mult_crit = 2
         self.frame = time.time()
         self.player = pygame.image.load('game/assets/mobs/player.png').convert_alpha()
@@ -18,6 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.image = self.player.subsurface(self.list[self.box][1], self.list[self.box][0], 64, 64)
         self.rects = [pygame.Rect(self.Game.x + 24, self.Game.y + 38, 16, 16)]
         self.velocity = 5
+        self.radius = 50
         self.hp = stat[0]
         self.hp_max = stat[1]
         self.level = stat[6] * 0 + 1  #
@@ -100,13 +101,13 @@ class Player(pygame.sprite.Sprite):
             pass
         elif (self.Game.pressed.get(self.Game.Settings[1]) or self.Game.pressed.get(self.Game.Settings[5])) and (
                 self.Game.x + 63) // 64 > 0 and self.collision(
-            pygame.Rect(self.Game.x + 24 - self.velocity, self.Game.y + 38, 16, 16)):
+                pygame.Rect(self.Game.x + 24 - self.velocity, self.Game.y + 38, 16, 16)):
             self.direction = "left"
             direction.append("left")
             move = True
         elif (self.Game.pressed.get(self.Game.Settings[0]) or self.Game.pressed.get(
                 self.Game.Settings[4])) and self.Game.x // 64 < self.Game.Length - 1 and self.collision(
-            pygame.Rect(self.Game.x + 24 + self.velocity, self.Game.y + 38, 16, 16)):
+                pygame.Rect(self.Game.x + 24 + self.velocity, self.Game.y + 38, 16, 16)):
             self.direction = "right"
             direction.append("right")
             move = True
@@ -115,13 +116,13 @@ class Player(pygame.sprite.Sprite):
             pass
         elif (self.Game.pressed.get(self.Game.Settings[3]) or self.Game.pressed.get(self.Game.Settings[7])) and (
                 self.Game.y + 63) // 64 > 0 and self.collision(
-            pygame.Rect(self.Game.x + 24, self.Game.y + 38 - self.velocity, 16, 16)):
+                pygame.Rect(self.Game.x + 24, self.Game.y + 38 - self.velocity, 16, 16)):
             self.direction = "up"
             direction.append("up")
             move = True
         elif (self.Game.pressed.get(self.Game.Settings[2]) or self.Game.pressed.get(
                 self.Game.Settings[6])) and self.Game.y // 64 < self.Game.Width - 1 and self.collision(
-            pygame.Rect(self.Game.x + 24, self.Game.y + 38 + self.velocity, 16, 16)):
+                pygame.Rect(self.Game.x + 24, self.Game.y + 38 + self.velocity, 16, 16)):
             self.direction = "down"
             direction.append("down")
             move = True

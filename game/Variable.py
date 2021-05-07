@@ -242,13 +242,13 @@ block2 = {
     'tree2': [pygame.image.load("game/assets/temp/tree.png"), -190, -280, [[0, 0]], [[128, 128]]],
     # "assets/tree/Tree2.png"#
     'tree0': [pygame.image.load("game/assets/tree/Tree_r.png"), -55, -150, [[0, 0]], [[128, 128]]],  #
-    'h1_l': [pygame.image.load("game/assets/house/house1.png"), -95, -265, [[20, 164]], [[216, 160]]],
-    'h1': [pygame.image.load("game/assets/house/house1.png"), -95, -265, [[20, 164], [156, 164], [20, 164]],
+    'h1_l': [pygame.image.load("game/assets/house/house1.png"), -95, -265, [[52, 196]], [[216, 160]]],
+    'h1': [pygame.image.load("game/assets/house/house1_2.png"), -95, -265, [[52, 196], [188, 196], [52, 196]],
            [[82, 160], [82, 160], [218, 128]]],
     'church': [pygame.image.load("game/assets/house/church.png"), -128, -390, [[0, 0]], [[128, 128]]],  #
-    'h2': [pygame.image.load("game/assets/house/house2.png"), -96, -205, [[20, 100]], [[216, 160]]],
-    'h3': [pygame.image.load("game/assets/house/house3.png"), -95, -285, [[20, 164]], [[216, 160]]],
-    "locker": [pygame.image.load("game/assets/casier.png"), -16, 16, [[16, 0]], [[32, 64]]],  #
+    'h2': [pygame.image.load("game/assets/house/house2.png"), -96, -205, [[52, 132]], [[216, 160]]],
+    'h3': [pygame.image.load("game/assets/house/house3.png"), -95, -285, [[52, 196]], [[216, 160]]],
+    "locker": [pygame.image.load("game/assets/casier.png"), -16, 16, [[48, 32]], [[32, 64]]],  #
     "fence_0": [fence.subsurface(64, 128, 64, 64), 0, 0, [[0, 0]], [[128, 128]]],  #
     "fence_1": [fence.subsurface(64, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
     "fence_2": [fence.subsurface(192, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
@@ -264,7 +264,7 @@ block2 = {
     "fence_rd": [fence.subsurface(128, 128, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
     "fence_ru": [fence.subsurface(128, 0, 64, 64), 0, 0, [[0, 0]], [[16, 16]]],  #
 }
-
+del flower, bunker, sand, sand2, dirt, dirt2, grass2, water, water2, paving1, paving2, cliff, fence
 music = {
     'village': 'game/sound/electropoze.wav',
     'plain': 'game/sound/speice.wav',
