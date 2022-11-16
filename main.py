@@ -11,6 +11,7 @@ fps_game = 60
 fps_display = -1
 
 
+
 async def game():
     global time_start_sec, nb_frame_game, fps_game
     while time.time() < time_start_sec + 1 and Game_.running:
